@@ -1,19 +1,12 @@
 package com.calculator.my.calculator;
 
-import android.graphics.Color;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.Layout;
 import android.view.View;
-import android.webkit.WebSettings;
 import android.widget.Button;
 import android.widget.TextView;
 import java.math.*;
-import android.graphics.drawable.Drawable;
-import java.time.format.TextStyle;
 import android.view.MotionEvent;
 
 
@@ -581,24 +574,21 @@ public class Main extends AppCompatActivity {
         Main main = new Main();
         String digitLength = digit1.toString();
         if (digitLength.length() + zeroOverload < razrad) {
-
             if (tochka) {
                 display = display + "0";
-                displayDisplay ();
                 tochkaPosition++;
                 zeroOverload++;
             } else if(!tochka && !display.equals("0")){
                 display = display + "0";
-                displayDisplay ();
                 BigDecimal input1 = new BigDecimal("10");
                 digit1 = digit1.multiply(input1);
             }else{
                 display = "0";
-                displayDisplay ();
             }
             bottonsError = false;
-            textSizeIndex = display.length() + zeroOverload;
+            textSizeIndex = display.length();
             textSizeChange();
+            displayDisplay ();
         }
     }
 
@@ -697,8 +687,23 @@ public class Main extends AppCompatActivity {
 
     public void Delenie() {
         Main main = new Main();
+        if(!digit1.equals(new BigDecimal("0"))){
         digit1 = digit2.divide(digit1, razrad, BigDecimal.ROUND_CEILING);
         Deistciya();
+        }else {
+            TextView vivod = (TextView) findViewById(R.id.digital);
+            vivod.setTextSize(textSize);
+            vivod.setText("error / 0");
+            digit1 = new BigDecimal("0");
+            digit2 = new BigDecimal("0");
+            methodRele = 0;
+            tochka = false;
+            bottonsError = false;
+            tochkaPosition = 0;
+            zeroOverload = 0;
+            display = "";
+            textSizeIndex = 0;
+        }
     }
 
     public void Deistciya() {
