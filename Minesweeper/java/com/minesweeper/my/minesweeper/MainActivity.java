@@ -1,5 +1,5 @@
 package com.minesweeper.my.minesweeper;
-
+// Made by Roman Kryvolapov
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -18,16 +18,14 @@ import android.view.MotionEvent;
 
 public class MainActivity extends AppCompatActivity {
 
-    int visota = 12;
-    int shirina = 12;
+    int visota = 3;
+    int shirina = 3;
     int display[][] = new int[visota][shirina];
     int identifier[][] = new int[visota][shirina];
     Boolean clicked[][] = new Boolean[visota][shirina];
     int clickedQuantity = 0;
     int minePercent = 15;
-    //процент мин
     int Quantity = 0;
-    //количество оставшихся мин
     Boolean gameOver = false;
     int x1 = 0;
     int y1 = 0;
@@ -96,13 +94,10 @@ public class MainActivity extends AppCompatActivity {
                                          mineQuantity();
 
                                          if (z2 == 9) {
-                                             ConstraintLayout constraintLayout = (ConstraintLayout) findViewById(R.id.constraintLayout2);
-                                             constraintLayout.setBackgroundResource(R.color.colorGameOver);
                                              ((Button) findViewById(z1)).setText("M");
                                              gameOver = true;
                                              ((Button) findViewById(z1)).setBackgroundResource(R.color.colorButton);
                                              testOut1();
-
 
                                          }else {
 
@@ -129,6 +124,15 @@ public class MainActivity extends AppCompatActivity {
                     });
     }
 
+    public void changeColor(int colorID){
+
+        ((ConstraintLayout) findViewById(R.id.constraintLayout2)).setBackgroundResource(colorID);
+        ((ConstraintLayout) findViewById(R.id.constraintLayout)).setBackgroundResource(colorID);
+        ((Button) findViewById(R.id.resetButton)).setBackgroundResource(colorID);
+        ((TextView) findViewById(R.id.mineQuantity)).setBackgroundResource(colorID);
+
+    }
+
     public void resetListener () {
         Button button = (Button) findViewById(R.id.resetButton);
         button.setOnTouchListener(new View.OnTouchListener() {
@@ -136,11 +140,9 @@ public class MainActivity extends AppCompatActivity {
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-                        ((Button) findViewById(R.id.resetButton)).setBackgroundColor(0xFF777777);
                         reset();
                         break;
                     case MotionEvent.ACTION_UP:
-                        ((Button) findViewById(R.id.resetButton)).setBackgroundColor(0xFF0099CC);
                         return true;
                     case MotionEvent.ACTION_MOVE:
                         break;
@@ -151,9 +153,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void reset(){
-        ConstraintLayout constraintLayout1= (ConstraintLayout) findViewById(R.id.constraintLayout2);
-        constraintLayout1.setBackgroundResource(R.color.colorPrimary);
         clickedQuantity = 0;
+        changeColor(R.color.colorPrimary);
         clickedTOfalse();
         Quantity = 0;
         displayTOzero();
@@ -166,10 +167,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void testOut1(){
+        changeColor(R.color.colorGameOver);
+        TextView vivod = (TextView) findViewById(R.id.mineQuantity);
+        vivod.setText("Game Over!");
         for(int y=0; y<shirina; y++){
             for(int x=0; x<visota; x++) {
-                TextView vivod = (TextView) findViewById(R.id.mineQuantity);
-                vivod.setText("Game Over!");
                 if(display[x][y]!=9) {
                     if(clicked[x][y]) {
                         ((Button) findViewById(identifier[x][y])).setText(Integer.toString(display[x][y]));
@@ -184,11 +186,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void testOut2(){
+        changeColor(R.color.colorPrimary);
         for(int y=0; y<shirina; y++){
             for(int x=0; x<visota; x++) {
                     ((Button) findViewById(identifier[x][y])).setText("");
                 ((Button) findViewById(identifier[x][y])).setBackgroundResource(R.color.colorButton);
-
                 if(display[x][y]!=9) {
                     clickedQuantity++;
                 }
@@ -198,10 +200,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void testOut3(){
+        changeColor(R.color.colorGameWin);
+        TextView vivod = (TextView) findViewById(R.id.mineQuantity);
+        vivod.setText("You Win!");
         for(int y=0; y<shirina; y++){
             for(int x=0; x<visota; x++) {
-                TextView vivod = (TextView) findViewById(R.id.mineQuantity);
-                vivod.setText("Game Over!");
                 if(display[x][y]!=9) {
                     if(clicked[x][y]) {
                         ((Button) findViewById(identifier[x][y])).setText(Integer.toString(display[x][y]));
@@ -270,10 +273,10 @@ public class MainActivity extends AppCompatActivity {
     public void mineQuantity(){
         if(clickedQuantity!=0) {
             TextView vivod = (TextView) findViewById(R.id.mineQuantity);
-            vivod.setText("Обезвредить " + (clickedQuantity - 1));
+            vivod.setText("Deactivate " + (clickedQuantity - 1));
         }else {
             TextView vivod = (TextView) findViewById(R.id.mineQuantity);
-            vivod.setText("Обезвредить " + (visota*shirina-Quantity));
+            vivod.setText("Deactivate " + (visota*shirina-Quantity));
         }
     }
 
