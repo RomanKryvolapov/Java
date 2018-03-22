@@ -6,4 +6,5 @@
     <color name="colorButton">#FFd0d1d5</color>
     <color name="colorButtonOnClick">#FF95969B</color>
     <color name="colorGameOver">#CC0000</color>
+    <color name="colorGameWin">#22cc00</color>
 </resources>

@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     int display[][] = new int[visota][shirina];
     int identifier[][] = new int[visota][shirina];
     Boolean clicked[][] = new Boolean[visota][shirina];
+    int clickedQuantity = 0;
     int minePercent = 15;
     //процент мин
     int Quantity = 0;
@@ -70,6 +71,26 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
+    public void clickedQuantity(){
+
+        for(int y=0; y<shirina; y++){
+            for(int x=0; x<visota; x++) {
+
+                if(clicked[x][y] && display[x][y]!=9){
+
+                    clickedQuantity--;
+
+                }
+
+
+
+            }
+        }
+    }
+
+
+
+
 
     public void mineRender (){
 
@@ -92,14 +113,17 @@ public class MainActivity extends AppCompatActivity {
                     button.setOnTouchListener(new View.OnTouchListener() {
                         int z1 = identifier[x1][y1];
                         int z2 = display[x1][y1];
+                        Boolean clicked1 =false;
                          @Override
                         public boolean onTouch(View v, MotionEvent event) {
-                             if(!gameOver) {
+                             if(!gameOver && !clicked1) {
+
                                  switch (event.getAction()) {
                                      case MotionEvent.ACTION_DOWN:
                                          ((Button) findViewById(z1)).setBackgroundResource(R.color.colorButtonOnClick);
 
                                          ((Button) findViewById(z1)).setText(Integer.toString(z2));
+                                         mineQuantity();
 
                                          if (z2 == 9) {
                                              ConstraintLayout constraintLayout = (ConstraintLayout) findViewById(R.id.constraintLayout2);
@@ -110,10 +134,21 @@ public class MainActivity extends AppCompatActivity {
                                              testOut1();
 
 
+                                         }else {
+
+
+                                             clickedQuantity--;
+
+                                             if(clickedQuantity==0){
+                                                 ConstraintLayout constraintLayout = (ConstraintLayout) findViewById(R.id.constraintLayout2);
+                                                 constraintLayout.setBackgroundResource(R.color.colorGameWin);
+                                                 testOut3();
+                                             }
                                          }
                                          break;
                                      case MotionEvent.ACTION_UP:
                                          ((Button) findViewById(z1)).setBackgroundResource(R.color.colorButton);
+                                         clicked1=true;
                                          return true;
                                      case MotionEvent.ACTION_MOVE:
                                          break;
@@ -152,6 +187,7 @@ public class MainActivity extends AppCompatActivity {
 
         ConstraintLayout constraintLayout1= (ConstraintLayout) findViewById(R.id.constraintLayout2);
         constraintLayout1.setBackgroundResource(R.color.colorPrimary);
+        clickedQuantity = 0;
         clickedTOfalse();
         Quantity = 0;
         displayTOzero();
@@ -166,6 +202,8 @@ public class MainActivity extends AppCompatActivity {
     public void testOut1(){
         for(int y=0; y<shirina; y++){
             for(int x=0; x<visota; x++) {
+                TextView vivod = (TextView) findViewById(R.id.mineQuantity);
+                vivod.setText("Game Over!");
                 if(display[x][y]!=9) {
                     if(clicked[x][y]) {
                         ((Button) findViewById(identifier[x][y])).setText(Integer.toString(display[x][y]));
@@ -184,10 +222,34 @@ public class MainActivity extends AppCompatActivity {
             for(int x=0; x<visota; x++) {
                     ((Button) findViewById(identifier[x][y])).setText("");
                 ((Button) findViewById(identifier[x][y])).setBackgroundResource(R.color.colorButton);
+
+                if(display[x][y]!=9) {
+                    clickedQuantity++;
+                }
+
+
             }
         }
 
     }
+    public void testOut3(){
+        for(int y=0; y<shirina; y++){
+            for(int x=0; x<visota; x++) {
+                TextView vivod = (TextView) findViewById(R.id.mineQuantity);
+                vivod.setText("Game Over!");
+                if(display[x][y]!=9) {
+                    if(clicked[x][y]) {
+                        ((Button) findViewById(identifier[x][y])).setText(Integer.toString(display[x][y]));
+                    }
+                }else{
+                    ((Button) findViewById(identifier[x][y])).setText("M");
+                    ((Button) findViewById(identifier[x][y])).setBackgroundResource(R.color.colorGameWin);
+                }
+            }
+        }
+
+    }
+
 
     public void displayTOzero(){
         for(int x=0; x < visota; x++){
@@ -246,10 +308,15 @@ public class MainActivity extends AppCompatActivity {
     // массив заполнился цифрами
 
     public void mineQuantity(){
-        TextView vivod = (TextView) findViewById(R.id.mineQuantity);
-        vivod.setText("Мин осталось " + Quantity);
+        if(clickedQuantity!=0) {
+            TextView vivod = (TextView) findViewById(R.id.mineQuantity);
+            vivod.setText("Обезвредить " + (clickedQuantity - 1));
+        }else {
+            TextView vivod = (TextView) findViewById(R.id.mineQuantity);
+            vivod.setText("Обезвредить " + (visota*shirina-Quantity));
+
+        }
     }
-    // вывод количества мин
 
     public void buttonSetID (){
 
