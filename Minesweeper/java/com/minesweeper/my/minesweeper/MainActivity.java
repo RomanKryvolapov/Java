@@ -15,12 +15,6 @@ import java.util.Random;
 import android.widget.TextView;
 import android.widget.Button;
 import android.view.MotionEvent;
-import java.util.ArrayList;
-
-
-
-
-
 
 public class MainActivity extends AppCompatActivity {
 
@@ -37,7 +31,6 @@ public class MainActivity extends AppCompatActivity {
     Boolean gameOver = false;
     int x1 = 0;
     int y1 = 0;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,27 +64,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-    public void clickedQuantity(){
-
-        for(int y=0; y<shirina; y++){
-            for(int x=0; x<visota; x++) {
-
-                if(clicked[x][y] && display[x][y]!=9){
-
-                    clickedQuantity--;
-
-                }
-
-
-
-            }
-        }
-    }
-
-
-
-
-
     public void mineRender (){
 
         for(int y=0; y< shirina; y++) {
@@ -105,8 +77,6 @@ public class MainActivity extends AppCompatActivity {
         x1 = 0;
         y1 = 0;
     }
-
-
 
     public void mineListener () {
                  Button button = (Button) findViewById(identifier[x1][y1]);
@@ -159,9 +129,6 @@ public class MainActivity extends AppCompatActivity {
                     });
     }
 
-
-
-
     public void resetListener () {
         Button button = (Button) findViewById(R.id.resetButton);
         button.setOnTouchListener(new View.OnTouchListener() {
@@ -184,7 +151,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void reset(){
-
         ConstraintLayout constraintLayout1= (ConstraintLayout) findViewById(R.id.constraintLayout2);
         constraintLayout1.setBackgroundResource(R.color.colorPrimary);
         clickedQuantity = 0;
@@ -226,12 +192,11 @@ public class MainActivity extends AppCompatActivity {
                 if(display[x][y]!=9) {
                     clickedQuantity++;
                 }
-
-
             }
         }
 
     }
+
     public void testOut3(){
         for(int y=0; y<shirina; y++){
             for(int x=0; x<visota; x++) {
@@ -250,7 +215,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
     public void displayTOzero(){
         for(int x=0; x < visota; x++){
             for(int y=0; y < shirina; y++){
@@ -258,7 +222,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
-    //весь массив заполнился нулями
 
     public void mineCreate(){
         Random random1 = new Random();
@@ -274,7 +237,6 @@ public class MainActivity extends AppCompatActivity {
 
         }
     }
-    // minePercent процент массива заполнился 9
 
     public void digitsCreateOn(){
 
@@ -288,7 +250,6 @@ public class MainActivity extends AppCompatActivity {
         digitsCreate(-1,+1);
 
     }
-    // массив заполнился цифрами
 
     public void digitsCreate(int x1, int y1) {
 
@@ -305,7 +266,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
-    // массив заполнился цифрами
 
     public void mineQuantity(){
         if(clickedQuantity!=0) {
@@ -314,7 +274,6 @@ public class MainActivity extends AppCompatActivity {
         }else {
             TextView vivod = (TextView) findViewById(R.id.mineQuantity);
             vivod.setText("Обезвредить " + (visota*shirina-Quantity));
-
         }
     }
 
@@ -327,7 +286,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
-    // создает массив с ID кнопок
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
