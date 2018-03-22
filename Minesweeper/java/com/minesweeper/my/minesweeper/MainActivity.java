@@ -18,8 +18,8 @@ import android.view.MotionEvent;
 
 public class MainActivity extends AppCompatActivity {
 
-    int visota = 3;
-    int shirina = 3;
+    int visota = 12;
+    int shirina = 12;
     int display[][] = new int[visota][shirina];
     int identifier[][] = new int[visota][shirina];
     Boolean clicked[][] = new Boolean[visota][shirina];
