@@ -21,6 +21,16 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="spread_inside">
 
+        <Button
+            android:id="@+id/button"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@android:color/transparent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <EditText
             android:id="@+id/digital"
             android:layout_width="0dp"
@@ -29,6 +39,7 @@
             android:layout_marginStart="16dp"
             android:background="@color/colorDigits"
             android:backgroundTint="@color/colorDigits"
+            android:cursorVisible="false"
             android:ems="10"
             android:fontFamily="serif-monospace"
             android:gravity="right|center"
@@ -37,6 +48,7 @@
             android:text="0"
             android:textAlignment="gravity"
             android:textColor="@android:color/white"
+            android:textIsSelectable="false"
             android:textSize="80sp"
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
