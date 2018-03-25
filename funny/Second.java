@@ -2,7 +2,7 @@ package com.company;
 import java.util.Random;
 
 //Слагает числа с плавающей запятой любой длинны без потери точности
-//Что то вроде ручной реализации BigDecimal
+//Что то вроде ручной реализации BigDecimal.add()
 //Написана очень криво
 
 public class Second{
