@@ -1,11 +1,13 @@
 package com.company;
 import java.util.Random;
 
+//Слагает числа с плавающей запятой любой длинны без потери точности
+//Что то вроде ручной реализации BigDecimal
+//Написана очень криво
+
 public class Second{
 
     protected void summ() {
-
-        System.out.println("Слагает числа с плавающей запятой любой длинны без потери точности");
 
     int[] arrayInteger;
     int arrayIndex = 0;
