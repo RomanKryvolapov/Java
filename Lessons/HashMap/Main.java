@@ -1,5 +1,12 @@
 package com.company;
 
+//Вывод
+//com.company.ObjectsToMap@5fe5c6f
+//        1
+//        2
+//        3
+//        123
+
 import java.util.HashMap;
 import java.util.Map;
 
