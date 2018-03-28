@@ -1,5 +1,5 @@
 package com.minesweeper.my.minesweeper;
-// Made by Roman Kryvolapov
+//made by Roman Kryvolapov
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.FloatingActionButton;
