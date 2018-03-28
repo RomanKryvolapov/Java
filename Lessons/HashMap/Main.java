@@ -1,5 +1,16 @@
 package com.company;
 //made by Roman Kryvolapov
+//
+//Вывод
+//
+//com.company.ObjectsToMap@5fe5c6f
+//Class ObjectsToMap String text
+//Class ObjectsToMap Method method return this text
+//
+//int 1 as index
+//string 1 as index
+//char 1 as index
+
 import java.util.HashMap;
 import java.util.Map;
 
