@@ -1,11 +1,15 @@
 package com.company;
-
+//made by Roman Kryvolapov
+//
 //Вывод
+//
 //com.company.ObjectsToMap@5fe5c6f
-//        1
-//        2
-//        3
-//        123
+//Class ObjectsToMap String text
+//Class ObjectsToMap Method method return this text
+//
+//int 1 as index
+//string 1 as index
+//char 1 as index
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,35 +17,34 @@ import java.util.Map;
 public class Main {
 
     public static void main(String[] args) {
-
+        // Досутп к методам класса через HashMap
         ObjectsToMap objectsToMap = new ObjectsToMap();
-        // Новый экземпляр класса ObjectsToMap
-
         Map<String, ObjectsToMap> map1 = new HashMap<>();
-        // Мы создали HashMap с именем map1 и индексом типа String
-
         map1.put("index1", objectsToMap);
-        // Мы положили в Map под индексом index1 класс objectsToMap со всеми полями и методами
-
         ObjectsToMap newMap1 = map1.get("index1");
-        // Мы создали объект newMap1 с содержимым соответствующим индексу index1
 
         System.out.println(newMap1);
-        System.out.println(newMap1.text1);
-        System.out.println(newMap1.text2);
-        System.out.println(newMap1.text3);
+        System.out.println(newMap1.text);
         System.out.println(newMap1.method());
 
+        System.out.println();
 
+        // Разные типы переменных в качестве индекса HashMap
+        // Для объектов в качестве индекса нужно переопределять HashMap и Equals
+        Map map2 = new HashMap();
+        map2.put(1, "int 1 as index");
+        map2.put("1", "string 1 as index");
+        map2.put('1', "char 1 as index");
+
+        System.out.println(map2.get(1));
+        System.out.println(map2.get("1"));
+        System.out.println(map2.get('1'));
     }
-
 }
 
 class ObjectsToMap{
-    String text1 = "1";
-    String text2 = "2";
-    String text3 = "3";
-    int method(){
-        return 123;
+    String text = "Class ObjectsToMap String text";
+    String method(){
+        return "Class ObjectsToMap Method method return this text";
     }
 }
