@@ -1,5 +1,12 @@
 package com.company;
-
+// made by Roman Kryvolapov
+//
+// Вывод
+// Оригинальный метод
+// Перезагрузка метода
+// Перезапись метода
+// Перезагрузка внутри анонимного класса
+// Перезапись внутри анонимного класса
 public class Main extends Second{
 
     public static void main(String[] args) {
