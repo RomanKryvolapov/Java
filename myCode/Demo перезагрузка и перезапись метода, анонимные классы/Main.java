@@ -2,6 +2,7 @@ package com.company;
 // made by Roman Kryvolapov
 //
 // Вывод
+//
 // Оригинальный метод
 // Перезагрузка метода
 // Перезапись метода
