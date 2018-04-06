@@ -33,6 +33,7 @@ class timeANDmemory{
     private static long jvmNewMemory=0;
 
     static void start(){
+        //System.gc();
         jvmMemory = Runtime.getRuntime().totalMemory();
         startTime = System.nanoTime();
     }
@@ -57,7 +58,7 @@ class timeANDmemory{
         stopTime=0;
         freeMemory=0;
         jvmNewMemory=0;
-        System.gc();
+        //System.gc();
     }
 
     static void comments(){
