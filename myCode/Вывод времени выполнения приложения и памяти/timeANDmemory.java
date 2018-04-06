@@ -23,19 +23,17 @@ package com.company;
 Время выполнения пустого приложения на Core i5 & Java 10 & IDEA 2018 = 100-500 микросекунд
 
 */
-import java.util.Formatter;
 
 class timeANDmemory{
 
-    private static long jvmMemory;
-    private static long startTime;
-    private static long stopTime;
-    private static long freeMemory;
-    private static long jvmNewMemory;
+    private static long jvmMemory=0;
+    private static long startTime=0;
+    private static long stopTime=0;
+    private static long freeMemory=0;
+    private static long jvmNewMemory=0;
 
     static void start(){
         jvmMemory = Runtime.getRuntime().totalMemory();
-        Formatter formatter = new Formatter();
         startTime = System.nanoTime();
     }
 
@@ -54,7 +52,12 @@ class timeANDmemory{
         System.out.println("\033[30;1m"+"Время выполнения приложения: "+"\033[31;1m"+(stopTime-startTime)/1000000000+" секунд"+"\u001B[0m");
         System.out.println("\033[30;1m"+"Время выполнения приложения: "+"\033[31;1m"+(stopTime-startTime)/1000000+" миллисекунд"+"\u001B[0m");
         System.out.println("\033[30;1m"+"Время выполнения приложения: "+"\033[31;1m"+(stopTime-startTime)/1000+" микросекунд"+"\u001B[0m");
-
+        jvmMemory=0;
+        startTime=0;
+        stopTime=0;
+        freeMemory=0;
+        jvmNewMemory=0;
+        System.gc();
     }
 
     static void comments(){
