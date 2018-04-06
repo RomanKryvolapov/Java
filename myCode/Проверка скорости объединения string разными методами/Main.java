@@ -1,5 +1,5 @@
 package com.company;
-// made by https://www.youtube.com/watch?v=Ft8D_Toqa0k&index=91&list=PL786bPIlqEjRDXpAKYbzpdTaOYsWyjtCX
+// made by Roman Kryvolapov
 /*
 Вывод
 
