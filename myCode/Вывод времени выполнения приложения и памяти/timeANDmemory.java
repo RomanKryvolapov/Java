@@ -43,16 +43,23 @@ class timeANDmemory{
         stopTime = System.nanoTime();
         freeMemory = Runtime.getRuntime().freeMemory();
         jvmNewMemory = Runtime.getRuntime().totalMemory();
-        System.out.println("\033[30;1m"+"Приложение занимает в памяти JVM: "+"\033[31;1m"+(jvmNewMemory-freeMemory)/1024/1024+" мегабайт"+"\u001B[0m");
-        System.out.println("\033[30;1m"+"Минимальная доступная память JVM до выполнения приложения: "+"\033[31;1m"+jvmMemory/1024/1024+" мегабайт"+"\u001B[0m");
+        System.out.println("\033[30;1m"+"Приложение занимает в памяти JVM: "+"\033[31;1m"+(jvmNewMemory-freeMemory)/1024/1024+"\033[30;1m"+" мегабайт");
+        System.out.println("\033[30;1m"+"Минимальная доступная память JVM до выполнения приложения: "+"\033[31;1m"+jvmMemory/1024/1024+"\033[30;1m"+" мегабайт");
         if((jvmNewMemory-jvmMemory)>jvmMemory)
             System.out.println("\033[30;1m"+"Доступная память JVM после выполнения приложения: "+"\033[31;1m"+jvmNewMemory/1024/1024
                     +" мегабайт"+"\033[30;1m"+" (приложение увеличило доступную память на "+(jvmNewMemory-jvmMemory)/1024/1024+" мегабайт)"+"\u001B[0m");
         else System.out.println("\033[30;1m"+"Доступная память JVM не увеличилась после выполнения приложения (приложению хватило минимальной доступной памяти "
                 +jvmMemory/1024/1024+" мегабайт)"+"\u001B[0m");
-        System.out.println("\033[30;1m"+"Время выполнения приложения: "+"\033[31;1m"+(stopTime-startTime)/1000000000+" секунд"+"\u001B[0m");
-        System.out.println("\033[30;1m"+"Время выполнения приложения: "+"\033[31;1m"+(stopTime-startTime)/1000000+" миллисекунд"+"\u001B[0m");
-        System.out.println("\033[30;1m"+"Время выполнения приложения: "+"\033[31;1m"+(stopTime-startTime)/1000+" микросекунд"+"\u001B[0m");
+        System.out.print("\033[30;1m"+"Время выполнения приложения: "+"\033[31;1m");
+        System.out.printf("%,1d", (stopTime-startTime)/1000000000);
+        System.out.print("\033[30;1m"+" секунд "+"\033[31;1m");
+        System.out.printf("%,03d", (stopTime-startTime)/1000000-(stopTime-startTime)/1000000000*1000);
+        System.out.print("\033[30;1m"+" миллисекунд "+"\033[31;1m");
+        System.out.printf("%,1d", (stopTime-startTime)/1000-(stopTime-startTime)/1000000*1000);
+        System.out.print("\033[30;1m"+" микросекунд "+"\033[31;1m");
+        System.out.printf("%,03d", (stopTime-startTime)-(stopTime-startTime)/1000*1000);
+        System.out.print("\033[30;1m"+" наносекунд "+"\033[30;1m");
+        System.out.print("("+(stopTime-startTime)+" наносекунд)"+"\u001B[0m");
         jvmMemory=0;
         startTime=0;
         stopTime=0;
