@@ -7,17 +7,20 @@ public class Main {
 
     static long a = 100_000_000_000L;
     static int processors = Runtime.getRuntime().availableProcessors();
+    // количество доступных ядер
     public static void main(String[] args) {
         timeANDmemory.start();
 
 
-
+        
+// Для запуска снять комментарий        
 // в несколько потоков - 26 секунд
 //        ForkJoinPool pool = new ForkJoinPool(processors);
 //        System.out.println(pool.invoke(new Fork(0,a)));
 
 
 
+// Для запуска снять комментарий
 // в 1 поток - 45 секунд
 //        long j = 0L;
 //        for (long i = 0; i < a; i++) {
@@ -55,6 +58,7 @@ class Fork extends RecursiveTask <Long>{
         }
         else {
             long middle = (to + from) / 2;
+            // Разбивает поток на 2
             Fork first = new Fork(from, middle);
             first.fork();
             Fork second = new Fork(middle + 1, to);
