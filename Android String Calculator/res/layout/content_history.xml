@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/textView"
+    android:backgroundTint="@color/textView"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.stringcalculator.my.stringcalculator.HistoryActivity"
+    tools:showIn="@layout/activity_history">
+
+    <Button
+        android:id="@+id/buttonBack"
+        android:layout_width="35dp"
+        android:layout_height="0dp"
+        android:background="@color/colorButtons2"
+        android:text="B\na\nc\nk"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/historyView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:background="@color/textView"
+        android:backgroundTint="@color/textView"
+        android:cursorVisible="false"
+        android:ems="10"
+        android:fontFamily="serif-monospace"
+        android:gravity="left|top"
+        android:inputType="none"
+        android:maxLines="100"
+        android:scrollbars="vertical"
+        android:textColor="@android:color/white"
+        android:textIsSelectable="true"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/buttonBack"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</android.support.constraint.ConstraintLayout>

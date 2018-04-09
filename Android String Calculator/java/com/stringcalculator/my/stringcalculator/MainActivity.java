@@ -4,6 +4,7 @@ package com.stringcalculator.my.stringcalculator;
 // Умеет считать со скобками, причем скобок можно использовать много уровней
 // Тап по дисплеям стирает последнюю цифру
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -109,6 +110,13 @@ public class MainActivity extends AppCompatActivity {
         textSizeChangeResult("");
         displayDisplay("");
         displayDisplayResult("0");
+        onTouchListenerHistory();
+
+
+
+
+
+
 
 
     }
@@ -138,6 +146,36 @@ public class MainActivity extends AppCompatActivity {
         string1 = MainActivity.stringBuffer.toString();
         MainActivity.stringBuffer.setLength(0);
         return string1;
+    }
+
+    void createActivity(){
+        Intent intent = new Intent(MainActivity.this, HistoryActivity.class);
+        startActivity(intent);
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    public void onTouchListenerHistory(){
+        Button button = (Button) findViewById(R.id.buttonBack);
+        button.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        ((Button) findViewById(R.id.buttonBack)).setBackgroundColor(0xFFB46D16);
+
+                        Intent intent = new Intent(MainActivity.this, HistoryActivity.class);
+                        startActivity(intent);
+
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        ((Button) findViewById(R.id.buttonBack)).setBackgroundColor(0xFFFA9112);
+                        return true;
+                    case MotionEvent.ACTION_MOVE:
+                        break;
+                }
+                return true;
+            }
+        });
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -206,6 +244,8 @@ public class MainActivity extends AppCompatActivity {
                             Calculator.calculator();
                             // Делает рассчет
                             displayDisplayResult(digits.get(0).toPlainString());
+
+                                HistoryActivity.history.add(display +"="+ EraseLastZero.eraseLastZero(digits.get(0).toPlainString()));
 
                             digits.clear();
                             operators.clear();
@@ -553,6 +593,10 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
+
+
 }
 
 class Calculator {
