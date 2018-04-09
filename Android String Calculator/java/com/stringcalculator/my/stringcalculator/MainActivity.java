@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     static int inerator = 0;
     final static int textSize = 80;
     final static int maxDigitSize = 30;
+    static float xTouch;
 
     static StringBuffer stringBuffer = new StringBuffer();
 
@@ -109,6 +110,7 @@ public class MainActivity extends AppCompatActivity {
         displayDisplay("");
         displayDisplayResult("0");
 
+
     }
 
     static String stringBufferAdd(String string1, String string2){
@@ -147,15 +149,33 @@ public class MainActivity extends AppCompatActivity {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
 
-                        if(display.length()>0) {
+
+                        if (display.length() > 0) {
                             display = MainActivity.stringBufferEreseLast(display);
                             displayDisplay("");
                         }
+
+                        MainActivity.xTouch = event.getX();
 
                         break;
                     case MotionEvent.ACTION_UP:
                         return true;
                     case MotionEvent.ACTION_MOVE:
+
+                        if(event.getX()>MainActivity.xTouch+80) {
+
+                            MainActivity.xTouch = event.getX();
+
+                            if (display.length() > 0) {
+                                display = MainActivity.stringBufferEreseLast(display);
+                                displayDisplay("");
+                            }
+                        }
+
+                        if(event.getX()<MainActivity.xTouch-80) {
+                            MainActivity.xTouch = event.getX();
+                        }
+
                         break;
                 }
                 return true;
@@ -203,7 +223,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
 
     @SuppressLint("ClickableViewAccessibility")
     public void onTouchListenerC(){
@@ -286,7 +305,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void displayDisplay (String in) {
+    public final void displayDisplay (String in) {
         // Выводит на верхний экран
         boolean add = true;
 
@@ -336,7 +355,7 @@ public class MainActivity extends AppCompatActivity {
         textSizeChange (display);
     }
 
-    public void displayDisplayResult (String result) {
+    public final void displayDisplayResult (String result) {
 // Выводит на нижник экран
         result = EraseLastZero.eraseLastZero(result);
         textSizeChangeResult (result);
@@ -685,3 +704,28 @@ class EraseLastZero{
             return lastZero;
     }
 }
+
+// надо прикрутить
+
+//                            final Timer myTimer = new Timer();
+//                            final Handler myHandler = new Handler();
+//
+//                        if(MainActivity.toched) {
+//                            myTimer.schedule(new TimerTask() {
+//                                @Override
+//                                public void run() {
+//                                    myHandler.post(new Runnable() {
+//                                        @Override
+//                                        public void run() {
+//                                            if(!MainActivity.toched)
+//                                                myTimer.cancel();
+//                                            if (display.length() > 0 && MainActivity.toched) {
+//                                                display = MainActivity.stringBufferEreseLast(display);
+//                                                displayDisplay("");
+//                                            }
+//
+//                                        }
+//                                    });
+//                                }
+//                            }, 800, 200);
+//                        }
