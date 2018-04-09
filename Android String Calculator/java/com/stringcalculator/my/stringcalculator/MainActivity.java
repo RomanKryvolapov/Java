@@ -150,10 +150,10 @@ public class MainActivity extends AppCompatActivity {
                     case MotionEvent.ACTION_DOWN:
 
 
-                        if (display.length() > 0) {
-                            display = MainActivity.stringBufferEreseLast(display);
-                            displayDisplay("");
-                        }
+//                        if (display.length() > 0) {
+//                            display = MainActivity.stringBufferEreseLast(display);
+//                            displayDisplay("");
+//                        }
 
                         MainActivity.xTouch = event.getX();
 
@@ -162,7 +162,7 @@ public class MainActivity extends AppCompatActivity {
                         return true;
                     case MotionEvent.ACTION_MOVE:
 
-                        if(event.getX()>MainActivity.xTouch+80) {
+                        if(event.getX()>MainActivity.xTouch+100) {
 
                             MainActivity.xTouch = event.getX();
 
@@ -172,7 +172,7 @@ public class MainActivity extends AppCompatActivity {
                             }
                         }
 
-                        if(event.getX()<MainActivity.xTouch-80) {
+                        if(event.getX()<MainActivity.xTouch-100) {
                             MainActivity.xTouch = event.getX();
                         }
 
