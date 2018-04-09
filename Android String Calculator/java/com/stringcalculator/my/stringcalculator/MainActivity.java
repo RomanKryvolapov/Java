@@ -16,6 +16,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -33,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     static String[] buttonNumber = new String[17];
     static int inerator = 0;
     final static int textSize = 80;
+    final static int maxDigitSize = 30;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,40 +107,6 @@ public class MainActivity extends AppCompatActivity {
         displayDisplay("");
         displayDisplayResult("0");
 
-
-
-
-
-//        digit1 = new BigDecimal(display);
-//        if(!digit1.equals(BigDecimal.valueOf(0))) {
-//            digit1 = digit2.divide(digit1, 30, BigDecimal.ROUND_CEILING);
-//            digit2 = digit1;
-//            display = digit1.toString();
-//            eraseLastZero();
-//            displayDisplay ();
-//        }
-//        else {
-//            TextView vivod = (TextView) findViewById(R.id.digital);
-//            display = "Error";
-//            displayDisplay ();;
-//            digit2 = BigDecimal.valueOf(0);
-//            methodRele = 0;
-//            display = "";
-//        }
-//        doubleClockError = false;
-//        function = true;
-//        digit1 = BigDecimal.valueOf(0);
-
-
-
-
-
-
-
-
-
-
-
     }
 
     public void onTouchListenerTr(){
@@ -189,7 +158,7 @@ public class MainActivity extends AppCompatActivity {
                             displayDisplay("");
                             Calculator.calculator();
                             // Делает рассчет
-                            displayDisplayResult(digits.get(0).toString());
+                            displayDisplayResult(digits.get(0).toPlainString());
 
                         }
                         break;
@@ -605,7 +574,7 @@ class DigitsReader {
                 case '8':
                 case '9':
                 case '.':
-                    if (tempDigits.length() < 19) {
+                    if (tempDigits.length() < MainActivity.maxDigitSize) {
                         StringBuffer stringBuffer = new StringBuffer(tempDigits);
                         stringBuffer.append(content);
                         tempDigits = stringBuffer.toString();
@@ -618,7 +587,7 @@ class DigitsReader {
                 case '*':
                 case '/':
                     if (tempDigits != "" && MainActivity.operators.size() <= MainActivity.digits.size()) {
-                        MainActivity.digits.add(new BigDecimal(tempDigits));
+                        MainActivity.digits.add(new BigDecimal(tempDigits,new MathContext(30,RoundingMode.HALF_UP)));
                         tempDigits = "";
                         MainActivity.operators.add(content);
                         MainActivity.proirity.add(priority);
@@ -638,8 +607,7 @@ class DigitsReader {
 
         }
         if(tempDigits!="")
-        MainActivity.digits.add(new BigDecimal(tempDigits));
-
+        MainActivity.digits.add(new BigDecimal(tempDigits,new MathContext(30,RoundingMode.HALF_UP)));
 
         else if(MainActivity.operators.size()>1&&MainActivity.operators.size()>=MainActivity.digits.size()) {
             MainActivity.operators.remove(MainActivity.operators.size() - 1);
@@ -668,7 +636,7 @@ class ConvertTo {
             }
 
             StringBuffer stringBuffer2 = new StringBuffer(MainActivity.displayConvert);
-            stringBuffer2.append(EraseLastZero.eraseLastZero(MainActivity.digits.get(i).toString()));
+            stringBuffer2.append(EraseLastZero.eraseLastZero(MainActivity.digits.get(i).toPlainString()));
             MainActivity.displayConvert = stringBuffer2.toString();
             stringBuffer2 = null;
             // зануляю класс, так как вроде это помогает сборщику мусора
