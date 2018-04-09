@@ -3,6 +3,7 @@ package com.stringcalculator.my.stringcalculator;
 // Новая версия калькулятора, с двумя дисплеями- для ввода и результата
 // Умеет считать со скобками, причем скобок можно использовать много уровней
 // Тап по дисплеям стирает последнюю цифру
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -14,7 +15,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.TextView;
-
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.math.RoundingMode;
@@ -36,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
     static int inerator = 0;
     final static int textSize = 80;
     final static int maxDigitSize = 30;
+
+    static StringBuffer stringBuffer = new StringBuffer();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,6 +111,34 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    static String stringBufferAdd(String string1, String string2){
+        MainActivity.stringBuffer.setLength(0);
+        MainActivity.stringBuffer.append(string1);
+        MainActivity.stringBuffer.append(string2);
+        string1 = MainActivity.stringBuffer.toString();
+        MainActivity.stringBuffer.setLength(0);
+        return string1;
+    }
+
+    static String stringBufferAdd(String string1, char string2){
+        MainActivity.stringBuffer.setLength(0);
+        MainActivity.stringBuffer.append(string1);
+        MainActivity.stringBuffer.append(string2);
+        string1 = MainActivity.stringBuffer.toString();
+        MainActivity.stringBuffer.setLength(0);
+        return string1;
+    }
+
+    static String stringBufferEreseLast(String string1){
+        MainActivity.stringBuffer.setLength(0);
+        MainActivity.stringBuffer.append(string1);
+        MainActivity.stringBuffer.setLength(MainActivity.stringBuffer.length() - 1);
+        string1 = MainActivity.stringBuffer.toString();
+        MainActivity.stringBuffer.setLength(0);
+        return string1;
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
     public void onTouchListenerTr(){
         Button button = (Button) findViewById(R.id.buttonTr);
         button.setOnTouchListener(new View.OnTouchListener() {
@@ -118,11 +148,7 @@ public class MainActivity extends AppCompatActivity {
                     case MotionEvent.ACTION_DOWN:
 
                         if(display.length()>0) {
-                            StringBuffer stringBuffer = new StringBuffer(display);
-                            stringBuffer.setLength(stringBuffer.length() - 1);
-                            display = stringBuffer.toString();
-                            stringBuffer = null;
-                            // зануляю класс, так как вроде это помогает сборщику мусора
+                            display = MainActivity.stringBufferEreseLast(display);
                             displayDisplay("");
                         }
 
@@ -137,6 +163,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     public void onTouchListenerRavno(){
         Button button = (Button) findViewById(R.id.buttonRavno);
         button.setOnTouchListener(new View.OnTouchListener() {
@@ -160,6 +187,10 @@ public class MainActivity extends AppCompatActivity {
                             // Делает рассчет
                             displayDisplayResult(digits.get(0).toPlainString());
 
+                            digits.clear();
+                            operators.clear();
+                            proirity.clear();
+
                         }
                         break;
                     case MotionEvent.ACTION_UP:
@@ -174,6 +205,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    @SuppressLint("ClickableViewAccessibility")
     public void onTouchListenerC(){
         Button button = (Button) findViewById(R.id.buttonC);
         button.setOnTouchListener(new View.OnTouchListener() {
@@ -186,10 +218,15 @@ public class MainActivity extends AppCompatActivity {
                         digits.clear();
                         operators.clear();
                         proirity.clear();
+
                         display="";
                         displayConvert="";
                         displayDisplayResult("0");
                         displayDisplay("");
+
+                        digits.clear();
+                        operators.clear();
+                        proirity.clear();
 
                         break;
                     case MotionEvent.ACTION_UP:
@@ -292,11 +329,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         if(add) {
-            StringBuffer stringBuffer = new StringBuffer(display);
-            stringBuffer.append(in);
-            display = stringBuffer.toString();
-            stringBuffer = null;
-            // зануляю класс, так как вроде это помогает сборщику мусора
+            display = MainActivity.stringBufferAdd(display, in);
         }
             TextView vivod = (TextView) findViewById(R.id.textOut);
             vivod.setText(display);
@@ -503,9 +536,6 @@ public class MainActivity extends AppCompatActivity {
     }
 }
 
-
-
-
 class Calculator {
 // Делает рассчеты
 // Использует приоритет для скобок
@@ -575,11 +605,7 @@ class DigitsReader {
                 case '9':
                 case '.':
                     if (tempDigits.length() < MainActivity.maxDigitSize) {
-                        StringBuffer stringBuffer = new StringBuffer(tempDigits);
-                        stringBuffer.append(content);
-                        tempDigits = stringBuffer.toString();
-                        stringBuffer = null;
-                        // зануляю класс, так как вроде это помогает сборщику мусора
+                        tempDigits = MainActivity.stringBufferAdd(tempDigits, content);
                     }
                     break;
                 case '+':
@@ -626,38 +652,21 @@ class ConvertTo {
         for (int i = 0; i < MainActivity.digits.size(); i++) {
             if (MainActivity.proirity.size() > i) {
                 while (MainActivity.proirity.get(i) > temp1) {
-                    StringBuffer stringBuffer1 = new StringBuffer(MainActivity.displayConvert);
-                    stringBuffer1.append("(");
-                    MainActivity.displayConvert = stringBuffer1.toString();
-                    stringBuffer1 = null;
-                    // зануляю класс, так как вроде это помогает сборщику мусора
+                    MainActivity.displayConvert = MainActivity.stringBufferAdd(MainActivity.displayConvert, '(');
                     temp1++;
                 }
             }
 
-            StringBuffer stringBuffer2 = new StringBuffer(MainActivity.displayConvert);
-            stringBuffer2.append(EraseLastZero.eraseLastZero(MainActivity.digits.get(i).toPlainString()));
-            MainActivity.displayConvert = stringBuffer2.toString();
-            stringBuffer2 = null;
-            // зануляю класс, так как вроде это помогает сборщику мусора
+            MainActivity.displayConvert = MainActivity.stringBufferAdd(MainActivity.displayConvert, EraseLastZero.eraseLastZero(MainActivity.digits.get(i).toPlainString()));
 
             if (MainActivity.proirity.size() > i) {
                 while (MainActivity.proirity.get(i) < temp1) {
-                    StringBuffer stringBuffer3 = new StringBuffer(MainActivity.displayConvert);
-                    stringBuffer3.append(")");
-                    MainActivity.displayConvert = stringBuffer3.toString();
-                    stringBuffer3 = null;
-                    // зануляю класс, так как вроде это помогает сборщику мусора
+                    MainActivity.displayConvert = MainActivity.stringBufferAdd(MainActivity.displayConvert, ')');
                     temp1--;
                 }
             }
             if (MainActivity.operators.size() > i) {
-
-                StringBuffer stringBuffer4 = new StringBuffer(MainActivity.displayConvert);
-                stringBuffer4.append(MainActivity.operators.get(i));
-                MainActivity.displayConvert = stringBuffer4.toString();
-                stringBuffer4 = null;
-                // зануляю класс, так как вроде это помогает сборщику мусора
+                MainActivity.displayConvert = MainActivity.stringBufferAdd(MainActivity.displayConvert, MainActivity.operators.get(i));
             }
         }
         MainActivity.display = MainActivity.displayConvert;
@@ -671,11 +680,7 @@ class EraseLastZero{
         if(lastZero.length()>1)
             while ((lastZero.length()>1&&lastZero.charAt(lastZero.length()-1)=='0'&&lastZero.contains("."))||lastZero.charAt(lastZero.length()-1)=='.')
             {
-                StringBuffer stringBuffer = new StringBuffer(lastZero);
-                stringBuffer.setLength(stringBuffer.length() - 1);
-                lastZero = stringBuffer.toString();
-                stringBuffer = null;
-                // зануляю класс, так как вроде это помогает сборщику мусора
+                lastZero = MainActivity.stringBufferEreseLast(lastZero);
             }
             return lastZero;
     }
