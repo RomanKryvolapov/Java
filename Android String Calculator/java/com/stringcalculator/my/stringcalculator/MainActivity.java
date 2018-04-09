@@ -14,11 +14,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.TextView;
+
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    static ArrayList<Double> digits = new ArrayList<Double>();
+    static ArrayList<BigDecimal> digits = new ArrayList<BigDecimal>();
     // числа
     static ArrayList<Character> operators = new ArrayList<Character>();
     // операторы
@@ -101,6 +103,41 @@ public class MainActivity extends AppCompatActivity {
         textSizeChangeResult("");
         displayDisplay("");
         displayDisplayResult("0");
+
+
+
+
+
+//        digit1 = new BigDecimal(display);
+//        if(!digit1.equals(BigDecimal.valueOf(0))) {
+//            digit1 = digit2.divide(digit1, 30, BigDecimal.ROUND_CEILING);
+//            digit2 = digit1;
+//            display = digit1.toString();
+//            eraseLastZero();
+//            displayDisplay ();
+//        }
+//        else {
+//            TextView vivod = (TextView) findViewById(R.id.digital);
+//            display = "Error";
+//            displayDisplay ();;
+//            digit2 = BigDecimal.valueOf(0);
+//            methodRele = 0;
+//            display = "";
+//        }
+//        doubleClockError = false;
+//        function = true;
+//        digit1 = BigDecimal.valueOf(0);
+
+
+
+
+
+
+
+
+
+
+
     }
 
     public void onTouchListenerTr(){
@@ -152,7 +189,7 @@ public class MainActivity extends AppCompatActivity {
                             displayDisplay("");
                             Calculator.calculator();
                             // Делает рассчет
-                            displayDisplayResult(Double.toString(digits.get(0)));
+                            displayDisplayResult(digits.get(0).toString());
 
                         }
                         break;
@@ -393,7 +430,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void textSizeChangeResult(String result) {
-// Меняет размер шрифта нижнего экрана, есть задел на использование большего регистра- класса BigDecimal
+// Меняет размер шрифта нижнего экрана
         TextView vivod = (TextView) findViewById(R.id.textResult);
         if (result.length() <= 30) {
             switch (result.length()) {
@@ -514,25 +551,25 @@ class Calculator {
         for (int currentPriority = maxPriority; currentPriority >= 0; currentPriority--) {
             for (int i = 0; i < MainActivity.operators.size(); i++) {
                 if (MainActivity.operators.get(i) == '*' && MainActivity.proirity.get(i) == currentPriority) {
-                    MainActivity.digits.set(i + 1, MainActivity.digits.get(i) * MainActivity.digits.get(i + 1));
+                    MainActivity.digits.set(i + 1, MainActivity.digits.get(i).multiply(MainActivity.digits.get(i + 1)));
                     removeLast(i);
                     i--;
                 } else
                 if (MainActivity.operators.get(i) == '/' && MainActivity.proirity.get(i) == currentPriority) {
-                    if (MainActivity.digits.get(i + 1) != 0)
-                        MainActivity.digits.set(i + 1, MainActivity.digits.get(i) / MainActivity.digits.get(i + 1));
+                    if (!MainActivity.digits.get(i + 1).equals(BigDecimal.valueOf(0)))
+                        MainActivity.digits.set(i + 1, MainActivity.digits.get(i).divide((MainActivity.digits.get(i + 1)), 30, BigDecimal.ROUND_CEILING));
                     removeLast(i);
                     i--;
                 }
             }
             for (int i = 0; i < MainActivity.operators.size(); i++) {
                 if (MainActivity.operators.get(i) == '+' && MainActivity.proirity.get(i) == currentPriority) {
-                    MainActivity.digits.set(i + 1, MainActivity.digits.get(i) + MainActivity.digits.get(i + 1));
+                    MainActivity.digits.set(i + 1, MainActivity.digits.get(i).add(MainActivity.digits.get(i + 1)));
                     removeLast(i);
                     i--;
                 } else
                 if (MainActivity.operators.get(i) == '-' && MainActivity.proirity.get(i) == currentPriority) {
-                    MainActivity.digits.set(i + 1, MainActivity.digits.get(i) - MainActivity.digits.get(i + 1));
+                    MainActivity.digits.set(i + 1, MainActivity.digits.get(i).subtract(MainActivity.digits.get(i + 1)));
                     removeLast(i);
                     i--;
                 }
@@ -581,7 +618,7 @@ class DigitsReader {
                 case '*':
                 case '/':
                     if (tempDigits != "" && MainActivity.operators.size() <= MainActivity.digits.size()) {
-                        MainActivity.digits.add(Double.parseDouble(tempDigits));
+                        MainActivity.digits.add(new BigDecimal(tempDigits));
                         tempDigits = "";
                         MainActivity.operators.add(content);
                         MainActivity.proirity.add(priority);
@@ -601,7 +638,9 @@ class DigitsReader {
 
         }
         if(tempDigits!="")
-            MainActivity.digits.add(Double.parseDouble(tempDigits));
+        MainActivity.digits.add(new BigDecimal(tempDigits));
+
+
         else if(MainActivity.operators.size()>1&&MainActivity.operators.size()>=MainActivity.digits.size()) {
             MainActivity.operators.remove(MainActivity.operators.size() - 1);
             MainActivity.proirity.remove(MainActivity.proirity.size()-1);
@@ -629,7 +668,7 @@ class ConvertTo {
             }
 
             StringBuffer stringBuffer2 = new StringBuffer(MainActivity.displayConvert);
-            stringBuffer2.append(EraseLastZero.eraseLastZero(Double.toString(MainActivity.digits.get(i))));
+            stringBuffer2.append(EraseLastZero.eraseLastZero(MainActivity.digits.get(i).toString()));
             MainActivity.displayConvert = stringBuffer2.toString();
             stringBuffer2 = null;
             // зануляю класс, так как вроде это помогает сборщику мусора
