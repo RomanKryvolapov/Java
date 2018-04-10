@@ -1,8 +1,9 @@
 package com.stringcalculator.my.stringcalculator;
 // made by Roman Kryvolapov
 // Новая версия калькулятора, с двумя дисплеями- для ввода и результата
-// Умеет считать со скобками, причем скобок можно использовать много уровней
-// Тап по дисплеям стирает последнюю цифру
+// Умеет считать со скобками, скобок можно использовать много уровней
+// Свайп по дисплеям стирает последнюю цифру
+// Есть история
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
@@ -32,9 +33,6 @@ public class MainActivity extends AppCompatActivity {
 
     static String display = "";
     static String displayConvert = "";
-    static int[] buttonID = new int[17];
-    static String[] buttonNumber = new String[17];
-    static int inerator = 0;
     final static int textSize = 80;
     final static int maxDigitSize = 25;
     static float xTouch;
@@ -57,64 +55,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-//        buttonID[0]=getResources().getIdentifier("button0", "id", getPackageName());
-//        buttonID[1]=getResources().getIdentifier("button1", "id", getPackageName());
-//        buttonID[2]=getResources().getIdentifier("button2", "id", getPackageName());
-//        buttonID[3]=getResources().getIdentifier("button3", "id", getPackageName());
-//        buttonID[4]=getResources().getIdentifier("button4", "id", getPackageName());
-//        buttonID[5]=getResources().getIdentifier("button5", "id", getPackageName());
-//        buttonID[6]=getResources().getIdentifier("button6", "id", getPackageName());
-//        buttonID[7]=getResources().getIdentifier("button7", "id", getPackageName());
-//        buttonID[8]=getResources().getIdentifier("button8", "id", getPackageName());
-//        buttonID[9]=getResources().getIdentifier("button9", "id", getPackageName());
-//        buttonID[10]=getResources().getIdentifier("buttonTochka", "id", getPackageName());
-//        buttonID[11]=getResources().getIdentifier("buttonPlus", "id", getPackageName());
-//        buttonID[12]=getResources().getIdentifier("buttonMinus", "id", getPackageName());
-//        buttonID[13]=getResources().getIdentifier("buttonUmnojenie", "id", getPackageName());
-//        buttonID[14]=getResources().getIdentifier("buttonDelenie", "id", getPackageName());
-//        buttonID[15]=getResources().getIdentifier("buttonSkobkaOtkritie", "id", getPackageName());
-//        buttonID[16]=getResources().getIdentifier("buttonSkobkaZakritie", "id", getPackageName());
-//
-//        buttonNumber[0]= "0";
-//        buttonNumber[1]= "1";
-//        buttonNumber[2]= "2";
-//        buttonNumber[3]= "3";
-//        buttonNumber[4]= "4";
-//        buttonNumber[5]= "5";
-//        buttonNumber[6]= "6";
-//        buttonNumber[7]= "7";
-//        buttonNumber[8]= "8";
-//        buttonNumber[9]= "9";
-//        buttonNumber[10]= ".";
-//        buttonNumber[11]= "+";
-//        buttonNumber[12]= "-";
-//        buttonNumber[13]= "*";
-//        buttonNumber[14]= "/";
-//        buttonNumber[15]= "(";
-//        buttonNumber[16]= ")";
-//
-//        for(int i = 0; i<11; i++) {
-//            //onTouchListenerColor1();
-//            inerator++;
-//        }
-//        for(int i = 0; i<6; i++) {
-//            onTouchListenerColor2();
-//            inerator++;
-//        }
-
-
         onTouchListenerTr();
         textSizeChange("");
         textSizeChangeResult("");
         displayDisplay("");
         displayDisplayResult("0");
-
-
-
-
-
-
-
 
     }
 
@@ -145,36 +90,6 @@ public class MainActivity extends AppCompatActivity {
         return string1;
     }
 
-//    void createActivity(){
-//        Intent intent = new Intent(MainActivity.this, HistoryActivity.class);
-//        startActivity(intent);
-//    }
-
-//    @SuppressLint("ClickableViewAccessibility")
-//    public void onTouchListenerHistory(){
-//        Button button = (Button) findViewById(R.id.buttonBack);
-//        button.setOnTouchListener(new View.OnTouchListener() {
-//            @Override
-//            public boolean onTouch(View v, MotionEvent event) {
-//                switch (event.getAction()) {
-//                    case MotionEvent.ACTION_DOWN:
-//                        ((Button) findViewById(R.id.buttonBack)).setBackgroundColor(0xFFB46D16);
-//
-//                        Intent intent = new Intent(MainActivity.this, HistoryActivity.class);
-//                        startActivity(intent);
-//
-//                        break;
-//                    case MotionEvent.ACTION_UP:
-//                        ((Button) findViewById(R.id.buttonBack)).setBackgroundColor(0xFFFA9112);
-//                        return true;
-//                    case MotionEvent.ACTION_MOVE:
-//                        break;
-//                }
-//                return true;
-//            }
-//        });
-//    }
-
     @SuppressLint("ClickableViewAccessibility")
     public void onTouchListenerTr(){
         Button button = (Button) findViewById(R.id.buttonTr);
@@ -183,15 +98,8 @@ public class MainActivity extends AppCompatActivity {
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-
-
-//                        if (display.length() > 0) {
-//                            display = MainActivity.stringBufferEreseLast(display);
-//                            displayDisplay("");
-//                        }
-
                         MainActivity.xTouch = event.getX();
-
+                        // получаем координатиы при касании
                         break;
                     case MotionEvent.ACTION_UP:
                         return true;
@@ -210,7 +118,10 @@ public class MainActivity extends AppCompatActivity {
                         if(event.getX()<MainActivity.xTouch-100) {
                             MainActivity.xTouch = event.getX();
                         }
-
+                        // при свайпе вправо стрирает по одному символу каждые 100 единиц
+                        // можно вернуть палец влево и снова провести вправо, не отрывая от экрана
+                        // от слушателей остальных кнопок пришлось отказаться в пользу onClick в XML
+                        // так как они блокировали события XML
                         break;
                 }
                 return true;
@@ -218,59 +129,13 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-//    @SuppressLint("ClickableViewAccessibility")
-//    public void onTouchListenerRavno(){
-//        Button button = (Button) findViewById(R.id.buttonRavno);
-//        button.setOnTouchListener(new View.OnTouchListener() {
-//            @Override
-//            public boolean onTouch(View v, MotionEvent event) {
-//                switch (event.getAction()) {
-//                    case MotionEvent.ACTION_DOWN:
-//                        ((Button) findViewById(R.id.buttonRavno)).setBackgroundColor(0xFFB46D16);
-//
-//                        if(display.length()>0) {
-//
-//                            digits.clear();
-//                            operators.clear();
-//                            proirity.clear();
-//
-//                            DigitsReader.digitsReader(display);
-//                            ConvertTo.convertTo();
-//                            // Конвертирует строку в выражение, добавляет скобки, если нужно
-//                            displayDisplay("");
-//                            Calculator.calculator();
-//                            // Делает рассчет
-//                            displayDisplayResult(digits.get(0).toPlainString());
-//
-//                                HistoryActivity.history.add(display +"\n= "+ EraseLastZero.eraseLastZero(digits.get(0).toPlainString()));
-//
-//                            digits.clear();
-//                            operators.clear();
-//                            proirity.clear();
-//
-//                        }
-//                        break;
-//                    case MotionEvent.ACTION_UP:
-//                        ((Button) findViewById(R.id.buttonRavno)).setBackgroundColor(0xFFFA9112);
-//                        return true;
-//                    case MotionEvent.ACTION_MOVE:
-//                        break;
-//                }
-//                return true;
-//            }
-//        });
-//    }
-
     public void onClickHistory(View view) {
         Intent intent = new Intent(MainActivity.this, HistoryActivity.class);
         startActivity(intent);
     }
 
-
-
     public void onClickRavno(View view)
     {
-
             digits.clear();
             operators.clear();
             proirity.clear();
@@ -291,14 +156,12 @@ public class MainActivity extends AppCompatActivity {
                 }else {
                     HistoryActivity.history.add(display + "\n= " + EraseLastZero.eraseLastZero(digits.get(0).toPlainString()));
                 }
-
                 digits.clear();
                 operators.clear();
                 proirity.clear();
             }
 
     }
-
 
     public void onClickC(View view)
     {
@@ -382,92 +245,6 @@ public class MainActivity extends AppCompatActivity {
     {
         displayDisplay(")");
     }
-
-
-
-
-
-
-//    @SuppressLint("ClickableViewAccessibility")
-//    public void onTouchListenerC(){
-//        Button button = (Button) findViewById(R.id.buttonC);
-//        button.setOnTouchListener(new View.OnTouchListener() {
-//            @Override
-//            public boolean onTouch(View v, MotionEvent event) {
-//                switch (event.getAction()) {
-//                    case MotionEvent.ACTION_DOWN:
-//                        ((Button) findViewById(R.id.buttonC)).setBackgroundColor(0xFF95969B);
-//
-//                        digits.clear();
-//                        operators.clear();
-//                        proirity.clear();
-//
-//                        display="";
-//                        displayConvert="";
-//                        displayDisplayResult("0");
-//                        displayDisplay("");
-//
-//                        digits.clear();
-//                        operators.clear();
-//                        proirity.clear();
-//
-//                        break;
-//                    case MotionEvent.ACTION_UP:
-//                        ((Button) findViewById(R.id.buttonC)).setBackgroundColor(0xFFd0d1d5);
-//                        return true;
-//                    case MotionEvent.ACTION_MOVE:
-//                        break;
-//                }
-//                return true;
-//            }
-//        });
-//    }
-
-//    public void onTouchListenerColor1 (){
-//        Button button = (Button) findViewById(buttonID[inerator]);
-//        button.setOnTouchListener(new View.OnTouchListener() {
-//            int id = buttonID[inerator];
-//            String vvod = buttonNumber[inerator];
-//            @Override
-//            public boolean onTouch(View v, MotionEvent event) {
-//                switch (event.getAction()) {
-//                    case MotionEvent.ACTION_DOWN:
-//                     //   ((Button) findViewById(id)).setBackgroundColor(0xFF95969B);
-//                        displayDisplay(vvod);
-//                        break;
-//                    case MotionEvent.ACTION_UP:
-//                      //  ((Button) findViewById(id)).setBackgroundColor(0xFFd0d1d5);
-//                        return true;
-//                    case MotionEvent.ACTION_MOVE:
-//                        break;
-//                }
-//                return true;
-//            }
-//        });
-//    }
-
-//    public void onTouchListenerColor2 (){
-//        Button button = (Button) findViewById(buttonID[inerator]);
-//        button.setOnTouchListener(new View.OnTouchListener() {
-//            int id = buttonID[inerator];
-//            String vvod = buttonNumber[inerator];
-//            @Override
-//            public boolean onTouch(View v, MotionEvent event) {
-//                switch (event.getAction()) {
-//                    case MotionEvent.ACTION_DOWN:
-//                      //  ((Button) findViewById(id)).setBackgroundColor(0xFFB46D16);
-//                        displayDisplay(vvod);
-//                        break;
-//                    case MotionEvent.ACTION_UP:
-//                      //  ((Button) findViewById(id)).setBackgroundColor(0xFFFA9112);
-//                        return true;
-//                    case MotionEvent.ACTION_MOVE:
-//                        break;
-//                }
-//                return true;
-//            }
-//        });
-//    }
 
     public final void displayDisplay (String in) {
         // Выводит на верхний экран
@@ -717,10 +494,6 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
-
-
-
 }
 
 class Calculator {
@@ -878,7 +651,7 @@ class EraseLastZero{
     }
 }
 
-// надо прикрутить
+// нужно прикрутить повторитель
 
 //                            final Timer myTimer = new Timer();
 //                            final Handler myHandler = new Handler();
