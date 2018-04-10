@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
     static String[] buttonNumber = new String[17];
     static int inerator = 0;
     final static int textSize = 80;
-    final static int maxDigitSize = 30;
+    final static int maxDigitSize = 25;
     static float xTouch;
 
     static StringBuffer stringBuffer = new StringBuffer();
@@ -245,7 +245,7 @@ public class MainActivity extends AppCompatActivity {
                             // Делает рассчет
                             displayDisplayResult(digits.get(0).toPlainString());
 
-                                HistoryActivity.history.add(display +"="+ EraseLastZero.eraseLastZero(digits.get(0).toPlainString()));
+                                HistoryActivity.history.add(display +"\n= "+ EraseLastZero.eraseLastZero(digits.get(0).toPlainString()));
 
                             digits.clear();
                             operators.clear();
@@ -619,7 +619,7 @@ class Calculator {
                 } else
                 if (MainActivity.operators.get(i) == '/' && MainActivity.proirity.get(i) == currentPriority) {
                     if (!MainActivity.digits.get(i + 1).equals(BigDecimal.valueOf(0)))
-                        MainActivity.digits.set(i + 1, MainActivity.digits.get(i).divide((MainActivity.digits.get(i + 1)), 30, BigDecimal.ROUND_CEILING));
+                        MainActivity.digits.set(i + 1, MainActivity.digits.get(i).divide((MainActivity.digits.get(i + 1)), MainActivity.maxDigitSize, BigDecimal.ROUND_CEILING));
                     removeLast(i);
                     i--;
                 }
@@ -676,7 +676,7 @@ class DigitsReader {
                 case '*':
                 case '/':
                     if (tempDigits != "" && MainActivity.operators.size() <= MainActivity.digits.size()) {
-                        MainActivity.digits.add(new BigDecimal(tempDigits,new MathContext(30,RoundingMode.HALF_UP)));
+                        MainActivity.digits.add(new BigDecimal(tempDigits,new MathContext(MainActivity.maxDigitSize,RoundingMode.HALF_UP)));
                         tempDigits = "";
                         MainActivity.operators.add(content);
                         MainActivity.proirity.add(priority);
@@ -696,7 +696,7 @@ class DigitsReader {
 
         }
         if(tempDigits!="")
-        MainActivity.digits.add(new BigDecimal(tempDigits,new MathContext(30,RoundingMode.HALF_UP)));
+        MainActivity.digits.add(new BigDecimal(tempDigits,new MathContext(MainActivity.maxDigitSize,RoundingMode.HALF_UP)));
 
         else if(MainActivity.operators.size()>1&&MainActivity.operators.size()>=MainActivity.digits.size()) {
             MainActivity.operators.remove(MainActivity.operators.size() - 1);

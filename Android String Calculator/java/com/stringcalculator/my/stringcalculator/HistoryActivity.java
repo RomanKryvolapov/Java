@@ -16,11 +16,7 @@ public class HistoryActivity extends AppCompatActivity {
 
     static ArrayList<String> history = new ArrayList<String>();
 
-    //static float xTouch;
-
-
-
-
+    static StringBuffer stringBuffer = new StringBuffer();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,25 +34,24 @@ public class HistoryActivity extends AppCompatActivity {
             }
         });
 
-
-
-
         onTouchListenerActivity();
-
-
-
-
+        onTouchListenerClear();
 
         String outHistory = "";
 
-        for(String c:history){
-            outHistory+=(c + "\n\n");
+        for (int i = history.size()-1; i >= 0; i--) {
+
+            MainActivity.stringBuffer.setLength(0);
+            MainActivity.stringBuffer.append(outHistory);
+            MainActivity.stringBuffer.append(history.get(i) + "\n\n");
+            outHistory = MainActivity.stringBuffer.toString();
+            MainActivity.stringBuffer.setLength(0);
+
         }
 
         TextView vivod = (TextView) findViewById(R.id.historyView);
         vivod.setTextSize(30);
         vivod.setText(outHistory);
-
 
     }
 
@@ -67,11 +62,40 @@ public class HistoryActivity extends AppCompatActivity {
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
+                        ((Button) findViewById(R.id.buttonBack)).setBackgroundColor(0xFFB46D16);
 
                         finish();
 
                         break;
                     case MotionEvent.ACTION_UP:
+                        ((Button) findViewById(R.id.buttonBack)).setBackgroundColor(0xFFFA9112);
+                        return true;
+                    case MotionEvent.ACTION_MOVE:
+                        break;
+                }
+                return true;
+            }
+        });
+    }
+
+
+    public void onTouchListenerClear(){
+        Button button = (Button) findViewById(R.id.buttonClear);
+        button.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        ((Button) findViewById(R.id.buttonClear)).setBackgroundColor(0xFF95969B);
+                        history.clear();
+
+                        TextView vivod = (TextView) findViewById(R.id.historyView);
+                        vivod.setTextSize(30);
+                        vivod.setText("");
+
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        ((Button) findViewById(R.id.buttonClear)).setBackgroundColor(0xFFd0d1d5);
                         return true;
                     case MotionEvent.ACTION_MOVE:
                         break;

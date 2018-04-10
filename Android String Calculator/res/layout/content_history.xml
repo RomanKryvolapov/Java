@@ -15,20 +15,35 @@
         android:layout_width="35dp"
         android:layout_height="0dp"
         android:background="@color/colorButtons2"
-        android:text="B\na\nc\nk"
+        android:fontFamily="monospace"
+        android:text="B\nA\nC\nK"
+        android:textSize="18sp"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/buttonClear"
+        android:layout_width="0dp"
+        android:layout_height="35dp"
+        android:background="@color/colorButtons"
+        android:fontFamily="monospace"
+        android:text="CLEAR"
+        android:layout_marginStart="2dp"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/buttonBack"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/historyView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginBottom="28dp"
+        android:layout_marginEnd="28dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="28dp"
         android:background="@color/textView"
         android:backgroundTint="@color/textView"
         android:cursorVisible="false"
@@ -36,14 +51,16 @@
         android:fontFamily="serif-monospace"
         android:gravity="left|top"
         android:inputType="none"
-        android:maxLines="100"
+        android:maxLines="1000"
         android:scrollbars="vertical"
+        android:scrollHorizontally="false"
+        android:scrollIndicators="none"
         android:textColor="@android:color/white"
         android:textIsSelectable="true"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/buttonBack"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/buttonClear" />
 
 </android.support.constraint.ConstraintLayout>
