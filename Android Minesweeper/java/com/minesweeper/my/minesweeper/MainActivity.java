@@ -59,8 +59,6 @@ public class MainActivity extends AppCompatActivity {
 
     ConstraintLayout constraintLayout2;
 
-    ConstraintSet constraintSetButton[][] = new ConstraintSet[xSize][ySize];
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -134,70 +132,70 @@ public class MainActivity extends AppCompatActivity {
 
         // супер мега код по привязке поля кнопок
 
+        ConstraintSet constraintSetButtons = new ConstraintSet();
+
         for (int x = 0; x < xSize; x++) {
             for (int y = 0; y < ySize; y++) {
 
-                constraintSetButton[x][y] = new ConstraintSet();
-
                 if (x == 0 && y == 0) //1
                 {
-                    constraintSetButton[x][y].connect(buttonArray[x][y].getId(), ConstraintSet.LEFT, ConstraintSet.PARENT_ID, ConstraintSet.LEFT);
-                    constraintSetButton[x][y].connect(buttonArray[x][y].getId(), ConstraintSet.RIGHT, buttonArray[x][y + 1].getId(), ConstraintSet.LEFT);
-                    constraintSetButton[x][y].connect(buttonArray[x][y].getId(), ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP);
-                    constraintSetButton[x][y].connect(buttonArray[x][y].getId(), ConstraintSet.BOTTOM, buttonArray[x + 1][y].getId(), ConstraintSet.TOP);
+                    constraintSetButtons.connect(buttonArray[x][y].getId(), ConstraintSet.LEFT, ConstraintSet.PARENT_ID, ConstraintSet.LEFT);
+                    constraintSetButtons.connect(buttonArray[x][y].getId(), ConstraintSet.RIGHT, buttonArray[x][y + 1].getId(), ConstraintSet.LEFT);
+                    constraintSetButtons.connect(buttonArray[x][y].getId(), ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP);
+                    constraintSetButtons.connect(buttonArray[x][y].getId(), ConstraintSet.BOTTOM, buttonArray[x + 1][y].getId(), ConstraintSet.TOP);
                 } else if (x == 0 && y != 0 && y != ySize - 1) //2
                 {
-                    constraintSetButton[x][y].connect(buttonArray[x][y].getId(), ConstraintSet.LEFT, buttonArray[x][y - 1].getId(), ConstraintSet.RIGHT);
-                    constraintSetButton[x][y].connect(buttonArray[x][y].getId(), ConstraintSet.RIGHT, buttonArray[x][y + 1].getId(), ConstraintSet.LEFT);
-                    constraintSetButton[x][y].connect(buttonArray[x][y].getId(), ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP);
-                    constraintSetButton[x][y].connect(buttonArray[x][y].getId(), ConstraintSet.BOTTOM, buttonArray[x + 1][y].getId(), ConstraintSet.TOP);
+                    constraintSetButtons.connect(buttonArray[x][y].getId(), ConstraintSet.LEFT, buttonArray[x][y - 1].getId(), ConstraintSet.RIGHT);
+                    constraintSetButtons.connect(buttonArray[x][y].getId(), ConstraintSet.RIGHT, buttonArray[x][y + 1].getId(), ConstraintSet.LEFT);
+                    constraintSetButtons.connect(buttonArray[x][y].getId(), ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP);
+                    constraintSetButtons.connect(buttonArray[x][y].getId(), ConstraintSet.BOTTOM, buttonArray[x + 1][y].getId(), ConstraintSet.TOP);
                 } else if (x == 0 && y == ySize - 1) //3
                 {
-                    constraintSetButton[x][y].connect(buttonArray[x][y].getId(), ConstraintSet.LEFT, buttonArray[x][y - 1].getId(), ConstraintSet.RIGHT);
-                    constraintSetButton[x][y].connect(buttonArray[x][y].getId(), ConstraintSet.RIGHT, ConstraintSet.PARENT_ID, ConstraintSet.RIGHT);
-                    constraintSetButton[x][y].connect(buttonArray[x][y].getId(), ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP);
-                    constraintSetButton[x][y].connect(buttonArray[x][y].getId(), ConstraintSet.BOTTOM, buttonArray[x + 1][y].getId(), ConstraintSet.TOP);
+                    constraintSetButtons.connect(buttonArray[x][y].getId(), ConstraintSet.LEFT, buttonArray[x][y - 1].getId(), ConstraintSet.RIGHT);
+                    constraintSetButtons.connect(buttonArray[x][y].getId(), ConstraintSet.RIGHT, ConstraintSet.PARENT_ID, ConstraintSet.RIGHT);
+                    constraintSetButtons.connect(buttonArray[x][y].getId(), ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP);
+                    constraintSetButtons.connect(buttonArray[x][y].getId(), ConstraintSet.BOTTOM, buttonArray[x + 1][y].getId(), ConstraintSet.TOP);
                 } else if (x != xSize - 1 && x != 0 && y == ySize - 1) {
-                    constraintSetButton[x][y].connect(buttonArray[x][y].getId(), ConstraintSet.LEFT, buttonArray[x][y - 1].getId(), ConstraintSet.RIGHT);
-                    constraintSetButton[x][y].connect(buttonArray[x][y].getId(), ConstraintSet.RIGHT, ConstraintSet.PARENT_ID, ConstraintSet.RIGHT);
-                    constraintSetButton[x][y].connect(buttonArray[x][y].getId(), ConstraintSet.TOP, buttonArray[x - 1][y].getId(), ConstraintSet.BOTTOM);
-                    constraintSetButton[x][y].connect(buttonArray[x][y].getId(), ConstraintSet.BOTTOM, buttonArray[x + 1][y].getId(), ConstraintSet.TOP);
+                    constraintSetButtons.connect(buttonArray[x][y].getId(), ConstraintSet.LEFT, buttonArray[x][y - 1].getId(), ConstraintSet.RIGHT);
+                    constraintSetButtons.connect(buttonArray[x][y].getId(), ConstraintSet.RIGHT, ConstraintSet.PARENT_ID, ConstraintSet.RIGHT);
+                    constraintSetButtons.connect(buttonArray[x][y].getId(), ConstraintSet.TOP, buttonArray[x - 1][y].getId(), ConstraintSet.BOTTOM);
+                    constraintSetButtons.connect(buttonArray[x][y].getId(), ConstraintSet.BOTTOM, buttonArray[x + 1][y].getId(), ConstraintSet.TOP);
                 } else if (x == xSize - 1 && y == ySize - 1) {
-                    constraintSetButton[x][y].connect(buttonArray[x][y].getId(), ConstraintSet.LEFT, buttonArray[x][y - 1].getId(), ConstraintSet.RIGHT);
-                    constraintSetButton[x][y].connect(buttonArray[x][y].getId(), ConstraintSet.RIGHT, ConstraintSet.PARENT_ID, ConstraintSet.RIGHT);
-                    constraintSetButton[x][y].connect(buttonArray[x][y].getId(), ConstraintSet.TOP, buttonArray[x - 1][y].getId(), ConstraintSet.BOTTOM);
-                    constraintSetButton[x][y].connect(buttonArray[x][y].getId(), ConstraintSet.BOTTOM, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM);
+                    constraintSetButtons.connect(buttonArray[x][y].getId(), ConstraintSet.LEFT, buttonArray[x][y - 1].getId(), ConstraintSet.RIGHT);
+                    constraintSetButtons.connect(buttonArray[x][y].getId(), ConstraintSet.RIGHT, ConstraintSet.PARENT_ID, ConstraintSet.RIGHT);
+                    constraintSetButtons.connect(buttonArray[x][y].getId(), ConstraintSet.TOP, buttonArray[x - 1][y].getId(), ConstraintSet.BOTTOM);
+                    constraintSetButtons.connect(buttonArray[x][y].getId(), ConstraintSet.BOTTOM, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM);
                 } else if (x == xSize - 1 && y != ySize - 1 && y != 0) {
-                    constraintSetButton[x][y].connect(buttonArray[x][y].getId(), ConstraintSet.LEFT, buttonArray[x][y - 1].getId(), ConstraintSet.RIGHT);
-                    constraintSetButton[x][y].connect(buttonArray[x][y].getId(), ConstraintSet.RIGHT, buttonArray[x][y + 1].getId(), ConstraintSet.LEFT);
-                    constraintSetButton[x][y].connect(buttonArray[x][y].getId(), ConstraintSet.TOP, buttonArray[x - 1][y].getId(), ConstraintSet.BOTTOM);
-                    constraintSetButton[x][y].connect(buttonArray[x][y].getId(), ConstraintSet.BOTTOM, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM);
+                    constraintSetButtons.connect(buttonArray[x][y].getId(), ConstraintSet.LEFT, buttonArray[x][y - 1].getId(), ConstraintSet.RIGHT);
+                    constraintSetButtons.connect(buttonArray[x][y].getId(), ConstraintSet.RIGHT, buttonArray[x][y + 1].getId(), ConstraintSet.LEFT);
+                    constraintSetButtons.connect(buttonArray[x][y].getId(), ConstraintSet.TOP, buttonArray[x - 1][y].getId(), ConstraintSet.BOTTOM);
+                    constraintSetButtons.connect(buttonArray[x][y].getId(), ConstraintSet.BOTTOM, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM);
                 } else if (x == xSize - 1 && y == 0) {
-                    constraintSetButton[x][y].connect(buttonArray[x][y].getId(), ConstraintSet.LEFT, ConstraintSet.PARENT_ID, ConstraintSet.LEFT);
-                    constraintSetButton[x][y].connect(buttonArray[x][y].getId(), ConstraintSet.RIGHT, buttonArray[x][y + 1].getId(), ConstraintSet.LEFT);
-                    constraintSetButton[x][y].connect(buttonArray[x][y].getId(), ConstraintSet.TOP, buttonArray[x - 1][y].getId(), ConstraintSet.BOTTOM);
-                    constraintSetButton[x][y].connect(buttonArray[x][y].getId(), ConstraintSet.BOTTOM, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM);
+                    constraintSetButtons.connect(buttonArray[x][y].getId(), ConstraintSet.LEFT, ConstraintSet.PARENT_ID, ConstraintSet.LEFT);
+                    constraintSetButtons.connect(buttonArray[x][y].getId(), ConstraintSet.RIGHT, buttonArray[x][y + 1].getId(), ConstraintSet.LEFT);
+                    constraintSetButtons.connect(buttonArray[x][y].getId(), ConstraintSet.TOP, buttonArray[x - 1][y].getId(), ConstraintSet.BOTTOM);
+                    constraintSetButtons.connect(buttonArray[x][y].getId(), ConstraintSet.BOTTOM, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM);
                 } else if (x != 0 && x != xSize - 1 && y == 0) {
-                    constraintSetButton[x][y].connect(buttonArray[x][y].getId(), ConstraintSet.LEFT, ConstraintSet.PARENT_ID, ConstraintSet.LEFT);
-                    constraintSetButton[x][y].connect(buttonArray[x][y].getId(), ConstraintSet.RIGHT, buttonArray[x][y + 1].getId(), ConstraintSet.LEFT);
-                    constraintSetButton[x][y].connect(buttonArray[x][y].getId(), ConstraintSet.TOP, buttonArray[x - 1][y].getId(), ConstraintSet.BOTTOM);
-                    constraintSetButton[x][y].connect(buttonArray[x][y].getId(), ConstraintSet.BOTTOM, buttonArray[x + 1][y].getId(), ConstraintSet.TOP);
+                    constraintSetButtons.connect(buttonArray[x][y].getId(), ConstraintSet.LEFT, ConstraintSet.PARENT_ID, ConstraintSet.LEFT);
+                    constraintSetButtons.connect(buttonArray[x][y].getId(), ConstraintSet.RIGHT, buttonArray[x][y + 1].getId(), ConstraintSet.LEFT);
+                    constraintSetButtons.connect(buttonArray[x][y].getId(), ConstraintSet.TOP, buttonArray[x - 1][y].getId(), ConstraintSet.BOTTOM);
+                    constraintSetButtons.connect(buttonArray[x][y].getId(), ConstraintSet.BOTTOM, buttonArray[x + 1][y].getId(), ConstraintSet.TOP);
                 } else {
-                    constraintSetButton[x][y].connect(buttonArray[x][y].getId(), ConstraintSet.LEFT, buttonArray[x][y - 1].getId(), ConstraintSet.RIGHT);
-                    constraintSetButton[x][y].connect(buttonArray[x][y].getId(), ConstraintSet.RIGHT, buttonArray[x][y + 1].getId(), ConstraintSet.LEFT);
-                    constraintSetButton[x][y].connect(buttonArray[x][y].getId(), ConstraintSet.TOP, buttonArray[x - 1][y].getId(), ConstraintSet.BOTTOM);
-                    constraintSetButton[x][y].connect(buttonArray[x][y].getId(), ConstraintSet.BOTTOM, buttonArray[x + 1][y].getId(), ConstraintSet.TOP);
+                    constraintSetButtons.connect(buttonArray[x][y].getId(), ConstraintSet.LEFT, buttonArray[x][y - 1].getId(), ConstraintSet.RIGHT);
+                    constraintSetButtons.connect(buttonArray[x][y].getId(), ConstraintSet.RIGHT, buttonArray[x][y + 1].getId(), ConstraintSet.LEFT);
+                    constraintSetButtons.connect(buttonArray[x][y].getId(), ConstraintSet.TOP, buttonArray[x - 1][y].getId(), ConstraintSet.BOTTOM);
+                    constraintSetButtons.connect(buttonArray[x][y].getId(), ConstraintSet.BOTTOM, buttonArray[x + 1][y].getId(), ConstraintSet.TOP);
                 }
-
                 // Margin
-                constraintSetButton[x][y].setMargin(buttonArray[x][y].getId(), ConstraintSet.END, buttonMargin);
-                constraintSetButton[x][y].setMargin(buttonArray[x][y].getId(), ConstraintSet.START, buttonMargin);
-                constraintSetButton[x][y].setMargin(buttonArray[x][y].getId(), ConstraintSet.TOP, buttonMargin);
-                constraintSetButton[x][y].setMargin(buttonArray[x][y].getId(), ConstraintSet.BOTTOM, buttonMargin);
+                constraintSetButtons.setMargin(buttonArray[x][y].getId(), ConstraintSet.END, buttonMargin);
+                constraintSetButtons.setMargin(buttonArray[x][y].getId(), ConstraintSet.START, buttonMargin);
+                constraintSetButtons.setMargin(buttonArray[x][y].getId(), ConstraintSet.TOP, buttonMargin);
+                constraintSetButtons.setMargin(buttonArray[x][y].getId(), ConstraintSet.BOTTOM, buttonMargin);
                 // Размер
-                constraintSetButton[x][y].constrainWidth(buttonArray[x][y].getId(), ConstraintSet.MATCH_CONSTRAINT);
-                constraintSetButton[x][y].constrainHeight(buttonArray[x][y].getId(), ConstraintSet.MATCH_CONSTRAINT);
-                constraintSetButton[x][y].applyTo(constraintLayout2);
+                constraintSetButtons.constrainWidth(buttonArray[x][y].getId(), ConstraintSet.MATCH_CONSTRAINT);
+                constraintSetButtons.constrainHeight(buttonArray[x][y].getId(), ConstraintSet.MATCH_CONSTRAINT);
+                constraintSetButtons.applyTo(constraintLayout2);
+                constraintSetButtons.clear(buttonArray[x][y].getId());
 
             }
         }
@@ -415,7 +413,6 @@ public class MainActivity extends AppCompatActivity {
 
                         buttonArray = null;
                         buttonArrayID = null;
-                        constraintSetButton = null;
 
                         System.gc();
 
@@ -434,7 +431,6 @@ public class MainActivity extends AppCompatActivity {
 
                         buttonArray = new Button[xSize][ySize];
                         buttonArrayID = new int[xSize][ySize];
-                        constraintSetButton = new ConstraintSet[xSize][ySize];
 
                         constraintLayout2.removeAllViews();
 
@@ -478,7 +474,6 @@ public class MainActivity extends AppCompatActivity {
 
                         buttonArray = null;
                         buttonArrayID = null;
-                        constraintSetButton = null;
 
                         System.gc();
 
@@ -497,7 +492,6 @@ public class MainActivity extends AppCompatActivity {
 
                         buttonArray = new Button[xSize][ySize];
                         buttonArrayID = new int[xSize][ySize];
-                        constraintSetButton = new ConstraintSet[xSize][ySize];
 
                         constraintLayout2.removeAllViews();
 
