@@ -1,13 +1,17 @@
 package com.stringcalculator.my.stringcalculator;
 
 import android.annotation.SuppressLint;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -65,6 +69,17 @@ public class HistoryActivity extends AppCompatActivity {
         button_about_listiner(buttonAbout);
         button_clear_listiner(buttonClear);
 
+        setStatusBarColor(R.color.colorButtons2);
+
+    }
+
+    public void setStatusBarColor(int color) {
+        if (Build.VERSION.SDK_INT >= 21) {
+            Window window = getWindow();
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(ContextCompat.getColor(this, color));
+        }
     }
 
 
@@ -121,9 +136,11 @@ public class HistoryActivity extends AppCompatActivity {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
                         newButton.setBackgroundResource(R.drawable.button_style_clear_on_click);
+                        setStatusBarColor(R.color.colorButtons1);
                         break;
                     case MotionEvent.ACTION_UP:
                         newButton.setBackgroundResource(R.drawable.button_style_clear);
+                        setStatusBarColor(R.color.colorButtons2);
                         onClickClear();
                         return true;
                     case MotionEvent.ACTION_MOVE:

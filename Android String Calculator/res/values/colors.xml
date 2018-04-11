@@ -11,4 +11,5 @@
     <color name="colorButtons_pressed1">#b7781f</color>
     <color name="colorButtons_pressed2">#161616</color>
     <color name="colorButtons_pressed3">#606060</color>
+    <color name="colorStatusbar">#FFA6A6A6</color>
 </resources>
