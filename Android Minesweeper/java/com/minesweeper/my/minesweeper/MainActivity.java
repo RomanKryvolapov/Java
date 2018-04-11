@@ -369,13 +369,13 @@ public class MainActivity extends AppCompatActivity {
 
                             } else {
                                 clickedQuantity--;
-                                ((Button) buttonNext).setBackgroundResource(R.drawable.button_style_clicked);
+                                ((Button) buttonNext).setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                                ((Button) buttonNext).setBackgroundResource(R.drawable.button_style_white);
                                 ((Button) buttonNext).setText(Integer.toString(buttonText));
                             }
                             break;
                         case MotionEvent.ACTION_UP:
                             ((Button) buttonNext).setBackgroundResource(R.drawable.button_style_white);
-                            ((Button) buttonNext).setTextColor(getResources().getColor(R.color.colorPrimaryDark));
                             clicked[x2][y2]=true;
                             clicked1 = true;
                             return true;
