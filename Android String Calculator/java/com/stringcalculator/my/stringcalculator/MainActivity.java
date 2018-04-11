@@ -37,6 +37,27 @@ public class MainActivity extends AppCompatActivity {
     final static int maxDigitSize = 25;
     static float xTouch;
 
+    Button button1;
+    Button button2;
+    Button button3;
+    Button button4;
+    Button button5;
+    Button button6;
+    Button button7;
+    Button button8;
+    Button button9;
+    Button button0;
+    Button buttonTochka;
+    Button buttonPlus;
+    Button buttonMinus;
+    Button buttonUmnojenie;
+    Button buttonDelenie;
+    Button buttonOtkritjSkobku;
+    Button button3ZakritjSkobku;
+    Button buttonC;
+    Button buttonRavno;
+    Button buttonHistory;
+
     static StringBuffer stringBuffer = new StringBuffer();
 
     @Override
@@ -61,6 +82,186 @@ public class MainActivity extends AppCompatActivity {
         displayDisplay("");
         displayDisplayResult("0");
 
+
+
+        button1 = (Button) findViewById(R.id.button1);
+        button2 = (Button) findViewById(R.id.button2);
+        button3 = (Button) findViewById(R.id.button3);
+        button4 = (Button) findViewById(R.id.button4);
+        button5 = (Button) findViewById(R.id.button5);
+        button6 = (Button) findViewById(R.id.button6);
+        button7 = (Button) findViewById(R.id.button7);
+        button8 = (Button) findViewById(R.id.button8);
+        button9 = (Button) findViewById(R.id.button9);
+        button0 = (Button) findViewById(R.id.button0);
+        buttonTochka = (Button) findViewById(R.id.buttonTochka);
+        buttonPlus = (Button) findViewById(R.id.buttonPlus);
+        buttonMinus = (Button) findViewById(R.id.buttonMinus);
+        buttonUmnojenie = (Button) findViewById(R.id.buttonUmnojenie);
+        buttonDelenie = (Button) findViewById(R.id.buttonDelenie);
+        buttonOtkritjSkobku = (Button) findViewById(R.id.buttonSkobkaOtkritie);
+        button3ZakritjSkobku = (Button) findViewById(R.id.buttonSkobkaZakritie);
+        buttonC = (Button) findViewById(R.id.buttonC);
+        buttonRavno = (Button) findViewById(R.id.buttonRavno);
+        buttonHistory = (Button) findViewById(R.id.buttonHistory);
+
+
+        button_style_1_listiner(button1, '1');
+        button_style_1_listiner(button2, '2');
+        button_style_1_listiner(button3, '3');
+        button_style_1_listiner(button4, '4');
+        button_style_1_listiner(button5, '5');
+        button_style_1_listiner(button6, '6');
+        button_style_1_listiner(button7, '7');
+        button_style_1_listiner(button8, '8');
+        button_style_1_listiner(button9, '9');
+        button_style_1_listiner(button0, '0');
+        button_style_1_listiner(buttonTochka, '.');
+        button_style_2_listiner(buttonPlus, '+');
+        button_style_2_listiner(buttonMinus, '-');
+        button_style_2_listiner(buttonUmnojenie, '*');
+        button_style_2_listiner(buttonDelenie, '/');
+        button_style_3_listiner(buttonOtkritjSkobku, '(');
+        button_style_3_listiner(button3ZakritjSkobku, ')');
+        button_c_listiner(buttonC);
+        button_ravno_listiner(buttonRavno);
+        button_history_listiner(buttonHistory);
+
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    void button_style_1_listiner(Button button, Character print){
+        final Button newButton = button;
+        final char newPrint = print;
+        newButton.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        newButton.setBackgroundResource(R.drawable.button_style_1);
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        newButton.setBackgroundResource(R.drawable.button_style_2);
+                        displayDisplay(Character.toString(newPrint));
+                        return true;
+                    case MotionEvent.ACTION_MOVE:
+                        break;
+                }
+                return true;
+            }
+        });
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    void button_style_2_listiner(Button button, Character print){
+        final Button newButton = button;
+        final char newPrint = print;
+        newButton.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        newButton.setBackgroundResource(R.drawable.button_style_2);
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        newButton.setBackgroundResource(R.drawable.button_style_1);
+                        displayDisplay(Character.toString(newPrint));
+                        return true;
+                    case MotionEvent.ACTION_MOVE:
+                        break;
+                }
+                return true;
+            }
+        });
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    void button_style_3_listiner(Button button, Character print){
+        final Button newButton = button;
+        final char newPrint = print;
+        newButton.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        newButton.setBackgroundResource(R.drawable.button_style_2);
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        newButton.setBackgroundResource(R.drawable.button_style_3);
+                        displayDisplay(Character.toString(newPrint));
+                        return true;
+                    case MotionEvent.ACTION_MOVE:
+                        break;
+                }
+                return true;
+            }
+        });
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    void button_c_listiner(Button button){
+        final Button newButton = button;
+        newButton.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        newButton.setBackgroundResource(R.drawable.button_style_2);
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        newButton.setBackgroundResource(R.drawable.button_style_1);
+                        onClickC();
+                        return true;
+                    case MotionEvent.ACTION_MOVE:
+                        break;
+                }
+                return true;
+            }
+        });
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    void button_ravno_listiner(Button button){
+        final Button newButton = button;
+        newButton.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        newButton.setBackgroundResource(R.drawable.button_style_2);
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        newButton.setBackgroundResource(R.drawable.button_style_3);
+                        onClickRavno();
+                        return true;
+                    case MotionEvent.ACTION_MOVE:
+                        break;
+                }
+                return true;
+            }
+        });
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    void button_history_listiner(Button button){
+        final Button newButton = button;
+        newButton.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        newButton.setBackgroundResource(R.drawable.button_style_historu_on_click);
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        newButton.setBackgroundResource(R.drawable.button_style_history);
+                        onClickHistory();
+                        return true;
+                    case MotionEvent.ACTION_MOVE:
+                        break;
+                }
+                return true;
+            }
+        });
     }
 
     static String stringBufferAdd(String string1, String string2){
@@ -129,12 +330,12 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void onClickHistory(View view) {
+    public void onClickHistory() {
         Intent intent = new Intent(MainActivity.this, HistoryActivity.class);
         startActivity(intent);
     }
 
-    public void onClickRavno(View view)
+    public void onClickRavno()
     {
             digits.clear();
             operators.clear();
@@ -163,7 +364,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void onClickC(View view)
+    public void onClickC()
     {
         digits.clear();
         operators.clear();
@@ -175,75 +376,6 @@ public class MainActivity extends AppCompatActivity {
         digits.clear();
         operators.clear();
         proirity.clear();
-    }
-
-    public void onClick0(View view)
-    {
-        displayDisplay("0");
-    }
-    public void onClick1(View view)
-    {
-        displayDisplay("1");
-    }
-    public void onClic2(View view)
-    {
-        displayDisplay("2");
-    }
-    public void onClic3(View view)
-    {
-        displayDisplay("3");
-    }
-    public void onClic4(View view)
-    {
-        displayDisplay("4");
-    }
-    public void onClic5(View view)
-    {
-        displayDisplay("5");
-    }
-    public void onClic6(View view)
-    {
-        displayDisplay("6");
-    }
-    public void onClic7(View view)
-    {
-        displayDisplay("7");
-    }
-    public void onClic8(View view)
-    {
-        displayDisplay("8");
-    }
-    public void onClic9(View view)
-    {
-        displayDisplay("9");
-    }
-    public void onClicTochka(View view)
-    {
-        displayDisplay(".");
-    }
-    public void onClicPlus(View view)
-    {
-        displayDisplay("+");
-    }
-    public void onClicMinus(View view)
-    {
-        displayDisplay("-");
-    }
-    public void onClicUmnojenie(View view)
-    {
-        displayDisplay("*");
-    }
-    public void onClicDelenie(View view)
-    {
-        displayDisplay("/");
-    }
-    public void onClicOtkritjSkobku(View view)
-    {
-        displayDisplay("(");
-    }
-    public void onClicZakritjSkobku(View view)
-    {
-        displayDisplay(")");
     }
 
     public final void displayDisplay (String in) {
