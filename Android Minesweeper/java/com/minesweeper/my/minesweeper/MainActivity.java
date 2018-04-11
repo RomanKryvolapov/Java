@@ -5,17 +5,21 @@ package com.minesweeper.my.minesweeper;
 // В будущем хочу сделать покрасивей, задействовав XML
 
 import android.graphics.Point;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.constraint.ConstraintSet;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -100,6 +104,7 @@ public class MainActivity extends AppCompatActivity {
         mineRender();
 
         PlusMinusListiner();
+        setStatusBarColor(R.color.colorPrimary);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -112,6 +117,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    public void setStatusBarColor(int color) {
+        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) { return; }
+        Window window = getWindow();
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.setStatusBarColor(ContextCompat.getColor(this, color));
     }
 
     void createButtons() {
@@ -629,6 +641,7 @@ public class MainActivity extends AppCompatActivity {
         constraintLayout1.setBackgroundColor(getResources().getColor(colorID));
         constraintLayout2.setBackgroundColor(getResources().getColor(colorID));
         myTextView.setBackgroundColor(getResources().getColor(colorID));
+        setStatusBarColor(colorID);
 
     }
 
