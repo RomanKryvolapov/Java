@@ -31,8 +31,8 @@ public class MainActivity extends AppCompatActivity {
     static int x1 = 0;
     static int y1 = 0;
 
-    static int xSize = 16;
-    static int ySize = 14;
+    static int xSize = 12;
+    static int ySize = 10;
 
     int display[][] = new int[xSize][ySize];
     int identifier[][] = new int[xSize][ySize];
@@ -357,13 +357,16 @@ public class MainActivity extends AppCompatActivity {
 
                             if (buttonText == 9) {
                                 gameOver = true;
+                                ((Button) buttonNext).setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                                ((Button) buttonNext).setBackgroundResource(R.drawable.button_style_win);
                                 ((Button) buttonNext).setText("M");
                                 changeColor(R.color.colorGameOver);
                                 testOut1();
 
                             } else if (clickedQuantity == 1) {
+                                ((Button) buttonNext).setTextColor(getResources().getColor(R.color.colorPrimaryDark));
                                 ((Button) buttonNext).setBackgroundResource(R.drawable.button_style_win);
-                                constraintLayout2.setBackgroundColor(getResources().getColor(R.color.colorGameWin));
+                                ((Button) buttonNext).setText(Integer.toString(buttonText));
                                 changeColor(R.color.colorGameWin);
                                 testOut3();
 
@@ -415,24 +418,12 @@ public class MainActivity extends AppCompatActivity {
                         buttonSizeMinus.setBackgroundResource(R.drawable.button_style_white);
                         buttonSizeMinus.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
 
-
-
                         break;
                     case MotionEvent.ACTION_UP:
                         buttonReset.setBackgroundResource(R.drawable.button_style);
                         buttonSizePlus.setBackgroundResource(R.drawable.button_style);
                         buttonSizeMinus.setBackgroundResource(R.drawable.button_style);
                         buttonSizeMinus.setTextColor(getResources().getColor(R.color.colorWhite));
-
-
-                        display = null;
-                        identifier = null;
-                        clicked = null;
-
-                        buttonArray = null;
-                        buttonArrayID = null;
-
-                        System.gc();
 
                         buttonID = 1000;
 
@@ -442,11 +433,9 @@ public class MainActivity extends AppCompatActivity {
                             ySize-=1;
                         }
 
-
                         display = new int[xSize][ySize];
                         identifier = new int[xSize][ySize];
                         clicked = new Boolean[xSize][ySize];
-
                         buttonArray = new Button[xSize][ySize];
                         buttonArrayID = new int[xSize][ySize];
 
@@ -454,7 +443,6 @@ public class MainActivity extends AppCompatActivity {
 
                         createButtons();
                         setConstraints();
-
                         mineListener();
 
                         clickedQuantity = 0;
@@ -495,14 +483,6 @@ public class MainActivity extends AppCompatActivity {
                         buttonSizeMinus.setBackgroundResource(R.drawable.button_style);
                         buttonSizePlus.setBackgroundResource(R.drawable.button_style);
                         buttonSizePlus.setTextColor(getResources().getColor(R.color.colorWhite));
-                        display = null;
-                        identifier = null;
-                        clicked = null;
-
-                        buttonArray = null;
-                        buttonArrayID = null;
-
-                        System.gc();
 
                         buttonID = 1000;
 
@@ -514,7 +494,6 @@ public class MainActivity extends AppCompatActivity {
                         display = new int[xSize][ySize];
                         identifier = new int[xSize][ySize];
                         clicked = new Boolean[xSize][ySize];
-
                         buttonArray = new Button[xSize][ySize];
                         buttonArrayID = new int[xSize][ySize];
 
@@ -647,9 +626,9 @@ public class MainActivity extends AppCompatActivity {
 
     public void changeColor(int colorID) {
 
-        ((ConstraintLayout) constraintLayout1).setBackgroundColor(getResources().getColor(colorID));
-        ((ConstraintLayout) constraintLayout2).setBackgroundColor(getResources().getColor(colorID));
-        ((TextView) myTextView).setBackgroundColor(getResources().getColor(colorID));
+        constraintLayout1.setBackgroundColor(getResources().getColor(colorID));
+        constraintLayout2.setBackgroundColor(getResources().getColor(colorID));
+        myTextView.setBackgroundColor(getResources().getColor(colorID));
 
     }
 
@@ -686,13 +665,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }
-
-
-
-
-
-
-
 
     }
 
