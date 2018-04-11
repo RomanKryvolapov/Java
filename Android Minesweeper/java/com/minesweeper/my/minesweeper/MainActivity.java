@@ -3,6 +3,7 @@ package com.minesweeper.my.minesweeper;
 // Новая версия может изменять размер поля
 // Содержит супер мега код по генерации и привязке кнопок
 // В будущем хочу сделать покрасивей, задействовав XML
+
 import android.graphics.Point;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
@@ -17,6 +18,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
 import java.util.Random;
 
 
@@ -29,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
     static int x1 = 0;
     static int y1 = 0;
 
-    static int xSize = 14;
+    static int xSize = 16;
     static int ySize = 14;
 
     int display[][] = new int[xSize][ySize];
@@ -122,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
                 buttonArray[x][y].setId(buttonID);
                 buttonArray[x][y].setGravity(Gravity.CENTER);
                 buttonArray[x][y].setTextColor(getResources().getColor(R.color.colorWhite));
-                buttonArray[x][y].setBackgroundColor(getResources().getColor(R.color.colorButton));
+                buttonArray[x][y].setBackgroundResource(R.drawable.button_style);
                 constraintLayout2.addView(buttonArray[x][y]);
             }
         }
@@ -249,6 +251,7 @@ public class MainActivity extends AppCompatActivity {
         myTextView.setText("Some text");
         myTextView.setGravity(Gravity.CENTER);
         myTextView.setTextColor(getResources().getColor(R.color.colorWhite));
+        myTextView.setBackgroundResource(R.drawable.button_style);
         myTextView.setBackgroundColor(getResources().getColor(R.color.constraintLayout1));
 
         buttonReset = new Button(this);
@@ -257,7 +260,7 @@ public class MainActivity extends AppCompatActivity {
         buttonReset.setText("RESET");
         buttonReset.setGravity(Gravity.CENTER);
         buttonReset.setTextColor(getResources().getColor(R.color.colorWhite));
-        buttonReset.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+        buttonReset.setBackgroundResource(R.drawable.button_style);
 
 
         buttonSizePlus = new Button(this);
@@ -266,7 +269,7 @@ public class MainActivity extends AppCompatActivity {
         buttonSizePlus.setText("SIZE +");
         buttonSizePlus.setGravity(Gravity.CENTER);
         buttonSizePlus.setTextColor(getResources().getColor(R.color.colorWhite));
-        buttonSizePlus.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+        buttonSizePlus.setBackgroundResource(R.drawable.button_style);
 
         buttonSizeMinus = new Button(this);
         int buttonSizeMinusID = 10006;
@@ -274,7 +277,7 @@ public class MainActivity extends AppCompatActivity {
         buttonSizeMinus.setText("SIZE -");
         buttonSizeMinus.setGravity(Gravity.CENTER);
         buttonSizeMinus.setTextColor(getResources().getColor(R.color.colorWhite));
-        buttonSizeMinus.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+        buttonSizeMinus.setBackgroundResource(R.drawable.button_style);
 
         constraintLayout1.addView(myTextView);
         constraintLayout1.addView(buttonReset);
@@ -340,8 +343,9 @@ public class MainActivity extends AppCompatActivity {
         button.setOnTouchListener(new View.OnTouchListener() {
             int buttonText = display[x1][y1];
             Button buttonNext = buttonArray[x1][y1];
+            int x2 = x1;
+            int y2 = y1;
             Boolean clicked1 = false;
-
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (!gameOver && !clicked1) {
@@ -354,24 +358,25 @@ public class MainActivity extends AppCompatActivity {
                             if (buttonText == 9) {
                                 gameOver = true;
                                 ((Button) buttonNext).setText("M");
-                                ((Button) buttonNext).setBackgroundColor(getResources().getColor(R.color.colorGameOver));
                                 changeColor(R.color.colorGameOver);
                                 testOut1();
 
                             } else if (clickedQuantity == 1) {
+                                ((Button) buttonNext).setBackgroundResource(R.drawable.button_style_win);
                                 constraintLayout2.setBackgroundColor(getResources().getColor(R.color.colorGameWin));
                                 changeColor(R.color.colorGameWin);
                                 testOut3();
 
                             } else {
                                 clickedQuantity--;
-                                ((Button) buttonNext).setBackgroundColor(getResources().getColor(R.color.colorButtonOnClick));
+                                ((Button) buttonNext).setBackgroundResource(R.drawable.button_style_clicked);
                                 ((Button) buttonNext).setText(Integer.toString(buttonText));
                             }
                             break;
                         case MotionEvent.ACTION_UP:
-                            ((Button) buttonNext).setBackgroundColor(getResources().getColor(R.color.colorWhite));
+                            ((Button) buttonNext).setBackgroundResource(R.drawable.button_style_white);
                             ((Button) buttonNext).setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                            clicked[x2][y2]=true;
                             clicked1 = true;
                             return true;
                         case MotionEvent.ACTION_MOVE:
@@ -407,6 +412,19 @@ public class MainActivity extends AppCompatActivity {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
 
+                        buttonSizeMinus.setBackgroundResource(R.drawable.button_style_white);
+                        buttonSizeMinus.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+
+
+
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        buttonReset.setBackgroundResource(R.drawable.button_style);
+                        buttonSizePlus.setBackgroundResource(R.drawable.button_style);
+                        buttonSizeMinus.setBackgroundResource(R.drawable.button_style);
+                        buttonSizeMinus.setTextColor(getResources().getColor(R.color.colorWhite));
+
+
                         display = null;
                         identifier = null;
                         clicked = null;
@@ -441,6 +459,7 @@ public class MainActivity extends AppCompatActivity {
 
                         clickedQuantity = 0;
                         changeColor(R.color.colorPrimary);
+
                         clickedTOfalse();
                         Quantity = 0;
                         displayTOzero();
@@ -451,8 +470,7 @@ public class MainActivity extends AppCompatActivity {
                         gameOver = false;
                         mineRender();
 
-                        break;
-                    case MotionEvent.ACTION_UP:
+
                         return true;
                     case MotionEvent.ACTION_MOVE:
                         break;
@@ -468,6 +486,15 @@ public class MainActivity extends AppCompatActivity {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
 
+                        buttonSizePlus.setBackgroundResource(R.drawable.button_style_white);
+                        buttonSizePlus.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        buttonReset.setBackgroundResource(R.drawable.button_style);
+                        buttonSizeMinus.setBackgroundResource(R.drawable.button_style);
+                        buttonSizePlus.setBackgroundResource(R.drawable.button_style);
+                        buttonSizePlus.setTextColor(getResources().getColor(R.color.colorWhite));
                         display = null;
                         identifier = null;
                         clicked = null;
@@ -484,8 +511,6 @@ public class MainActivity extends AppCompatActivity {
                             xSize+=1;
                             ySize+=1;
                         }
-
-
                         display = new int[xSize][ySize];
                         identifier = new int[xSize][ySize];
                         clicked = new Boolean[xSize][ySize];
@@ -512,8 +537,6 @@ public class MainActivity extends AppCompatActivity {
                         gameOver = false;
                         mineRender();
 
-                        break;
-                    case MotionEvent.ACTION_UP:
                         return true;
                     case MotionEvent.ACTION_MOVE:
                         break;
@@ -527,9 +550,9 @@ public class MainActivity extends AppCompatActivity {
 
     public void mineRender() {
 
-        for (int y = 0; y < ySize; y++) {
+        for (int x = 0; x < xSize; x++) {
             y1 = 0;
-            for (int x = 0; x < xSize; x++) {
+            for (int y = 0; y < ySize; y++) {
                 mineListener();
                 y1++;
             }
@@ -555,9 +578,13 @@ public class MainActivity extends AppCompatActivity {
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-                        reset();
+                        buttonReset.setBackgroundResource(R.drawable.button_style_white);
+                        buttonReset.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
                         break;
                     case MotionEvent.ACTION_UP:
+                        buttonReset.setBackgroundResource(R.drawable.button_style);
+                        buttonReset.setTextColor(getResources().getColor(R.color.colorWhite));
+                        reset();
                         return true;
                     case MotionEvent.ACTION_MOVE:
                         break;
@@ -638,33 +665,48 @@ public class MainActivity extends AppCompatActivity {
 
     public void testOut1() {
         changeColor(R.color.colorGameOver);
-        TextView vivod = (TextView) myTextView;
-        //vivod.setText("Game Over!");
-        for (int y = 0; y < ySize; y++) {
+        myTextView.setText("Game Over!");
+        buttonReset.setBackgroundResource(R.drawable.button_style_game_over);
+        buttonSizePlus.setBackgroundResource(R.drawable.button_style_game_over);
+        buttonSizeMinus.setBackgroundResource(R.drawable.button_style_game_over);
+
+        for(int y=0; y<ySize; y++) {
             for (int x = 0; x < xSize; x++) {
                 if (display[x][y] != 9) {
-                    if (clicked[x][y]) {
-                        Button button = (Button) buttonArray[x][y];
-                        button.setText(Integer.toString(display[x][y]));
+                    if (!clicked[x][y]) {
+                        buttonArray[x][y].setBackgroundResource(R.drawable.button_style_game_over);
+                        buttonArray[x][y].setText(Integer.toString(display[x][y]));
+                        buttonArray[x][y].setTextColor(getResources().getColor(R.color.colorWhite));
                     }
+
                 } else {
-                    Button button = (Button) buttonArray[x][y];
-                    button.setText("M");
-                    button.setBackgroundColor(getResources().getColor(R.color.colorGameOver));
+                    buttonArray[x][y].setText("M");
+                    buttonArray[x][y].setBackgroundResource(R.drawable.button_style_white);
+                    buttonArray[x][y].setTextColor(getResources().getColor(R.color.colorPrimaryDark));
                 }
             }
         }
+
+
+
+
+
+
+
 
     }
 
     public void testOut2() {
         changeColor(R.color.colorPrimary);
+        buttonReset.setBackgroundResource(R.drawable.button_style);
+        buttonSizePlus.setBackgroundResource(R.drawable.button_style);
+        buttonSizeMinus.setBackgroundResource(R.drawable.button_style);
         for (int y = 0; y < ySize; y++) {
             for (int x = 0; x < xSize; x++) {
                 Button button = (Button) buttonArray[x][y];
                 button.setText("");
                 button.setTextColor(getResources().getColor(R.color.colorWhite));
-                button.setBackgroundColor(getResources().getColor(R.color.colorButton));
+                button.setBackgroundResource(R.drawable.button_style);
                 if (display[x][y] != 9) {
                     clickedQuantity++;
                 }
@@ -676,6 +718,9 @@ public class MainActivity extends AppCompatActivity {
     public void testOut3() {
         changeColor(R.color.colorGameWin);
         TextView vivod = (TextView) myTextView;
+        buttonReset.setBackgroundResource(R.drawable.button_style_win);
+        buttonSizePlus.setBackgroundResource(R.drawable.button_style_win);
+        buttonSizeMinus.setBackgroundResource(R.drawable.button_style_win);
         vivod.setText("You Win!");
         for (int y = 0; y < ySize; y++) {
             for (int x = 0; x < xSize; x++) {
@@ -687,7 +732,7 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     Button button = (Button) buttonArray[x][y];
                     button.setText("M");
-                    button.setBackgroundColor(getResources().getColor(R.color.colorGameWin));
+                    button.setBackgroundResource(R.drawable.button_style_win);
                 }
             }
         }
