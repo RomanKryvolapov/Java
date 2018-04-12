@@ -31,19 +31,20 @@ public class MainActivity extends AppCompatActivity {
     static int clickedQuantity = 0;
     static int minePercent = 15;
     static int Quantity = 0;
-    Boolean gameOver = false;
+    boolean gameOver = false;
     static int x1 = 0;
     static int y1 = 0;
 
-    static int xSize = 12;
+    static int xSize = 11;
     static int ySize = 10;
 
     int display[][] = new int[xSize][ySize];
     int identifier[][] = new int[xSize][ySize];
-    Boolean clicked[][] = new Boolean[xSize][ySize];
-
+    boolean clicked[][] = new boolean[xSize][ySize];
+    boolean zeroMap[][] = new boolean[xSize][ySize];
     static Button buttonArray[][] = new Button[xSize][ySize];
     static int buttonArrayID[][] = new int[xSize][ySize];
+
     static final int layout1Height = 14;
     static final int buttonMargin = 3;
     static int buttonID = 1000;
@@ -120,10 +121,127 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void setStatusBarColor(int color) {
-        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) { return; }
-        Window window = getWindow();
-        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        window.setStatusBarColor(ContextCompat.getColor(this, color));
+        if (Build.VERSION.SDK_INT >= 21) {
+            Window window = getWindow();
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(ContextCompat.getColor(this, color));
+        }
+    }
+
+    void openZeroWhile(int x4, int y4){
+        boolean nullZero = true;
+        openZero(x4,y4);
+        while (nullZero) {
+            for (int y = 0; y < ySize; y++) {
+                for (int x = 0; x < xSize; x++) {
+                    if (zeroMap[x][y]) {
+                        openZero(x,y);
+                    }
+                }
+            }
+            nullZero = false;
+            for (int y = 0; y < ySize; y++) {
+                for (int x = 0; x < xSize; x++) {
+                    if (zeroMap[x][y]) {
+                        nullZero = true;
+                    }
+                }
+            }
+        }
+    }
+
+    void openZero(int x3, int y3) {
+        clicked[x3][y3]=true;
+        zeroMap[x3][y3]=false;
+        if (y3 < ySize - 1)
+        {
+            if (display[x3][y3 + 1] == 0 && !clicked[x3][y3 + 1])
+            {
+                zeroMap[x3][y3 + 1] = true;
+            }
+            makeClicked(x3, y3 + 1);
+        }
+        if (y3 > 0)
+        {
+            if (display[x3][y3 - 1] == 0 && !clicked[x3][y3 - 1])
+            {
+                zeroMap[x3][y3 - 1] = true;
+            }
+            makeClicked(x3, y3 - 1);
+        }
+        if (x3 < xSize - 1)
+        {
+            if (display[x3 + 1][y3] == 0 && !clicked[x3 + 1][y3])
+            {
+                zeroMap[x3 + 1][y3] = true;
+            }
+            makeClicked(x3 + 1, y3);
+        }
+        if (x3 > 0)
+        {
+            if (display[x3 - 1][y3] == 0 && !clicked[x3 - 1][y3])
+            {
+                zeroMap[x3 - 1][y3] = true;
+            }
+            makeClicked(x3 - 1, y3);
+        }
+        if (x3 < xSize - 1 && y3 < ySize - 1)
+        {
+            if (display[x3 + 1][y3 + 1] == 0 && !clicked[x3 + 1][y3 + 1])
+            {
+                zeroMap[x3 + 1][y3 + 1] = true;
+            }
+            makeClicked(x3 + 1, y3 + 1);
+        }
+        if (x3 > 0 && y3 > 0)
+        {
+            if (display[x3 - 1][y3 - 1] == 0 && !clicked[x3 - 1][y3 - 1])
+            {
+                zeroMap[x3 - 1][y3 - 1] = true;
+            }
+            makeClicked(x3 - 1, y3 - 1);
+        }
+        if (x3 < xSize - 1 && y3 > 0)
+        {
+            if (display[x3 + 1][y3 - 1] == 0 && !clicked[x3 + 1][y3 - 1])
+            {
+                zeroMap[x3 + 1][y3 - 1] = true;
+            }
+            makeClicked(x3 + 1, y3 - 1);
+        }
+        if (x3 > 0 && y3 < ySize - 1)
+        {
+            if (display[x3 - 1][y3 + 1] == 0 && !clicked[x3 - 1][y3 + 1])
+            {
+                zeroMap[x3 - 1][y3 + 1] = true;
+            }
+            makeClicked(x3 - 1, y3 + 1);
+        }
+
+    }
+
+    void makeClicked(int x4, int y4) {
+        if (!clicked[x4][y4]) {
+            if (clickedQuantity > 1) {
+                clickedQuantity--;
+                buttonArray[x4][y4].setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                buttonArray[x4][y4].setBackgroundResource(R.drawable.button_style_white);
+                if (display[x4][y4] != 0)
+                    buttonArray[x4][y4].setText(Integer.toString(display[x4][y4]));
+                clicked[x4][y4] = true;
+                mineQuantity();
+            }
+         else{
+                buttonArray[x4][y4].setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                buttonArray[x4][y4].setBackgroundResource(R.drawable.button_style_white);
+                if (display[x4][y4] != 0)
+                    buttonArray[x4][y4].setText(Integer.toString(display[x4][y4]));
+                changeColor(R.color.colorGameWin);
+                testOut3();
+
+            }
+        }
     }
 
     void createButtons() {
@@ -351,8 +469,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void mineListener() {
-        Button button = (Button) buttonArray[x1][y1];
-        button.setOnTouchListener(new View.OnTouchListener() {
+
+        buttonArray[x1][y1].setOnTouchListener(new View.OnTouchListener() {
             int buttonText = display[x1][y1];
             Button buttonNext = buttonArray[x1][y1];
             int x2 = x1;
@@ -369,32 +487,28 @@ public class MainActivity extends AppCompatActivity {
 
                             if (buttonText == 9) {
                                 gameOver = true;
-                                ((Button) buttonNext).setTextColor(getResources().getColor(R.color.colorPrimaryDark));
-                                ((Button) buttonNext).setBackgroundResource(R.drawable.button_style_win);
-                                ((Button) buttonNext).setText("M");
+                                buttonNext.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                                buttonNext.setBackgroundResource(R.drawable.button_style_win);
+                                buttonNext.setText("M");
                                 changeColor(R.color.colorGameOver);
                                 testOut1();
-
-                            } else if (clickedQuantity == 1) {
-                                ((Button) buttonNext).setTextColor(getResources().getColor(R.color.colorPrimaryDark));
-                                ((Button) buttonNext).setBackgroundResource(R.drawable.button_style_win);
-                                ((Button) buttonNext).setText(Integer.toString(buttonText));
-                                changeColor(R.color.colorGameWin);
-                                testOut3();
-
                             } else {
-                                clickedQuantity--;
-                                ((Button) buttonNext).setTextColor(getResources().getColor(R.color.colorPrimaryDark));
-                                ((Button) buttonNext).setBackgroundResource(R.drawable.button_style_white);
-                                ((Button) buttonNext).setText(Integer.toString(buttonText));
+                                makeClicked(x2, y2);
+                                if(buttonText == 0)
+                                    openZeroWhile(x2, y2);
                             }
                             break;
                         case MotionEvent.ACTION_UP:
-                            ((Button) buttonNext).setBackgroundResource(R.drawable.button_style_white);
+                            buttonNext.setBackgroundResource(R.drawable.button_style_white);
                             clicked[x2][y2]=true;
                             clicked1 = true;
                             return true;
                         case MotionEvent.ACTION_MOVE:
+                            break;
+                        case MotionEvent.ACTION_CANCEL:
+                            buttonNext.setBackgroundResource(R.drawable.button_style_white);
+                            clicked[x2][y2]=true;
+                            clicked1 = true;
                             break;
                     }
                 }
@@ -420,8 +534,7 @@ public class MainActivity extends AppCompatActivity {
 
     void PlusMinusListiner(){
 
-        Button button = (Button) buttonSizeMinus;
-        button.setOnTouchListener(new View.OnTouchListener() {
+        buttonSizeMinus.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
@@ -447,7 +560,8 @@ public class MainActivity extends AppCompatActivity {
 
                         display = new int[xSize][ySize];
                         identifier = new int[xSize][ySize];
-                        clicked = new Boolean[xSize][ySize];
+                        clicked = new boolean[xSize][ySize];
+                        zeroMap = new boolean[xSize][ySize];
                         buttonArray = new Button[xSize][ySize];
                         buttonArrayID = new int[xSize][ySize];
 
@@ -479,8 +593,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button button1 = (Button) buttonSizePlus;
-        button1.setOnTouchListener(new View.OnTouchListener() {
+        buttonSizePlus.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
@@ -503,9 +616,11 @@ public class MainActivity extends AppCompatActivity {
                             xSize+=1;
                             ySize+=1;
                         }
+
                         display = new int[xSize][ySize];
                         identifier = new int[xSize][ySize];
-                        clicked = new Boolean[xSize][ySize];
+                        clicked = new boolean[xSize][ySize];
+                        zeroMap = new boolean[xSize][ySize];
                         buttonArray = new Button[xSize][ySize];
                         buttonArrayID = new int[xSize][ySize];
 
@@ -558,13 +673,14 @@ public class MainActivity extends AppCompatActivity {
         for (int y = 0; y < ySize; y++) {
             for (int x = 0; x < xSize; x++) {
                 clicked[x][y] = false;
+                zeroMap[x][y] = false;
             }
         }
     }
 
     public void resetListener() {
-        Button button = (Button) buttonReset;
-        button.setOnTouchListener(new View.OnTouchListener() {
+
+        buttonReset.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
@@ -648,7 +764,7 @@ public class MainActivity extends AppCompatActivity {
     public void mineQuantity() {
         if (clickedQuantity != 0) {
             TextView vivod = (TextView) myTextView;
-            vivod.setText("Deactivate " + (clickedQuantity - 1));
+            vivod.setText("Deactivate " + (clickedQuantity));
         } else {
             TextView vivod = (TextView) myTextView;
             vivod.setText("Deactivate " + (xSize * ySize - Quantity));
@@ -661,20 +777,19 @@ public class MainActivity extends AppCompatActivity {
         buttonReset.setBackgroundResource(R.drawable.button_style_game_over);
         buttonSizePlus.setBackgroundResource(R.drawable.button_style_game_over);
         buttonSizeMinus.setBackgroundResource(R.drawable.button_style_game_over);
-
         for(int y=0; y<ySize; y++) {
             for (int x = 0; x < xSize; x++) {
-                if (display[x][y] != 9) {
+                if (display[x][y] == 9) {
+                    buttonArray[x][y].setText("M");
+                    buttonArray[x][y].setBackgroundResource(R.drawable.button_style_game_over_mine);
+                    buttonArray[x][y].setTextColor(getResources().getColor(R.color.colorWhite));
+                } else {
                     if (!clicked[x][y]) {
                         buttonArray[x][y].setBackgroundResource(R.drawable.button_style_game_over);
+                        if(display[x][y]!=0)
                         buttonArray[x][y].setText(Integer.toString(display[x][y]));
                         buttonArray[x][y].setTextColor(getResources().getColor(R.color.colorWhite));
                     }
-
-                } else {
-                    buttonArray[x][y].setText("M");
-                    buttonArray[x][y].setBackgroundResource(R.drawable.button_style_white);
-                    buttonArray[x][y].setTextColor(getResources().getColor(R.color.colorPrimaryDark));
                 }
             }
         }
@@ -688,10 +803,9 @@ public class MainActivity extends AppCompatActivity {
         buttonSizeMinus.setBackgroundResource(R.drawable.button_style);
         for (int y = 0; y < ySize; y++) {
             for (int x = 0; x < xSize; x++) {
-                Button button = (Button) buttonArray[x][y];
-                button.setText("");
-                button.setTextColor(getResources().getColor(R.color.colorWhite));
-                button.setBackgroundResource(R.drawable.button_style);
+                buttonArray[x][y].setText("");
+                buttonArray[x][y].setBackgroundResource(R.drawable.button_style);
+                buttonArray[x][y].setTextColor(getResources().getColor(R.color.colorWhite));
                 if (display[x][y] != 9) {
                     clickedQuantity++;
                 }
@@ -702,22 +816,23 @@ public class MainActivity extends AppCompatActivity {
 
     public void testOut3() {
         changeColor(R.color.colorGameWin);
-        TextView vivod = (TextView) myTextView;
+        myTextView.setText("You Win!");
         buttonReset.setBackgroundResource(R.drawable.button_style_win);
         buttonSizePlus.setBackgroundResource(R.drawable.button_style_win);
         buttonSizeMinus.setBackgroundResource(R.drawable.button_style_win);
-        vivod.setText("You Win!");
         for (int y = 0; y < ySize; y++) {
             for (int x = 0; x < xSize; x++) {
-                if (display[x][y] != 9) {
-                    if (clicked[x][y]) {
-                        Button button = (Button) buttonArray[x][y];
-                        button.setText(Integer.toString(display[x][y]));
-                    }
+                if(display[x][y] == 9) {
+                    buttonArray[x][y].setText("M");
+                    buttonArray[x][y].setBackgroundResource(R.drawable.button_style_win);
+                    buttonArray[x][y].setTextColor(getResources().getColor(R.color.colorWhite));
                 } else {
-                    Button button = (Button) buttonArray[x][y];
-                    button.setText("M");
-                    button.setBackgroundResource(R.drawable.button_style_win);
+                    if (!clicked[x][y]) {
+                        buttonArray[x][y].setBackgroundResource(R.drawable.button_style_white);
+                        if(display[x][y]!=0)
+                            buttonArray[x][y].setText(Integer.toString(display[x][y]));
+                        buttonArray[x][y].setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                    }
                 }
             }
         }
