@@ -40,6 +40,9 @@ public class MainActivity extends AppCompatActivity {
     final static int textSize = 80;
     final static int maxDigitSize = 25;
     static float xTouch;
+    static boolean doubleTochka = false;
+    static boolean isDigit = false;
+    static int skobkiNumber = 0;
 
     Button button1;
     Button button2;
@@ -381,6 +384,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void onClickC()
     {
+        skobkiNumber=0;
+        doubleTochka=false;
         digits.clear();
         operators.clear();
         proirity.clear();
@@ -397,44 +402,142 @@ public class MainActivity extends AppCompatActivity {
         // Выводит на верхний экран
         boolean add = true;
 
-        if(display.length()>0&&in.equals("(")) {
-            switch (display.charAt(display.length()-1)) {
-                case '+':
-                case '-':
-                case '*':
-                case '/':
-                case '(':
-                    add = true;
-                    break;
-                default:
+        switch (in) {
+            case "1":
+            case "2":
+            case "3":
+            case "4":
+            case "5":
+            case "6":
+            case "7":
+            case "8":
+            case "9":
+            case "0":
+                if (display.length() > 0) {
+                    if (display.charAt(display.length() - 1) == (')'))
+                        add = false;
+                    if(display.length() == 1)
+                        if(display.charAt(display.length() - 1) == ('0'))
+                            add = false;
+                    if(display.length() > 1) {
+                        if(display.charAt(display.length() - 1) == ('0'))
+                        {
+                            switch (display.charAt(display.length() - 2)) {
+                                case '+':
+                                case '-':
+                                case '*':
+                                case '/':
+                                    add = false;
+                                break;
+                        }
+                        }
+                    }
+                }
+                break;
+            case ".":
+                if (display.length() == 0)
                     add = false;
-                    break;
-            }
-        }
-            if(display.length()==0&&(in.equals(")")||in.equals("+")||in.equals("-")||in.equals("*")||in.equals("/")))
-                add=false;
-
-        if(display.length()>0&&(in.equals(")")||in.equals("+")||in.equals("-")||in.equals("*")||in.equals("/"))) {
-            switch (display.charAt(display.length()-1)) {
-                case '1':
-                case '2':
-                case '3':
-                case '4':
-                case '5':
-                case '6':
-                case '7':
-                case '8':
-                case '9':
-                case '0':
-                case ')':
-                    add = true;
-                    break;
-                default:
+                else if (display.length() > 0) {
+                    switch (display.charAt(display.length() - 1)) {
+                        case '+':
+                        case '-':
+                        case '*':
+                        case '/':
+                        case '(':
+                        case '.':
+                            add = false;
+                            break;
+                        default:
+                            boolean cycle1 = true;
+                            for (int i = 0; i < display.length()&&cycle1; i++) {
+                                switch (display.charAt(display.length() - i-1)) {
+                                    case '.':
+                                        add=false;
+                                        cycle1=false;
+                                        break;
+                                    case '+':
+                                    case '-':
+                                    case '*':
+                                    case '/':
+                                        cycle1=false;
+                                        break;
+                                }
+                            }
+                            break;
+                    }
+                } else if (display.length() > 0 && doubleTochka)
                     add = false;
-                    break;
-            }
+                break;
+            case "+":
+            case "-":
+            case "*":
+            case "/":
+                if (display.length() == 0)
+                    add = false;
+                else if (display.length() > 0) {
+                    switch (display.charAt(display.length() - 1)) {
+                        case '+':
+                        case '-':
+                        case '*':
+                        case '/':
+                        case '(':
+                        case '.':
+                            add = false;
+                            break;
+                        default:
+                            add = true;
+                            break;
+                    }
+                    doubleTochka = false;
+                }
+                break;
+            case "(":
+                if (display.length() > 0) {
+                    switch (display.charAt(display.length() - 1)) {
+                        case '+':
+                        case '-':
+                        case '*':
+                        case '/':
+                        case '(':
+                            add = true;
+                            break;
+                        default:
+                            add = false;
+                            break;
+                    }
+                }
+                break;
+            case ")":
+                if (display.length() == 0)
+                    add = false;
+                else if (display.length() > 0) {
+                    switch (display.charAt(display.length() - 1)) {
+                        case '+':
+                        case '-':
+                        case '*':
+                        case '/':
+                        case '(':
+                        case '.':
+                            add = false;
+                            break;
+                        default:
+                            int cycleInt = 0;
+                            for (int i = 0; i < display.length(); i++) {
+                                switch (display.charAt(display.length() - i-1)) {
+                                    case '(':
+                                        cycleInt++;
+                                        break;
+                                    case ')':
+                                        cycleInt--;
+                                        break;
+                                }
+                            }
+                            if(cycleInt<=0)
+                                add=false;
+                            break;
+                    }
+                }
         }
-
         if(add) {
             display = MainActivity.stringBufferAdd(display, in);
         }
