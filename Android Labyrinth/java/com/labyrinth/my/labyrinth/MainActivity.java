@@ -1,5 +1,5 @@
 package com.labyrinth.my.labyrinth;
-
+// made by Roman Kryvolapov
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -36,17 +36,16 @@ import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static float xCoordFloat = 0;
-    private static float yCoornFloat = 0;
+
     public static int xCoord = 0;
     public static int yCoorn = 0;
     public static int xCorrection = 0;
     public static int yCorrection = 0;
     public static int xSize = 0;
     public static int ySize = 0;
-    public static int correction_1 = 14;
-    public static int correction_2 = 20;
-    public static int correction_3 = 90;
+    public static int correction_1 = 50;
+    public static int correction_2 = 30;
+    public static int correction_3 = 150;
     public static int xFormCorrection = 20;
     public static int yFormCorrection = 28;
 
@@ -96,6 +95,9 @@ public class MainActivity extends AppCompatActivity {
                                 if (e.getY() < yArray[x][y] + correction_3 + yCorrection && e.getY() > yArray[x][y] + correction_2 + yCorrection) {
                                     if(!closedArray[x][y + 1])
                                     xyArrey[x][y + 1] = true;
+                                    if(y>60)
+
+                                        newNEW();
                                 }
                             }
 
@@ -108,8 +110,11 @@ public class MainActivity extends AppCompatActivity {
 
                             if (e.getX() > xArray[x][y] - correction_1 + xCorrection && e.getX() < xArray[x][y] + correction_1 + xCorrection) {
                                 if (e.getY() > yArray[x][y] - correction_3 + yCorrection && e.getY() < yArray[x][y] - correction_2 + yCorrection) {
-                                    if(!closedArray[x][y - 1])
-                                    xyArrey[x][y - 1] = true;
+                                    if(!closedArray[x][y - 1]) {
+                                        xyArrey[x][y - 1] = true;
+                                        if(y<4)
+                                            newNEW();
+                                    }
                                 }
                             }
 
@@ -171,7 +176,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(new MySurfaceView(this));
 
 
-
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
@@ -191,14 +195,9 @@ public class MainActivity extends AppCompatActivity {
        // xyArrey[2][3]=true;
 
 
-
-        Ellers ellers = new Ellers(30,30);
+        Ellers ellers = new Ellers(29,29);
         ellers.makeMaze();
         ellers.printMaze();
-
-
-
-
 
 
             for (int i = 30; i < 100; i++) {
@@ -254,6 +253,39 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
+
+    }
+
+    public void newNEW(){
+
+
+        xArray = new int[100][100];
+        yArray = new int[100][100];
+
+        xyArrey = new boolean[100][100];
+        closedArray = new boolean[100][100];
+
+
+
+        for (int x = 0; x < xArray.length; x++) {
+            for (int y = 0; y < yArray.length; y++) {
+                xArray[x][y]=x*xFormCorrection;
+                yArray[x][y]=y*yFormCorrection;
+            }
+        }
+
+        Ellers ellers = new Ellers(29,29);
+        ellers.makeMaze();
+        ellers.printMaze();
+
+
+        for (int i = 30; i < 100; i++) {
+            if(!closedArray[i][30]) {
+                xyArrey[i][30] = true;
+                break;
+            }
+        }
 
 
     }
@@ -358,18 +390,18 @@ class Draw2D extends View{
 
 //        canvas.drawCircle(width - 30, 30, 25, mPaint);
 
-        // Рисуем зеленый прямоугольник
+
 //        mPaint.setColor(Color.BLACK);
           canvas.drawRect(800, 800, 2000, 2000, mPaint);
 //        canvas.drawRect(0, canvas.getHeight() - 30, width, height, mPaint);
-        // Рисуем текст
+
 //        mPaint.setColor(Color.BLUE);
 //        mPaint.setStyle(Paint.Style.FILL);
 //        mPaint.setAntiAlias(true);
 //        mPaint.setTextSize(32);
 //
 //          canvas.drawText(Integer.toString(canvas.getWidth()) + Integer.toString(canvas.getHeight()), 30, 648, mPaint);
-//        canvas.drawText("Лужайка только для котов", 30, height - 32, mPaint);
+//        canvas.drawText("Some text", 30, height - 32, mPaint);
 //        // Текст под углом
 //        // int x = 810;
 //        int x = width - 170;
@@ -377,7 +409,7 @@ class Draw2D extends View{
 
         mPaint.setColor(Color.GRAY);
         mPaint.setTextSize(27);
-        String beam = "Лучик солнца!";
+        String beam = "Some text";
 
         canvas.save();
         // Создаем ограничивающий прямоугольник для наклонного текста
@@ -507,6 +539,9 @@ class DrawThread extends Thread{
 
         Canvas canvas;
 
+        boolean oneCheck = true;
+
+
 
 
 
@@ -526,26 +561,30 @@ class DrawThread extends Thread{
             try {
                 // получаем объект Canvas и выполняем отрисовку
                 canvas = surfaceHolder.lockCanvas(null);
+
+
                 synchronized (surfaceHolder) {
-                   // canvas.drawColor(Color.BLACK);
-                    MainActivity.xCorrection = MainActivity.xSize - canvas.getWidth();
-                    MainActivity.yCorrection = MainActivity.ySize - canvas.getHeight();
+                    try{
+
+                    // canvas.drawColor(Color.BLACK);
 
 
-
-                    // стиль Заливка
-//                    mPaint.setStyle(Paint.Style.FILL);
-                    // закрашиваем холст белым цветом
-//                    mPaint.setColor(Color.WHITE);
-//                    canvas.drawPaint(mPaint);
-
-//                    mPaint.setAntiAlias(true);
+                    if (oneCheck) {
+                        MainActivity.xCorrection = MainActivity.xSize - canvas.getWidth();
+                        MainActivity.yCorrection = MainActivity.ySize - canvas.getHeight();
+                    }
+                    oneCheck = false;
 
 
+//                     стиль Заливка
+                    mPaint.setStyle(Paint.Style.FILL);
+//                     закрашиваем холст белым цветом
+                    mPaint.setColor(Color.WHITE);
+                    canvas.drawPaint(mPaint);
 
+                    mPaint.setAntiAlias(true);
 
-
-
+                    canvas.drawRect(0, 0, canvas.getWidth(), canvas.getHeight(), mPaint);
 
 
                     try {
@@ -554,13 +593,13 @@ class DrawThread extends Thread{
 
                         for (int x = 0; x < MainActivity.xArray.length; x++) {
                             for (int y = 0; y < MainActivity.yArray.length; y++) {
-                                if(MainActivity.closedArray[x][y])
+                                if (MainActivity.closedArray[x][y])
 
-                                    canvas.drawRect(MainActivity.xArray[x][y]-MainActivity.xFormCorrection/2, MainActivity.yArray[x][y]-MainActivity.yFormCorrection/2,
-                                            MainActivity.xArray[x][y]+MainActivity.xFormCorrection/2, MainActivity.yArray[x][y]+MainActivity.yFormCorrection/2, mPaint);
+                                    canvas.drawRect(MainActivity.xArray[x][y] - MainActivity.xFormCorrection / 2, MainActivity.yArray[x][y] - MainActivity.yFormCorrection / 2,
+                                            MainActivity.xArray[x][y] + MainActivity.xFormCorrection / 2, MainActivity.yArray[x][y] + MainActivity.yFormCorrection / 2, mPaint);
 
 
-                                  //  canvas.drawCircle(MainActivity.xArray[x][y], MainActivity.yArray[x][y], 20, mPaint);
+                                //  canvas.drawCircle(MainActivity.xArray[x][y], MainActivity.yArray[x][y], 20, mPaint);
                             }
                         }
 
@@ -568,14 +607,11 @@ class DrawThread extends Thread{
 
                         for (int x = 0; x < MainActivity.xArray.length; x++) {
                             for (int y = 0; y < MainActivity.yArray.length; y++) {
-                                if(MainActivity.xyArrey[x][y])
-                                    canvas.drawRect(MainActivity.xArray[x][y]-MainActivity.xFormCorrection/2, MainActivity.yArray[x][y]-MainActivity.yFormCorrection/2,
-                                            MainActivity.xArray[x][y]+MainActivity.xFormCorrection/2, MainActivity.yArray[x][y]+MainActivity.yFormCorrection/2, mPaint);
+                                if (MainActivity.xyArrey[x][y])
+                                    canvas.drawRect(MainActivity.xArray[x][y] - MainActivity.xFormCorrection / 2, MainActivity.yArray[x][y] - MainActivity.yFormCorrection / 2,
+                                            MainActivity.xArray[x][y] + MainActivity.xFormCorrection / 2, MainActivity.yArray[x][y] + MainActivity.yFormCorrection / 2, mPaint);
                             }
                         }
-
-
-
 
 
 //                        for (xyPoints xy : MainActivity.xyPointsArray) {
@@ -583,27 +619,27 @@ class DrawThread extends Thread{
 //                        }
 
 
-                    }catch (Exception e){
-
+                    } catch (Exception e) {
+                        System.out.println(e);
                     }
 
 //
 
 
-
-
-
                     // Рисуем желтый круг
-
-
-
 
 
 //                    canvas.drawCircle(500, 500, 100, mPaint);
 
 //                    canvas.drawCircle(MainActivity.xCoord, MainActivity.yCoorn, 10, mPaint);
 
-                 //   canvas.drawBitmap(picture, matrix, null);
+                    //   canvas.drawBitmap(picture, matrix, null);
+
+                }catch (Exception e){
+
+                    }
+
+
                 }
             }
             finally {
@@ -874,7 +910,7 @@ class Ellers
         for(int i=0; i<rows; i++){
             for(int j=0; j<cols; j++){
                 if(feild[i][j]=='0')
-                MainActivity.closedArray[i][j]=true;
+                MainActivity.closedArray[i+1][j+3]=true;
               //  System.out.print(feild[i][j]);
             }
          //   System.out.println();
