@@ -1,44 +1,24 @@
 package com.labyrinth.my.labyrinth;
 // made by Roman Kryvolapov
+// Применил алгоритм Эллерса для генерации лабиринта
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-
-import android.content.Context;
 import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Rect;
-import android.view.View;
-
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Random;
-import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
 
-
-    public static int xCoord = 0;
-    public static int yCoorn = 0;
     public static int xCorrection = 0;
     public static int yCorrection = 0;
     public static int xSize = 0;
@@ -46,50 +26,17 @@ public class MainActivity extends AppCompatActivity {
     public static int correction_1 = 50;
     public static int correction_2 = 30;
     public static int correction_3 = 150;
-//    public static int xFormCorrection = 12;
-//    public static int yFormCorrection = 18;
-
     public static int xFormCorrection = 20;
     public static int yFormCorrection = 28;
-
-
-
-
-
-
-
-    public static Set<xyPoints> xyPointsArray = new HashSet<xyPoints>();
-
     public static int[][] xArray = new int[100][100];
     public static int[][] yArray = new int[100][100];
-
     public static boolean[][] xyArrey = new boolean[100][100];
     public static boolean[][] closedArray = new boolean[100][100];
-
-    int capacity;
-    float loadFactor;
-
 
     @Override
     public boolean onTouchEvent(MotionEvent e) {
 
-
-
-
-
-        int action = e.getAction();
-
-      //  if (action == MotionEvent.ACTION_UP) {
-
-//                xCoord = (int) e.getX() - xCorrection;
-//                yCoorn = (int) e.getY() - yCorrection;
-//                xyPoints xyPoints = new xyPoints(xCoord, yCoorn);
-//                xyPointsArray.add(xyPoints);
-
-
-
             try {
-
                 for (int x = 0; x < 100; x++) {
                     for (int y = 0; y < 100; y++) {
                         if(xyArrey[x][y]) {
@@ -99,7 +46,6 @@ public class MainActivity extends AppCompatActivity {
                                     if(!closedArray[x][y + 1])
                                     xyArrey[x][y + 1] = true;
                                     if(y>60)
-
                                         newNEW();
                                 }
                             }
@@ -128,60 +74,21 @@ public class MainActivity extends AppCompatActivity {
                                     xyArrey[x-1][y] = true;
                                 }
                             }
-
-
-
-
-
-
-
-
                         }
-
-
                     }
 
                 }
 
-
-
             }catch (Exception e1){
             }
-
-//
-//        } else if (action == MotionEvent.ACTION_MOVE || action == MotionEvent.ACTION_DOWN) {
-//
-//            try {
-//                for (xyPoints xy : MainActivity.xyPointsArray) {
-//                    if (e.getX() > xy.xPoint + xStep && e.getX() < xy.xPoint + xStep + 50) {
-//                        xStep +=50;
-//                        xyPoints xyPoints = new xyPoints(xStep, 50);
-//                        xyPointsArray.add(xyPoints);
-//                    }
-//                }
-//            }catch (Exception e1){
-//            }
-
-
-
-
-//        }
-//
         return true;
     }
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-
-
-
-
         super.onCreate(savedInstanceState);
         setContentView(new MySurfaceView(this));
-
-
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
@@ -204,7 +111,6 @@ public class MainActivity extends AppCompatActivity {
         if(xSize==480)
             xFormCorrection=8;
 
-
         int a;
 
         for (int x = 0; x < xArray.length; x++) {
@@ -214,13 +120,9 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-       // xyArrey[2][3]=true;
-
-
         Ellers ellers = new Ellers(29,29);
         ellers.makeMaze();
         ellers.printMaze();
-
 
             for (int i = 30; i < 100; i++) {
                 if(!closedArray[i][30]) {
@@ -228,54 +130,6 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 }
             }
-
-
-
-
-//
-
-
-//        super.onCreate(savedInstanceState);
-//
-////        setContentView(R.layout.activity_main);
-//
-//        Draw2D draw2D = new Draw2D(this);
-//        setContentView(draw2D);
-
-
-
-
-
-
-
-
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
-//
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     }
 
@@ -356,105 +210,6 @@ class xyPoints{
     }
 }
 
-
-/*
-
-class Draw2D extends View{
-
-    static int pixelX = 0;
-    static int pixelY = 0;
-
-    private Paint mPaint = new Paint();
-    private Rect mRect = new Rect();
-    private Bitmap mBitmap;
-
-    public Draw2D(Context context) {
-        super(context);
-        Resources res = this.getResources();
-      //  mBitmap = BitmapFactory.decodeResource(res, R.drawable.cat_bottom);
-    }
-
-    @Override
-    protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
-
-        pixelX = canvas.getWidth();
-        pixelY = canvas.getHeight();
-
-        System.out.println(canvas.getWidth());
-        System.out.println(canvas.getHeight());
-
-
-        //invalidate
-        Rect dstRect = new Rect();
-
-        canvas.getClipBounds(dstRect);
-
-
-
-
-
-        int width = canvas.getWidth();
-        int height = canvas.getHeight();
-
-        // стиль Заливка
-        mPaint.setStyle(Paint.Style.FILL);
-        // закрашиваем холст белым цветом
-        mPaint.setColor(Color.WHITE);
-        canvas.drawPaint(mPaint);
-
-        // Рисуем желтый круг
-
-        mPaint.setAntiAlias(true);
-        mPaint.setColor(Color.RED);
-
-        // canvas.drawCircle(950, 30, 25, mPaint);
-
-//        canvas.drawCircle(width - 30, 30, 25, mPaint);
-
-
-//        mPaint.setColor(Color.BLACK);
-          canvas.drawRect(800, 800, 2000, 2000, mPaint);
-//        canvas.drawRect(0, canvas.getHeight() - 30, width, height, mPaint);
-
-//        mPaint.setColor(Color.BLUE);
-//        mPaint.setStyle(Paint.Style.FILL);
-//        mPaint.setAntiAlias(true);
-//        mPaint.setTextSize(32);
-//
-//          canvas.drawText(Integer.toString(canvas.getWidth()) + Integer.toString(canvas.getHeight()), 30, 648, mPaint);
-//        canvas.drawText("Some text", 30, height - 32, mPaint);
-//        // Текст под углом
-//        // int x = 810;
-//        int x = width - 170;
-//        int y = 190;
-
-        mPaint.setColor(Color.GRAY);
-        mPaint.setTextSize(27);
-        String beam = "Some text";
-
-        canvas.save();
-        // Создаем ограничивающий прямоугольник для наклонного текста
-        // поворачиваем холст по центру текста
-//        canvas.rotate(-45, x + mRect.exactCenterX(), y + mRect.exactCenterY());
-
-        // Рисуем текст
-//        mPaint.setStyle(Paint.Style.FILL);
-//        canvas.drawText(beam, x, y, mPaint);
-
-        // восстанавливаем холст
-        canvas.restore();
-
-        // Выводим изображение
-        // canvas.drawBitmap(mBitmap, 450, 530, mPaint);
-//        canvas.drawBitmap(mBitmap, width - mBitmap.getWidth(), height - mBitmap.getHeight() - 10, mPaint);
-    }
-}
-
-
-
-*/
-
 class MySurfaceView extends SurfaceView implements SurfaceHolder.Callback {
     private DrawThread drawThread;
 
@@ -478,14 +233,12 @@ class MySurfaceView extends SurfaceView implements SurfaceHolder.Callback {
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
         boolean retry = true;
-        // завершаем работу потока
         drawThread.setRunning(false);
         while (retry) {
             try {
                 drawThread.join();
                 retry = false;
             } catch (InterruptedException e) {
-                // если не получилось, то будем пытаться еще и еще
             }
         }
     }
@@ -495,133 +248,44 @@ class MySurfaceView extends SurfaceView implements SurfaceHolder.Callback {
 class DrawThread extends Thread{
     private boolean runFlag = false;
     private SurfaceHolder surfaceHolder;
-    private Bitmap picture;
-    private Matrix matrix;
-    private long prevTime;
-
-//
     public DrawThread(SurfaceHolder surfaceHolder, Resources resources){
         this.surfaceHolder = surfaceHolder;
-//
-//        // загружаем картинку, которую будем отрисовывать
-//        picture = BitmapFactory.decodeResource(resources, R.drawable.icon);
-//
-//        // формируем матрицу преобразований для картинки
-//        matrix = new Matrix();
-//        matrix.postScale(3.0f, 3.0f);
-//        matrix.postTranslate(100.0f, 100.0f);
-//
-//        // сохраняем текущее время
-//        prevTime = System.currentTimeMillis();
     }
-
-
-//    public void resetListener() {
-//
-//        buttonReset.setOnTouchListener(new View.OnTouchListener() {
-//            @Override
-//            public boolean onTouch(View v, MotionEvent event) {
-//                switch (event.getAction()) {
-//                    case MotionEvent.ACTION_DOWN:
-//                        buttonReset.setBackgroundResource(R.drawable.button_style_white);
-//                        buttonReset.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
-//                        break;
-//                    case MotionEvent.ACTION_UP:
-//                        buttonReset.setBackgroundResource(R.drawable.button_style);
-//                        buttonReset.setTextColor(getResources().getColor(R.color.colorWhite));
-//                        reset();
-//                        return true;
-//                    case MotionEvent.ACTION_MOVE:
-//                        break;
-//                }
-//                return true;
-//            }
-//        });
-//    }
-
-
-
-
-
-
 
     public void setRunning(boolean run) {
         runFlag = run;
     }
 
-
     @Override
     public void run() {
-
-
-
         Paint mPaint = new Paint();
-
-
-
         Canvas canvas;
-
         boolean oneCheck = true;
-
-
-
-
-
         while (runFlag) {
-            // получаем текущее время и вычисляем разницу с предыдущим
-            // сохраненным моментом времени
-//            long now = System.currentTimeMillis();
-//            long elapsedTime = now - prevTime;
-//            if (elapsedTime > 30){
-//                // если прошло больше 30 миллисекунд - сохраним текущее время
-//                // и повернем картинку на 2 градуса.
-//                // точка вращения - центр картинки
-//                prevTime = now;
-//                matrix.preRotate(2.0f, picture.getWidth() / 2, picture.getHeight() / 2);
-//            }
             canvas = null;
             try {
-                // получаем объект Canvas и выполняем отрисовку
                 canvas = surfaceHolder.lockCanvas(null);
-
-
                 synchronized (surfaceHolder) {
                     try{
-
-                    // canvas.drawColor(Color.BLACK);
-
-
                     if (oneCheck) {
                         MainActivity.xCorrection = MainActivity.xSize - canvas.getWidth();
                         MainActivity.yCorrection = MainActivity.ySize - canvas.getHeight();
                     }
                     oneCheck = false;
-
-
-//                     стиль Заливка
                     mPaint.setStyle(Paint.Style.FILL);
-//                     закрашиваем холст белым цветом
                     mPaint.setColor(Color.WHITE);
                     canvas.drawPaint(mPaint);
-
                     mPaint.setAntiAlias(true);
-
                     canvas.drawRect(0, 0, canvas.getWidth(), canvas.getHeight(), mPaint);
 
-
                     try {
-
                         mPaint.setColor(Color.BLACK);
-
                         for (int x = 0; x < MainActivity.xArray.length; x++) {
                             for (int y = 0; y < MainActivity.yArray.length; y++) {
                                 if (MainActivity.closedArray[x][y])
 
                                     canvas.drawRect(MainActivity.xArray[x][y] - MainActivity.xFormCorrection / 2, MainActivity.yArray[x][y] - MainActivity.yFormCorrection / 2,
                                             MainActivity.xArray[x][y] + MainActivity.xFormCorrection / 2, MainActivity.yArray[x][y] + MainActivity.yFormCorrection / 2, mPaint);
-
-
-                                //  canvas.drawCircle(MainActivity.xArray[x][y], MainActivity.yArray[x][y], 20, mPaint);
                             }
                         }
 
@@ -635,38 +299,17 @@ class DrawThread extends Thread{
                             }
                         }
 
-
-//                        for (xyPoints xy : MainActivity.xyPointsArray) {
-//                            canvas.drawCircle(xy.xPoint, xy.yPoint, 10, mPaint);
-//                        }
-
-
                     } catch (Exception e) {
                         System.out.println(e);
                     }
 
-//
-
-
-                    // Рисуем желтый круг
-
-
-//                    canvas.drawCircle(500, 500, 100, mPaint);
-
-//                    canvas.drawCircle(MainActivity.xCoord, MainActivity.yCoorn, 10, mPaint);
-
-                    //   canvas.drawBitmap(picture, matrix, null);
-
                 }catch (Exception e){
 
                     }
-
-
                 }
             }
             finally {
                 if (canvas != null) {
-                    // отрисовка выполнена. выводим результат на экран
                     surfaceHolder.unlockCanvasAndPost(canvas);
                 }
             }
@@ -674,6 +317,7 @@ class DrawThread extends Thread{
     }
 }
 
+// Один из лучших алгоритмов генерации лабиритна- алгоритм Эллерса
 class Ellers
 {
     static final char MAZE_WALL = '0';
@@ -696,8 +340,6 @@ class Ellers
     private Random fRand;
     private int fNext;
     private int fNext2;
-
-
     /* конструктор */
     public Ellers (int nRows, int nCols)
     {
@@ -711,7 +353,6 @@ class Ellers
         current = new int[act_cols*2-1];
         next    = new int[act_cols*2-1];
 
-
         /* Sets the maze to filled */
         for(int i =0; i<feild[0].length; i++){
             for(int j=0; j<feild.length; j++){
@@ -719,12 +360,9 @@ class Ellers
             }
         }
 
-
         for(int i=0; i<next.length; i++){
             next[i] = UNDETERMINED;
         }
-
-
 
         /* Инициализация первой строки */
         for(int i=0; i<current.length; i+=2){
@@ -738,14 +376,10 @@ class Ellers
 
     public void makeMaze()
     {
-
         setRand(new Random());
-
-
         for(int q=0; q<act_rows-1; q++){   //для всех строк кроме последней
 
             if(q != 0){
-
                 /* получим текущую строку из последней итерации*/
                 for(int i=0; i<current.length; i++){
                     current[i] = next[i];
@@ -753,11 +387,8 @@ class Ellers
                 }
             }
 
-
             joinSets();
             makeVerticalCuts();
-
-
             /* заполним остальную часть следующей строки */
 
             for(int j=0; j<current.length; j+=2){
@@ -853,7 +484,6 @@ class Ellers
 
             //Наличие петли
 
-
             madeVertical = false;
             do{
                 for(int j=begining; j<=end; j+=2){
@@ -870,12 +500,8 @@ class Ellers
         }while(end != current.length-1);
     }
 
-
-
-
     private void makeLastRow()
     {
-
         /* Получение текущей строки */
         for(int i=0; i<current.length; i++){
             current[i] = next[i];
@@ -898,7 +524,6 @@ class Ellers
                 }
             }
         }
-
 
         /* Добавление последней строки */
         for(int k=0; k<current.length; k++){
@@ -953,7 +578,4 @@ class Ellers
     public void setRand(Random rand) {
         fRand = rand;
     }
-
-
-
 }
