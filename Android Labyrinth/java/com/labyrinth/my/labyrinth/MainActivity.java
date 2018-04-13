@@ -46,6 +46,9 @@ public class MainActivity extends AppCompatActivity {
     public static int correction_1 = 50;
     public static int correction_2 = 30;
     public static int correction_3 = 150;
+//    public static int xFormCorrection = 12;
+//    public static int yFormCorrection = 18;
+
     public static int xFormCorrection = 20;
     public static int yFormCorrection = 28;
 
@@ -172,6 +175,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
 
+
+
+
         super.onCreate(savedInstanceState);
         setContentView(new MySurfaceView(this));
 
@@ -181,6 +187,22 @@ public class MainActivity extends AppCompatActivity {
         display.getSize(size);
         xSize = size.x;
         ySize = size.y;
+
+        yFormCorrection=ySize/64;
+        xFormCorrection=xSize/62;
+
+        if(xSize==1440)
+            xFormCorrection=24;
+        if(xSize==1200)
+            xFormCorrection=20;
+        if(xSize==1080)
+            xFormCorrection=17;
+        if(xSize==768)
+            xFormCorrection=12;
+        if(xSize==720)
+            xFormCorrection=12;
+        if(xSize==480)
+            xFormCorrection=8;
 
 
         int a;
