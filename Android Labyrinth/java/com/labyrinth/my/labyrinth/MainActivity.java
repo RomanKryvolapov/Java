@@ -25,19 +25,25 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
-    // разница между размером экрана и размером хооста
+    // Разница между размером экрана и размером холста (холст = экран минус статус бар минус нижник кнопки
     public static int xCorrection = 0;
     public static int yCorrection = 0;
+    // Размер экрана
     public static int xSize = 0;
     public static int ySize = 0;
+    // размеры поля действия
     public static int correction_1 = 50;
     public static int correction_2 = 30;
     public static int correction_3 = 150;
+    // Коррекция на разрешение экрана
     public static int xFormCorrection = 2000;
     public static int yFormCorrection = 2500;
+    // координаты точек
     public static int[][] xArray = new int[100][100];
     public static int[][] yArray = new int[100][100];
+    // была ли точка посещена
     public static boolean[][] xyArrey = new boolean[100][100];
+    // находится ли в точке стена
     public static boolean[][] closedArray = new boolean[100][100];
 
     @Override
@@ -48,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         if (action == MotionEvent.ACTION_DOWN||action == MotionEvent.ACTION_MOVE) {
 
             DrawThread.newRunThread=true;
-
+            // при нажатии поток отрисовки запускается
             try {
                 for (int x = 0; x < 100; x++) {
                     for (int y = 0; y < 100; y++) {
@@ -96,6 +102,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         else if (action == MotionEvent.ACTION_UP||action == MotionEvent.ACTION_CANCEL){
+            // при отпускании поток ставится на таймаут, чтобы экономить батарейку
             DrawThread.newRunThread=false;
         }
         return true;
@@ -148,9 +155,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-
-
-
+        // центр экрана- начальная точка, если занята стеной- опускается ниже 
         Ellers ellers = new Ellers(29,29);
         ellers.makeMaze();
         ellers.printMaze();
@@ -179,6 +184,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
+        // создание лабиринта
         Ellers ellers = new Ellers(29,29);
         ellers.makeMaze();
         ellers.printMaze();
@@ -288,6 +294,7 @@ class DrawThread extends Thread{
             if (!newRunThread) {
                 try {
                     Thread.sleep(10);
+                    // если не нажата кнопка, поток ставится на таймаут
                 }catch (Exception e){
                 }
             }
