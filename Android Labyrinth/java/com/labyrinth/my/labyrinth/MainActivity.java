@@ -2,14 +2,18 @@ package com.labyrinth.my.labyrinth;
 // made by Roman Kryvolapov
 // Применил алгоритм Эллерса для генерации лабиринта
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Display;
 import android.view.MotionEvent;
+import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.Menu;
@@ -36,32 +40,37 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onTouchEvent(MotionEvent e) {
 
+        int action = e.getAction();
+
+        if (action == MotionEvent.ACTION_DOWN||action == MotionEvent.ACTION_MOVE) {
+
+            DrawThread.newRunThread=true;
+
             try {
                 for (int x = 0; x < 100; x++) {
                     for (int y = 0; y < 100; y++) {
-                        if(xyArrey[x][y]) {
-
+                        if (xyArrey[x][y]) {
                             if (e.getX() > xArray[x][y] - correction_1 + xCorrection && e.getX() < xArray[x][y] + correction_1 + xCorrection) {
                                 if (e.getY() < yArray[x][y] + correction_3 + yCorrection && e.getY() > yArray[x][y] + correction_2 + yCorrection) {
-                                    if(!closedArray[x][y + 1])
-                                    xyArrey[x][y + 1] = true;
-                                    if(y>60)
+                                    if (!closedArray[x][y + 1])
+                                        xyArrey[x][y + 1] = true;
+                                    if (y > 60)
                                         newNEW();
                                 }
                             }
 
                             if (e.getY() > yArray[x][y] - correction_1 + yCorrection && e.getY() < yArray[x][y] + correction_1 + yCorrection) {
                                 if (e.getX() < xArray[x][y] + correction_3 + xCorrection && e.getX() > xArray[x][y] + correction_2 + xCorrection) {
-                                    if(!closedArray[x + 1][y])
-                                    xyArrey[x + 1][y] = true;
+                                    if (!closedArray[x + 1][y])
+                                        xyArrey[x + 1][y] = true;
                                 }
                             }
 
                             if (e.getX() > xArray[x][y] - correction_1 + xCorrection && e.getX() < xArray[x][y] + correction_1 + xCorrection) {
                                 if (e.getY() > yArray[x][y] - correction_3 + yCorrection && e.getY() < yArray[x][y] - correction_2 + yCorrection) {
-                                    if(!closedArray[x][y - 1]) {
+                                    if (!closedArray[x][y - 1]) {
                                         xyArrey[x][y - 1] = true;
-                                        if(y<4)
+                                        if (y < 4)
                                             newNEW();
                                     }
                                 }
@@ -70,8 +79,8 @@ public class MainActivity extends AppCompatActivity {
 
                             if (e.getY() > yArray[x][y] - correction_1 + yCorrection && e.getY() < yArray[x][y] + correction_1 + yCorrection) {
                                 if (e.getX() > xArray[x][y] - correction_3 + xCorrection && e.getX() < xArray[x][y] - correction_2 + xCorrection) {
-                                    if(!closedArray[x-1][y])
-                                    xyArrey[x-1][y] = true;
+                                    if (!closedArray[x - 1][y])
+                                        xyArrey[x - 1][y] = true;
                                 }
                             }
                         }
@@ -79,8 +88,13 @@ public class MainActivity extends AppCompatActivity {
 
                 }
 
-            }catch (Exception e1){
+            } catch (Exception e1) {
             }
+        }
+
+        else if (action == MotionEvent.ACTION_UP||action == MotionEvent.ACTION_CANCEL){
+            DrawThread.newRunThread=false;
+        }
         return true;
     }
 
@@ -89,6 +103,7 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(new MySurfaceView(this));
+
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
@@ -135,14 +150,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void newNEW(){
 
-
         xArray = new int[100][100];
         yArray = new int[100][100];
 
         xyArrey = new boolean[100][100];
         closedArray = new boolean[100][100];
-
-
 
         for (int x = 0; x < xArray.length; x++) {
             for (int y = 0; y < yArray.length; y++) {
@@ -155,17 +167,13 @@ public class MainActivity extends AppCompatActivity {
         ellers.makeMaze();
         ellers.printMaze();
 
-
         for (int i = 30; i < 100; i++) {
             if(!closedArray[i][30]) {
                 xyArrey[i][30] = true;
                 break;
             }
         }
-
-
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -187,26 +195,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-}
-
-
-class xyPoints{
-    public int xPoint;
-    public int yPoint;
-    public xyPoints(int xPoint, int yPoint) {
-        this.xPoint = xPoint;
-        this.yPoint = yPoint;
-    }
-
-    @Override
-    public int hashCode() {
-        return super.hashCode();
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        return super.equals(obj);
     }
 }
 
@@ -233,21 +221,27 @@ class MySurfaceView extends SurfaceView implements SurfaceHolder.Callback {
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
         boolean retry = true;
+        // завершаем работу потока
         drawThread.setRunning(false);
         while (retry) {
             try {
                 drawThread.join();
                 retry = false;
             } catch (InterruptedException e) {
+                // если не получилось, то будем пытаться еще и еще
             }
         }
     }
 }
 
-
 class DrawThread extends Thread{
     private boolean runFlag = false;
     private SurfaceHolder surfaceHolder;
+
+    public static boolean newRunThread = true;
+
+    Paint mPaint = new Paint();
+
     public DrawThread(SurfaceHolder surfaceHolder, Resources resources){
         this.surfaceHolder = surfaceHolder;
     }
@@ -258,59 +252,71 @@ class DrawThread extends Thread{
 
     @Override
     public void run() {
-        Paint mPaint = new Paint();
         Canvas canvas;
-        boolean oneCheck = true;
+        canvas = null;
+
+        synchronized (surfaceHolder) {
+        try {
+                canvas = surfaceHolder.lockCanvas(null);
+                MainActivity.xCorrection = MainActivity.xSize - canvas.getWidth();
+                MainActivity.yCorrection = MainActivity.ySize - canvas.getHeight();
+        }
+        finally {
+            if (canvas != null) {
+                surfaceHolder.unlockCanvasAndPost(canvas);
+            }
+        }
+        }
+
         while (runFlag) {
             canvas = null;
-            try {
-                canvas = surfaceHolder.lockCanvas(null);
-                synchronized (surfaceHolder) {
-                    try{
-                    if (oneCheck) {
-                        MainActivity.xCorrection = MainActivity.xSize - canvas.getWidth();
-                        MainActivity.yCorrection = MainActivity.ySize - canvas.getHeight();
-                    }
-                    oneCheck = false;
-                    mPaint.setStyle(Paint.Style.FILL);
-                    mPaint.setColor(Color.WHITE);
-                    canvas.drawPaint(mPaint);
-                    mPaint.setAntiAlias(true);
-                    canvas.drawRect(0, 0, canvas.getWidth(), canvas.getHeight(), mPaint);
-
-                    try {
-                        mPaint.setColor(Color.BLACK);
-                        for (int x = 0; x < MainActivity.xArray.length; x++) {
-                            for (int y = 0; y < MainActivity.yArray.length; y++) {
-                                if (MainActivity.closedArray[x][y])
-
-                                    canvas.drawRect(MainActivity.xArray[x][y] - MainActivity.xFormCorrection / 2, MainActivity.yArray[x][y] - MainActivity.yFormCorrection / 2,
-                                            MainActivity.xArray[x][y] + MainActivity.xFormCorrection / 2, MainActivity.yArray[x][y] + MainActivity.yFormCorrection / 2, mPaint);
-                            }
-                        }
-
-                        mPaint.setColor(Color.RED);
-
-                        for (int x = 0; x < MainActivity.xArray.length; x++) {
-                            for (int y = 0; y < MainActivity.yArray.length; y++) {
-                                if (MainActivity.xyArrey[x][y])
-                                    canvas.drawRect(MainActivity.xArray[x][y] - MainActivity.xFormCorrection / 2, MainActivity.yArray[x][y] - MainActivity.yFormCorrection / 2,
-                                            MainActivity.xArray[x][y] + MainActivity.xFormCorrection / 2, MainActivity.yArray[x][y] + MainActivity.yFormCorrection / 2, mPaint);
-                            }
-                        }
-
-                    } catch (Exception e) {
-                        System.out.println(e);
-                    }
-
+            if (!newRunThread) {
+                try {
+                    Thread.sleep(10);
                 }catch (Exception e){
-
-                    }
                 }
             }
-            finally {
-                if (canvas != null) {
-                    surfaceHolder.unlockCanvasAndPost(canvas);
+                else {
+                try {
+                    canvas = surfaceHolder.lockCanvas(null);
+                    synchronized (surfaceHolder) {
+
+                        mPaint.setStyle(Paint.Style.FILL);
+                        mPaint.setColor(Color.WHITE);
+                        canvas.drawPaint(mPaint);
+                        mPaint.setAntiAlias(true);
+
+                        canvas.drawRect(0, 0, canvas.getWidth(), canvas.getHeight(), mPaint);
+
+                        mPaint.setColor(Color.BLACK);
+
+                            for (int x = 0; x < MainActivity.xArray.length; x++) {
+                                for (int y = 0; y < MainActivity.yArray.length; y++) {
+                                    if (MainActivity.closedArray[x][y])
+
+                                        canvas.drawRect(MainActivity.xArray[x][y] - MainActivity.xFormCorrection / 2, MainActivity.yArray[x][y] - MainActivity.yFormCorrection / 2,
+                                                MainActivity.xArray[x][y] + MainActivity.xFormCorrection / 2, MainActivity.yArray[x][y] + MainActivity.yFormCorrection / 2, mPaint);
+                                }
+                            }
+
+                            mPaint.setColor(Color.RED);
+
+                            for (int x = 0; x < MainActivity.xArray.length; x++) {
+                                for (int y = 0; y < MainActivity.yArray.length; y++) {
+                                    if (MainActivity.xyArrey[x][y])
+                                        canvas.drawRect(MainActivity.xArray[x][y] - MainActivity.xFormCorrection / 2, MainActivity.yArray[x][y] - MainActivity.yFormCorrection / 2,
+                                                MainActivity.xArray[x][y] + MainActivity.xFormCorrection / 2, MainActivity.yArray[x][y] + MainActivity.yFormCorrection / 2, mPaint);
+                                }
+                            }
+                    }
+                    DrawThread.newRunThread=false;
+                } catch (Exception e){
+                    DrawThread.newRunThread=true;
+                }
+                finally {
+                    if (canvas != null) {
+                        surfaceHolder.unlockCanvasAndPost(canvas);
+                    }
                 }
             }
         }
@@ -341,6 +347,12 @@ class Ellers
     private int fNext;
     private int fNext2;
     /* конструктор */
+
+
+
+
+
+
     public Ellers (int nRows, int nCols)
     {
         act_rows = nRows;
