@@ -31,7 +31,10 @@ public class MainActivity extends AppCompatActivity {
     // Размер экрана
     public static int xSize = 0;
     public static int ySize = 0;
-    // размеры поля действия
+    // размеры поля нажатия
+    // 1 ширина полосы нажатия
+    // 2 отступ от последнего открытого участка
+    // 3 длинна полосы нажатия
     public static int correction_1 = 50;
     public static int correction_2 = 30;
     public static int correction_3 = 150;
