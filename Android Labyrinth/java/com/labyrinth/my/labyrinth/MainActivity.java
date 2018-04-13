@@ -8,7 +8,9 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.graphics.Path;
 import android.graphics.Point;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Display;
@@ -23,6 +25,7 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
+    // разница между размером экрана и размером хооста
     public static int xCorrection = 0;
     public static int yCorrection = 0;
     public static int xSize = 0;
@@ -30,8 +33,8 @@ public class MainActivity extends AppCompatActivity {
     public static int correction_1 = 50;
     public static int correction_2 = 30;
     public static int correction_3 = 150;
-    public static int xFormCorrection = 20;
-    public static int yFormCorrection = 28;
+    public static int xFormCorrection = 2000;
+    public static int yFormCorrection = 2500;
     public static int[][] xArray = new int[100][100];
     public static int[][] yArray = new int[100][100];
     public static boolean[][] xyArrey = new boolean[100][100];
@@ -50,8 +53,8 @@ public class MainActivity extends AppCompatActivity {
                 for (int x = 0; x < 100; x++) {
                     for (int y = 0; y < 100; y++) {
                         if (xyArrey[x][y]) {
-                            if (e.getX() > xArray[x][y] - correction_1 + xCorrection && e.getX() < xArray[x][y] + correction_1 + xCorrection) {
-                                if (e.getY() < yArray[x][y] + correction_3 + yCorrection && e.getY() > yArray[x][y] + correction_2 + yCorrection) {
+                            if (e.getX() > xArray[x][y] * (MainActivity.xFormCorrection / 100) - correction_1 + xCorrection && e.getX() < xArray[x][y] * (MainActivity.xFormCorrection / 100) + correction_1 + xCorrection) {
+                                if (e.getY() < yArray[x][y] * (MainActivity.yFormCorrection / 100) + correction_3 + yCorrection && e.getY() > yArray[x][y] * (MainActivity.yFormCorrection / 100) + correction_2 + yCorrection) {
                                     if (!closedArray[x][y + 1])
                                         xyArrey[x][y + 1] = true;
                                     if (y > 60)
@@ -59,15 +62,15 @@ public class MainActivity extends AppCompatActivity {
                                 }
                             }
 
-                            if (e.getY() > yArray[x][y] - correction_1 + yCorrection && e.getY() < yArray[x][y] + correction_1 + yCorrection) {
-                                if (e.getX() < xArray[x][y] + correction_3 + xCorrection && e.getX() > xArray[x][y] + correction_2 + xCorrection) {
+                            if (e.getY() > yArray[x][y] * (MainActivity.yFormCorrection / 100) - correction_1 + yCorrection && e.getY() < yArray[x][y] * (MainActivity.yFormCorrection / 100) + correction_1 + yCorrection) {
+                                if (e.getX() < xArray[x][y] * (MainActivity.xFormCorrection / 100) + correction_3 + xCorrection && e.getX() > xArray[x][y] * (MainActivity.xFormCorrection / 100) + correction_2 + xCorrection) {
                                     if (!closedArray[x + 1][y])
                                         xyArrey[x + 1][y] = true;
                                 }
                             }
 
-                            if (e.getX() > xArray[x][y] - correction_1 + xCorrection && e.getX() < xArray[x][y] + correction_1 + xCorrection) {
-                                if (e.getY() > yArray[x][y] - correction_3 + yCorrection && e.getY() < yArray[x][y] - correction_2 + yCorrection) {
+                            if (e.getX() > xArray[x][y] * (MainActivity.xFormCorrection / 100) - correction_1 + xCorrection && e.getX() < xArray[x][y] * (MainActivity.xFormCorrection / 100) + correction_1 + xCorrection) {
+                                if (e.getY() > yArray[x][y] * (MainActivity.yFormCorrection / 100) - correction_3 + yCorrection && e.getY() < yArray[x][y] * (MainActivity.yFormCorrection / 100) - correction_2 + yCorrection) {
                                     if (!closedArray[x][y - 1]) {
                                         xyArrey[x][y - 1] = true;
                                         if (y < 4)
@@ -77,8 +80,8 @@ public class MainActivity extends AppCompatActivity {
                             }
 
 
-                            if (e.getY() > yArray[x][y] - correction_1 + yCorrection && e.getY() < yArray[x][y] + correction_1 + yCorrection) {
-                                if (e.getX() > xArray[x][y] - correction_3 + xCorrection && e.getX() < xArray[x][y] - correction_2 + xCorrection) {
+                            if (e.getY() > yArray[x][y] * (MainActivity.yFormCorrection / 100) - correction_1 + yCorrection && e.getY() < yArray[x][y] * (MainActivity.yFormCorrection / 100) + correction_1 + yCorrection) {
+                                if (e.getX() > xArray[x][y] * (MainActivity.xFormCorrection / 100) - correction_3 + xCorrection && e.getX() < xArray[x][y] * (MainActivity.xFormCorrection / 100) - correction_2 + xCorrection) {
                                     if (!closedArray[x - 1][y])
                                         xyArrey[x - 1][y] = true;
                                 }
@@ -110,30 +113,43 @@ public class MainActivity extends AppCompatActivity {
         xSize = size.x;
         ySize = size.y;
 
-        yFormCorrection=ySize/64;
-        xFormCorrection=xSize/62;
+        yFormCorrection=(ySize*100)/64;
+        xFormCorrection=(xSize*100)/60;
 
-        if(xSize==1440)
-            xFormCorrection=24;
-        if(xSize==1200)
-            xFormCorrection=20;
-        if(xSize==1080)
-            xFormCorrection=17;
-        if(xSize==768)
-            xFormCorrection=12;
-        if(xSize==720)
-            xFormCorrection=12;
-        if(xSize==480)
-            xFormCorrection=8;
+//        if(xSize==1440)
+//            xFormCorrection=24;
+//        if(xSize==1200) {
+//            xFormCorrection = 200;
+//            yFormCorrection = 200;
+//        }
+//        if(xSize==1080)
+//            xFormCorrection=17;
+//        if(xSize==768)
+//            xFormCorrection=12;
+//        if(xSize==720)
+//            xFormCorrection=12;
+//        if(xSize==480)
+//            xFormCorrection=8;
 
-        int a;
+//        int a;
+
+//        for (int x = 0; x < xArray.length; x++) {
+//            for (int y = 0; y < yArray.length; y++) {
+//                xArray[x][y]=(x*xSize)/62;
+//                yArray[x][y]=(y*ySize)/64;
+//            }
+//        }
+
 
         for (int x = 0; x < xArray.length; x++) {
             for (int y = 0; y < yArray.length; y++) {
-                xArray[x][y]=x*xFormCorrection;
-                yArray[x][y]=y*yFormCorrection;
+                xArray[x][y]=x;
+                yArray[x][y]=y;
             }
         }
+
+
+
 
         Ellers ellers = new Ellers(29,29);
         ellers.makeMaze();
@@ -158,8 +174,8 @@ public class MainActivity extends AppCompatActivity {
 
         for (int x = 0; x < xArray.length; x++) {
             for (int y = 0; y < yArray.length; y++) {
-                xArray[x][y]=x*xFormCorrection;
-                yArray[x][y]=y*yFormCorrection;
+                xArray[x][y]=x;
+                yArray[x][y]=y;
             }
         }
 
@@ -239,7 +255,6 @@ class DrawThread extends Thread{
     private SurfaceHolder surfaceHolder;
 
     public static boolean newRunThread = true;
-
     Paint mPaint = new Paint();
 
     public DrawThread(SurfaceHolder surfaceHolder, Resources resources){
@@ -294,20 +309,31 @@ class DrawThread extends Thread{
                                 for (int y = 0; y < MainActivity.yArray.length; y++) {
                                     if (MainActivity.closedArray[x][y])
 
-                                        canvas.drawRect(MainActivity.xArray[x][y] - MainActivity.xFormCorrection / 2, MainActivity.yArray[x][y] - MainActivity.yFormCorrection / 2,
-                                                MainActivity.xArray[x][y] + MainActivity.xFormCorrection / 2, MainActivity.yArray[x][y] + MainActivity.yFormCorrection / 2, mPaint);
+                                        canvas.drawRect(
+                                                (MainActivity.xArray[x][y] * (MainActivity.xFormCorrection / 100)) - (MainActivity.xFormCorrection / 200 + 1),
+                                                (MainActivity.yArray[x][y] * (MainActivity.yFormCorrection / 100)) - (MainActivity.yFormCorrection / 200 + 1),
+                                                (MainActivity.xArray[x][y] * (MainActivity.xFormCorrection / 100)) + (MainActivity.xFormCorrection / 200 + 1),
+                                                (MainActivity.yArray[x][y] * (MainActivity.yFormCorrection / 100)) + (MainActivity.yFormCorrection / 200 + 1), mPaint);
                                 }
                             }
 
-                            mPaint.setColor(Color.RED);
+                        mPaint.setColor(Color.RED);
 
                             for (int x = 0; x < MainActivity.xArray.length; x++) {
                                 for (int y = 0; y < MainActivity.yArray.length; y++) {
                                     if (MainActivity.xyArrey[x][y])
-                                        canvas.drawRect(MainActivity.xArray[x][y] - MainActivity.xFormCorrection / 2, MainActivity.yArray[x][y] - MainActivity.yFormCorrection / 2,
-                                                MainActivity.xArray[x][y] + MainActivity.xFormCorrection / 2, MainActivity.yArray[x][y] + MainActivity.yFormCorrection / 2, mPaint);
+                                        canvas.drawRect(
+                                                (MainActivity.xArray[x][y] * (MainActivity.xFormCorrection / 100)) - (MainActivity.xFormCorrection / 200 + 1),
+                                                (MainActivity.yArray[x][y] * (MainActivity.yFormCorrection / 100)) - (MainActivity.yFormCorrection / 200 + 1),
+                                                (MainActivity.xArray[x][y] * (MainActivity.xFormCorrection / 100)) + (MainActivity.xFormCorrection / 200 + 1),
+                                                (MainActivity.yArray[x][y] * (MainActivity.yFormCorrection / 100)) + (MainActivity.yFormCorrection / 200 + 1), mPaint);
                                 }
                             }
+
+
+
+
+
                     }
                     DrawThread.newRunThread=false;
                 } catch (Exception e){
