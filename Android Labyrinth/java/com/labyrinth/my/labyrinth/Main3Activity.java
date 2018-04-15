@@ -16,7 +16,7 @@ import android.view.MenuItem;
 import android.content.res.Resources;
 import java.util.Random;
 
-public class MainActivity extends AppCompatActivity {
+public class Main3Activity extends AppCompatActivity {
 
     // разница между размером экрана и размером хооста
     public static int xCorrection = 0;
@@ -24,81 +24,137 @@ public class MainActivity extends AppCompatActivity {
     public static int xSize = 0;
     public static int ySize = 0;
     public static final int correction_1 = 50;
-    public static final int correction_2 = 30;
-    public static final int correction_3 = 150;
     public static int xFormCorrection = 2000;
     public static int yFormCorrection = 2500;
     public static int[][] xArray = new int[100][100];
     public static int[][] yArray = new int[100][100];
-    public static boolean[][] xyArrey = new boolean[100][100];
+    public static int xCoord = 30;
+    public static int yCoord = 30;
+
+
     public static boolean[][] closedArray = new boolean[100][100];
+
+    public static float xTouch = 0;
+    public static float yTouch = 0;
 
     @Override
     public boolean onTouchEvent(MotionEvent e) {
 
-        int action = e.getAction();
+        try{
 
-        if (action == MotionEvent.ACTION_DOWN||action == MotionEvent.ACTION_MOVE) {
+            Draw3Thread.newRunThread=true;
 
-            DrawThread.newRunThread=true;
-
-            try {
-                for (int x = 0; x < 100; x++) {
-                    for (int y = 0; y < 100; y++) {
-                        if (xyArrey[x][y]) {
-                            if (e.getX() > xArray[x][y] * (MainActivity.xFormCorrection / 100) - correction_1 + xCorrection && e.getX() < xArray[x][y] * (MainActivity.xFormCorrection / 100) + correction_1 + xCorrection) {
-                                if (e.getY() < yArray[x][y] * (MainActivity.yFormCorrection / 100) + correction_3 + yCorrection && e.getY() > yArray[x][y] * (MainActivity.yFormCorrection / 100) + correction_2 + yCorrection) {
-                                    if (!closedArray[x][y + 1])
-                                        xyArrey[x][y + 1] = true;
-                                    if (y > 60)
-                                        newNEW();
-                                }
-                            }
-
-                            if (e.getY() > yArray[x][y] * (MainActivity.yFormCorrection / 100) - correction_1 + yCorrection && e.getY() < yArray[x][y] * (MainActivity.yFormCorrection / 100) + correction_1 + yCorrection) {
-                                if (e.getX() < xArray[x][y] * (MainActivity.xFormCorrection / 100) + correction_3 + xCorrection && e.getX() > xArray[x][y] * (MainActivity.xFormCorrection / 100) + correction_2 + xCorrection) {
-                                    if (!closedArray[x + 1][y])
-                                        xyArrey[x + 1][y] = true;
-                                }
-                            }
-
-                            if (e.getX() > xArray[x][y] * (MainActivity.xFormCorrection / 100) - correction_1 + xCorrection && e.getX() < xArray[x][y] * (MainActivity.xFormCorrection / 100) + correction_1 + xCorrection) {
-                                if (e.getY() > yArray[x][y] * (MainActivity.yFormCorrection / 100) - correction_3 + yCorrection && e.getY() < yArray[x][y] * (MainActivity.yFormCorrection / 100) - correction_2 + yCorrection) {
-                                    if (!closedArray[x][y - 1]) {
-                                        xyArrey[x][y - 1] = true;
-                                        if (y < 4)
-                                            newNEW();
-                                    }
-                                }
-                            }
-
-
-                            if (e.getY() > yArray[x][y] * (MainActivity.yFormCorrection / 100) - correction_1 + yCorrection && e.getY() < yArray[x][y] * (MainActivity.yFormCorrection / 100) + correction_1 + yCorrection) {
-                                if (e.getX() > xArray[x][y] * (MainActivity.xFormCorrection / 100) - correction_3 + xCorrection && e.getX() < xArray[x][y] * (MainActivity.xFormCorrection / 100) - correction_2 + xCorrection) {
-                                    if (!closedArray[x - 1][y])
-                                        xyArrey[x - 1][y] = true;
-                                }
-                            }
-                        }
+        switch (e.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                xTouch = e.getX();
+                yTouch = e.getY();
+                Draw3Thread.newRunThread = true;
+                break;
+            case MotionEvent.ACTION_MOVE:
+                Draw3Thread.newRunThread = true;
+                if (e.getX() > xTouch + correction_1) {
+                    xTouch = e.getX();
+                    yTouch = e.getY();
+                    if (!closedArray[xCoord + 1][yCoord])
+                        xCoord++;
+                }
+                if (e.getY() > yTouch + correction_1) {
+                    xTouch = e.getX();
+                    yTouch = e.getY();
+                    if (!closedArray[xCoord][yCoord + 1]) {
+                        yCoord++;
+                        if (yCoord > 60)
+                            newNEW();
                     }
-
+                }
+                if (e.getX() < xTouch - correction_1) {
+                    xTouch = e.getX();
+                    yTouch = e.getY();
+                    if (!closedArray[xCoord - 1][yCoord])
+                        xCoord--;
+                }
+                if (e.getY() < yTouch - correction_1) {
+                    xTouch = e.getX();
+                    yTouch = e.getY();
+                    if (!closedArray[xCoord][yCoord - 1]) {
+                        yCoord--;
+                        if (yCoord < 4)
+                            newNEW();
+                    }
                 }
 
-            } catch (Exception e1) {
-            }
+
+                break;
+            case MotionEvent.ACTION_UP:
+                return true;
+//
+//                if(event.getX()<MainActivity.xTouch-100) {
+//                    MainActivity.xTouch = event.getX();
+//                }
+
         }
 
-        else if (action == MotionEvent.ACTION_UP||action == MotionEvent.ACTION_CANCEL){
-            DrawThread.newRunThread=false;
-        }
-        return true;
+            }catch (Exception e2){
+
+            }return true;
+
+
+
+
+
+
+//            try {
+//                for (int x = 0; x < 100; x++) {
+//                    for (int y = 0; y < 100; y++) {
+//                        if (xyArrey[x][y]) {
+//                            if (e.getX() > xArray[x][y] * (Main3Activity.xFormCorrection / 100) - correction_1 + xCorrection && e.getX() < xArray[x][y] * (Main3Activity.xFormCorrection / 100) + correction_1 + xCorrection) {
+//                                if (e.getY() < yArray[x][y] * (Main3Activity.yFormCorrection / 100) + correction_3 + yCorrection && e.getY() > yArray[x][y] * (Main3Activity.yFormCorrection / 100) + correction_2 + yCorrection) {
+//                                    if (!closedArray[x][y + 1])
+//                                        xyArrey[x][y + 1] = true;
+//                                    if (y > 60)
+//                                        newNEW();
+//                                }
+//                            }
+//
+//                            if (e.getY() > yArray[x][y] * (Main3Activity.yFormCorrection / 100) - correction_1 + yCorrection && e.getY() < yArray[x][y] * (Main3Activity.yFormCorrection / 100) + correction_1 + yCorrection) {
+//                                if (e.getX() < xArray[x][y] * (Main3Activity.xFormCorrection / 100) + correction_3 + xCorrection && e.getX() > xArray[x][y] * (Main3Activity.xFormCorrection / 100) + correction_2 + xCorrection) {
+//                                    if (!closedArray[x + 1][y])
+//                                        xyArrey[x + 1][y] = true;
+//                                }
+//                            }
+//
+//                            if (e.getX() > xArray[x][y] * (Main3Activity.xFormCorrection / 100) - correction_1 + xCorrection && e.getX() < xArray[x][y] * (Main3Activity.xFormCorrection / 100) + correction_1 + xCorrection) {
+//                                if (e.getY() > yArray[x][y] * (Main3Activity.yFormCorrection / 100) - correction_3 + yCorrection && e.getY() < yArray[x][y] * (Main3Activity.yFormCorrection / 100) - correction_2 + yCorrection) {
+//                                    if (!closedArray[x][y - 1]) {
+//                                        xyArrey[x][y - 1] = true;
+//                                        if (y < 4)
+//                                            newNEW();
+//                                    }
+//                                }
+//                            }
+//
+//
+//                            if (e.getY() > yArray[x][y] * (Main3Activity.yFormCorrection / 100) - correction_1 + yCorrection && e.getY() < yArray[x][y] * (Main3Activity.yFormCorrection / 100) + correction_1 + yCorrection) {
+//                                if (e.getX() > xArray[x][y] * (Main3Activity.xFormCorrection / 100) - correction_3 + xCorrection && e.getX() < xArray[x][y] * (Main3Activity.xFormCorrection / 100) - correction_2 + xCorrection) {
+//                                    if (!closedArray[x - 1][y])
+//                                        xyArrey[x - 1][y] = true;
+//                                }
+//                            }
+//                        }
+//                    }
+//
+//                }
+//
+//            } catch (Exception e1) {
+//            }
+
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(new MySurfaceView(this));
+        setContentView(new MySurface3View(this));
 
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
@@ -134,7 +190,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        DrawThread.newRunThread=true;
+        Draw3Thread.newRunThread=true;
     }
 
     public static void newNEW(){
@@ -142,7 +198,6 @@ public class MainActivity extends AppCompatActivity {
         xArray = new int[100][100];
         yArray = new int[100][100];
 
-        xyArrey = new boolean[100][100];
         closedArray = new boolean[100][100];
 
         for (int x = 0; x < xArray.length; x++) {
@@ -152,14 +207,16 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        Ellers ellers = new Ellers(29,29);
+        xCoord = 30;
+        yCoord = 30;
+
+        Ellers3 ellers = new Ellers3(29,29);
         ellers.makeMaze();
         ellers.printMaze();
 
-        for (int i = 30; i < 100; i++) {
-            if(!closedArray[i][30]) {
-                xyArrey[i][30] = true;
-                break;
+        for (int i = 0; i < 10; i++) {
+            if(closedArray[xCoord][yCoord]) {
+                xCoord++;
             }
         }
     }
@@ -187,10 +244,10 @@ public class MainActivity extends AppCompatActivity {
     }
 }
 
-class MySurfaceView extends SurfaceView implements SurfaceHolder.Callback {
-    private DrawThread drawThread;
+class MySurface3View extends SurfaceView implements SurfaceHolder.Callback {
+    private Draw3Thread Draw3Thread;
 
-    public MySurfaceView(Context context) {
+    public MySurface3View(Context context) {
         super(context);
         getHolder().addCallback(this);
     }
@@ -202,19 +259,19 @@ class MySurfaceView extends SurfaceView implements SurfaceHolder.Callback {
 
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
-        drawThread = new DrawThread(getHolder(), getResources());
-        drawThread.setRunning(true);
-        drawThread.start();
+        Draw3Thread = new Draw3Thread(getHolder(), getResources());
+        Draw3Thread.setRunning(true);
+        Draw3Thread.start();
     }
 
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
         boolean retry = true;
         // завершаем работу потока
-        drawThread.setRunning(false);
+        Draw3Thread.setRunning(false);
         while (retry) {
             try {
-                drawThread.join();
+                Draw3Thread.join();
                 retry = false;
             } catch (InterruptedException e) {
                 // если не получилось, то будем пытаться еще и еще
@@ -223,14 +280,14 @@ class MySurfaceView extends SurfaceView implements SurfaceHolder.Callback {
     }
 }
 
-class DrawThread extends Thread{
+class Draw3Thread extends Thread{
     private boolean runFlag = false;
     private SurfaceHolder surfaceHolder;
 
     public static boolean newRunThread = true;
     Paint mPaint = new Paint();
 
-    public DrawThread(SurfaceHolder surfaceHolder, Resources resources){
+    public Draw3Thread(SurfaceHolder surfaceHolder, Resources resources){
         this.surfaceHolder = surfaceHolder;
     }
 
@@ -244,16 +301,16 @@ class DrawThread extends Thread{
         canvas = null;
 
         synchronized (surfaceHolder) {
-        try {
+            try {
                 canvas = surfaceHolder.lockCanvas(null);
-                MainActivity.xCorrection = MainActivity.xSize - canvas.getWidth();
-                MainActivity.yCorrection = MainActivity.ySize - canvas.getHeight();
-        }
-        finally {
-            if (canvas != null) {
-                surfaceHolder.unlockCanvasAndPost(canvas);
+                Main3Activity.xCorrection = Main3Activity.xSize - canvas.getWidth();
+                Main3Activity.yCorrection = Main3Activity.ySize - canvas.getHeight();
             }
-        }
+            finally {
+                if (canvas != null) {
+                    surfaceHolder.unlockCanvasAndPost(canvas);
+                }
+            }
         }
 
         while (runFlag) {
@@ -264,7 +321,7 @@ class DrawThread extends Thread{
                 }catch (Exception e){
                 }
             }
-                else {
+            else {
                 try {
                     canvas = surfaceHolder.lockCanvas(null);
                     synchronized (surfaceHolder) {
@@ -278,39 +335,35 @@ class DrawThread extends Thread{
 
                         mPaint.setColor(0xFF333333);
 
-                            for (int x = 0; x < MainActivity.xArray.length; x++) {
-                                for (int y = 0; y < MainActivity.yArray.length; y++) {
-                                    if (MainActivity.closedArray[x][y])
+                        for (int x = 0; x < Main3Activity.xArray.length; x++) {
+                            for (int y = 0; y < Main3Activity.yArray.length; y++) {
+                                if (Main3Activity.closedArray[x][y])
 
-                                        canvas.drawRect(
-                                                (MainActivity.xArray[x][y] * (MainActivity.xFormCorrection / 100)) - (MainActivity.xFormCorrection / 200 + 1),
-                                                (MainActivity.yArray[x][y] * (MainActivity.yFormCorrection / 100)) - (MainActivity.yFormCorrection / 200 + 1),
-                                                (MainActivity.xArray[x][y] * (MainActivity.xFormCorrection / 100)) + (MainActivity.xFormCorrection / 200 + 1),
-                                                (MainActivity.yArray[x][y] * (MainActivity.yFormCorrection / 100)) + (MainActivity.yFormCorrection / 200 + 1), mPaint);
-                                }
+                                    canvas.drawRect(
+                                            (Main3Activity.xArray[x][y] * (Main3Activity.xFormCorrection / 100)) - (Main3Activity.xFormCorrection / 200 + 1),
+                                            (Main3Activity.yArray[x][y] * (Main3Activity.yFormCorrection / 100)) - (Main3Activity.yFormCorrection / 200 + 1),
+                                            (Main3Activity.xArray[x][y] * (Main3Activity.xFormCorrection / 100)) + (Main3Activity.xFormCorrection / 200 + 1),
+                                            (Main3Activity.yArray[x][y] * (Main3Activity.yFormCorrection / 100)) + (Main3Activity.yFormCorrection / 200 + 1), mPaint);
                             }
+                        }
 
                         mPaint.setColor(0xFFFF0000);
 
-                            for (int x = 0; x < MainActivity.xArray.length; x++) {
-                                for (int y = 0; y < MainActivity.yArray.length; y++) {
-                                    if (MainActivity.xyArrey[x][y])
-                                        canvas.drawRect(
-                                                (MainActivity.xArray[x][y] * (MainActivity.xFormCorrection / 100)) - (MainActivity.xFormCorrection / 200 + 1),
-                                                (MainActivity.yArray[x][y] * (MainActivity.yFormCorrection / 100)) - (MainActivity.yFormCorrection / 200 + 1),
-                                                (MainActivity.xArray[x][y] * (MainActivity.xFormCorrection / 100)) + (MainActivity.xFormCorrection / 200 + 1),
-                                                (MainActivity.yArray[x][y] * (MainActivity.yFormCorrection / 100)) + (MainActivity.yFormCorrection / 200 + 1), mPaint);
-                                }
-                            }
+                                    canvas.drawRect(
+                                            (Main3Activity.xCoord * (Main3Activity.xFormCorrection / 100)) - (Main3Activity.xFormCorrection / 200 + 1),
+                                            (Main3Activity.yCoord * (Main3Activity.yFormCorrection / 100)) - (Main3Activity.yFormCorrection / 200 + 1),
+                                            (Main3Activity.xCoord * (Main3Activity.xFormCorrection / 100)) + (Main3Activity.xFormCorrection / 200 + 1),
+                                            (Main3Activity.yCoord * (Main3Activity.yFormCorrection / 100)) + (Main3Activity.yFormCorrection / 200 + 1), mPaint);
+
 
 
 
 
 
                     }
-                    DrawThread.newRunThread=false;
+                    Draw3Thread.newRunThread=false;
                 } catch (Exception e){
-                    DrawThread.newRunThread=true;
+                    Draw3Thread.newRunThread=true;
                 }
                 finally {
                     if (canvas != null) {
@@ -323,7 +376,7 @@ class DrawThread extends Thread{
 }
 
 // Один из лучших алгоритмов генерации лабиритна- алгоритм Эллерса
-class Ellers
+class Ellers3
 {
     static final char MAZE_WALL = '0';
     static final char MAZE_PATH = '1';
@@ -352,7 +405,7 @@ class Ellers
 
 
 
-    public Ellers (int nRows, int nCols)
+    public Ellers3 (int nRows, int nCols)
     {
         act_rows = nRows;
         act_cols = nCols;
@@ -568,10 +621,10 @@ class Ellers
         for(int i=0; i<rows; i++){
             for(int j=0; j<cols; j++){
                 if(feild[i][j]=='0')
-                MainActivity.closedArray[i+1][j+3]=true;
-              //  System.out.print(feild[i][j]);
+                    Main3Activity.closedArray[i+1][j+3]=true;
+                //  System.out.print(feild[i][j]);
             }
-         //   System.out.println();
+            //   System.out.println();
         }
     }
 
