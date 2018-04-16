@@ -1,9 +1,8 @@
 package com.minesweeper.my.minesweeper;
 // Made by Roman Kryvolapov
-// Новая версия может изменять размер поля
+// Может изменять размер поля
 // Содержит супер мега код по генерации и привязке кнопок
-// В будущем хочу сделать покрасивей, задействовав XML
-
+// Записывает и показывает статистику для каждого размера поля
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Point;
@@ -44,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
     static int Size = 10;
     static long startTime = 0;
     static long stopTime = 0;
+    static long yourTime = 0;
 
     int display[][] = new int[xSize][ySize];
     int identifier[][] = new int[xSize][ySize];
@@ -915,8 +915,8 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        Toast.makeText(getApplicationContext(), "You time is\n\n" + ((stopTime - startTime)/1000+1) + " second", Toast.LENGTH_LONG).show();
-
+        yourTime = ((stopTime - startTime)/1000)+1;
+        Toast.makeText(getApplicationContext(), "You time is\n\n" + yourTime + " second", Toast.LENGTH_LONG).show();
 
     }
 
@@ -965,21 +965,21 @@ public class MainActivity extends AppCompatActivity {
 
         sPref = getPreferences(MODE_PRIVATE);
 
-
+        yourTime = ((stopTime - startTime)/1000)+1;
 
         if(sPref.getLong("Time" + Size, 0)!=0) {
-            if (((stopTime - startTime)/1000+1) <= sPref.getLong("Time" + Size, 0)) {
+            if (yourTime <= sPref.getLong("Time" + Size, 0)) {
                 SharedPreferences.Editor ed = sPref.edit();
-                ed.putLong("Time" + Size, ((stopTime - startTime)/1000+1));
+                ed.putLong("Time" + Size, yourTime);
                 ed.commit();
-                Log.d("TimeLog", "New record Time " + ((stopTime - startTime)/1000+1));
-                Toast.makeText(getApplicationContext(), "You time is\n\n" + ((stopTime - startTime)/1000+1) + " second" +
+                Log.d("TimeLog", "New record Time " + yourTime);
+                Toast.makeText(getApplicationContext(), "You time is\n\n" + yourTime + " second" +
                         "\n\nBest time for size " + ySize + " x " + xSize +
                         " is\n\n" + sPref.getLong("Time" + Size, 0) +
                         " second\n\nYOU WIN WITH BEST TIME", Toast.LENGTH_LONG).show();
             }
             else {
-                Log.d("TimeLog", "Time " + ((stopTime - startTime)/1000+1));
+                Log.d("TimeLog", "Time " + yourTime);
                 Toast.makeText(getApplicationContext(), "You time is\n\n" + ((stopTime - startTime)/1000+1) + " second" +
                         "\n\nBest time for size " + ySize + " x " + xSize +
                         " is\n\n" + sPref.getLong("Time" + Size, 0) +
@@ -989,9 +989,9 @@ public class MainActivity extends AppCompatActivity {
 
         else {
             Log.d("TimeLog", "New record Time " + ((stopTime - startTime)/1000+1));
-            Toast.makeText(getApplicationContext(), "You time is\n\n" + ((stopTime - startTime)/1000+1) + " second", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "You time is\n\n" + yourTime + " second", Toast.LENGTH_LONG).show();
             SharedPreferences.Editor ed = sPref.edit();
-            ed.putLong("Time" + Size, ((stopTime - startTime)/1000+1));
+            ed.putLong("Time" + Size, yourTime);
             ed.commit();
         }
 
