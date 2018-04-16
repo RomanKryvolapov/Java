@@ -20,6 +20,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -222,6 +224,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void makeClicked(int x4, int y4) {
+        Animation anim = null;
         if (!clicked[x4][y4]) {
             if (clickedQuantity > 1) {
                 clickedQuantity--;
@@ -231,6 +234,15 @@ public class MainActivity extends AppCompatActivity {
                     buttonArray[x4][y4].setText(Integer.toString(display[x4][y4]));
                 clicked[x4][y4] = true;
                 mineQuantity();
+
+                anim = null;
+                anim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.myalpha_1_0);
+                buttonArray[x4][y4].startAnimation(anim);
+                anim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.myalpha_0_1);
+                buttonArray[x4][y4].startAnimation(anim);
+                anim = null;
+
+
             }
          else{
                 buttonArray[x4][y4].setTextColor(getResources().getColor(R.color.colorPrimaryDark));
@@ -238,6 +250,12 @@ public class MainActivity extends AppCompatActivity {
                 if (display[x4][y4] != 0)
                     buttonArray[x4][y4].setText(Integer.toString(display[x4][y4]));
                 changeColor(R.color.colorGameWin);
+                anim = null;
+                anim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.myalpha_1_0);
+                buttonArray[x4][y4].startAnimation(anim);
+                anim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.myalpha_0_1);
+                buttonArray[x4][y4].startAnimation(anim);
+                anim = null;
                 testOut3();
 
             }
@@ -468,6 +486,20 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public void mineRender() {
+
+        for (int x = 0; x < xSize; x++) {
+            y1 = 0;
+            for (int y = 0; y < ySize; y++) {
+                mineListener();
+                y1++;
+            }
+            x1++;
+        }
+        x1 = 0;
+        y1 = 0;
+    }
+
     public void mineListener() {
 
         buttonArray[x1][y1].setOnTouchListener(new View.OnTouchListener() {
@@ -476,9 +508,10 @@ public class MainActivity extends AppCompatActivity {
             int x2 = x1;
             int y2 = y1;
             Boolean clicked1 = false;
+            Animation anim = null;
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                if (!gameOver && !clicked1) {
+                if (!gameOver && !clicked[x2][y2]) {
 
                     switch (event.getAction()) {
                         case MotionEvent.ACTION_DOWN:
@@ -493,6 +526,12 @@ public class MainActivity extends AppCompatActivity {
                                 changeColor(R.color.colorGameOver);
                                 testOut1();
                             } else {
+                                anim = null;
+                                anim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.myalpha_1_0);
+                                buttonNext.startAnimation(anim);
+                                anim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.myalpha_0_1);
+                                buttonNext.startAnimation(anim);
+                                anim = null;
                                 makeClicked(x2, y2);
                                 if(buttonText == 0)
                                     openZeroWhile(x2, y2);
@@ -654,20 +693,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void mineRender() {
-
-        for (int x = 0; x < xSize; x++) {
-            y1 = 0;
-            for (int y = 0; y < ySize; y++) {
-                mineListener();
-                y1++;
-            }
-            x1++;
-        }
-        x1 = 0;
-        y1 = 0;
-    }
-
     public void clickedTOfalse() {
 
         for (int y = 0; y < ySize; y++) {
@@ -772,6 +797,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void testOut1() {
+        Animation anim = null;
         changeColor(R.color.colorGameOver);
         myTextView.setText("Game Over!");
         buttonReset.setBackgroundResource(R.drawable.button_style_game_over);
@@ -783,6 +809,7 @@ public class MainActivity extends AppCompatActivity {
                     buttonArray[x][y].setText("M");
                     buttonArray[x][y].setBackgroundResource(R.drawable.button_style_game_over_mine);
                     buttonArray[x][y].setTextColor(getResources().getColor(R.color.colorWhite));
+
                 } else {
                     if (!clicked[x][y]) {
                         buttonArray[x][y].setBackgroundResource(R.drawable.button_style_game_over);
