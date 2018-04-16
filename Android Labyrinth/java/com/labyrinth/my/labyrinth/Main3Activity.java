@@ -2,11 +2,13 @@ package com.labyrinth.my.labyrinth;
 // made by Roman Kryvolapov
 // Применил алгоритм Эллерса для генерации лабиринта
 import android.content.Context;
+import android.content.res.Configuration;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
@@ -154,6 +156,7 @@ public class Main3Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        Log.d("Application_Status", "Mode2: onCreate");
         setContentView(new MySurface3View(this));
 
         Display display = getWindowManager().getDefaultDisplay();
@@ -162,8 +165,20 @@ public class Main3Activity extends AppCompatActivity {
         xSize = size.x;
         ySize = size.y;
 
-        yFormCorrection=(ySize*100)/64;
-        xFormCorrection=(xSize*100)/60;
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            yFormCorrection = (ySize * 100) / 66;
+            xFormCorrection = (xSize * 100) / 60;
+        }
+        else if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            yFormCorrection = (ySize * 100) / 66;
+            xFormCorrection = (xSize * 100) / 84;
+        }
+        else {
+            yFormCorrection = (ySize * 100) / 66;
+            xFormCorrection = (xSize * 100) / 60;
+        }
+
+
 
         newNEW();
 
@@ -190,8 +205,37 @@ public class Main3Activity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        Log.d("Appcication Status", "Mode2: onStart");
         Draw3Thread.newRunThread=true;
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d("Appcication Status", "Mode2: onResume");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d("Appcication Status", "Mode2: onPause");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d("Appcication Status", "Mode2: onStop");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d("Appcication Status", "Mode2: onDestroy");
+    }
+
+
+
+
 
     public static void newNEW(){
 

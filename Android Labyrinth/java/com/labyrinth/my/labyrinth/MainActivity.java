@@ -2,11 +2,13 @@ package com.labyrinth.my.labyrinth;
 // made by Roman Kryvolapov
 // Применил алгоритм Эллерса для генерации лабиринта
 import android.content.Context;
+import android.content.res.Configuration;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
@@ -98,6 +100,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        Log.d("Appcication Status", "Mode1: onCreate");
         setContentView(new MySurfaceView(this));
 
         Display display = getWindowManager().getDefaultDisplay();
@@ -106,8 +109,18 @@ public class MainActivity extends AppCompatActivity {
         xSize = size.x;
         ySize = size.y;
 
-        yFormCorrection=(ySize*100)/64;
-        xFormCorrection=(xSize*100)/60;
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            yFormCorrection = (ySize * 100) / 66;
+            xFormCorrection = (xSize * 100) / 60;
+        }
+        else if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            yFormCorrection = (ySize * 100) / 66;
+            xFormCorrection = (xSize * 100) / 84;
+        }
+        else {
+            yFormCorrection = (ySize * 100) / 66;
+            xFormCorrection = (xSize * 100) / 60;
+        }
 
         newNEW();
 
@@ -134,7 +147,32 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        Log.d("Application_Status", "Mode1: onStart");
         DrawThread.newRunThread=true;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d("Application_Status", "Mode1: onResume");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d("Application_Status", "Mode1: onPause");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d("Application_Status", "Mode1: onStop");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d("Application_Status", "Mode1: onDestroy");
     }
 
     public static void newNEW(){
