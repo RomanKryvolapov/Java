@@ -14,6 +14,7 @@ import android.support.constraint.ConstraintSet;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.MotionEvent;
@@ -914,7 +915,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        Toast.makeText(getApplicationContext(), "You time is\n\n" + (stopTime-startTime)/1000 + " second", Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), "You time is\n\n" + ((stopTime - startTime)/1000+1) + " second", Toast.LENGTH_LONG).show();
 
 
     }
@@ -966,18 +967,20 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        if(sPref.getLong("Time" + Size, 0)!=0&&(stopTime - startTime) / 1000!=0) {
-            if ((stopTime - startTime) / 1000 <= sPref.getLong("Time" + Size, 0)) {
+        if(sPref.getLong("Time" + Size, 0)!=0) {
+            if (((stopTime - startTime)/1000+1) <= sPref.getLong("Time" + Size, 0)) {
                 SharedPreferences.Editor ed = sPref.edit();
-                ed.putLong("Time" + Size, (stopTime - startTime) / 1000);
+                ed.putLong("Time" + Size, ((stopTime - startTime)/1000+1));
                 ed.commit();
-                Toast.makeText(getApplicationContext(), "You time is\n\n" + (stopTime - startTime) / 1000 + " second" +
+                Log.d("TimeLog", "New record Time " + ((stopTime - startTime)/1000+1));
+                Toast.makeText(getApplicationContext(), "You time is\n\n" + ((stopTime - startTime)/1000+1) + " second" +
                         "\n\nBest time for size " + ySize + " x " + xSize +
                         " is\n\n" + sPref.getLong("Time" + Size, 0) +
                         " second\n\nYOU WIN WITH BEST TIME", Toast.LENGTH_LONG).show();
             }
             else {
-                Toast.makeText(getApplicationContext(), "You time is\n\n" + (stopTime - startTime) / 1000 + " second" +
+                Log.d("TimeLog", "Time " + ((stopTime - startTime)/1000+1));
+                Toast.makeText(getApplicationContext(), "You time is\n\n" + ((stopTime - startTime)/1000+1) + " second" +
                         "\n\nBest time for size " + ySize + " x " + xSize +
                         " is\n\n" + sPref.getLong("Time" + Size, 0) +
                         " second", Toast.LENGTH_LONG).show();
@@ -985,9 +988,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
         else {
-            Toast.makeText(getApplicationContext(), "You time is\n\n" + (stopTime - startTime) / 1000 + " second", Toast.LENGTH_LONG).show();
+            Log.d("TimeLog", "New record Time " + (stopTime - startTime) / 1000 + 1);
+            Toast.makeText(getApplicationContext(), "You time is\n\n" + (stopTime - startTime) / 1000 + 1 + " second", Toast.LENGTH_LONG).show();
             SharedPreferences.Editor ed = sPref.edit();
-            ed.putLong("Time" + Size, (stopTime - startTime) / 1000);
+            ed.putLong("Time" + Size, (stopTime - startTime) / 1000 + 1);
             ed.commit();
         }
 
