@@ -175,6 +175,12 @@ public class MainActivity extends AppCompatActivity {
         Log.d("Application_Status", "Mode1: onDestroy");
     }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Log.d("Application_Status", "Mode1: onRestart");
+    }
+
     public static void newNEW(){
 
         xArray = new int[100][100];

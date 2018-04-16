@@ -59,6 +59,12 @@ public class Main2Activity extends AppCompatActivity {
         Log.d("Application_Status", "First screen: onDestroy");
     }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Log.d("Application_Status", "First screen: onRestart");
+    }
+
     public void onClickMode1(View v) {
         DrawThread.newRunThread=true;
         Intent intent = new Intent(Main2Activity.this, MainActivity.class);

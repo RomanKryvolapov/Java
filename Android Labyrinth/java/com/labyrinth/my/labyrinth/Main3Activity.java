@@ -205,32 +205,38 @@ public class Main3Activity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        Log.d("Appcication Status", "Mode2: onStart");
+        Log.d("Application_Status", "Mode2: onStart");
         Draw3Thread.newRunThread=true;
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        Log.d("Appcication Status", "Mode2: onResume");
+        Log.d("Application_Status", "Mode2: onResume");
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        Log.d("Appcication Status", "Mode2: onPause");
+        Log.d("Application_Status", "Mode2: onPause");
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        Log.d("Appcication Status", "Mode2: onStop");
+        Log.d("Application_Status", "Mode2: onStop");
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.d("Appcication Status", "Mode2: onDestroy");
+        Log.d("Application_Status", "Mode2: onDestroy");
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Log.d("Application_Status", "Mode2: onRestart");
     }
 
 
