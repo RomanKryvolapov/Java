@@ -988,10 +988,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
         else {
-            Log.d("TimeLog", "New record Time " + (stopTime - startTime) / 1000 + 1);
-            Toast.makeText(getApplicationContext(), "You time is\n\n" + (stopTime - startTime) / 1000 + 1 + " second", Toast.LENGTH_LONG).show();
+            Log.d("TimeLog", "New record Time " + ((stopTime - startTime)/1000+1));
+            Toast.makeText(getApplicationContext(), "You time is\n\n" + ((stopTime - startTime)/1000+1) + " second", Toast.LENGTH_LONG).show();
             SharedPreferences.Editor ed = sPref.edit();
-            ed.putLong("Time" + Size, (stopTime - startTime) / 1000 + 1);
+            ed.putLong("Time" + Size, ((stopTime - startTime)/1000+1));
             ed.commit();
         }
 
