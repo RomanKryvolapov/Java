@@ -8,11 +8,8 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Menu;
@@ -41,7 +38,6 @@ public class MainActivity extends AppCompatActivity {
     final static int maxDigitSize = 25;
     static float xTouch;
     static boolean doubleTochka = false;
-    static boolean isDigit = false;
     static int skobkiNumber = 0;
 
     Button button1;
@@ -71,17 +67,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         onTouchListenerTr();
         textSizeChange("");
@@ -355,30 +340,30 @@ public class MainActivity extends AppCompatActivity {
 
     public void onClickRavno()
     {
+        digits.clear();
+        operators.clear();
+        proirity.clear();
+
+        DigitsReader.digitsReader(display);
+        if(MainActivity.digits.size() > 0) {
+            ConvertTo.convertTo();
+            // Конвертирует строку в выражение, добавляет скобки, если нужно
+            displayDisplay("");
+            Calculator.calculator();
+            // Делает рассчет
+            displayDisplayResult(digits.get(0).toPlainString());
+
+            if(HistoryActivity.history.size()>0) {
+                if (!HistoryActivity.history.get(HistoryActivity.history.size() - 1).equals(display + "\n= " + EraseLastZero.eraseLastZero(digits.get(0).toPlainString())))
+                    HistoryActivity.history.add(display + "\n= " + EraseLastZero.eraseLastZero(digits.get(0).toPlainString()));
+
+            }else {
+                HistoryActivity.history.add(display + "\n= " + EraseLastZero.eraseLastZero(digits.get(0).toPlainString()));
+            }
             digits.clear();
             operators.clear();
             proirity.clear();
-
-            DigitsReader.digitsReader(display);
-            if(MainActivity.digits.size() > 0) {
-                ConvertTo.convertTo();
-                // Конвертирует строку в выражение, добавляет скобки, если нужно
-                displayDisplay("");
-                Calculator.calculator();
-                // Делает рассчет
-                displayDisplayResult(digits.get(0).toPlainString());
-
-                if(HistoryActivity.history.size()>0) {
-                    if (!HistoryActivity.history.get(HistoryActivity.history.size() - 1).equals(display + "\n= " + EraseLastZero.eraseLastZero(digits.get(0).toPlainString())))
-                        HistoryActivity.history.add(display + "\n= " + EraseLastZero.eraseLastZero(digits.get(0).toPlainString()));
-
-                }else {
-                    HistoryActivity.history.add(display + "\n= " + EraseLastZero.eraseLastZero(digits.get(0).toPlainString()));
-                }
-                digits.clear();
-                operators.clear();
-                proirity.clear();
-            }
+        }
 
     }
 
@@ -428,8 +413,8 @@ public class MainActivity extends AppCompatActivity {
                                 case '*':
                                 case '/':
                                     add = false;
-                                break;
-                        }
+                                    break;
+                            }
                         }
                     }
                 }
@@ -541,8 +526,8 @@ public class MainActivity extends AppCompatActivity {
         if(add) {
             display = MainActivity.stringBufferAdd(display, in);
         }
-            TextView vivod = (TextView) findViewById(R.id.textOut);
-            vivod.setText(display);
+        TextView vivod = (TextView) findViewById(R.id.textOut);
+        vivod.setText(display);
         textSizeChange (display);
     }
 
@@ -747,7 +732,7 @@ public class MainActivity extends AppCompatActivity {
 }
 
 class Calculator {
-// Делает рассчеты
+    // Делает рассчеты
 // Использует приоритет для скобок
     static void calculator() {
 
@@ -859,7 +844,7 @@ class DigitsReader {
 }
 
 class ConvertTo {
-// Переводит массивы в строку- выражение
+    // Переводит массивы в строку- выражение
     static void convertTo() {
         if (MainActivity.digits.size() > 0) {
             int temp1 = 0;
@@ -890,14 +875,14 @@ class ConvertTo {
 }
 
 class EraseLastZero{
-// Удаляет нули и точку в конце числа
+    // Удаляет нули и точку в конце числа
     static String eraseLastZero (String lastZero){
         if(lastZero.length()>1)
             while ((lastZero.length()>1&&lastZero.charAt(lastZero.length()-1)=='0'&&lastZero.contains("."))||lastZero.charAt(lastZero.length()-1)=='.')
             {
                 lastZero = MainActivity.stringBufferEreseLast(lastZero);
             }
-            return lastZero;
+        return lastZero;
     }
 }
 
