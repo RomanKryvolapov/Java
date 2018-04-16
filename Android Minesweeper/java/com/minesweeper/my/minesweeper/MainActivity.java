@@ -4,13 +4,13 @@ package com.minesweeper.my.minesweeper;
 // Содержит супер мега код по генерации и привязке кнопок
 // В будущем хочу сделать покрасивей, задействовав XML
 
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.graphics.Point;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.constraint.ConstraintSet;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -24,6 +24,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Random;
 
@@ -37,8 +38,11 @@ public class MainActivity extends AppCompatActivity {
     static int x1 = 0;
     static int y1 = 0;
 
-    static int xSize = 11;
+    static int xSize = 12;
     static int ySize = 10;
+    static int Size = 10;
+    static long startTime = 0;
+    static long stopTime = 0;
 
     int display[][] = new int[xSize][ySize];
     int identifier[][] = new int[xSize][ySize];
@@ -47,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
     static Button buttonArray[][] = new Button[xSize][ySize];
     static int buttonArrayID[][] = new int[xSize][ySize];
 
-    static final int layout1Height = 14;
+    static int layout1Height = 14;
     static final int buttonMargin = 3;
     static int buttonID = 1000;
 
@@ -68,10 +72,42 @@ public class MainActivity extends AppCompatActivity {
 
     ConstraintLayout constraintLayout2;
 
+    SharedPreferences sPref;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        sPref = getPreferences(MODE_PRIVATE);
+        Size = sPref.getInt("Size", 0);
+
+        if(Size<3)
+            Size=10;
+
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            layout1Height = 14;
+            xSize = Size+2;
+            ySize = Size;
+        }
+        else if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            layout1Height = 8;
+            xSize = Size-2;
+            ySize = Size+3;
+        }
+        else {
+            layout1Height = 14;
+            xSize = Size+2;
+            ySize = Size;
+        }
+
+        display = new int[xSize][ySize];
+        identifier = new int[xSize][ySize];
+        clicked = new boolean[xSize][ySize];
+        zeroMap = new boolean[xSize][ySize];
+        buttonArray = new Button[xSize][ySize];
+        buttonArrayID = new int[xSize][ySize];
+
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -109,16 +145,23 @@ public class MainActivity extends AppCompatActivity {
         PlusMinusListiner();
         setStatusBarColor(R.color.colorPrimary);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+        sPref = getPreferences(MODE_PRIVATE);
+        if(sPref.getLong("Time" + Size, 0)!=0)
+            Toast.makeText(getApplicationContext(), "Size " + ySize + " x " + xSize +
+                    "\n\nBest time\n\n" + sPref.getLong("Time" + Size, 0) + " second", Toast.LENGTH_LONG).show();
+            else
+                Toast.makeText(getApplicationContext(), "Size " + ySize + " x " + xSize, Toast.LENGTH_LONG).show();
 
-
-            }
-        });
+//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+//
+//
+//            }
+//        });
 
     }
 
@@ -244,7 +287,7 @@ public class MainActivity extends AppCompatActivity {
 
 
             }
-         else{
+            else{
                 buttonArray[x4][y4].setTextColor(getResources().getColor(R.color.colorPrimaryDark));
                 buttonArray[x4][y4].setBackgroundResource(R.drawable.button_style_white);
                 if (display[x4][y4] != 0)
@@ -589,13 +632,37 @@ public class MainActivity extends AppCompatActivity {
                         buttonSizeMinus.setBackgroundResource(R.drawable.button_style);
                         buttonSizeMinus.setTextColor(getResources().getColor(R.color.colorWhite));
 
-                        buttonID = 1000;
-
-                        if(xSize>3&&ySize>3)
+                        if(Size>4)
                         {
-                            xSize-=1;
-                            ySize-=1;
-                        }
+                            Size--;
+                            if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+                                layout1Height = 14;
+                                xSize = Size+2;
+                                ySize = Size;
+                            }
+                            else if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                                layout1Height = 8;
+                                xSize = Size-2;
+                                ySize = Size+3;
+                            }
+                            else {
+                                layout1Height = 14;
+                                xSize = Size+2;
+                                ySize = Size;
+                            }
+
+                            sPref = getPreferences(MODE_PRIVATE);
+                            if(sPref.getLong("Time" + Size, 0)!=0)
+                                Toast.makeText(getApplicationContext(), "Size " + ySize + " x " + xSize +
+                                        "\n\nBest time\n\n" + sPref.getLong("Time" + Size, 0) + " second", Toast.LENGTH_LONG).show();
+                            else
+                                Toast.makeText(getApplicationContext(), "Size " + ySize + " x " + xSize, Toast.LENGTH_LONG).show();
+
+                            buttonID = 1000;
+                        sPref = getPreferences(MODE_PRIVATE);
+                        SharedPreferences.Editor ed = sPref.edit();
+                        ed.putInt("Size", Size);
+                        ed.commit();
 
                         display = new int[xSize][ySize];
                         identifier = new int[xSize][ySize];
@@ -622,7 +689,7 @@ public class MainActivity extends AppCompatActivity {
                         testOut2();
                         gameOver = false;
                         mineRender();
-
+                        }
 
                         return true;
                     case MotionEvent.ACTION_MOVE:
@@ -648,13 +715,37 @@ public class MainActivity extends AppCompatActivity {
                         buttonSizePlus.setBackgroundResource(R.drawable.button_style);
                         buttonSizePlus.setTextColor(getResources().getColor(R.color.colorWhite));
 
-                        buttonID = 1000;
-
-                        if(xSize<50&&ySize<50)
+                        if(Size<20)
                         {
-                            xSize+=1;
-                            ySize+=1;
-                        }
+                            Size++;
+                            if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+                                layout1Height = 14;
+                                xSize = Size+2;
+                                ySize = Size;
+                            }
+                            else if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                                layout1Height = 8;
+                                xSize = Size-2;
+                                ySize = Size+3;
+                            }
+                            else {
+                                layout1Height = 14;
+                                xSize = Size+2;
+                                ySize = Size;
+                            }
+
+                            sPref = getPreferences(MODE_PRIVATE);
+                            if(sPref.getLong("Time" + Size, 0)!=0)
+                                Toast.makeText(getApplicationContext(), "Size " + ySize + " x " + xSize +
+                                        "\n\nBest time\n\n" + sPref.getLong("Time" + Size, 0) + " second", Toast.LENGTH_LONG).show();
+                            else
+                                Toast.makeText(getApplicationContext(), "Size " + ySize + " x " + xSize, Toast.LENGTH_LONG).show();
+
+                            buttonID = 1000;
+                        sPref = getPreferences(MODE_PRIVATE);
+                        SharedPreferences.Editor ed = sPref.edit();
+                        ed.putInt("Size", Size);
+                        ed.commit();
 
                         display = new int[xSize][ySize];
                         identifier = new int[xSize][ySize];
@@ -681,6 +772,7 @@ public class MainActivity extends AppCompatActivity {
                         testOut2();
                         gameOver = false;
                         mineRender();
+                        }
 
                         return true;
                     case MotionEvent.ACTION_MOVE:
@@ -797,6 +889,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void testOut1() {
+        stopTime = System.currentTimeMillis();
         Animation anim = null;
         changeColor(R.color.colorGameOver);
         myTextView.setText("Game Over!");
@@ -814,12 +907,15 @@ public class MainActivity extends AppCompatActivity {
                     if (!clicked[x][y]) {
                         buttonArray[x][y].setBackgroundResource(R.drawable.button_style_game_over);
                         if(display[x][y]!=0)
-                        buttonArray[x][y].setText(Integer.toString(display[x][y]));
+                            buttonArray[x][y].setText(Integer.toString(display[x][y]));
                         buttonArray[x][y].setTextColor(getResources().getColor(R.color.colorWhite));
                     }
                 }
             }
         }
+
+        Toast.makeText(getApplicationContext(), "You time is\n\n" + (stopTime-startTime)/1000 + " second", Toast.LENGTH_LONG).show();
+
 
     }
 
@@ -838,10 +934,12 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }
+        startTime = System.currentTimeMillis();
 
     }
 
     public void testOut3() {
+        stopTime = System.currentTimeMillis();
         changeColor(R.color.colorGameWin);
         myTextView.setText("You Win!");
         buttonReset.setBackgroundResource(R.drawable.button_style_win);
@@ -864,6 +962,34 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
+        sPref = getPreferences(MODE_PRIVATE);
+
+
+
+        if(sPref.getLong("Time" + Size, 0)!=0&&(stopTime - startTime) / 1000!=0) {
+            if ((stopTime - startTime) / 1000 <= sPref.getLong("Time" + Size, 0)) {
+                SharedPreferences.Editor ed = sPref.edit();
+                ed.putLong("Time" + Size, (stopTime - startTime) / 1000);
+                ed.commit();
+                Toast.makeText(getApplicationContext(), "You time is\n\n" + (stopTime - startTime) / 1000 + " second" +
+                        "\n\nBest time for size " + ySize + " x " + xSize +
+                        " is\n\n" + sPref.getLong("Time" + Size, 0) +
+                        " second\n\nYOU WIN WITH BEST TIME", Toast.LENGTH_LONG).show();
+            }
+            else {
+                Toast.makeText(getApplicationContext(), "You time is\n\n" + (stopTime - startTime) / 1000 + " second" +
+                        "\n\nBest time for size " + ySize + " x " + xSize +
+                        " is\n\n" + sPref.getLong("Time" + Size, 0) +
+                        " second", Toast.LENGTH_LONG).show();
+            }
+        }
+
+        else {
+            Toast.makeText(getApplicationContext(), "You time is\n\n" + (stopTime - startTime) / 1000 + " second", Toast.LENGTH_LONG).show();
+            SharedPreferences.Editor ed = sPref.edit();
+            ed.putLong("Time" + Size, (stopTime - startTime) / 1000);
+            ed.commit();
+        }
 
     }
 }
