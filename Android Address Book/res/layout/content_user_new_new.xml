@@ -1,0 +1,549 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.addressbook.my.addressbook.UserNewNew"
+    tools:showIn="@layout/activity_user_new_new">
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraintLayout50"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout51"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_weight="5">
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/constraintLayout9"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/constraintLayout10"
+            app:layout_constraintEnd_toStartOf="@+id/constraintLayout7"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:cursorVisible="false"
+                android:gravity="right|center_vertical"
+                android:text="First Name:"
+                android:textColor="@color/light_white"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </android.support.constraint.ConstraintLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/constraintLayout7"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/constraintLayout13"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_weight="2"
+            app:layout_constraintStart_toEndOf="@+id/constraintLayout9"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <EditText
+                android:id="@+id/firstnameNew"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:cursorVisible="true"
+                android:ems="10"
+                android:gravity="center_vertical|center"
+                android:hint="Input First Name"
+                android:inputType="textPersonName"
+                android:textColor="@color/light_white"
+                android:textColorHint="@color/input_form_hint_text"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </android.support.constraint.ConstraintLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/constraintLayout10"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/constraintLayout14"
+            app:layout_constraintEnd_toStartOf="@+id/constraintLayout13"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout9">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:cursorVisible="false"
+                android:gravity="right|center_vertical"
+                android:text="Last Name:"
+                android:textColor="@color/light_white"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </android.support.constraint.ConstraintLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/constraintLayout13"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/constraintLayout15"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_weight="2"
+            app:layout_constraintStart_toEndOf="@+id/constraintLayout10"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout7">
+
+            <EditText
+                android:id="@+id/lastnameNew"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:cursorVisible="true"
+                android:ems="10"
+                android:gravity="center_vertical|center"
+                android:hint="Input Last Name"
+                android:inputType="textPersonName"
+                android:textColor="@color/light_white"
+                android:textColorHint="@color/input_form_hint_text"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </android.support.constraint.ConstraintLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/constraintLayout14"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/constraintLayout16"
+            app:layout_constraintEnd_toStartOf="@+id/constraintLayout15"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout10">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:cursorVisible="false"
+                android:gravity="right|center_vertical"
+                android:text="Telephone 1:"
+                android:textColor="@color/light_white"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </android.support.constraint.ConstraintLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/constraintLayout15"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/constraintLayout17"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_weight="2"
+            app:layout_constraintStart_toEndOf="@+id/constraintLayout14"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout13">
+
+            <EditText
+                android:id="@+id/telephone1New"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:cursorVisible="true"
+                android:ems="10"
+                android:gravity="center_vertical|center"
+                android:hint="Input Telephone 1"
+                android:inputType="phone"
+                android:textColor="@color/light_white"
+                android:textColorHint="@color/input_form_hint_text"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </android.support.constraint.ConstraintLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/constraintLayout16"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/constraintLayout19"
+            app:layout_constraintEnd_toStartOf="@+id/constraintLayout17"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout14">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:cursorVisible="false"
+                android:gravity="right|center_vertical"
+                android:text="Telephone 2:"
+                android:textColor="@color/light_white"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </android.support.constraint.ConstraintLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/constraintLayout17"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/constraintLayout18"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_weight="2"
+            app:layout_constraintStart_toEndOf="@+id/constraintLayout16"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout15">
+
+            <EditText
+                android:id="@+id/telephone2New"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:cursorVisible="true"
+                android:ems="10"
+                android:gravity="center_vertical|center"
+                android:hint="Input Telephone 2"
+                android:inputType="phone"
+                android:textColor="@color/light_white"
+                android:textColorHint="@color/input_form_hint_text"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </android.support.constraint.ConstraintLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/constraintLayout19"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/constraintLayout21"
+            app:layout_constraintEnd_toStartOf="@+id/constraintLayout18"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout16">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:cursorVisible="false"
+                android:gravity="right|center_vertical"
+                android:text="Telephone 3:"
+                android:textColor="@color/light_white"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </android.support.constraint.ConstraintLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/constraintLayout18"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/constraintLayout20"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_weight="2"
+            app:layout_constraintStart_toEndOf="@+id/constraintLayout19"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout17">
+
+            <EditText
+                android:id="@+id/telephone3New"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:cursorVisible="true"
+                android:ems="10"
+                android:gravity="center_vertical|center"
+                android:hint="Input Telephone 3"
+                android:inputType="phone"
+                android:textColor="@color/light_white"
+                android:textColorHint="@color/input_form_hint_text"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </android.support.constraint.ConstraintLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/constraintLayout21"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/constraintLayout22"
+            app:layout_constraintEnd_toStartOf="@+id/constraintLayout20"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout19">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:cursorVisible="false"
+                android:gravity="right|center_vertical"
+                android:text="Email:"
+                android:textColor="@color/light_white"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </android.support.constraint.ConstraintLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/constraintLayout20"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/constraintLayout23"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_weight="2"
+            app:layout_constraintStart_toEndOf="@+id/constraintLayout21"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout18">
+
+            <EditText
+                android:id="@+id/emailNew"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:cursorVisible="true"
+                android:ems="10"
+                android:gravity="center_vertical|center"
+                android:hint="Input Email"
+                android:inputType="textEmailAddress"
+                android:textColor="@color/light_white"
+                android:textColorHint="@color/input_form_hint_text"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </android.support.constraint.ConstraintLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/constraintLayout22"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/constraintLayout24"
+            app:layout_constraintEnd_toStartOf="@+id/constraintLayout23"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout21">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:cursorVisible="false"
+                android:gravity="right|center_vertical"
+                android:text="Facebook:"
+                android:textColor="@color/light_white"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </android.support.constraint.ConstraintLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/constraintLayout23"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/constraintLayout25"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_weight="2"
+            app:layout_constraintStart_toEndOf="@+id/constraintLayout22"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout20">
+
+            <EditText
+                android:id="@+id/facebookNew"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:cursorVisible="true"
+                android:ems="10"
+                android:gravity="center_vertical|center"
+                android:hint="Input Facebook"
+                android:inputType="textWebEditText"
+                android:textColor="@color/light_white"
+                android:textColorHint="@color/input_form_hint_text"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </android.support.constraint.ConstraintLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/constraintLayout24"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/constraintLayout27"
+            app:layout_constraintEnd_toStartOf="@+id/constraintLayout25"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout22">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:cursorVisible="false"
+                android:gravity="right|center_vertical"
+                android:text="Viber:"
+                android:textColor="@color/light_white"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </android.support.constraint.ConstraintLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/constraintLayout25"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/constraintLayout26"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_weight="2"
+            app:layout_constraintStart_toEndOf="@+id/constraintLayout24"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout23">
+
+            <EditText
+                android:id="@+id/viberNew"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:cursorVisible="true"
+                android:ems="10"
+                android:gravity="center_vertical|center"
+                android:hint="Input Viber"
+                android:inputType="text"
+                android:textColor="@color/light_white"
+                android:textColorHint="@color/input_form_hint_text"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </android.support.constraint.ConstraintLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/constraintLayout27"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/constraintLayout26"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout24">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:cursorVisible="false"
+                android:gravity="right|center_vertical"
+                android:text="Telegram:"
+                android:textColor="@color/light_white"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </android.support.constraint.ConstraintLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/constraintLayout26"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_weight="2"
+            app:layout_constraintStart_toEndOf="@+id/constraintLayout27"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout25">
+
+            <EditText
+                android:id="@+id/telegramNew"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:cursorVisible="true"
+                android:ems="10"
+                android:gravity="center_vertical|center"
+                android:hint="Input Telegram"
+                android:inputType="text"
+                android:textColor="@color/light_white"
+                android:textColorHint="@color/input_form_hint_text"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </android.support.constraint.ConstraintLayout>
+
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraintLayout51"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout50"
+        app:layout_constraintVertical_weight="1">
+
+        <Button
+            android:id="@+id/buttonSaveNew"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/button_style_1"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="add"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </android.support.constraint.ConstraintLayout>
+
+</android.support.constraint.ConstraintLayout>
