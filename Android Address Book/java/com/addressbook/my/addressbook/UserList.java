@@ -53,6 +53,7 @@ public class UserList extends AppCompatActivity {
 
     static String searchFirstName = "";
     static String searchLastName = "";
+
     EditText editSearchFirstName;
     EditText editSearchLastName;
 
@@ -66,7 +67,6 @@ public class UserList extends AppCompatActivity {
     static int intviber;
     static int inttelegram;
     static int intemail;
-    int buttonNumber[];
     static boolean intChecked = false;
     static int sqlIDnumber[];
 
@@ -95,21 +95,15 @@ public class UserList extends AppCompatActivity {
         editSearchLastName.setText(searchLastName);
 
         myUserListLayout = findViewById(R.id.UserListLayout);
-        DBHelper dbHelper = new DBHelper(this);
+        dbHelper = new DBHelper(this);
         db = dbHelper.getWritableDatabase();
 
-        // Подключение к базе данных
-        c = db.query("mytable", null, null, null, null, null, null);
+        getSize();
 
-        // Если не пустая
         if (c.moveToFirst()) {
 
-            // получаем ID колонок
             if (!intChecked)
             idColumns();
-
-            // Получаем размер базы данных и записываем в Size
-            getSize();
 
             // создаем нужное количество элементов
             firstNameArray = new TextView[Size];
@@ -128,50 +122,23 @@ public class UserList extends AppCompatActivity {
             firstNameArrayID = new int[Size];
             lastNameArrayID = new int[Size];
 
-            int i = 0;
-
             c.moveToFirst();
 
-            if (searchFirstName.equals("") && searchLastName.equals("")) {
-                do {
-                    getStrings(i);
-                    i++;
-                } while (c.moveToNext());
-            } else if (!searchFirstName.equals("") && searchLastName.equals("")) {
-                do {
-                    if (c.getString(intfirstname).equals(searchFirstName))
-                    {
-                        getStrings(i);
-                        i++;
-                    }
-                } while (c.moveToNext());
-            } else if (searchFirstName.equals("") && !searchLastName.equals("")) {
-                do {
-                    if (c.getString(intlastname).equals(searchLastName))
-                    {
-                        getStrings(i);
-                        i++;
-                    }
-                } while (c.moveToNext());
-            } else if (!searchFirstName.equals("") && !searchLastName.equals("")) {
-                do {
-                    if (c.getString(intfirstname).equals(searchFirstName)&&c.getString(intlastname).equals(searchLastName))
-                    {
-                        getStrings(i);
-                        i++;
-                    }
-                } while (c.moveToNext());
-            }
+            int i = 0;
 
+            do {
+                getStrings(i);
+                i++;
+            } while (c.moveToNext());
+
+            c.close();
+            dbHelper.close();
+
+            create();
+            setConstraints();
 
         } else
             Log.d(LOG_TAG, "!!! База данных пустая !!!");
-
-        c.close();
-        dbHelper.close();
-
-        create();
-        setConstraints();
 
         buttonAddNew = findViewById(R.id.buttonAddNew);
         buttonAddNew.setOnClickListener(new View.OnClickListener() {
@@ -191,8 +158,6 @@ public class UserList extends AppCompatActivity {
                 searchFirstName = editSearchFirstName.getText().toString();
                 searchLastName = editSearchLastName.getText().toString();
 
-                Log.d(LOG_TAG, "!!! Поиск Слово 1 = !"+searchFirstName+"! Слово 2 = !"+searchLastName+"! !!!");
-
                 Intent intent = new Intent(UserList.this, UserList.class);
                 startActivity(intent);
 
@@ -205,7 +170,6 @@ public class UserList extends AppCompatActivity {
 
     void getStrings(int i){
         firstname[i] = c.getString(intfirstname);
-        Log.d(LOG_TAG, "!!! firstname = "+firstname[i]+" id таблицы = "+sqlIDnumber[i]+" !!!");
         lastname[i] = c.getString(intlastname);
         telephone1[i] = c.getString(inttelephone1);
         telephone2[i] = c.getString(inttelephone2);
@@ -215,7 +179,6 @@ public class UserList extends AppCompatActivity {
         telegram[i] = c.getString(inttelegram);
         email[i] = c.getString(intemail);
     }
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -452,99 +415,78 @@ public class UserList extends AppCompatActivity {
 
     void getSize(){
 
-//        do {
-//            sqlIDnumber = new int[Size];
-//            sqlIDnumber[Size] = c.getColumnIndex("id");
-//            Size++;
-//        } while (c.moveToNext());
-
-        c.moveToFirst();
         Size = 0;
 
         if (searchFirstName.equals("") && searchLastName.equals("")) {
 
             Log.d(LOG_TAG, "!!! Условие 1 !!!");
 
-            do {
-                Size++;
-            } while (c.moveToNext());
+            String query = "SELECT * FROM mytable ORDER BY firstname";
 
-            sqlIDnumber = new int[Size];
+            c = db.rawQuery(query, null);
 
-            Size = 0;
-            c.moveToFirst();
-
-            do {
-                sqlIDnumber[Size] = c.getInt(intID);
-                Size++;
-            } while (c.moveToNext());
-
+            Size = c.getCount();
 
         } else if (!searchFirstName.equals("") && searchLastName.equals("")) {
 
             Log.d(LOG_TAG, "!!! Условие 2 !!!");
 
-            do {
-                if (c.getString(intfirstname).equals(searchFirstName))
-                Size++;
-            } while (c.moveToNext());
+            String query = "SELECT * FROM mytable WHERE firstname LIKE ? ORDER BY firstname";
 
-            sqlIDnumber = new int[Size];
+            String query2 = "%"+searchFirstName+"%";
 
-            Size = 0;
-            c.moveToFirst();
+            c = db.rawQuery(query, new String[]{query2});
 
-            do {
-                if (c.getString(intfirstname).equals(searchFirstName)) {
-                    sqlIDnumber[Size] = c.getInt(intID);
-                    Size++;
-                }
-            } while (c.moveToNext());
+            Size = c.getCount();
+
 
         } else if (searchFirstName.equals("") && !searchLastName.equals("")) {
 
             Log.d(LOG_TAG, "!!! Условие 3 !!!");
 
-            do {
-                if (c.getString(intlastname).equals(searchLastName))
-                    Size++;
-            } while (c.moveToNext());
+            String query = "SELECT * FROM mytable WHERE lastname LIKE ? ORDER BY firstname";
 
-            sqlIDnumber = new int[Size];
+            String query2 = "%"+searchLastName+"%";
 
-            Size = 0;
-            c.moveToFirst();
+            c = db.rawQuery(query, new String[]{query2});
 
-            do {
-                if (c.getString(intlastname).equals(searchLastName)) {
-                    sqlIDnumber[Size] = c.getInt(intID);
-                    Size++;
-                }
-            } while (c.moveToNext());
+            Size = c.getCount();
 
         } else if (!searchFirstName.equals("") && !searchLastName.equals("")) {
 
             Log.d(LOG_TAG, "!!! Условие 4 !!!");
 
-            do {
-                if (c.getString(intfirstname).equals(searchFirstName)&&c.getString(intlastname).equals(searchLastName))
-                    Size++;
-            } while (c.moveToNext());
+            String query2 = "%"+searchFirstName+"%";
+
+            String query3 = "%"+searchLastName+"%";
+
+            String query = "SELECT * FROM mytable WHERE firstname LIKE ? AND lastname LIKE ? ORDER BY firstname";
+
+            c = db.rawQuery(query, new String[]{query2, query3});
+
+            Size = c.getCount();
+
+        }
+
+        if (c.moveToFirst()) {
 
             sqlIDnumber = new int[Size];
 
-            Size = 0;
             c.moveToFirst();
 
+            int iterator1 = 0;
+
             do {
-                if (c.getString(intfirstname).equals(searchFirstName)&&c.getString(intlastname).equals(searchLastName)) {
-                    sqlIDnumber[Size] = c.getInt(intID);
-                    Size++;
-                }
+                sqlIDnumber[iterator1] = c.getInt(intID);
+                iterator1++;
             } while (c.moveToNext());
 
+            iterator1 = 0;
+
+        } else {
+            Log.d(LOG_TAG, "!!! Нет строк для отображения !!!");
+
         }
-        Log.d(LOG_TAG, "!!! Size = "+Size+" !!! ");
     }
 
     class DBHelper extends SQLiteOpenHelper {

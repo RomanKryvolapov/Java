@@ -108,16 +108,13 @@ public class UserOpen extends AppCompatActivity {
         dbHelper = new UserOpen.DBHelper(this);
         db = dbHelper.getWritableDatabase();
 
-        c = db.query("mytable", null, null, null, null, null, null);
+        String query = "SELECT * FROM mytable WHERE id = ?";
+
+        c = db.rawQuery(query, new String[]{Integer.toString(userID)});
 
         if (c.moveToFirst()) {
 
             idColumns();
-
-            do {
-                if(c.getInt(UserList.intID)==userID)
-                break;
-            } while (c.moveToNext());
 
             firstname=c.getString(UserList.intfirstname);
             lastname=c.getString(UserList.intlastname);

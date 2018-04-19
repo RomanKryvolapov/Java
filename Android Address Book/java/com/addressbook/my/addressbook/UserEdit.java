@@ -1,7 +1,6 @@
 package com.addressbook.my.addressbook;
 // made by Roman Kryvolapov
 // активити изменения данных пользователя
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -64,16 +63,18 @@ public class UserEdit extends AppCompatActivity {
 
         Log.d(LOG_TAG, "!!! Редактирование Содержимое базы данных !!!");
 
-        c = db.query("mytable", null, null, null, null, null, null);
+        String query = "SELECT * FROM mytable WHERE id = ?";
+
+        c = db.rawQuery(query, new String[]{Integer.toString(userID)});
 
         if (c.moveToFirst()) {
 
             idColumns();
-
-            do {
-                if(c.getInt(UserList.intID)==userID)
-                    break;
-            } while (c.moveToNext());
+//
+//            do {
+//                if(c.getInt(UserList.intID)==userID)
+//                    break;
+//            } while (c.moveToNext());
 
             firstname = c.getString(UserList.intfirstname);
             lastname = c.getString(UserList.intlastname);
@@ -123,9 +124,10 @@ public class UserEdit extends AppCompatActivity {
 
                 dbHelper = new UserEdit.DBHelper(getApplicationContext());
                 SQLiteDatabase db = dbHelper.getWritableDatabase();
-                Cursor c = db.query("mytable", null, null, null, null, null, null);
 
-                db.delete("mytable", "id = " + Integer.toString(userID), null);
+                String queryDel = "DELETE FROM mytable WHERE id = "+Integer.toString(userID);
+
+                db.execSQL(queryDel);
 
                 c.close();
                 dbHelper.close();
@@ -143,7 +145,6 @@ public class UserEdit extends AppCompatActivity {
 
                 Log.d(LOG_TAG, "!!!Редактирование Обновление базы данных !!!");
 
-
                 firstname = firstnameEdit.getText().toString();
 
                 if(!firstname.equals("")) {
@@ -157,19 +158,14 @@ public class UserEdit extends AppCompatActivity {
                     email = emailEdit.getText().toString();
                     dbHelper = new UserEdit.DBHelper(getApplicationContext());
                     SQLiteDatabase db = dbHelper.getWritableDatabase();
-                    Cursor c = db.query("mytable", null, null, null, null, null, null);
-                    c.moveToPosition(userID);
-                    ContentValues cv = new ContentValues();
-                    cv.put("firstname", firstname);
-                    cv.put("lastname", lastname);
-                    cv.put("telephone1", telephone1);
-                    cv.put("telephone2", telephone2);
-                    cv.put("telephone3", telephone3);
-                    cv.put("facebook", facebook);
-                    cv.put("viber", viber);
-                    cv.put("telegram", telegram);
-                    cv.put("email", email);
-                    db.update("mytable", cv, "id = ?", new String[]{Integer.toString(userID)});
+
+                    String queryUpdate = "UPDATE mytable SET firstname = '"+firstname+"', lastname = '"+lastname+"', " +
+                            "telephone1 = '"+telephone1+"', telephone2 = '"+telephone2+"', " +
+                            "telephone3 = '"+telephone3+"', facebook = '"+facebook+"', " +
+                            "viber = '"+viber+"', telegram = '"+telegram+"'," +
+                            "email = '"+email+"'  WHERE id = "+Integer.toString(userID);
+
+                    db.execSQL(queryUpdate);
 
                     c.close();
                     dbHelper.close();
