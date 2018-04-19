@@ -38,6 +38,7 @@ public class UserList extends AppCompatActivity {
     View.OnClickListener onClickListener;
     Button buttonAddNew;
     Button buttonSearch;
+    Button buttonClearSearchStrings;
 
     DBHelper dbHelper;
 
@@ -160,7 +161,23 @@ public class UserList extends AppCompatActivity {
 
                 Intent intent = new Intent(UserList.this, UserList.class);
                 startActivity(intent);
+                finish();
 
+            }
+        });
+
+        buttonClearSearchStrings = findViewById(R.id.buttonClearSearchStrings);
+        buttonClearSearchStrings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                editSearchFirstName.setText("");
+                editSearchLastName.setText("");
+                searchFirstName = "";
+                searchLastName = "";
+
+                Intent intent = new Intent(UserList.this, UserList.class);
+                startActivity(intent);
                 finish();
 
             }

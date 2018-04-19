@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class UserOpen extends AppCompatActivity {
 
@@ -76,8 +77,12 @@ public class UserOpen extends AppCompatActivity {
             public void onClick(View view) {
 
                 if(telephone1.length()>0) {
-                    Intent intent = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", telephone1, null));
-                    startActivity(intent);
+                    try {
+                        Intent intent = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", telephone1, null));
+                        startActivity(intent);
+                    }catch (Exception e){
+
+                    }
                 }
 
             }
@@ -86,9 +91,13 @@ public class UserOpen extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                try {
                 if(telephone1.length()>0) {
                     Intent intent = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", telephone2, null));
                     startActivity(intent);
+                }
+                }catch (Exception e){
+
                 }
 
             }
@@ -97,11 +106,54 @@ public class UserOpen extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                try {
                 if(telephone1.length()>0) {
                     Intent intent = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", telephone3, null));
                     startActivity(intent);
                 }
+                }catch (Exception e){
 
+                }
+
+            }
+        });
+        facebookView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(facebook.length()>0){
+                    try {
+                    if(facebook.contains("https://www.facebook.com/"))
+                    {
+                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(facebook));
+                        startActivity(intent);
+                    } else{
+                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/"+facebook));
+                        startActivity(intent);
+                    }
+                    }catch (Exception e){
+
+                    }
+                }
+            }
+        });
+
+        emailView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try{
+                    if(email.contains("@")&&email.contains(".")){
+
+                        Intent intent = new Intent(Intent.ACTION_SEND);
+                        intent.setType("message/rfc822");
+                        intent.putExtra(Intent.EXTRA_EMAIL  , new String[]{email});
+                        intent.putExtra(Intent.EXTRA_SUBJECT, " ");
+                        intent.putExtra(Intent.EXTRA_TEXT   , " ");
+                        startActivity(Intent.createChooser(intent, "Send email"));
+
+                    }
+                }catch (Exception e){
+
+                }
             }
         });
 
