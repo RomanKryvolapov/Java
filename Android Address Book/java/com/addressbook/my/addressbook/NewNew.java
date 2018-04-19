@@ -45,7 +45,7 @@ public class NewNew extends AppCompatActivity {
         {
             c.close();
             dbHelper.close();
-            Intent intent = new Intent(NewNew.this, UserList.class);
+            Intent intent = new Intent(NewNew.this, OldUser.class);
             startActivity(intent);
             this.overridePendingTransition(0, 0);
         }
