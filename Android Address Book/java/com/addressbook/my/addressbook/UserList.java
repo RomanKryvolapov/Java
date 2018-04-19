@@ -77,47 +77,6 @@ public class UserList extends AppCompatActivity {
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
-
-        firstNameArray=null;
-        lastNameArray=null;
-
-        firstNameArrayID=null;
-        lastNameArrayID=null;
-        Size=0;
-        myID=10000;
-
-        constraintLayout=null;
-        myUserListLayout=null;
-        myConstraintSet=null;
-        db=null;
-        c=null;
-        onClickListener=null;
-        buttonAddNew=null;
-        buttonSearch=null;
-
-        dbHelper=null;
-
-        firstname=null;
-        lastname=null;
-        telephone1=null;
-        telephone2=null;
-        telephone3=null;
-        facebook=null;
-        viber=null;
-        telegram=null;
-        email=null;
-
-        editSearchFirstName=null;
-        editSearchLastName=null;
-
-        Log.d(LOG_TAG, "!!! finish !!!");
-
-        finish();
-    }
-
-    @Override
     public boolean equals(Object obj) {
         return super.equals(obj);
     }
@@ -236,6 +195,7 @@ public class UserList extends AppCompatActivity {
 
                 Intent intent = new Intent(UserList.this, UserList.class);
                 startActivity(intent);
+
                 finish();
 
             }

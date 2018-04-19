@@ -54,12 +54,6 @@ public class UserEdit extends AppCompatActivity {
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
-        Log.d(LOG_TAG, "!!! Редактирование Finish !!!");
-    }
-
-    @Override
     protected void onStart() {
         super.onStart();
 

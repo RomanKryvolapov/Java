@@ -56,14 +56,6 @@ public class UserOpen extends AppCompatActivity {
         finish();
     }
 
-
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        Log.d(LOG_TAG, "!!! finish !!!");
-    }
-
     @Override
     protected void onStart() {
         super.onStart();

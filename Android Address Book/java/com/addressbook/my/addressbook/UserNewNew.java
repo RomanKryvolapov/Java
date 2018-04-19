@@ -50,12 +50,6 @@ public class UserNewNew extends AppCompatActivity {
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
-        Log.d(LOG_TAG, "!!! Добавлеие Finish !!!");
-    }
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_new_new);

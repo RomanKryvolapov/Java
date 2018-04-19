@@ -40,12 +40,14 @@ public class NewNew extends AppCompatActivity {
             dbHelper.close();
                 Intent intent = new Intent(NewNew.this, NewUser.class);
                 startActivity(intent);
+            this.overridePendingTransition(0, 0);
         }else
         {
             c.close();
             dbHelper.close();
             Intent intent = new Intent(NewNew.this, OldUser.class);
             startActivity(intent);
+            this.overridePendingTransition(0, 0);
         }
 
     }
