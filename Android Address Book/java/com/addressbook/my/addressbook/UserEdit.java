@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -105,6 +106,9 @@ public class UserEdit extends AppCompatActivity {
         viberEdit = findViewById(R.id.viberEdit);
         telegramEdit = findViewById(R.id.telegramEdit);
         emailEdit = findViewById(R.id.emailEdit);
+
+        firstnameEdit.requestFocus();
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
         firstnameEdit.setText(firstname);
         lastnameEdit.setText(lastname);

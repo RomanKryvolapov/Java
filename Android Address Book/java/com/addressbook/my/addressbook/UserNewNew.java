@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -67,14 +68,16 @@ public class UserNewNew extends AppCompatActivity {
         dbHelper = new UserNewNew.DBHelper(this);
         db = dbHelper.getWritableDatabase();
 
+        firstnameNew = findViewById(R.id.firstnameNew);
+        firstnameNew.requestFocus();
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+
         buttonSaveNew = findViewById(R.id.buttonSaveNew);
         buttonSaveNew.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 Log.d(LOG_TAG, "!!! Добавлеие в базу данных !!!");
-
-                firstnameNew = findViewById(R.id.firstnameNew);
 
                 firstname = firstnameNew.getText().toString();
 
