@@ -1,10 +1,8 @@
 package com.addressbook.my.addressbook;
 // made by Roman Kryvolapov
 // активити создания нового контакта
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
@@ -17,29 +15,31 @@ import android.widget.EditText;
 
 public class UserNewNew extends AppCompatActivity {
 
-    String LOG_TAG = "MyLog";
+    private String LOG_TAG = "MyLog";
 
-    Button buttonSaveNew;
-    EditText firstnameNew;
-    EditText lastnameNew;
-    EditText telephone1New;
-    EditText telephone2New;
-    EditText telephone3New;
-    EditText facebookNew;
-    EditText viberNew;
-    EditText telegramNew;
-    EditText emailNew;
-    UserNewNew.DBHelper dbHelper;
-    SQLiteDatabase db;
-    String firstname;
-    String lastname;
-    String telephone1;
-    String telephone2;
-    String telephone3;
-    String facebook;
-    String viber;
-    String telegram;
-    String email;
+    private Button buttonSaveNew;
+    private EditText firstnameNew;
+    private EditText lastnameNew;
+    private EditText telephone1New;
+    private EditText telephone2New;
+    private EditText telephone3New;
+    private EditText facebookNew;
+    private EditText viberNew;
+    private EditText telegramNew;
+    private EditText emailNew;
+
+    private UserNewNew.DBHelper dbHelper;
+    private SQLiteDatabase db;
+
+    private String firstname;
+    private String lastname;
+    private String telephone1;
+    private String telephone2;
+    private String telephone3;
+    private String facebook;
+    private String viber;
+    private String telegram;
+    private String email;
 
     @Override
     public void onBackPressed() {
@@ -63,10 +63,10 @@ public class UserNewNew extends AppCompatActivity {
         db = dbHelper.getWritableDatabase();
 
         firstnameNew = findViewById(R.id.firstnameNew);
+        buttonSaveNew = findViewById(R.id.buttonSaveNew);
         firstnameNew.requestFocus();
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
 
-        buttonSaveNew = findViewById(R.id.buttonSaveNew);
         buttonSaveNew.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -96,23 +96,20 @@ public class UserNewNew extends AppCompatActivity {
                     email = emailNew.getText().toString();
 
                     dbHelper = new UserNewNew.DBHelper(getApplicationContext());
-                    SQLiteDatabase db = dbHelper.getWritableDatabase();
-                    Cursor c = db.query("mytable", null, null, null, null, null, null);
+                    db = dbHelper.getWritableDatabase();
 
-                    ContentValues cv = new ContentValues();
-                    cv.put("firstname", firstname);
-                    cv.put("lastname", lastname);
-                    cv.put("telephone1", telephone1);
-                    cv.put("telephone2", telephone2);
-                    cv.put("telephone3", telephone3);
-                    cv.put("facebook", facebook);
-                    cv.put("viber", viber);
-                    cv.put("telegram", telegram);
-                    cv.put("email", email);
-                    long rowID = db.insert("mytable", null, cv);
+                    String queryUpdate = "INSERT INTO mytable (firstname, lastname, telephone1, telephone2, telephone3," +
+                            "facebook, viber, telegram, email) VALUES ('"+firstname+"', '"+lastname+"', '"+telephone1+"', '"+telephone2+"'," +
+                            "'"+telephone3+"', '"+facebook+"', '"+viber+"', '"+telegram+"', '"+email+"');";
 
-                    c.close();
+                    for (int i = 0; i < 50; i++) {
+
+                        db.execSQL(queryUpdate);
+
+                    }
+
                     dbHelper.close();
+
                     Intent intent = new Intent(UserNewNew.this, UserList.class);
                     startActivity(intent);
                     finish();

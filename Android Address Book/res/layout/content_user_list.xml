@@ -13,7 +13,7 @@
         android:id="@+id/constraintLayout5"
         android:layout_width="0dp"
         android:layout_height="60dp"
-        app:layout_constraintBottom_toTopOf="@+id/userListWithScrollLayout"
+        app:layout_constraintBottom_toTopOf="@+id/UserListLayout"
         android:focusable="true"
         android:focusableInTouchMode="true"
         app:layout_constraintEnd_toEndOf="parent"
@@ -26,7 +26,9 @@
             android:layout_height="0dp"
             android:layout_marginBottom="8dp"
             android:layout_marginEnd="4dp"
-            android:layout_marginStart="4dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="4dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:background="@drawable/button_style_2"
             android:cursorVisible="true"
@@ -41,7 +43,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/editSearchLastName"
             app:layout_constraintHorizontal_weight="3"
-            app:layout_constraintStart_toEndOf="@+id/buttonClearSearchStrings"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
@@ -50,6 +52,8 @@
             android:layout_height="0dp"
             android:layout_marginBottom="8dp"
             android:layout_marginEnd="4dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
             android:layout_marginStart="4dp"
             android:layout_marginTop="8dp"
             android:background="@drawable/button_style_2"
@@ -63,22 +67,24 @@
             android:textColorLink="@color/colorPrimary"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/buttonSearch"
+            app:layout_constraintEnd_toStartOf="@+id/buttonClearSearchStrings"
             app:layout_constraintHorizontal_weight="3"
             app:layout_constraintStart_toEndOf="@+id/editSearchFirstName"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/buttonSearch"
+            android:id="@+id/buttonClearSearchStrings"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginBottom="8dp"
             android:layout_marginEnd="4dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
             android:layout_marginStart="4dp"
             android:layout_marginTop="8dp"
             android:background="@drawable/button_style_1"
             android:gravity="center_vertical|center_horizontal"
-            android:text="Search"
+            android:text="Clear"
             android:textColor="@android:color/white"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -89,10 +95,12 @@
 
         <Button
             android:id="@+id/buttonAddNew"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_marginBottom="8dp"
             android:layout_marginEnd="8dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="8dp"
             android:layout_marginStart="4dp"
             android:layout_marginTop="8dp"
             android:background="@drawable/button_style_1"
@@ -103,31 +111,13 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_weight="3"
-            app:layout_constraintStart_toEndOf="@+id/buttonSearch"
+            app:layout_constraintStart_toEndOf="@+id/buttonClearSearchStrings"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-            android:id="@+id/buttonClearSearchStrings"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="4dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/button_style_1"
-            android:gravity="center_vertical|center_horizontal"
-            android:text="C"
-            android:textColor="@android:color/white"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/editSearchFirstName"
-            app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
     </android.support.constraint.ConstraintLayout>
 
     <android.support.constraint.ConstraintLayout
-        android:id="@+id/userListWithScrollLayout"
+        android:id="@+id/UserListLayout"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -135,36 +125,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout5">
 
-        <ScrollView
-            android:id="@+id/rga"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@+id/constraintLayout8"
+        <GridView
+            android:id="@+id/gridview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent" >
 
-            <android.support.constraint.ConstraintLayout
-                android:id="@+id/UserListLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <android.support.constraint.ConstraintLayout
-                    android:id="@+id/constraintLayout8"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/rga">
-
-                </android.support.constraint.ConstraintLayout>
-            </android.support.constraint.ConstraintLayout>
-        </ScrollView>
-
+        </GridView>
     </android.support.constraint.ConstraintLayout>
 </android.support.constraint.ConstraintLayout>

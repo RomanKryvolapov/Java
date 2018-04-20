@@ -11,43 +11,48 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 public class UserOpen extends AppCompatActivity {
 
-    static int userID;
+    public static int userID;
 
-    String LOG_TAG = "Просмотр";
+    private String LOG_TAG = "Просмотр";
 
-    String firstname;
-    String lastname;
-    String telephone1;
-    String telephone2;
-    String telephone3;
-    String facebook;
-    String viber;
-    String telegram;
-    String email;
+//    private String firstname;
+//    private String lastname;
+//    private String telephone1;
+//    private String telephone2;
+//    private String telephone3;
+//    private String facebook;
+//    private String viber;
+//    private String telegram;
+//    private String email;
 
-    TextView firstnameView;
-    TextView lastnameView;
-    TextView telephone1View;
-    TextView telephone2View;
-    TextView telephone3View;
-    TextView facebookView;
-    TextView viberView;
-    TextView telegramView;
-    TextView emailView;
+//    String[] newList = new String[20];
 
-    Cursor c;
+    ArrayList<String> newList = new ArrayList<String>();
 
-    Button buttonEdit;
+//    private TextView firstnameView;
+//    private TextView lastnameView;
+//    private TextView telephone1View;
+//    private TextView telephone2View;
+//    private TextView telephone3View;
+//    private TextView facebookView;
+//    private TextView viberView;
+//    private TextView telegramView;
+//    private TextView emailView;
 
-    SQLiteDatabase db;
-
-    UserOpen.DBHelper dbHelper;
+    private Cursor c;
+    private Button buttonEdit;
+    private SQLiteDatabase db;
+    private UserOpen.DBHelper dbHelper;
 
     @Override
     public void onBackPressed() {
@@ -61,104 +66,86 @@ public class UserOpen extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        Log.d(LOG_TAG, "!!! Start c userID = !"+userID+"! !!!");
-
-        firstnameView = findViewById(R.id.firstnameView);
-        lastnameView = findViewById(R.id.lastnameView);
-        telephone1View = findViewById(R.id.telephone1View);
-        telephone2View = findViewById(R.id.telephone2View);
-        telephone3View = findViewById(R.id.telephone3View);
-        facebookView = findViewById(R.id.facebookView);
-        viberView = findViewById(R.id.viberView);
-        telegramView = findViewById(R.id.telegramView);
-        emailView = findViewById(R.id.emailView);
-        telephone1View.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                if(telephone1.length()>0) {
-                    try {
-                        Intent intent = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", telephone1, null));
-                        startActivity(intent);
-                    }catch (Exception e){
-
-                    }
-                }
-
-            }
-        });
-        telephone2View.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                try {
-                if(telephone1.length()>0) {
-                    Intent intent = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", telephone2, null));
-                    startActivity(intent);
-                }
-                }catch (Exception e){
-
-                }
-
-            }
-        });
-        telephone3View.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                try {
-                if(telephone1.length()>0) {
-                    Intent intent = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", telephone3, null));
-                    startActivity(intent);
-                }
-                }catch (Exception e){
-
-                }
-
-            }
-        });
-        facebookView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(facebook.length()>0){
-                    try {
-                    if(facebook.contains("https://www.facebook.com/"))
-                    {
-                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(facebook));
-                        startActivity(intent);
-                    } else{
-                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/"+facebook));
-                        startActivity(intent);
-                    }
-                    }catch (Exception e){
-
-                    }
-                }
-            }
-        });
-
-        emailView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                try{
-                    if(email.contains("@")&&email.contains(".")){
-
-                        Intent intent = new Intent(Intent.ACTION_SEND);
-                        intent.setType("message/rfc822");
-                        intent.putExtra(Intent.EXTRA_EMAIL  , new String[]{email});
-                        intent.putExtra(Intent.EXTRA_SUBJECT, " ");
-                        intent.putExtra(Intent.EXTRA_TEXT   , " ");
-                        startActivity(Intent.createChooser(intent, "Send email"));
-
-                    }
-                }catch (Exception e){
-
-                }
-            }
-        });
+//        telephone1View.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//                try {
+//                        if(telephone1.length()>0) {
+//                            Intent intent = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", telephone1, null));
+//                            startActivity(intent);
+//                        }
+//                }catch (Exception e){
+//                }
+//            }
+//        });
+//        telephone2View.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                try {
+//                        if(telephone1.length()>0) {
+//                          Intent intent = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", telephone2, null));
+//                          startActivity(intent);
+//                          }
+//                }catch (Exception e){
+//                }
+//            }
+//        });
+//        telephone3View.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                try {
+//                if(telephone1.length()>0) {
+//                    Intent intent = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", telephone3, null));
+//                    startActivity(intent);
+//                }
+//                }catch (Exception e){
+//                }
+//            }
+//        });
+//        facebookView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                if(facebook.length()>0){
+//                    try {
+//                    if(facebook.contains("https://www.facebook.com/"))
+//                    {
+//                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(facebook));
+//                        startActivity(intent);
+//                    } else{
+//                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/"+facebook));
+//                        startActivity(intent);
+//                    }
+//                    }catch (Exception e){
+//
+//                    }
+//                }
+//            }
+//        });
+//        emailView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                try{
+//                    if(email.contains("@")&&email.contains(".")){
+//
+//                        Intent intent = new Intent(Intent.ACTION_SEND);
+//                        intent.setType("message/rfc822");
+//                        intent.putExtra(Intent.EXTRA_EMAIL  , new String[]{email});
+//                        intent.putExtra(Intent.EXTRA_SUBJECT, " ");
+//                        intent.putExtra(Intent.EXTRA_TEXT   , " ");
+//                        startActivity(Intent.createChooser(intent, "Send email"));
+//
+//                    }
+//                }catch (Exception e){
+//
+//                }
+//            }
+//        });
 
         dbHelper = new UserOpen.DBHelper(this);
         db = dbHelper.getWritableDatabase();
+
+        userID = 20;
 
         String query = "SELECT * FROM mytable WHERE id = ?";
 
@@ -168,15 +155,24 @@ public class UserOpen extends AppCompatActivity {
 
             idColumns();
 
-            firstname=c.getString(UserList.intfirstname);
-            lastname=c.getString(UserList.intlastname);
-            telephone1=c.getString(UserList.inttelephone1);
-            telephone2=c.getString(UserList.inttelephone2);
-            telephone3=c.getString(UserList.inttelephone3);
-            facebook=c.getString(UserList.intfacebook);
-            viber=c.getString(UserList.intviber);
-            telegram=c.getString(UserList.inttelegram);
-            email=c.getString(UserList.intemail);
+            newList.add("First Name :");
+            newList.add(c.getString(UserList.intfirstname));
+            newList.add("Last Name :");
+            newList.add(c.getString(UserList.intlastname));
+            newList.add("Telephone 1:");
+            newList.add(c.getString(UserList.inttelephone1));
+            newList.add("Telephone 2:");
+            newList.add(c.getString(UserList.inttelephone2));
+            newList.add("Telephone 3:");
+            newList.add(c.getString(UserList.inttelephone3));
+            newList.add("Facebook :");
+            newList.add(c.getString(UserList.intfacebook));
+            newList.add("Viber :");
+            newList.add(c.getString(UserList.intviber));
+            newList.add("Telegram :");
+            newList.add(c.getString(UserList.inttelegram));
+            newList.add("Email :");
+            newList.add(c.getString(UserList.intemail));
 
         } else
             Log.d(LOG_TAG, "!!! База данных пуста !!!");
@@ -184,15 +180,11 @@ public class UserOpen extends AppCompatActivity {
         c.close();
         dbHelper.close();
 
-        firstnameView.setText(firstname);
-        lastnameView.setText(lastname);
-        telephone1View.setText(telephone1);
-        telephone2View.setText(telephone2);
-        telephone3View.setText(telephone3);
-        facebookView.setText(facebook);
-        viberView.setText(viber);
-        telegramView.setText(telegram);
-        emailView.setText(email);
+        GridView gridOpen = (GridView) findViewById(R.id.gridOpen);
+        gridOpen.setNumColumns(2);
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.item2, newList);
+        gridOpen.setAdapter(adapter);
 
         buttonEdit = findViewById(R.id.buttonEdit);
         buttonEdit.setOnClickListener(new View.OnClickListener() {
@@ -201,7 +193,6 @@ public class UserOpen extends AppCompatActivity {
                 UserEdit.userID=UserOpen.userID;
                 Intent intent = new Intent(UserOpen.this, UserEdit.class);
                 startActivity(intent);
-                finish();
             }
         });
 

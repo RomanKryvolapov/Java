@@ -13,6 +13,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
+import java.util.List;
+
 public class NewNew extends AppCompatActivity {
 
     NewNew.DBHelper dbHelper;
@@ -38,8 +40,8 @@ public class NewNew extends AppCompatActivity {
         if(!c.moveToFirst()&&sharedPreferences.getString("Password", "").length()==0) {
             c.close();
             dbHelper.close();
-                Intent intent = new Intent(NewNew.this, NewUser.class);
-                startActivity(intent);
+            Intent intent = new Intent(NewNew.this, NewUser.class);
+            startActivity(intent);
             this.overridePendingTransition(0, 0);
         }else
         {

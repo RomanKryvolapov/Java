@@ -13,36 +13,37 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class UserEdit extends AppCompatActivity {
 
-    static int userID;
+    public static int userID;
 
-    String LOG_TAG = "MyLog";
+    private String LOG_TAG = "MyLog";
 
-    String firstname;
-    String lastname;
-    String telephone1;
-    String telephone2;
-    String telephone3;
-    String facebook;
-    String viber;
-    String telegram;
-    String email;
-    EditText firstnameEdit;
-    EditText lastnameEdit;
-    EditText telephone1Edit;
-    EditText telephone2Edit;
-    EditText telephone3Edit;
-    EditText facebookEdit;
-    EditText viberEdit;
-    EditText telegramEdit;
-    EditText emailEdit;
-    Button buttonSave;
-    Button buttonDelete;
-    UserEdit.DBHelper dbHelper;
-    SQLiteDatabase db;
-    Cursor c;
+    private String firstname;
+    private String lastname;
+    private String telephone1;
+    private String telephone2;
+    private String telephone3;
+    private String facebook;
+    private String viber;
+    private String telegram;
+    private String email;
+    private EditText firstnameEdit;
+    private EditText lastnameEdit;
+    private EditText telephone1Edit;
+    private EditText telephone2Edit;
+    private EditText telephone3Edit;
+    private EditText facebookEdit;
+    private EditText viberEdit;
+    private EditText telegramEdit;
+    private EditText emailEdit;
+    private Button buttonSave;
+    private Button buttonDelete;
+    private UserEdit.DBHelper dbHelper;
+    private SQLiteDatabase db;
+    private Cursor c;
 
     @Override
     public void onBackPressed() {
@@ -60,8 +61,19 @@ public class UserEdit extends AppCompatActivity {
 
         dbHelper = new UserEdit.DBHelper(this);
         db = dbHelper.getWritableDatabase();
-
-        Log.d(LOG_TAG, "!!! Редактирование Содержимое базы данных !!!");
+        firstnameEdit = findViewById(R.id.firstnameEdit);
+        lastnameEdit = findViewById(R.id.lastnameEdit);
+        telephone1Edit = findViewById(R.id.telephone1Edit);
+        telephone2Edit = findViewById(R.id.telephone2Edit);
+        telephone3Edit = findViewById(R.id.telephone3Edit);
+        facebookEdit = findViewById(R.id.facebookEdit);
+        viberEdit = findViewById(R.id.viberEdit);
+        telegramEdit = findViewById(R.id.telegramEdit);
+        emailEdit = findViewById(R.id.emailEdit);
+        buttonDelete = findViewById(R.id.buttonDelete);
+        buttonSave = findViewById(R.id.buttonSave);
+        firstnameEdit.requestFocus();
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
         String query = "SELECT * FROM mytable WHERE id = ?";
 
@@ -70,11 +82,6 @@ public class UserEdit extends AppCompatActivity {
         if (c.moveToFirst()) {
 
             idColumns();
-//
-//            do {
-//                if(c.getInt(UserList.intID)==userID)
-//                    break;
-//            } while (c.moveToNext());
 
             firstname = c.getString(UserList.intfirstname);
             lastname = c.getString(UserList.intlastname);
@@ -92,19 +99,6 @@ public class UserEdit extends AppCompatActivity {
         c.close();
         dbHelper.close();
 
-        firstnameEdit = findViewById(R.id.firstnameEdit);
-        lastnameEdit = findViewById(R.id.lastnameEdit);
-        telephone1Edit = findViewById(R.id.telephone1Edit);
-        telephone2Edit = findViewById(R.id.telephone2Edit);
-        telephone3Edit = findViewById(R.id.telephone3Edit);
-        facebookEdit = findViewById(R.id.facebookEdit);
-        viberEdit = findViewById(R.id.viberEdit);
-        telegramEdit = findViewById(R.id.telegramEdit);
-        emailEdit = findViewById(R.id.emailEdit);
-
-        firstnameEdit.requestFocus();
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
-
         firstnameEdit.setText(firstname);
         lastnameEdit.setText(lastname);
         telephone1Edit.setText(telephone1);
@@ -115,14 +109,13 @@ public class UserEdit extends AppCompatActivity {
         telegramEdit.setText(telegram);
         emailEdit.setText(email);
 
-        buttonDelete = findViewById(R.id.buttonDelete);
         buttonDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 Log.d(LOG_TAG, "!!!Редактирование Удаление из базы данных !!!");
 
-                dbHelper = new UserEdit.DBHelper(getApplicationContext());
+//                dbHelper = new UserEdit.DBHelper(getApplicationContext());
                 SQLiteDatabase db = dbHelper.getWritableDatabase();
 
                 String queryDel = "DELETE FROM mytable WHERE id = "+Integer.toString(userID);
@@ -131,6 +124,7 @@ public class UserEdit extends AppCompatActivity {
 
                 c.close();
                 dbHelper.close();
+                Toast.makeText(getApplicationContext(),"Deleted",Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(UserEdit.this, UserList.class);
                 startActivity(intent);
                 finish();
@@ -138,7 +132,6 @@ public class UserEdit extends AppCompatActivity {
             }
         });
 
-        buttonSave = findViewById(R.id.buttonSave);
         buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -156,7 +149,7 @@ public class UserEdit extends AppCompatActivity {
                     viber = viberEdit.getText().toString();
                     telegram = telegramEdit.getText().toString();
                     email = emailEdit.getText().toString();
-                    dbHelper = new UserEdit.DBHelper(getApplicationContext());
+//                    dbHelper = new UserEdit.DBHelper(getApplicationContext());
                     SQLiteDatabase db = dbHelper.getWritableDatabase();
 
                     String queryUpdate = "UPDATE mytable SET firstname = '"+firstname+"', lastname = '"+lastname+"', " +
@@ -169,6 +162,9 @@ public class UserEdit extends AppCompatActivity {
 
                     c.close();
                     dbHelper.close();
+
+                    Toast.makeText(getApplicationContext(),"Updated",Toast.LENGTH_SHORT).show();
+
                     Intent intent = new Intent(UserEdit.this, UserOpen.class);
                     startActivity(intent);
                     finish();
