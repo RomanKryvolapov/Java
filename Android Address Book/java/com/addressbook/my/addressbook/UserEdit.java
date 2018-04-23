@@ -8,11 +8,17 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.text.InputType;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.view.WindowManager;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class UserEdit extends AppCompatActivity {
@@ -21,29 +27,20 @@ public class UserEdit extends AppCompatActivity {
 
     private String LOG_TAG = "MyLog";
 
-    private String firstname;
-    private String lastname;
-    private String telephone1;
-    private String telephone2;
-    private String telephone3;
-    private String facebook;
-    private String viber;
-    private String telegram;
-    private String email;
-    private EditText firstnameEdit;
-    private EditText lastnameEdit;
-    private EditText telephone1Edit;
-    private EditText telephone2Edit;
-    private EditText telephone3Edit;
-    private EditText facebookEdit;
-    private EditText viberEdit;
-    private EditText telegramEdit;
-    private EditText emailEdit;
     private Button buttonSave;
     private Button buttonDelete;
-    private UserEdit.DBHelper dbHelper;
-    private SQLiteDatabase db;
     private Cursor c;
+    private SQLiteDatabase db;
+    private UserEdit.DBHelper dbHelper;
+    private int id = 1000;
+
+    public static int focusPosition = 0;
+
+    private RecyclerView mRecyclerView;
+    private StaggeredGridLayoutManager mGridLayoutManager;
+    private UserEdit.RecyclerViewAdapter mAdapter;
+    private String[] mList;
+    private String[] mList2;
 
     @Override
     public void onBackPressed() {
@@ -57,23 +54,12 @@ public class UserEdit extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        Log.d(LOG_TAG, "!!! Редактирование Запуск !!!");
-
-        dbHelper = new UserEdit.DBHelper(this);
-        db = dbHelper.getWritableDatabase();
-        firstnameEdit = findViewById(R.id.firstnameEdit);
-        lastnameEdit = findViewById(R.id.lastnameEdit);
-        telephone1Edit = findViewById(R.id.telephone1Edit);
-        telephone2Edit = findViewById(R.id.telephone2Edit);
-        telephone3Edit = findViewById(R.id.telephone3Edit);
-        facebookEdit = findViewById(R.id.facebookEdit);
-        viberEdit = findViewById(R.id.viberEdit);
-        telegramEdit = findViewById(R.id.telegramEdit);
-        emailEdit = findViewById(R.id.emailEdit);
         buttonDelete = findViewById(R.id.buttonDelete);
         buttonSave = findViewById(R.id.buttonSave);
-        firstnameEdit.requestFocus();
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+
+        dbHelper = new UserEdit.DBHelper(this);
+
+        db = dbHelper.getWritableDatabase();
 
         String query = "SELECT * FROM mytable WHERE id = ?";
 
@@ -83,31 +69,40 @@ public class UserEdit extends AppCompatActivity {
 
             idColumns();
 
-            firstname = c.getString(UserList.intfirstname);
-            lastname = c.getString(UserList.intlastname);
-            telephone1 = c.getString(UserList.inttelephone1);
-            telephone2 = c.getString(UserList.inttelephone2);
-            telephone3 = c.getString(UserList.inttelephone3);
-            facebook = c.getString(UserList.intfacebook);
-            viber = c.getString(UserList.intviber);
-            telegram = c.getString(UserList.inttelegram);
-            email = c.getString(UserList.intemail);
+            mList = new String[9];
+            mList2 = new String[9];
+
+            mList[0] = "First Name :";
+            mList2[0] = c.getString(UserList.intfirstname);
+            mList[1] = "Last Name :";
+            mList2[1] = c.getString(UserList.intlastname);
+            mList[2] = "Telephone 1:";
+            mList2[2] = c.getString(UserList.inttelephone1);
+            mList[3] = "Telephone 2:";
+            mList2[3] = c.getString(UserList.inttelephone2);
+            mList[4] = "Telephone 3:";
+            mList2[4] = c.getString(UserList.inttelephone3);
+            mList[5] = "Facebook :";
+            mList2[5] = c.getString(UserList.intfacebook);
+            mList[6] = "Viber :";
+            mList2[6] = c.getString(UserList.intviber);
+            mList[7] = "Telegram :";
+            mList2[7] = c.getString(UserList.inttelegram);
+            mList[8] = "Email :";
+            mList2[8] = c.getString(UserList.intemail);
+
+            mRecyclerView = (RecyclerView) findViewById(R.id.listEdit);
+            mGridLayoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
+            mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+            mRecyclerView.setLayoutManager(mGridLayoutManager);
+            mAdapter = new UserEdit.RecyclerViewAdapter(getApplicationContext(), mList, mList2);
+            mRecyclerView.setAdapter(mAdapter);
+
+            c.close();
+            dbHelper.close();
 
         } else
-            Log.d(LOG_TAG, "!!! База данных пустая !!!");
-
-        c.close();
-        dbHelper.close();
-
-        firstnameEdit.setText(firstname);
-        lastnameEdit.setText(lastname);
-        telephone1Edit.setText(telephone1);
-        telephone2Edit.setText(telephone2);
-        telephone3Edit.setText(telephone3);
-        facebookEdit.setText(facebook);
-        viberEdit.setText(viber);
-        telegramEdit.setText(telegram);
-        emailEdit.setText(email);
+            Log.d(LOG_TAG, "!!! База данных пуста !!!");
 
         buttonDelete.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,7 +110,7 @@ public class UserEdit extends AppCompatActivity {
 
                 Log.d(LOG_TAG, "!!!Редактирование Удаление из базы данных !!!");
 
-//                dbHelper = new UserEdit.DBHelper(getApplicationContext());
+                dbHelper = new UserEdit.DBHelper(getApplicationContext());
                 SQLiteDatabase db = dbHelper.getWritableDatabase();
 
                 String queryDel = "DELETE FROM mytable WHERE id = "+Integer.toString(userID);
@@ -136,27 +131,26 @@ public class UserEdit extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Log.d(LOG_TAG, "!!!Редактирование Обновление базы данных !!!");
+                Log.d(LOG_TAG, "!!! Обновление базы данных !!!");
 
-                firstname = firstnameEdit.getText().toString();
+                // заносит поля в массив
+                for (int i = 0; i < 9; i++) {
+                    EditText newEditText = findViewById(1000+i);
+                    mList2[i] = newEditText.getText().toString();
+                }
 
-                if(!firstname.equals("")) {
-                    lastname = lastnameEdit.getText().toString();
-                    telephone1 = telephone1Edit.getText().toString();
-                    telephone2 = telephone2Edit.getText().toString();
-                    telephone3 = telephone3Edit.getText().toString();
-                    facebook = facebookEdit.getText().toString();
-                    viber = viberEdit.getText().toString();
-                    telegram = telegramEdit.getText().toString();
-                    email = emailEdit.getText().toString();
-//                    dbHelper = new UserEdit.DBHelper(getApplicationContext());
+                // проеряет введено ли имя или фамилия
+                if(!mList2[0].equals("")||!mList2[1].equals(""))
+                {
+
+                    dbHelper = new UserEdit.DBHelper(getApplicationContext());
                     SQLiteDatabase db = dbHelper.getWritableDatabase();
 
-                    String queryUpdate = "UPDATE mytable SET firstname = '"+firstname+"', lastname = '"+lastname+"', " +
-                            "telephone1 = '"+telephone1+"', telephone2 = '"+telephone2+"', " +
-                            "telephone3 = '"+telephone3+"', facebook = '"+facebook+"', " +
-                            "viber = '"+viber+"', telegram = '"+telegram+"'," +
-                            "email = '"+email+"'  WHERE id = "+Integer.toString(userID);
+                    String queryUpdate = "UPDATE mytable SET firstname = '"+mList2[0]+"', lastname = '"+mList2[1]+"', " +
+                            "telephone1 = '"+mList2[2]+"', telephone2 = '"+mList2[3]+"', " +
+                            "telephone3 = '"+mList2[4]+"', facebook = '"+mList2[5]+"', " +
+                            "viber = '"+mList2[6]+"', telegram = '"+mList2[7]+"'," +
+                            "email = '"+mList2[8]+"'  WHERE id = "+Integer.toString(userID);
 
                     db.execSQL(queryUpdate);
 
@@ -171,12 +165,11 @@ public class UserEdit extends AppCompatActivity {
                 }
             }
         });
-
     }
 
     void idColumns(){
         if(!UserList.intChecked) {
-            Log.d(LOG_TAG, "!!! Проверка ID !!! ");
+            Log.d(LOG_TAG, "!!! Проверка ID - должна быть 1 раз за программу !!! ");
             UserList.intID = c.getColumnIndex("id");
             UserList.intfirstname = c.getColumnIndex("firstname");
             UserList.intlastname = c.getColumnIndex("lastname");
@@ -205,7 +198,6 @@ public class UserEdit extends AppCompatActivity {
 
         @Override
         public void onCreate(SQLiteDatabase db) {
-            Log.d(LOG_TAG, "!!! Создание базы данных !!!");
             db.execSQL("create table mytable (" + "id integer primary key autoincrement,"
                     + "firstname text," + "lastname text," + "telephone1 text," + "telephone2 text," + "telephone3 text," + "facebook text," + "viber text,"
                     + "telegram text," + "email text" + ");");
@@ -217,4 +209,106 @@ public class UserEdit extends AppCompatActivity {
         }
     }
 
+    class RecyclerViewAdapter extends RecyclerView.Adapter<UserEdit.RecyclerViewAdapter.ViewHolder> {
+        private Context mContext;
+        private String[] mList;
+        private String[] mList2;
+
+        public RecyclerViewAdapter(Context contexts, String[] list, String[] list2) {
+            this.mContext = contexts;
+            this.mList = list;
+            this.mList2 = list2;
+        }
+        @Override
+        public UserEdit.RecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+            View itemView = inflater.inflate(R.layout.itemedit, parent, false);
+            return new UserEdit.RecyclerViewAdapter.ViewHolder(itemView);
+        }
+        @Override
+        public void onBindViewHolder(final UserEdit.RecyclerViewAdapter.ViewHolder holder, final int position) {
+
+            holder.titleTextView.setText(mList[position]);
+            holder.titleTextView2.setText(mList2[position]);
+            holder.titleTextView2.setId(id);
+            id++;
+
+            switch (position){
+                case 0:
+                case 1:
+                    holder.titleTextView2.setInputType(InputType.TYPE_TEXT_VARIATION_PERSON_NAME);
+                    break;
+                case 2:
+                case 3:
+                case 4:
+                    holder.titleTextView2.setInputType(InputType.TYPE_CLASS_NUMBER);
+                    break;
+                case 8:
+                    holder.titleTextView2.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+                    break;
+                    default:
+                        holder.titleTextView2.setInputType(InputType.TYPE_CLASS_TEXT);
+                        break;
+            }
+            if(position==focusPosition)
+                holder.titleTextView2.requestFocus();
+
+            Log.d(LOG_TAG, "!!! focusPosition = "+focusPosition+" !!! ");
+
+
+
+            holder.setClickListener(new UserEdit.ItemClickListener() {
+                @Override
+                public void onClick(View view, int position, boolean isLongClick) {
+                    if (isLongClick) {
+
+//                    Toast.makeText(mContext, "#" + position + " - " + mList[position] + " (Long click)", Toast.LENGTH_SHORT).show();
+                    } else {
+
+//                    Toast.makeText(mContext, "#" + position + " - " + mList[position], Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        }
+        @Override
+        public int getItemCount() {
+            return mList.length;
+        }
+        public class ViewHolder extends RecyclerView.ViewHolder
+                implements View.OnClickListener, View.OnLongClickListener{
+
+            private TextView titleTextView;
+            private EditText titleTextView2;
+
+            private UserEdit.ItemClickListener clickListener;
+            public ViewHolder(View itemView) {
+                super(itemView);
+
+                Log.d(LOG_TAG, "!!! ViewHolder !!! ");
+
+                titleTextView = (TextView)itemView.findViewById(R.id.textView);
+                titleTextView2 = (EditText)itemView.findViewById(R.id.textView2);
+
+                itemView.setTag(itemView);
+                itemView.setOnClickListener(this);
+                itemView.setOnLongClickListener(this);
+            }
+            public void setClickListener(UserEdit.ItemClickListener itemClickListener) {
+                this.clickListener = itemClickListener;
+            }
+            @Override
+            public void onClick(View view) {
+                clickListener.onClick(view, getPosition(), false);
+            }
+            @Override
+            public boolean onLongClick(View view) {
+                clickListener.onClick(view, getPosition(), true);
+                return true;
+            }
+        }
+    }
+
+    interface ItemClickListener {
+        void onClick(View view, int position, boolean isLongClick);
+    }
 }

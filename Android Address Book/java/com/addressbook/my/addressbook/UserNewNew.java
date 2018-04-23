@@ -102,11 +102,11 @@ public class UserNewNew extends AppCompatActivity {
                             "facebook, viber, telegram, email) VALUES ('"+firstname+"', '"+lastname+"', '"+telephone1+"', '"+telephone2+"'," +
                             "'"+telephone3+"', '"+facebook+"', '"+viber+"', '"+telegram+"', '"+email+"');";
 
-                    for (int i = 0; i < 50; i++) {
+//                    for (int i = 0; i < 50; i++) {
 
                         db.execSQL(queryUpdate);
 
-                    }
+//                    }
 
                     dbHelper.close();
 

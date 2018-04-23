@@ -6,18 +6,19 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.widget.EditText;
-import android.widget.GridView;
-
-import java.util.ArrayList;
+import android.widget.TextView;
 
 public class UserList extends AppCompatActivity {
 
@@ -28,14 +29,19 @@ public class UserList extends AppCompatActivity {
     private EditText editSearchFirstName;
     private EditText editSearchLastName;
 
+    public static boolean correctEnter = false;
+
     private SQLiteDatabase db;
     private DBHelper dbHelper;
     private Cursor c;
 
-    ArrayList<String> newList = new ArrayList<>();
+    private int sqlIDnumber[];
+    private int Size = 0;
 
     static String searchFirstName = "";
     static String searchLastName = "";
+
+    public static int userID;
 
     public static int intID;
     public static int intfirstname;
@@ -48,41 +54,50 @@ public class UserList extends AppCompatActivity {
     public static int inttelegram;
     public static int intemail;
     public static boolean intChecked = false;
-    public static ArrayList<Integer> sqlIDnumber = new ArrayList<>();
+
+    private RecyclerView mRecyclerView;
+    private StaggeredGridLayoutManager mGridLayoutManager;
+    private RecyclerViewAdapter mAdapter;
+    private String[] mList;
+    private String[] mList2;
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        Log.d(LOG_TAG, "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         finish();
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        return super.equals(obj);
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-        Log.d(LOG_TAG, "!!! Start !!!");
-        editSearchFirstName.setText(searchFirstName);
-        editSearchLastName.setText(searchLastName);
-
-        reloadTable();
-
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if(correctEnter){
         setContentView(R.layout.activity_user_list);
-        Log.d(LOG_TAG, "!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        Log.d(LOG_TAG, "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 
         editSearchFirstName = findViewById(R.id.editSearchFirstName);
         editSearchLastName = findViewById(R.id.editSearchLastName);
         buttonAddNew = findViewById(R.id.buttonAddNew);
         buttonClearSearchStrings = findViewById(R.id.buttonClearSearchStrings);
+
+        editSearchLastName.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                @Override
+                public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+                    searchFirstName = editSearchFirstName.getText().toString();
+                    searchLastName = editSearchLastName.getText().toString();
+                    return false;
+                }
+            });
+
+        editSearchFirstName.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                @Override
+                public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+                    searchFirstName = editSearchFirstName.getText().toString();
+                    searchLastName = editSearchLastName.getText().toString();
+                    reloadTable();
+                    return false;
+                }
+            });
 
         editSearchFirstName.setOnKeyListener(new View.OnKeyListener() {
             @Override
@@ -121,8 +136,12 @@ public class UserList extends AppCompatActivity {
                 reloadTable();
             }
         });
+            editSearchFirstName.setText(searchFirstName);
+            editSearchLastName.setText(searchLastName);
 
+            reloadTable();
 
+    }
     }
 
     void reloadTable(){
@@ -131,80 +150,83 @@ public class UserList extends AppCompatActivity {
         db = dbHelper.getWritableDatabase();
 
         if (searchFirstName.equals("") && searchLastName.equals("")) {
-            Log.d(LOG_TAG, "!!! Условие 1 !!!");
-            String query = "SELECT id, firstname, lastname FROM mytable ORDER BY firstname";
+            Log.d(LOG_TAG, "!!! Условие - поля поиска пусты !!!");
+            String query = "SELECT id, firstname, lastname FROM mytable ORDER BY firstname, lastname";
             c = db.rawQuery(query, null);
+            Size = c.getCount();
         } else if (!searchFirstName.equals("") && searchLastName.equals("")) {
-            Log.d(LOG_TAG, "!!! Условие 2 !!!");
-            String query = "SELECT id, firstname, lastname FROM mytable WHERE firstname LIKE ? ORDER BY firstname";
+            Log.d(LOG_TAG, "!!! Условие - поле поиска 1 заполнено !!!");
+            String query = "SELECT id, firstname, lastname FROM mytable WHERE firstname LIKE ? ORDER BY firstname, lastname";
             String query2 = "%"+searchFirstName+"%";
             c = db.rawQuery(query, new String[]{query2});
+            Size = c.getCount();
         } else if (searchFirstName.equals("") && !searchLastName.equals("")) {
-            Log.d(LOG_TAG, "!!! Условие 3 !!!");
-            String query = "SELECT id, firstname, lastname FROM mytable WHERE lastname LIKE ? ORDER BY firstname";
+            Log.d(LOG_TAG, "!!! Условие - поле поиска 2 заполнено !!!");
+            String query = "SELECT id, firstname, lastname FROM mytable WHERE lastname LIKE ? ORDER BY firstname, lastname";
             String query2 = "%"+searchLastName+"%";
             c = db.rawQuery(query, new String[]{query2});
+            Size = c.getCount();
         } else if (!searchFirstName.equals("") && !searchLastName.equals("")) {
-            Log.d(LOG_TAG, "!!! Условие 4 !!!");
+            Log.d(LOG_TAG, "!!! Условие - оба поля поиска заполнены !!!");
             String query2 = "%"+searchFirstName+"%";
             String query3 = "%"+searchLastName+"%";
-            String query = "SELECT id, firstname, lastname FROM mytable WHERE firstname LIKE ? AND lastname LIKE ? ORDER BY firstname";
+            String query = "SELECT id, firstname, lastname FROM mytable WHERE firstname LIKE ? AND lastname LIKE ? ORDER BY firstname, lastname";
             c = db.rawQuery(query, new String[]{query2, query3});
+            Size = c.getCount();
         }
 
         if (c.moveToFirst()) {
 
-            sqlIDnumber = new ArrayList<Integer>();
-            c.moveToFirst();
+            sqlIDnumber = new int[Size];
+            mList = new String[Size];
+            mList2 = new String[Size];
 
-            do {
-                sqlIDnumber.add(c.getInt(intID));
-            } while (c.moveToNext());
+            c.moveToFirst();
 
             if (!intChecked)
                 idColumns();
 
-            newList = new ArrayList<String>();
             c.moveToFirst();
 
+            int iterator = 0;
+
             do {
-                newList.add(c.getString(intfirstname));
-                newList.add(c.getString(intlastname));
+                sqlIDnumber[iterator] = c.getInt(intID);
+                mList[iterator] = c.getString(intfirstname);
+                mList2[iterator] = c.getString(intlastname);
+                iterator++;
             } while (c.moveToNext());
-
-            GridView gridView = (GridView) findViewById(R.id.gridview);
-            gridView.setNumColumns(2);
-
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.item, newList);
-            gridView.setAdapter(adapter);
-
-            gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
-                    UserOpen.userID = sqlIDnumber.get(i/2);
-                    Intent intent = new Intent(UserList.this, UserOpen.class);
-                    startActivity(intent);
-                    finish();
-
-                }
-            });
 
             c.close();
             dbHelper.close();
 
+            mRecyclerView = (RecyclerView) findViewById(R.id.list);
+            mGridLayoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
+            mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+            mRecyclerView.setLayoutManager(mGridLayoutManager);
+            mAdapter = new RecyclerViewAdapter(getApplicationContext(), mList, mList2);
+            mRecyclerView.setAdapter(mAdapter);
+
+
         } else
         {
-            GridView gridView = (GridView) findViewById(R.id.gridview);
-            gridView.setNumColumns(2);
-            String newListNull[] = new String[0];
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.item, newListNull);
-            gridView.setAdapter(adapter);
+
+            mList = new String[0];
+            mList2 = new String[0];
+
+            mRecyclerView = (RecyclerView) findViewById(R.id.list);
+            mGridLayoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
+            mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+            mRecyclerView.setLayoutManager(mGridLayoutManager);
+            mAdapter = new RecyclerViewAdapter(getApplicationContext(), mList, mList2);
+            mRecyclerView.setAdapter(mAdapter);
+
+
         }
     }
 
     void idColumns(){
-        Log.d(LOG_TAG, "!!! Проверка ID !!! ");
+        Log.d(LOG_TAG, "!!! Проверка ID колонок - должна быть 1 раз !!! ");
         String query = "SELECT * FROM mytable";
         Cursor cursor = db.rawQuery(query, null);
         intID = cursor.getColumnIndex("id");
@@ -240,5 +262,100 @@ public class UserList extends AppCompatActivity {
 
         }
     }
+
+    class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
+        private Context mContext;
+        private String[] mList;
+        private String[] mList2;
+
+        public RecyclerViewAdapter(Context contexts, String[] list, String[] list2) {
+            this.mContext = contexts;
+            this.mList = list;
+            this.mList2 = list2;
+        }
+        @Override
+        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+            View itemView = inflater.inflate(R.layout.item, parent, false);
+            return new ViewHolder(itemView);
+        }
+        @Override
+        public void onBindViewHolder(ViewHolder holder, int position) {
+
+            holder.titleTextView.setText(mList[position]);
+            holder.titleTextView2.setText(mList2[position]);
+
+            holder.setClickListener(new ItemClickListener() {
+                @Override
+                public void onClick(View view, int position, boolean isLongClick) {
+                    if (isLongClick) {
+
+                        UserList.userID = position;
+                        UserEdit.focusPosition = 0;
+                        Log.d(LOG_TAG, "!!! Открытие редактирования !!! ");
+                        UserOpen.userID = sqlIDnumber[userID];
+                        UserEdit.userID = sqlIDnumber[userID];
+                        Intent intent = new Intent(UserList.this, UserEdit.class);
+                        startActivity(intent);
+                        finish();
+
+//                    Toast.makeText(mContext, "#" + position + " - " + mList[position] + " (Long click)", Toast.LENGTH_SHORT).show();
+                    } else {
+
+                        UserList.userID = position;
+                        UserEdit.focusPosition = 0;
+                        Log.d(LOG_TAG, "!!! Открытие просмотра !!! ");
+                        UserOpen.userID = sqlIDnumber[userID];
+                        Intent intent = new Intent(UserList.this, UserOpen.class);
+                        startActivity(intent);
+                        finish();
+
+//                    Toast.makeText(mContext, "#" + position + " - " + mList[position], Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        }
+        @Override
+        public int getItemCount() {
+            return mList.length;
+        }
+        public class ViewHolder extends RecyclerView.ViewHolder
+                implements View.OnClickListener, View.OnLongClickListener{
+
+            private TextView titleTextView;
+            private TextView titleTextView2;
+
+            private ItemClickListener clickListener;
+            public ViewHolder(View itemView) {
+                super(itemView);
+
+                Log.d(LOG_TAG, "!!! ViewHolder - должен быть несколько раз !!! ");
+                titleTextView = (TextView)itemView.findViewById(R.id.textView);
+                titleTextView2 = (TextView)itemView.findViewById(R.id.textView2);
+
+                itemView.setTag(itemView);
+                itemView.setOnClickListener(this);
+                itemView.setOnLongClickListener(this);
+            }
+            public void setClickListener(ItemClickListener itemClickListener) {
+                this.clickListener = itemClickListener;
+            }
+            @Override
+            public void onClick(View view) {
+                clickListener.onClick(view, getPosition(), false);
+            }
+            @Override
+            public boolean onLongClick(View view) {
+                clickListener.onClick(view, getPosition(), true);
+                return true;
+            }
+        }
+    }
+
+    interface ItemClickListener {
+        void onClick(View view, int position, boolean isLongClick);
+    }
+
+
 
 }

@@ -3,6 +3,7 @@ package com.addressbook.my.addressbook;
 // окно ввода пароля
 // если пароля нет, а база данных ест (проверилось на предыдущем активити)
 // скажет об этом
+import android.animation.TimeAnimator;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -11,29 +12,31 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.Timer;
+import java.util.concurrent.TimeUnit;
+
 public class OldUser extends AppCompatActivity {
 
-    SharedPreferences sharedPreferences;
-
-    TextView textViewCheck;
-
-    Button buttonCheckAdd1;
-    Button buttonCheckAdd2;
-    Button buttonCheckAdd3;
-    Button buttonCheckAdd4;
-    Button buttonCheckAdd5;
-    Button buttonCheckAdd6;
-    Button buttonCheckAdd7;
-    Button buttonCheckAdd8;
-    Button buttonCheckAdd9;
-    Button buttonCheckClear;
-    Button buttonChangePassword;
-    TextView editCheckPassword;
-
-
+    private SharedPreferences sharedPreferences;
+    private TextView textViewCheck;
+    private Button buttonCheckAdd1;
+    private Button buttonCheckAdd2;
+    private Button buttonCheckAdd3;
+    private Button buttonCheckAdd4;
+    private Button buttonCheckAdd5;
+    private Button buttonCheckAdd6;
+    private Button buttonCheckAdd7;
+    private Button buttonCheckAdd8;
+    private Button buttonCheckAdd9;
+    private Button buttonCheckClear;
+    private Button buttonChangePassword;
+    private TextView editCheckPassword;
+    private boolean changemode = false;
+    private int checkCount = 0;
     private String password = "";
     private String passwordCheck = "";
     private String passwordView = "";
+    private int sleeptimer = 1000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,8 +59,17 @@ public class OldUser extends AppCompatActivity {
         buttonChangePassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                        Intent intent = new Intent(OldUser.this, ChangePassword.class);
-                        startActivity(intent);
+                if(!changemode) {
+                    changemode = true;
+                    textViewCheck.setBackgroundColor(0xFFFF8C00);
+                    textViewCheck.setText("Enter old password");
+                    buttonChangePassword.setText("c\na\nn\nc\ne\nl");
+                } else{
+                    changemode = false;
+                    textViewCheck.setBackgroundColor(0xFF000000);
+                    textViewCheck.setText("Enter your password");
+                    buttonChangePassword.setText("c\nh\na\nn\ng\ne");
+                }
             }
         });
         buttonCheckClear.setOnClickListener(new View.OnClickListener() {
@@ -172,32 +184,62 @@ public class OldUser extends AppCompatActivity {
 
             }
         });
+
+
+
     }
 
     private void passwordCheck(){
         if(password.length()==4) {
             sharedPreferences = getSharedPreferences("cache", MODE_PRIVATE);
             passwordCheck = sharedPreferences.getString("Password", "");
-            if(passwordCheck.length()>0) {
-                if (passwordCheck.charAt(8) == password.charAt(0) &&
-                        passwordCheck.charAt(3) == password.charAt(1) &&
-                        passwordCheck.charAt(25) == password.charAt(2) &&
-                        passwordCheck.charAt(11) == password.charAt(3)) {
-                    Intent intent = new Intent(OldUser.this, UserList.class);
-                    startActivity(intent);
+            if (passwordCheck.length() > 0) {
+                if (passwordCheck.charAt(7+Integer.parseInt(password.charAt(3)+"")/3*2) == password.charAt(0) &&
+                        passwordCheck.charAt(26+Integer.parseInt(password.charAt(2)+"")/3*2) == password.charAt(1) &&
+                        passwordCheck.charAt(55+Integer.parseInt(password.charAt(1)+"")/3*2) == password.charAt(2) &&
+                        passwordCheck.charAt(70+Integer.parseInt(password.charAt(0)+"")/3*2) == password.charAt(3)) {
+                    textViewCheck.setBackgroundColor(0xFF00FF00);
+                    textViewCheck.setText("Password correct");
+                    if (!changemode) {
+                        UserList.correctEnter=true;
+                        Intent intent = new Intent(OldUser.this, UserList.class);
+                        startActivity(intent);
+                    } else{
+                        Intent intent = new Intent(OldUser.this, NewUser.class);
+                        startActivity(intent);
+                    }
                 } else {
+                    textViewCheck.setBackgroundColor(0xFFFF0000);
                     textViewCheck.setText("Password incorrect");
                     password = "";
                     passwordView = "";
                     editCheckPassword.setText(passwordView);
+                    checkCount++;
+                    passwordIncorrect();
+                    if(checkCount>4){
+                        finish();
+                    }
                 }
-            } else{
+            } else {
+                textViewCheck.setBackgroundColor(0xFFFF0000);
                 textViewCheck.setText("Can not work without pass file");
                 password = "";
                 passwordView = "";
                 editCheckPassword.setText(passwordView);
+                UserList.correctEnter=false;
             }
         }
+    }
+
+    void passwordIncorrect(){
+        for (int i = 0; i < sleeptimer; i++) {
+            try {
+                Thread.sleep(1);
+            }catch (Exception e){
+
+            }
+        }
+        sleeptimer+=3000;
     }
 
     @Override

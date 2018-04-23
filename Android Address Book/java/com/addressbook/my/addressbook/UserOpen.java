@@ -9,15 +9,15 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ArrayAdapter;
+import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.GridView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import java.util.ArrayList;
 
 public class UserOpen extends AppCompatActivity {
 
@@ -25,34 +25,18 @@ public class UserOpen extends AppCompatActivity {
 
     private String LOG_TAG = "Просмотр";
 
-//    private String firstname;
-//    private String lastname;
-//    private String telephone1;
-//    private String telephone2;
-//    private String telephone3;
-//    private String facebook;
-//    private String viber;
-//    private String telegram;
-//    private String email;
-
-//    String[] newList = new String[20];
-
-    ArrayList<String> newList = new ArrayList<String>();
-
-//    private TextView firstnameView;
-//    private TextView lastnameView;
-//    private TextView telephone1View;
-//    private TextView telephone2View;
-//    private TextView telephone3View;
-//    private TextView facebookView;
-//    private TextView viberView;
-//    private TextView telegramView;
-//    private TextView emailView;
+    private Button buttonEdit;
 
     private Cursor c;
-    private Button buttonEdit;
     private SQLiteDatabase db;
     private UserOpen.DBHelper dbHelper;
+    private int id = 1000;
+
+    private RecyclerView mRecyclerView;
+    private StaggeredGridLayoutManager mGridLayoutManager;
+    private UserOpen.RecyclerViewAdapter mAdapter;
+    private String[] mList;
+    private String[] mList2;
 
     @Override
     public void onBackPressed() {
@@ -66,86 +50,20 @@ public class UserOpen extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-//        telephone1View.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//                try {
-//                        if(telephone1.length()>0) {
-//                            Intent intent = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", telephone1, null));
-//                            startActivity(intent);
-//                        }
-//                }catch (Exception e){
-//                }
-//            }
-//        });
-//        telephone2View.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                try {
-//                        if(telephone1.length()>0) {
-//                          Intent intent = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", telephone2, null));
-//                          startActivity(intent);
-//                          }
-//                }catch (Exception e){
-//                }
-//            }
-//        });
-//        telephone3View.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                try {
-//                if(telephone1.length()>0) {
-//                    Intent intent = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", telephone3, null));
-//                    startActivity(intent);
-//                }
-//                }catch (Exception e){
-//                }
-//            }
-//        });
-//        facebookView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                if(facebook.length()>0){
-//                    try {
-//                    if(facebook.contains("https://www.facebook.com/"))
-//                    {
-//                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(facebook));
-//                        startActivity(intent);
-//                    } else{
-//                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/"+facebook));
-//                        startActivity(intent);
-//                    }
-//                    }catch (Exception e){
-//
-//                    }
-//                }
-//            }
-//        });
-//        emailView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                try{
-//                    if(email.contains("@")&&email.contains(".")){
-//
-//                        Intent intent = new Intent(Intent.ACTION_SEND);
-//                        intent.setType("message/rfc822");
-//                        intent.putExtra(Intent.EXTRA_EMAIL  , new String[]{email});
-//                        intent.putExtra(Intent.EXTRA_SUBJECT, " ");
-//                        intent.putExtra(Intent.EXTRA_TEXT   , " ");
-//                        startActivity(Intent.createChooser(intent, "Send email"));
-//
-//                    }
-//                }catch (Exception e){
-//
-//                }
-//            }
-//        });
+        buttonEdit = findViewById(R.id.buttonEdit);
+        buttonEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                UserEdit.focusPosition = 0;
+                UserEdit.userID = UserOpen.userID;
+                Intent intent = new Intent(UserOpen.this, UserEdit.class);
+                startActivity(intent);
+            }
+        });
 
         dbHelper = new UserOpen.DBHelper(this);
-        db = dbHelper.getWritableDatabase();
 
-        userID = 20;
+        db = dbHelper.getWritableDatabase();
 
         String query = "SELECT * FROM mytable WHERE id = ?";
 
@@ -155,47 +73,40 @@ public class UserOpen extends AppCompatActivity {
 
             idColumns();
 
-            newList.add("First Name :");
-            newList.add(c.getString(UserList.intfirstname));
-            newList.add("Last Name :");
-            newList.add(c.getString(UserList.intlastname));
-            newList.add("Telephone 1:");
-            newList.add(c.getString(UserList.inttelephone1));
-            newList.add("Telephone 2:");
-            newList.add(c.getString(UserList.inttelephone2));
-            newList.add("Telephone 3:");
-            newList.add(c.getString(UserList.inttelephone3));
-            newList.add("Facebook :");
-            newList.add(c.getString(UserList.intfacebook));
-            newList.add("Viber :");
-            newList.add(c.getString(UserList.intviber));
-            newList.add("Telegram :");
-            newList.add(c.getString(UserList.inttelegram));
-            newList.add("Email :");
-            newList.add(c.getString(UserList.intemail));
+            mList = new String[9];
+            mList2 = new String[9];
+
+            mList[0] = "First Name :";
+            mList2[0] = c.getString(UserList.intfirstname);
+            mList[1] = "Last Name :";
+            mList2[1] = c.getString(UserList.intlastname);
+            mList[2] = "Telephone 1:";
+            mList2[2] = c.getString(UserList.inttelephone1);
+            mList[3] = "Telephone 2:";
+            mList2[3] = c.getString(UserList.inttelephone2);
+            mList[4] = "Telephone 3:";
+            mList2[4] = c.getString(UserList.inttelephone3);
+            mList[5] = "Facebook :";
+            mList2[5] = c.getString(UserList.intfacebook);
+            mList[6] = "Viber :";
+            mList2[6] = c.getString(UserList.intviber);
+            mList[7] = "Telegram :";
+            mList2[7] = c.getString(UserList.inttelegram);
+            mList[8] = "Email :";
+            mList2[8] = c.getString(UserList.intemail);
+
+            mRecyclerView = (RecyclerView) findViewById(R.id.listOpen);
+            mGridLayoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
+            mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+            mRecyclerView.setLayoutManager(mGridLayoutManager);
+            mAdapter = new UserOpen.RecyclerViewAdapter(getApplicationContext(), mList, mList2);
+            mRecyclerView.setAdapter(mAdapter);
+
+            c.close();
+            dbHelper.close();
 
         } else
             Log.d(LOG_TAG, "!!! База данных пуста !!!");
-
-        c.close();
-        dbHelper.close();
-
-        GridView gridOpen = (GridView) findViewById(R.id.gridOpen);
-        gridOpen.setNumColumns(2);
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.item2, newList);
-        gridOpen.setAdapter(adapter);
-
-        buttonEdit = findViewById(R.id.buttonEdit);
-        buttonEdit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                UserEdit.userID=UserOpen.userID;
-                Intent intent = new Intent(UserOpen.this, UserEdit.class);
-                startActivity(intent);
-            }
-        });
-
     }
 
     void idColumns(){
@@ -238,6 +149,171 @@ public class UserOpen extends AppCompatActivity {
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
         }
+    }
+
+    class RecyclerViewAdapter extends RecyclerView.Adapter<UserOpen.RecyclerViewAdapter.ViewHolder> {
+        private Context mContext;
+        private String[] mList;
+        private String[] mList2;
+
+        public RecyclerViewAdapter(Context contexts, String[] list, String[] list2) {
+            this.mContext = contexts;
+            this.mList = list;
+            this.mList2 = list2;
+        }
+        @Override
+        public UserOpen.RecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+            View itemView = inflater.inflate(R.layout.itemopen, parent, false);
+            return new UserOpen.RecyclerViewAdapter.ViewHolder(itemView);
+        }
+        @Override
+        public void onBindViewHolder(final UserOpen.RecyclerViewAdapter.ViewHolder holder, final int position) {
+
+            holder.titleTextView.setText(mList[position]);
+            holder.titleTextView2.setText(mList2[position]);
+            holder.titleTextView2.setId(id);
+            id++;
+
+            switch (position){
+                case 2:
+                case 3:
+                case 4:
+                    holder.setClickListener(new UserOpen.ItemClickListener() {
+                        @Override
+                        public void onClick(View view, int position, boolean isLongClick) {
+                            if (isLongClick) {
+                                UserEdit.focusPosition = position;
+                                UserEdit.userID = UserOpen.userID;
+                                Intent intent = new Intent(UserOpen.this, UserEdit.class);
+                                startActivity(intent);
+                            } else {
+                                try {
+                                    if(mList2[position].length()>0) {
+                                        Intent intent = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", mList2[position], null));
+                                        startActivity(intent);
+                                    }
+                                }catch (Exception e){
+                                }
+                            }
+                        }
+                    });
+                    break;
+                case 5:
+                    holder.setClickListener(new UserOpen.ItemClickListener() {
+                        @Override
+                        public void onClick(View view, int position, boolean isLongClick) {
+                            if (isLongClick) {
+                                UserEdit.focusPosition = position;
+                                UserEdit.userID = UserOpen.userID;
+                                Intent intent = new Intent(UserOpen.this, UserEdit.class);
+                                startActivity(intent);
+                            } else {
+                                try {
+                                    if(mList2[position].length()>0) {
+                                        if(mList2[position].contains("https://www.facebook.com/"))
+                                        {
+                                            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(mList2[position]));
+                                            startActivity(intent);
+                                        } else{
+                                            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/"+mList2[position]));
+                                            startActivity(intent);
+                                        }
+                                    }
+                                }catch (Exception e){
+                                }
+                            }
+                        }
+                    });
+                    break;
+                case 8:
+                    holder.setClickListener(new UserOpen.ItemClickListener() {
+                        @Override
+                        public void onClick(View view, int position, boolean isLongClick) {
+                            if (isLongClick) {
+
+                                UserEdit.focusPosition = position;
+                                UserEdit.userID = UserOpen.userID;
+                                Intent intent = new Intent(UserOpen.this, UserEdit.class);
+                                startActivity(intent);
+
+                            } else {
+                                try {
+                                    if(mList2[position].length()>0) {
+                                        if(mList2[position].contains("@")&&mList2[position].contains(".")){
+                                            Intent intent = new Intent(Intent.ACTION_SEND);
+                                            intent.setType("message/rfc822");
+                                            intent.putExtra(Intent.EXTRA_EMAIL  , new String[]{mList2[position]});
+                                            intent.putExtra(Intent.EXTRA_SUBJECT, " ");
+                                            intent.putExtra(Intent.EXTRA_TEXT   , " ");
+                                            startActivity(Intent.createChooser(intent, "Send email"));
+                                        }
+                                    }
+                                }catch (Exception e){
+                                }
+                            }
+                        }
+                    });
+                    break;
+                case 0:
+                case 1:
+                case 6:
+                case 7:
+                    holder.setClickListener(new UserOpen.ItemClickListener() {
+                        @Override
+                        public void onClick(View view, int position, boolean isLongClick) {
+                            if (isLongClick) {
+                                UserEdit.focusPosition = position;
+                                UserEdit.userID = UserOpen.userID;
+                                Intent intent = new Intent(UserOpen.this, UserEdit.class);
+                                startActivity(intent);
+                            } else {
+                            }
+                        }
+                    });
+                    break;
+            }
+        }
+        @Override
+        public int getItemCount() {
+            return mList.length;
+        }
+        public class ViewHolder extends RecyclerView.ViewHolder
+                implements View.OnClickListener, View.OnLongClickListener{
+
+            private TextView titleTextView;
+            private TextView titleTextView2;
+
+            private UserOpen.ItemClickListener clickListener;
+            public ViewHolder(View itemView) {
+                super(itemView);
+
+                Log.d(LOG_TAG, "!!! ViewHolder !!! ");
+
+                titleTextView = (TextView)itemView.findViewById(R.id.textView);
+                titleTextView2 = (TextView)itemView.findViewById(R.id.textView2);
+
+                itemView.setTag(itemView);
+                itemView.setOnClickListener(this);
+                itemView.setOnLongClickListener(this);
+            }
+            public void setClickListener(UserOpen.ItemClickListener itemClickListener) {
+                this.clickListener = itemClickListener;
+            }
+            @Override
+            public void onClick(View view) {
+                clickListener.onClick(view, getPosition(), false);
+            }
+            @Override
+            public boolean onLongClick(View view) {
+                clickListener.onClick(view, getPosition(), true);
+                return true;
+            }
+        }
+    }
+
+    interface ItemClickListener {
+        void onClick(View view, int position, boolean isLongClick);
     }
 
 }

@@ -156,26 +156,41 @@ public class NewUser extends AppCompatActivity {
             public void onClick(View view) {
                 if(password.length()==4){
 
+                    String passportInsert = "";
+
                     stringBuffer.setLength(0);
+
                     stringBuffer.append(Integer.toString(random.nextInt(1000000000)));
                     stringBuffer.append(Integer.toString(random.nextInt(1000000000)));
                     stringBuffer.append(Integer.toString(random.nextInt(1000000000)));
                     stringBuffer.append(Integer.toString(random.nextInt(1000000000)));
                     stringBuffer.append(Integer.toString(random.nextInt(1000000000)));
                     stringBuffer.append(Integer.toString(random.nextInt(1000000000)));
-                    stringBuffer.insert(7, password.charAt(0));
-                    stringBuffer.insert(3, password.charAt(1));
-                    stringBuffer.insert(24, password.charAt(2));
-                    stringBuffer.insert(11, password.charAt(3));
-                    password = stringBuffer.toString();
+                    stringBuffer.append(Integer.toString(random.nextInt(1000000000)));
+                    stringBuffer.append(Integer.toString(random.nextInt(1000000000)));
+                    stringBuffer.append(Integer.toString(random.nextInt(1000000000)));
+                    stringBuffer.append(Integer.toString(random.nextInt(1000000000)));
+                    stringBuffer.append(Integer.toString(random.nextInt(1000000000)));
+                    stringBuffer.append(Integer.toString(random.nextInt(1000000000)));
+                    stringBuffer.append(Integer.toString(random.nextInt(1000000000)));
+                    stringBuffer.append(Integer.toString(random.nextInt(1000000000)));
+
+                    stringBuffer.insert(7 + Integer.parseInt(password.charAt(3)+"")/3*2, password.charAt(0));
+                    stringBuffer.insert(26 + Integer.parseInt(password.charAt(2)+"")/3*2, password.charAt(1));
+                    stringBuffer.insert(55 + Integer.parseInt(password.charAt(1)+"")/3*2, password.charAt(2));
+                    stringBuffer.insert(70 + Integer.parseInt(password.charAt(0)+"")/3*2, password.charAt(3));
+
+                    passportInsert = stringBuffer.toString();
+
                     stringBuffer.setLength(0);
 
                     sharedPreferences = getSharedPreferences("cache", MODE_PRIVATE);
                     SharedPreferences.Editor ed = sharedPreferences.edit();
 
-                    ed.putString("Password", password);
+                    ed.putString("Password", passportInsert);
                     ed.commit();
 
+                    UserList.correctEnter=true;
                     Intent intent = new Intent(NewUser.this, UserList.class);
                     startActivity(intent);
 
