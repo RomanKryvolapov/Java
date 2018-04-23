@@ -9,6 +9,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -80,43 +82,83 @@ public class UserList extends AppCompatActivity {
         buttonAddNew = findViewById(R.id.buttonAddNew);
         buttonClearSearchStrings = findViewById(R.id.buttonClearSearchStrings);
 
-        editSearchLastName.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            editSearchFirstName.addTextChangedListener(new TextWatcher() {
                 @Override
-                public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
-                    searchFirstName = editSearchFirstName.getText().toString();
-                    searchLastName = editSearchLastName.getText().toString();
-                    return false;
-                }
-            });
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-        editSearchFirstName.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                }
+
                 @Override
-                public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
-                    searchFirstName = editSearchFirstName.getText().toString();
-                    searchLastName = editSearchLastName.getText().toString();
+                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                    searchFirstName = charSequence.toString();
                     reloadTable();
-                    return false;
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable editable) {
+
                 }
             });
 
-        editSearchFirstName.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View view, int i, KeyEvent keyEvent) {
-                searchFirstName = editSearchFirstName.getText().toString();
-                searchLastName = editSearchLastName.getText().toString();
-                reloadTable();
-                return false;
-            }
-        });
-        editSearchLastName.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View view, int i, KeyEvent keyEvent) {
-                searchFirstName = editSearchFirstName.getText().toString();
-                searchLastName = editSearchLastName.getText().toString();
-                reloadTable();
-                return false;
-            }
-        });
+            editSearchLastName.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                    searchLastName = charSequence.toString();
+                    reloadTable();
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable editable) {
+
+                }
+            });
+
+//        editSearchLastName.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+//                @Override
+//                public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+//                    searchFirstName = editSearchFirstName.getText().toString();
+//                    searchLastName = editSearchLastName.getText().toString();
+//                    return false;
+//                }
+//            });
+//
+//        editSearchFirstName.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+//                @Override
+//                public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+//                    searchFirstName = editSearchFirstName.getText().toString();
+//                    searchLastName = editSearchLastName.getText().toString();
+//                    reloadTable();
+//                    return false;
+//                }
+//            });
+//
+//        editSearchFirstName.setOnKeyListener(new View.OnKeyListener() {
+//            @Override
+//            public boolean onKey(View view, int i, KeyEvent keyEvent) {
+//                searchFirstName = editSearchFirstName.getText().toString();
+//                searchLastName = editSearchLastName.getText().toString();
+//                reloadTable();
+//                return false;
+//            }
+//        });
+//        editSearchLastName.setOnKeyListener(new View.OnKeyListener() {
+//            @Override
+//            public boolean onKey(View view, int i, KeyEvent keyEvent) {
+//                searchFirstName = editSearchFirstName.getText().toString();
+//                searchLastName = editSearchLastName.getText().toString();
+//                reloadTable();
+//                return false;
+//            }
+//        });
 
         buttonAddNew.setOnClickListener(new View.OnClickListener() {
             @Override
