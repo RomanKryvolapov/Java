@@ -1,11 +1,6 @@
 package com.example.cinemacollector;
-
-// настройки поиска будут записываться в SharedPreferences
-// чуть позже допишу код, который будет проверять при запуске, есть ли там что то, чтобы сохранялись предыдущие параметры поиска
-// статусы фильмов будут писаться туда же или может быть запилю в SQLite но не уверен, так как там будет всего лишь id фильма и номер статуса
-// после нажатия кнопки будут открываться фильмы
-// хочу сделать классическую навигацию по списку фильмов в стиле 1, 2, 3, ... 999 а не бесконечный прокручивающийся список,
-// и будет поле для ввода для перехода на страницу списка
+// здесь логика
+// при нажатии на кнопку поиска проверяются правильно ли введены годы поиска
 
 import androidx.appcompat.app.AppCompatActivity;
 import java.net.HttpURLConnection;
@@ -19,7 +14,6 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -39,6 +33,7 @@ import org.json.JSONException;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static String APP_PREFERENCES = "mysettings";
     public static int year = Calendar.getInstance().get(Calendar.YEAR);
     public static int APP_PREFERENCES_status = 1;
     public static String APP_PREFERENCES_year_1_S = "";
@@ -46,11 +41,6 @@ public class MainActivity extends AppCompatActivity {
     public static int APP_PREFERENCES_year_1 = year;
     public static int APP_PREFERENCES_year_2 = year;
     public static int APP_PREFERENCES_rating = 1;
-    public static boolean country1 = true;
-    public static boolean country2 = true;
-    public static boolean country3 = true;
-    public static boolean country4 = true;
-    public static boolean country5 = true;
     SharedPreferences mSettings;
 
     @Override
@@ -58,8 +48,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mSettings = getSharedPreferences("mysettings", Context.MODE_PRIVATE);
-
+        mSettings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
         Button button = (Button) findViewById(R.id.buttonSearch);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,74 +61,33 @@ public class MainActivity extends AppCompatActivity {
         StatusGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                switch (checkedId) {
-                    case -1:
-                        APP_PREFERENCES_status = 1;
-                        break;
-                    case R.id.status1:
-                        APP_PREFERENCES_status = 1;
-                        break;
-                    case R.id.status2:
-                        APP_PREFERENCES_status = 2;
-                        break;
-                    case R.id.status3:
-                        APP_PREFERENCES_status = 3;
-                        break;
-                    case R.id.status4:
-                        APP_PREFERENCES_status = 4;
-                        break;
-                    default:
-                        break;
-                }
-            }
-        });
-
-        RadioGroup RatingGroup = (RadioGroup) findViewById(R.id.RatingGroup);
-        RatingGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
                 SharedPreferences.Editor editor = mSettings.edit();
                 switch (checkedId) {
                     case -1:
-                        APP_PREFERENCES_rating = 1;
+                        editor.putInt(String.valueOf(APP_PREFERENCES_status), 1);
+                        editor.apply();
                         break;
-                    case R.id.rating1:
-                        APP_PREFERENCES_rating = 1;
+                    case R.id.status1:
+                        editor.putInt(String.valueOf(APP_PREFERENCES_status), 1);
+                        editor.apply();
                         break;
-                    case R.id.rating2:
-                        APP_PREFERENCES_rating = 2;
+                    case R.id.status2:
+                        editor.putInt(String.valueOf(APP_PREFERENCES_status), 2);
+                        editor.apply();
                         break;
-                    case R.id.rating3:
-                        APP_PREFERENCES_rating = 3;
+                    case R.id.status3:
+                        editor.putInt(String.valueOf(APP_PREFERENCES_status), 3);
+                        editor.apply();
                         break;
-                    case R.id.rating4:
-                        APP_PREFERENCES_rating = 4;
-                        break;
-                    case R.id.rating5:
-                        APP_PREFERENCES_rating = 5;
-                        break;
-                    case R.id.rating6:
-                        APP_PREFERENCES_rating = 6;
-                        break;
-                    case R.id.rating7:
-                        APP_PREFERENCES_rating = 7;
-                        break;
-                    case R.id.rating8:
-                        APP_PREFERENCES_rating = 8;
-                        break;
-                    case R.id.rating9:
-                        APP_PREFERENCES_rating = 9;
+                    case R.id.status4:
+                        editor.putInt(String.valueOf(APP_PREFERENCES_status), 4);
+                        editor.apply();
                         break;
                     default:
-                        APP_PREFERENCES_rating = 1;
                         break;
                 }
             }
         });
-
-
-
-
 
 
     EditText editTextYearFrom = (EditText) findViewById(R.id.yearFrom);
@@ -180,52 +128,12 @@ public class MainActivity extends AppCompatActivity {
 
         editTextYear1.setText(Integer.toString(APP_PREFERENCES_year_1));
         editTextYear2.setText(Integer.toString(APP_PREFERENCES_year_2));
-
-
-        CheckBox checkBox1 = (CheckBox)findViewById(R.id.country1);
-        CheckBox checkBox2 = (CheckBox)findViewById(R.id.country2);
-        CheckBox checkBox3 = (CheckBox)findViewById(R.id.country3);
-        CheckBox checkBox4 = (CheckBox)findViewById(R.id.country4);
-        CheckBox checkBox5 = (CheckBox)findViewById(R.id.country5);
-
-        if(checkBox1.isChecked()) {
-            country1 = true;
-        } else {
-            country1 = false;
-        }
-        if(checkBox2.isChecked()) {
-            country2 = true;
-        } else {
-            country2 = false;
-        }
-        if(checkBox3.isChecked()) {
-            country3 = true;
-        } else {
-            country3 = false;
-        }
-        if(checkBox4.isChecked()) {
-            country4 = true;
-        } else {
-            country4 = false;
-        }
-        if(checkBox5.isChecked()) {
-            country5 = true;
-        } else {
-            country5 = false;
-        }
-
+/*
         SharedPreferences.Editor editor = mSettings.edit();
-        editor.putInt("APP_PREFERENCES_year_1", APP_PREFERENCES_year_1);
-        editor.putInt("APP_PREFERENCES_year_2", APP_PREFERENCES_year_2);
-        editor.putInt("APP_PREFERENCES_status", APP_PREFERENCES_status);
-        editor.putBoolean("APP_PREFERENCES_country_1", country1);
-        editor.putBoolean("APP_PREFERENCES_country_2", country2);
-        editor.putBoolean("APP_PREFERENCES_country_3", country3);
-        editor.putBoolean("APP_PREFERENCES_country_4", country4);
-        editor.putBoolean("APP_PREFERENCES_country_5", country5);
-        editor.putInt("APP_PREFERENCES_rating", APP_PREFERENCES_rating);
+        editor.putInt(String.valueOf(APP_PREFERENCES_status), 1);
         editor.apply();
 
+*/
 
 
     }
