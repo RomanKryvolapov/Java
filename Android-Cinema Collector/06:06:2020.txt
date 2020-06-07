@@ -1,0 +1,95 @@
+// https://developers.themoviedb.org/3/discover/movie-discover
+package com.company;
+import org.json.JSONException;
+import org.json.JSONObject;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
+public class Main {
+
+    public static void main(String[] args) throws IOException {
+        requestGenerator();
+    }
+
+    public static void connection() throws IOException, JSONException {
+        String requestUrl = "https://api.themoviedb.org/3/movie/1396?api_key=358d127cfc98138fe9a600b0b63bd94f&language=ru-US";
+        URL url = new URL(requestUrl);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.connect();
+        InputStream in;
+        int status = connection.getResponseCode();
+        if (status != HttpURLConnection.HTTP_OK) {
+            in = connection.getErrorStream();
+        } else {
+            in = connection.getInputStream();
+        }
+
+        String response = convertStreamToString(in);
+        JSONObject obj = new JSONObject(response);
+        System.out.println("Название - " + obj.getString("original_title"));
+        System.out.println("Дата выхода - " + obj.getString("release_date"));
+        System.out.println("Кинокомпания - " + obj.getJSONArray("production_companies").getJSONObject(0).getString("name"));
+
+    }
+
+    public static String convertStreamToString(InputStream stream) throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
+        StringBuilder sb = new StringBuilder();
+        String line;
+        while ((line = reader.readLine()) != null) {
+            sb.append(line).append("\n");
+        }
+        stream.close();
+        return sb.toString();
+    }
+
+    public static void requestGenerator(){
+
+
+        // список стран
+        // США, Европа, СНГ, Азия, Другое
+        String country1 = "US%2C";
+        String country2 = "AD%2CAL%2CAM%2CAT%2CAX%2CAZ%2CBA%2CBE%2CBG%2CBY%2CCH%2CCY%2CCZ%2CDE%2CDK%2CEE%2CES%2CFI%2CFO%2CFR%2CGB%2CGE%2CGG%2CGI%2CGR%2CHR%2CHU%2CIE%2CIM%2CIS%2CIT%2CJE%2CKZ%2CLI%2CLT%2CLU%2CLV%2CMC%2CMD%2CME%2CMK%2CMT%2CNL%2CNO%2CPL%2CPT%2CRO%2CRS%2CRU%2CSE%2CSI%2CSJ%2CSK%2CSM%2CTR%2CUA%2CVA";
+
+        // в эту строку записывается запрос по странам, если выбраны определенные
+        String country =  "";
+
+        //коды стран европейского региона
+        //AD,AL,AM,AT,AX,AZ,BA,BE,BG,BY,CH,CY,CZ,DE,DK,EE,ES,FI,FO,FR,GB,GE,GG,GI,GR,HR,HU,IE,IM,IS,IT,JE,KZ,LI,LT,LU,LV,MC,MD,ME,MK,MT,NL,NO,PL,PT,RO,RS,RU,SE,SI,SJ,SK,SM,TR,UA,VA
+
+        // если страны пустые, то убирается region=
+        if(country1!=""|country2!=""){
+            country =  "region=" +  country1 + country2;
+        }
+
+
+        String year1 = "2000";
+        String year2 = "2000";
+        String rating = "5";
+
+        String requestUrlList = "https://api.themoviedb.org/3/discover/movie?api_key=358d127cfc98138fe9a600b0b63bd94f&language=en-US&"+
+                country+
+                "&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&release_date.gte="+
+                year1+
+                "-01-01&release_date.lte="+
+                year2+
+                "-12-31&vote_average.gte="+
+                rating;
+
+
+        System.out.println(requestUrlList);
+
+                ;
+
+
+
+    }
+
+}
+
+
+
