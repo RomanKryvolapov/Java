@@ -121,6 +121,34 @@ public class DetailsActivity extends AppCompatActivity {
         return sb.toString();
     }
 
+//    private class imageDownloader implements Runnable{
+//        @Override
+//        public void run() {
+//
+//        }
+//    }
+
+    private class ImageDownloader extends AsyncTask<Void, Void ,Void>{
+        @Override
+        protected Void doInBackground(Void... voids) {
+
+            try {
+                InputStream in_image = new URL(poster_path).openStream();
+                bmp = BitmapFactory.decodeStream(in_image);
+            } catch (IOException e) {
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            poster.setImageBitmap(bmp);
+            super.onPostExecute(aVoid);
+        }
+    }
+
+
     private class MyTask extends AsyncTask<Void, Void, Void> {
 
         @Override
@@ -176,11 +204,14 @@ public class DetailsActivity extends AppCompatActivity {
 
                 Log.i("status", "poster_path " + poster_path);
 
-                try {
-                    InputStream in_image = new URL(poster_path).openStream();
-                    bmp = BitmapFactory.decodeStream(in_image);
-                } catch (IOException e) {
-                }
+                ImageDownloader imageDownloader = new ImageDownloader();
+                imageDownloader.execute();
+//
+//                try {
+//                    InputStream in_image = new URL(poster_path).openStream();
+//                    bmp = BitmapFactory.decodeStream(in_image);
+//                } catch (IOException e) {
+//                }
 
 
 //                    filmList[i] = obj.getJSONArray("results").getJSONObject(i).getString("title");
@@ -216,7 +247,7 @@ public class DetailsActivity extends AppCompatActivity {
             textView_revenue.setText(revenue);
             textView_production_countries.setText(production_countries);
             textView_overview.setText(overview);
-            poster.setImageBitmap(bmp);
+
             button_add_to_watch_list.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

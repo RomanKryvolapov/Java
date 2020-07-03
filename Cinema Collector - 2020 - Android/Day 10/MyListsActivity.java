@@ -68,74 +68,77 @@ public class MyListsActivity extends AppCompatActivity {
         listView = (ListView) findViewById(R.id.myList);
         mSettings = getSharedPreferences("mysettings", Context.MODE_PRIVATE);
         textView_my_lists = (TextView) findViewById(R.id.textView_my_lists);
-        if(status == 2)
-        textView_my_lists.setText("Список на просмотр");
+        if (status == 2)
+            textView_my_lists.setText("Список на просмотр");
         else if (status == 3)
             textView_my_lists.setText("Список просмотренных");
         go();
 
     }
 
-    private void go (){
+    private void go() {
+
+//        SharedPreferences.Editor editor = mSettings.edit();
+//        editor.clear();
+//        editor.apply();
 
         Map<String, ?> all = new LinkedHashMap<>();
         all = mSettings.getAll();
-        Map<String, String> my_list = new LinkedHashMap<>();
+        if(all.size()>0) {
+            Map<String, String> my_list = new LinkedHashMap<>();
 
-        for (String key : all.keySet()) {
-            if (!key.contains("_name") && all.get(key).equals(Integer.toString(status)) && all.containsKey(key + "_name")) {
-                my_list.put((key), all.get(key + "_name").toString());
-            }
-        }
-
-        if (my_list.size() > 0) {
-
-            filmListID = new String[my_list.size()];
-            filmListName = new String[my_list.size()];
-
-            Set<String> keys = my_list.keySet();
-            int i = 0;
-            for (String k : keys) {
-                filmListID[i] = k;
-                filmListName[i] = my_list.get(k);
-                i++;
+            for (String key : all.keySet()) {
+                if (!key.contains("_name") && all.get(key).equals(Integer.toString(status)) && all.containsKey(key + "_name")) {
+                    my_list.put((key), all.get(key + "_name").toString());
+                }
             }
 
+            if (my_list.size() > 0) {
+
+                filmListID = new String[my_list.size()];
+                filmListName = new String[my_list.size()];
+
+                Set<String> keys = my_list.keySet();
+                int i = 0;
+                for (String k : keys) {
+                    filmListID[i] = k;
+                    filmListName[i] = my_list.get(k);
+                    i++;
+                }
 
 
-
-        }
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.list_item, R.id.textView_name, filmListName) {
-            @NonNull
-            @Override
-            public View getView(final int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-                View v = super.getView(position, convertView, parent);
-                v.setOnClickListener(new View.OnClickListener() {
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.list_item, R.id.textView_name, filmListName) {
+                    @NonNull
                     @Override
-                    public void onClick(View v) {
+                    public View getView(final int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+                        View v = super.getView(position, convertView, parent);
+                        v.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
 
-                        String requestUrl = "https://api.themoviedb.org/3/movie/" +
-                                filmListID[position] +
-                                "?api_key=" +
-                                api_key +
-                                "&language=ru-RU";
+                                String requestUrl = "https://api.themoviedb.org/3/movie/" +
+                                        filmListID[position] +
+                                        "?api_key=" +
+                                        api_key +
+                                        "&language=ru-RU";
 
-                        Intent intent = new Intent(MyListsActivity.this, DetailsActivity.class);
-                        intent.putExtra("requestUrl", requestUrl);
-                        startActivity(intent);
+                                Intent intent = new Intent(MyListsActivity.this, DetailsActivity.class);
+                                intent.putExtra("requestUrl", requestUrl);
+                                startActivity(intent);
 
+                            }
+                        });
+
+
+                        return v;
                     }
-                });
+                };
+
+                listView.setAdapter(adapter);
 
 
-                return v;
             }
-        };
-
-        listView.setAdapter(adapter);
-
-
+        }
     }
 
 
