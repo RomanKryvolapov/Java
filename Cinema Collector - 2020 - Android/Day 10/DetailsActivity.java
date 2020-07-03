@@ -45,6 +45,7 @@ public class DetailsActivity extends AppCompatActivity {
     Bitmap bmp;
     Button button_add_to_watch_list;
     Button button_add_to_viewed;
+    Button button_add_to_blacklist;
     private SharedPreferences mSettings;
 
     private String title = " ";
@@ -98,6 +99,7 @@ public class DetailsActivity extends AppCompatActivity {
         poster = (ImageView) findViewById(R.id.imageView_poster);
         button_add_to_watch_list = (Button) findViewById(R.id.button_add_to_watch_list);
         button_add_to_viewed = (Button) findViewById(R.id.button_add_to_viewed);
+        button_add_to_blacklist = (Button) findViewById(R.id.button_add_to_blacklist);
 
         mSettings = getSharedPreferences("mysettings", Context.MODE_PRIVATE);
 
@@ -147,7 +149,6 @@ public class DetailsActivity extends AppCompatActivity {
                 JSONObject obj = new JSONObject(response);
 
 
-
                 id = obj.getInt("id");
                 title = obj.getString("title");
                 release_date = obj.getString("release_date");
@@ -158,8 +159,8 @@ public class DetailsActivity extends AppCompatActivity {
                     budget = String.format("%,d", budget_int);
                 else budget = "Не указан";
                 revenue_int = obj.getInt("revenue");
-                if(revenue_int > 0)
-                revenue = String.format("%,d", revenue_int);
+                if (revenue_int > 0)
+                    revenue = String.format("%,d", revenue_int);
                 else revenue = "Не указаны";
 //                production_countries = obj.getString("production_countries");
 
@@ -168,8 +169,6 @@ public class DetailsActivity extends AppCompatActivity {
                 for (int i = 0; i < production_countries_count; i++) {
                     production_countries = production_countries + obj.getJSONArray("production_countries").getJSONObject(i).getString("name") + "\n";
                 }
-
-
 
 
                 overview = obj.getString("overview");
@@ -223,6 +222,7 @@ public class DetailsActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     SharedPreferences.Editor editor = mSettings.edit();
                     editor.putString(Integer.toString(id), "2");
+                    editor.putString(Integer.toString(id) + "_name", title);
                     editor.apply();
                 }
             });
@@ -232,6 +232,18 @@ public class DetailsActivity extends AppCompatActivity {
 
                     SharedPreferences.Editor editor = mSettings.edit();
                     editor.putString(Integer.toString(id), "3");
+                    editor.putString(Integer.toString(id) + "_name", title);
+                    editor.apply();
+                }
+            });
+
+
+            button_add_to_blacklist.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    SharedPreferences.Editor editor = mSettings.edit();
+                    editor.putString(Integer.toString(id), "4");
+                    editor.putString(Integer.toString(id) + "_name", title);
                     editor.apply();
                 }
             });

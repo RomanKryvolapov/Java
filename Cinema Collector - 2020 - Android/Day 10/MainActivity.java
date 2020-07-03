@@ -53,6 +53,9 @@ public class MainActivity extends AppCompatActivity {
     CheckBox checkBox_country4;
     CheckBox checkBox_country5;
     RadioGroup RatingGroup_sort;
+    Button buttonSearch;
+    Button button_watch_list;
+    Button button_saw;
     private String sort_by = "radioButton_sort_by_vote_count";
 
     @Override
@@ -62,13 +65,36 @@ public class MainActivity extends AppCompatActivity {
 
         mSettings = getSharedPreferences("mysettings", Context.MODE_PRIVATE);
 
-        Button button = (Button) findViewById(R.id.buttonSearch);
-        button.setOnClickListener(new View.OnClickListener() {
+        buttonSearch = (Button) findViewById(R.id.buttonSearch);
+        buttonSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 yearCheck();
                 requestGenerator();
-                newActivity();
+                Intent intent = new Intent(MainActivity.this, activity_list.class);
+                intent.putExtra("requestUrl", requestUrl);
+                startActivity(intent);
+            }
+        });
+
+        button_watch_list = (Button) findViewById(R.id.button_want_to_see);
+        button_watch_list.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, MyListsActivity.class);
+                intent.putExtra("status", 2);
+                startActivity(intent);
+
+            }
+        });
+
+        button_saw = (Button) findViewById(R.id.button_saw);
+        button_saw.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, MyListsActivity.class);
+                intent.putExtra("status", 3);
+                startActivity(intent);
             }
         });
 
@@ -219,11 +245,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void newActivity() {
-        Intent intent = new Intent(this, activity_list.class);
-        intent.putExtra("requestUrl", requestUrl);
-        startActivity(intent);
-    }
 
 
 

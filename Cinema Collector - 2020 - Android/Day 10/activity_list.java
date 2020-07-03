@@ -50,6 +50,7 @@ public class activity_list extends AppCompatActivity {
     private int total_pages;
     private int current_page = 1;
     private int total_results;
+    ListView listView;
 
     @Override
     protected void onResume() {
@@ -246,7 +247,7 @@ public class activity_list extends AppCompatActivity {
 //        };
 
 
-        ListView listView = findViewById(R.id.discoverList);
+        listView = findViewById(R.id.discoverList);
         listView.setAdapter(adapter);
 
 
