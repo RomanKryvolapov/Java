@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#000000</color>
+    <color name="colorRed">#ff0000</color>
+    <color name="colorGreen">#00ff00</color>
+    <color name="colorPrimaryDark">#000000</color>
+    <color name="colorAccent">#ffffff</color>
+    <color name="background_light">#000000</color>
+    <color name="light_white">#ffffff</color>
+    <color name="input_form">#2e2e2e</color>
+    <color name="input_form_hint_text">#818181</color>
+</resources>
