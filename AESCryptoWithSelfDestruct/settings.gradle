@@ -1,0 +1,2 @@
+rootProject.name='AES Crypto With Self-Destruct'
+include ':app'
