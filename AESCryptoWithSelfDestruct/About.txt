@@ -1,1 +1,4 @@
-This is my new project. Its purpose is to provide a convenient, self-destruct and password protected asymmetric encryption tool. All pairs of public and private keys will be stored in memory and will also be encrypted by the AES algorithm, if the user does not enter the password correctly for the storage or activates the self-destruct function, the storage will be destroyed. There will also be convenient options for working with the clipboard.
+This is my new project. Its purpose is to provide a convenient, self-destruct and password protected asymmetric encryption tool. 
+All pairs of public and private keys will be stored in memory and will also be encrypted by the AES algorithm, 
+if the user does not enter the password correctly for the storage or activates the self-destruct function, the storage will be destroyed. 
+There will also be convenient options for working with the clipboard.
