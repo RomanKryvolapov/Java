@@ -1,0 +1,650 @@
+[
+  {
+    "images" : [
+      {
+        "image" : "1_1.jpg"
+      },
+      {
+        "image" : "1_2.jpg"
+      }
+    ],
+    "file" : "1.mcworld",
+    "title_def" : "1000 Skyblocks Jump",
+    "title_ru" : "1000 Skyblocks Jump",
+    "desc_def" : "On the map “1000 Skyblocks Jump”, three levels with parkour for passing have been created. If you step on a clay block, you will receive additional abilities, for example, increased speed or a high jump. You will need to plan your every step to complete all the levels!",
+    "desc_ru" : "На карте «1000 Skyblocks Jump» создано три уровня с паркуром на прохождение. Если Вы наступите на глиняный блок, то получите дополнительные способности, например, увеличенную скорость или высокий прыжок. Вам нужно будет планировать каждый свой шаг, чтобы пройти все уровни!"
+  },
+  {
+    "images" : [
+      {
+        "image" : "2_1.jpg"
+      },
+      {
+        "image" : "2_2.jpg"
+      }
+    ],
+    "file" : "2.mcworld",
+    "title_def" : "Christmas Chaos Santa’s Hat",
+    "title_ru" : "Christmas Chaos Santa’s Hat",
+    "desc_def" : "A fun parkour challenge has been created on the Christmas Chaos: Santa’s Hat map. Santa's hat has been stolen and you need to find it. According to rumors, the elves hid it on the top of an icy mountain. This is a rather long map with various obstacles, but if you want to get parkour skills, then you will definitely like the map!",
+    "desc_ru" : "На карте «Christmas Chaos: Santa’s Hat» создано веселое паркур-испытание. Шляпа Санты была украдена и Вам нужно найти ее. По слухам, эльфы спрятали ее на вершине ледяной горы.Это довольно длинная карта с различными препятствиями, но если Вы хотите получить навыки паркура, то карта однозначно Вам понравится!"
+  },
+  {
+    "images" : [
+      {
+        "image" : "3_1.jpg"
+      },
+      {
+        "image" : "3_2.jpg"
+      },
+      {
+        "image" : "3_3.jpg"
+      }
+    ],
+    "file" : "3.mcworld",
+    "title_def" : "Defeat the concrete PE survival",
+    "title_ru" : "Defeat the concrete PE survival",
+    "desc_def" : "On the map “Defeat the concrete PE survival”, a parkour arena for Minecraft PE from 16 different levels has been created. The main goal is that you must complete all the tests. This is a rather complicated map and can sometimes be bombed, however, we recommend this map for passing!",
+    "desc_ru" : "На карте «Defeat the concrete PE survival» создана паркур-арена для Майнкрафт ПЕ из 16 различных уровней. Главная цель заключается в том, что Вы должны завершить все испытания. Это довольно сложная карта и иногда у Вас может бомбить, тем не менее, мы рекомендуем эту карту для прохождения!"
+  },
+  {
+    "images" : [
+      {
+        "image" : "4_1.jpg"
+      },
+      {
+        "image" : "4_2.jpg"
+      },
+      {
+        "image" : "4_3.jpg"
+      }
+    ],
+    "file" : "4.mcworld",
+    "title_def" : "Easy Parkour",
+    "title_ru" : "Easy Parkour",
+    "desc_def" : "The Easy Parkour card consists of five levels and is designed for beginners and parkour lovers. If you want to hone your parkour skills in the game, then you will like this card!",
+    "desc_ru" : "Карта «Easy Parkour» состоит из пяти уровней и создана для новичков и любителей паркура. Если вы хотите отточить свои навыки паркура в игре, то эта карта вам понравится!"
+  },
+  {
+    "images" : [
+      {
+        "image" : "5_1.jpg"
+      },
+      {
+        "image" : "5_2.jpg"
+      },
+      {
+        "image" : "5_3.jpg"
+      }
+    ],
+    "file" : "5.mcworld",
+    "title_def" : "Elevation 2 Dungeons",
+    "title_ru" : "Elevation 2 Dungeons",
+    "desc_def" : "The map is a direct continuation of Elevation 1 Dungeons and includes three levels for parkour walkthrough, which will be replenished with the next updates!",
+    "desc_ru" : "Карта является прямым продолжением Elevation 1 Dungeons и включает в себя три уровня для паркур-прохождения, которые будут пополняться со следующими обновлениями!"
+  },
+  {
+    "images" : [
+      {
+        "image" : "6_1.jpg"
+      },
+      {
+        "image" : "6_2.jpg"
+      },
+      {
+        "image" : "6_3.jpg"
+      },
+      {
+        "image" : "6_4.jpg"
+      },
+      {
+        "image" : "6_5.jpg"
+      }
+    ],
+    "file" : "6.mcworld",
+    "title_def" : "Elevation: The Ocean Update",
+    "title_ru" : "Elevation: The Ocean Update",
+    "desc_def" : "Elevation: The Ocean Update - is a parkour map on which 11 different levels are created, including: desert, temple, the city of Krai, a rainbow and several others!",
+    "desc_ru" : "Elevation: The Ocean Update - представляет собой паркур-карту, на которой создано 11 различных уровней, среди которых: пустыня, храм, город Края, радуга и ряд других!"
+  },
+  {
+    "images" : [
+      {
+        "image" : "7_1.jpg"
+      },
+      {
+        "image" : "7_2.jpg"
+      },
+      {
+        "image" : "7_3.jpg"
+      },
+      {
+        "image" : "7_4.jpg"
+      }
+    ],
+    "file" : "7.mcworld",
+    "title_def" : "Honey Block Parkour",
+    "title_ru" : "Honey Block Parkour",
+    "desc_def" : "Card Honey Block Parkour is a parkour card, which consists entirely of honey blocks and honeycomb blocks. In total, six levels are created on it and among them there is parkour, dropper, maze and reverse dropper.",
+    "desc_ru" : "Карта «Honey Block Parkour» представляет собой паркур-карту, которая полностью состоит из медовых блоков и блоков сот. Всего на ней создано шесть уровней и среди них есть паркур, дроппер, лабиринт и обратный дроппер."
+  },
+  {
+    "images" : [
+      {
+        "image" : "8_1.jpg"
+      },
+      {
+        "image" : "8_2.jpg"
+      },
+      {
+        "image" : "8_3.jpg"
+      }
+    ],
+    "file" : "8.mcworld",
+    "title_def" : "Lava Horror Runner",
+    "title_ru" : "Lava Horror Runner",
+    "desc_def" : "On the map Lava Horror Runner you have to pass the parkour test. Do not think that it will be so easy, because behind you the lava will begin to flood the ceiling. You have to go through all the obstacles to get to the finish line and go to the next level!",
+    "desc_ru" : "На карте «Lava Horror Runner» Вам предстоит пройти паркур испытание. Не думайте, что это будет так легко, ведь позади Вас лава начнет заливать потолок. Вам предстоит пройти через все препятствия, чтобы добраться финиша и перейти к следующему уровню!"
+  },
+  {
+    "images" : [
+      {
+        "image" : "9_1.jpg"
+      },
+      {
+        "image" : "9_2.jpg"
+      },
+      {
+        "image" : "9_3.jpg"
+      },
+      {
+        "image" : "9_4.jpg"
+      },
+      {
+        "image" : "9_5.jpg"
+      }
+    ],
+    "file" : "9.mcworld",
+    "title_def" : "Parkour Scary Spiral",
+    "title_ru" : "Parkour Scary Spiral",
+    "desc_def" : "A huge tower with various biomes for parkour has been created on the Parkour Scary Spiral map. There are a huge number of different obstacles that you have to go through to get to the top of the tower! If you like cards with parkour, then Parkour Spiral will definitely appeal to you!",
+    "desc_ru" : "На карте «Parkour Scary Spiral» создана огромная башня с различными биомами для паркура. Есть огромное количество различных препятствий, которые Вам предстоит пройти, чтобы добраться до вершины башни! Если Вы любите карты с паркуром, то «Parkour Spiral» однозначно Вам понравится!"
+  },
+  {
+    "images" : [
+      {
+        "image" : "10_1.jpg"
+      },
+      {
+        "image" : "10_2.jpg"
+      },
+      {
+        "image" : "10_3.jpg"
+      }
+    ],
+    "file" : "10.mcworld",
+    "title_def" : "Rainbow Parkour",
+    "title_ru" : "Rainbow Parkour",
+    "desc_def" : "The Rainbow Parkour card includes 10 different levels with parkour. Each level has its own specific color. The difficulty lies in the fact that on your way there will be blocks of magma and ice, which can make passing levels difficult.",
+    "desc_ru" : "Карта «Rainbow Parkour» включает в себя 10 различных уровней с паркуром. Каждый уровень имеет свой определенный цвет. Сложность заключается в том, что на Вашем пути будут блоки магмы и льда, из-за чего прохождение уровней может затрудниться."
+  },
+  {
+    "images" : [
+      {
+        "image" : "11_1.jpg"
+      },
+      {
+        "image" : "11_2.jpg"
+      }
+    ],
+    "file" : "11.mcworld",
+    "title_def" : "Rooms 2: E.Y.E. Is WaiTing",
+    "title_ru" : "Rooms 2: E.Y.E. Is WaiTing",
+    "desc_def" : "Map Rooms 2: E.Y.E. Is WaiTing an improved version of the previous Rooms map: E.Y.E. Is watching. You will also need to go through the parkour levels, but this time the author prepared 18 different rooms. Also, various blocks are scattered on the map, thanks to which you can get various effects. Most often these are beneficial effects (for example, speed), but in rare cases they can be harmful (for example, blindness).",
+    "desc_ru" : "Карта «Rooms 2: E.Y.E. Is WaiTing» улучшенной версией предыдущей карты Rooms: E.Y.E. Is Watching. Вам также нужно будет проходить паркур уровни, но на этот раз автор подготовил 18 различных комнат. Также, по карте разбросаны различные блоки, благодаря которым можно получить различные эффекты. Чаще всего это полезные эффекты (например, скорость), но в редких случаях могут нанести вред (например, слепоту)."
+  },
+  {
+    "images" : [
+      {
+        "image" : "12_1.jpg"
+      },
+      {
+        "image" : "12_2.jpg"
+      },
+      {
+        "image" : "12_3.jpg"
+      },
+      {
+        "image" : "12_4.jpg"
+      }
+    ],
+    "file" : "12.mcworld",
+    "title_def" : "SG The Grid",
+    "title_ru" : "SG The Grid",
+    "desc_def" : "Are you ready for parkour? On the territory of the SG The Grid card you can go through a hundred levels with parkour! All levels have a stylish design and include several methods for passing. If you like parkour, then you will definitely like this card!",
+    "desc_ru" : "Готовы ли Вы к паркуру? На территории карты «SG The Grid» Вы сможете пройти сотню уровней с паркуром! Все уровни имеют стильное оформеление и включают в себя несколько способов для прохождения. Если Вы любите паркур, то эта карта однозначно Вам понравится!"
+  },
+  {
+    "images" : [
+      {
+        "image" : "13_1.jpg"
+      },
+      {
+        "image" : "13_2.jpg"
+      }
+    ],
+    "file" : "13.mcworld",
+    "title_def" : "Slime Blocks",
+    "title_ru" : "Slime Blocks",
+    "desc_def" : "Slime Blocks is a parkour map with 10 different levels. At all levels of the map, there are blocks of mucus that are used as the basis of the map. You have to jump from one block of mucus to another, but be careful! One wrong move and you will perish! This is certainly a difficult map, but fortunately, you can simply climb up the stairs to try again to complete the level",
+    "desc_ru" : "«Slime Blocks» - паркур-карта с 10 различными уровнями. На всех уровнях карты присутствуют блоки слизи, которые используются в качестве основы карты. Вам предстоит перепрыгивать с одного блока слизи на другой, но будьте осторожны! Одно неправильное движение и вы погибните! Это, безусловно, сложная карта, но к счастью, вы можете просто подняться вверх по лестнице , чтобы повторить попытку прохождения уровня."
+  },
+  {
+    "images" : [
+      {
+        "image" : "14_1.jpg"
+      },
+      {
+        "image" : "14_2.jpg"
+      },
+      {
+        "image" : "14_3.jpg"
+      },
+      {
+        "image" : "14_4.jpg"
+      },
+      {
+        "image" : "14_5.jpg"
+      }
+    ],
+    "file" : "14.mcworld",
+    "title_def" : "The Orange Minecraft Houses",
+    "title_ru" : "The Orange Minecraft Houses",
+    "desc_def" : "The Orange Minecraft Houses is an incredibly large parkour map consisting of 100 small levels. All levels have medium difficulty passing and each of them is unique in its own way!",
+    "desc_ru" : "«The Orange Minecraft Houses» это невероятно большая паркур-карта, состоящая из 100 небольших уровней. Все уровни имеют среднюю сложность прохождения и каждый из них по своему уникален!"
+  },
+  {
+    "images" : [
+      {
+        "image" : "15_1.jpg"
+      },
+      {
+        "image" : "15_2.jpg"
+      }
+    ],
+    "file" : "15.mcworld",
+    "title_def" : "Villager Parkour",
+    "title_ru" : "Villager Parkour",
+    "desc_def" : "On the Villager Parkour map, you have to pass a series of tests in the form of parkour. The levels are made in the style of residents and on some of them you can find Easter eggs! Usually on such cards everything starts with easy levels and ends with difficult ones. Here, the opposite is true! First you have to go through difficult levels, and only after that the simpler ones will begin.",
+    "desc_ru" : "На карте «Villager Parkour» Вам предстоит пройти ряд испытаний в виде паркура. Уровни выполнены в стиле жителей и на некоторых из них можно найти пасхалки!Обычно на подобных картах все начинается с легких уровней и заканчивается сложными. Здесь же все наоборот! Сначала Вам предстоит пройти сложные уровни, а только после этого начнутся более простые."
+  },
+  {
+    "images" : [
+      {
+        "image" : "16_1.jpg"
+      },
+      {
+        "image" : "16_2.jpg"
+      },
+      {
+        "image" : "16_3.jpg"
+      }
+    ],
+    "file" : "16.mcworld",
+    "title_def" : "Parkour Path",
+    "title_ru" : "Parkour Path",
+    "desc_def" : "A small adventure parkour has been created on the territory of the Parkour Path map, which includes eight different levels with parkour. Show your skills on this map and complete the path!",
+    "desc_ru" : "На территории карты «Parkour Path» создано небольшое паркур-приключение , которое включает в себя восемь различных уровней с паркуром. Покажите свои навыки на данной карте и завершите путь!"
+  },
+  {
+    "images" : [
+      {
+        "image" : "17_1.jpg"
+      },
+      {
+        "image" : "17_2.jpg"
+      },
+      {
+        "image" : "17_3.jpg"
+      }
+    ],
+    "file" : "17.mcworld",
+    "title_def" : "The White Adventure",
+    "title_ru" : "The White Adventure",
+    "desc_def" : "On the map The White Adventure created 49 different levels parkour for, but they are all pretty easy to complete. The map is ideal for beginners who want to improve their parkour skills in the game. Each level is a small room with four white walls. Your task is to find the path to the button and click on it to complete the level and go to the next.",
+    "desc_ru" : "На карте «The White Adventure» создано 49 различных паркур уровней для, но все они довольно легкие для прохождения. Карта идеально подойдет для новичков, которые хотят улучшить свои навыки паркура в игре. Каждый уровень представляет собой небольшую комнату с четырьмя белыми стенами. Ваша задача заключается в том, чтобы Вы нашли путь к кнопке и нажали на нее, чтобы завершить уровень и перейти на следующий."
+  },
+  {
+    "images" : [
+      {
+        "image" : "19_1.jpg"
+      },
+      {
+        "image" : "19_2.jpg"
+      }
+    ],
+    "file" : "19.mcworld",
+    "title_def" : "Bounce Steve Bounce",
+    "title_ru" : "Bounce Steve Bounce",
+    "desc_def" : "Bounce Steve is a really fun map with a mini-parkour in which you have to jump from one platform to another, bouncing on slime blocks. But try not to fall on the quartz block, otherwise, you will die and you will have to go through the map first.",
+    "desc_ru" : "Bounce Steve это действительно веселая карта с мини-паркуром, в котором Вам предстоит перепрыгивать с одной платформы на другую, подпрыгивая на блоках слизи. Но постарайтесь не упасть на кварцевый блок, иначе, Вы умрете и Вам придется проходить карту сначала."
+  },
+  {
+    "images" : [
+      {
+        "image" : "20_1.jpg"
+      },
+      {
+        "image" : "20_2.jpg"
+      }
+    ],
+    "file" : "20.mcworld",
+    "title_def" : "Command Parkour",
+    "title_ru" : "Command Parkour",
+    "desc_def" : "The Command Parkour map is designed to show you one of the very useful features of the command blocks that appeared in the update.",
+    "desc_ru" : "Карта Command Parkour создана для того, чтобы показать вам одну из очень полезных особенностей командных блоков, которые появились в обновлении."
+  },
+  {
+    "images" : [
+      {
+        "image" : "21_1.jpg"
+      },
+      {
+        "image" : "21_2.jpg"
+      }
+    ],
+    "file" : "21.mcworld",
+    "title_def" : "Amazing City Village Jump",
+    "title_ru" : "Amazing City Village Jump",
+    "desc_def" : "If you are afraid of heights, then after this assembly you will stop thinking about it: already at the second level you will have the most difficult jumps. Here you need to get to the temple. Then, through the excavator and trees, we look for the way home.",
+    "desc_ru" : "Если Вы боитесь высоты, то после этой сборки Вы перестанете об этом думать: уже на втором уровне Вас ожидают сложнейшие прыжки. Здесь нужно добраться до храма. Затем по экскаватору и деревьям ищем путь домой."
+  },
+  {
+    "images" : [
+      {
+        "image" : "22_1.jpg"
+      },
+      {
+        "image" : "22_2.jpg"
+      },
+      {
+        "image" : "22_3.jpg"
+      },
+      {
+        "image" : "22_4.jpg"
+      },
+      {
+        "image" : "22_5.jpg"
+      }
+    ],
+    "file" : "22.mcworld",
+    "title_def" : "Parkour Race",
+    "title_ru" : "Parkour Race",
+    "desc_def" : "Find out the best parkour on the Parkour Race map. Here is a unique racing track, each stage of which is presented in the form of a specific biome. The most difficult jumps, addictive gameplay and an exciting race - the assembly contains everything for a cool race in a blocky world. In total, 8 levels are presented, each of which is stylized in its own way.",
+    "desc_ru" : "Выясните лучшего паркурщика на карте Parkour Race. Здесь представлен уникальный гоночный трек, каждый этап которой представлен в виде определенного биома. Сложнейшие прыжки, увлекательный геймплей и захватывающая гонка - сборка содержит все для крутой гонки в блочном мире. Всего представлено 8 уровней, каждый из который по-своему стилизован."
+  },
+  {
+    "images" : [
+      {
+        "image" : "23_1.jpg"
+      },
+      {
+        "image" : "23_2.jpg"
+      },
+      {
+        "image" : "23_3.jpg"
+      },
+      {
+        "image" : "23_4.jpg"
+      },
+      {
+        "image" : "23_5.jpg"
+      }
+    ],
+    "file" : "23.mcworld",
+    "title_def" : "The Nether Parkour ",
+    "title_ru" : "The Nether Parkour ",
+    "desc_def" : "No milestones or storage options - just a harsh hardcore while passing the map of The Nether Parkour. Such a parkour will be incredibly heavy, so think a few times before installing the assembly. It is possible that you will close and even delete the game more than once until you reach the very end. But if you do not give up and get to the end, then you can consider yourself an experienced parkour of the block universe.",
+    "desc_ru" : "Никаких контрольных точек или возможности сохранения - только суровый хардкор при прохождении карты The Nether Parkour. Такой паркур будет невероятно тяжелым, поэтому подумайте несколько раз, прежде чем устанавливать сборку. Вполне возможно, что Вы не раз закроете и даже удалите игру, пока дойдете до самого конца. Но если Вы не сдадитесь и дойдете до конца, то можете считать себя опытным паркурщиком блочной вселенной."
+  },
+  {
+    "images" : [
+      {
+        "image" : "24_1.jpg"
+      },
+      {
+        "image" : "24_2.jpg"
+      },
+      {
+        "image" : "24_3.jpg"
+      },
+      {
+        "image" : "24_4.jpg"
+      },
+      {
+        "image" : "24_5.jpg"
+      }
+    ],
+    "file" : "24.mcworld",
+    "title_def" : "Sky Parkour",
+    "title_ru" : "Sky Parkour",
+    "desc_def" : "We invite you to visit a fascinating creation in the game - the Sky Parkour card, which contains 60 stages for passing. Naturally, to complete the levels you will have to use parkour skills. The gameplay will give fun for many hours and decorate pastime in these difficult days.",
+    "desc_ru" : "Приглашаем посетить увлекательное творение в игре - карту Sky Parkour, которая содержит 60 этапов для прохождения. Естественно, для прохождения уровней придется использовать навыки паркура. Геймплей подарит веселье на множество часов и украсит времяпровождение в эти нелегкие дни."
+  },
+  {
+    "images" : [
+      {
+        "image" : "25_1.jpg"
+      },
+      {
+        "image" : "25_2.jpg"
+      },
+      {
+        "image" : "25_3.jpg"
+      },
+      {
+        "image" : "25_4.jpg"
+      }
+    ],
+    "file" : "25.mcworld",
+    "title_def" : "Quartz Parkour Mini Edition",
+    "title_ru" : "Quartz Parkour Mini Edition",
+    "desc_def" : "Quartz Parkour Mini Edition presents a new version of the same mode with simplified functionality. Here are 20 levels for parkour fans in the blocky world. New, unique levels will allow you to train jumping skills and even improve them. The assembly was tested by the developers themselves, so passing problems will only occur with improper jumps: every jump is possible. In the creation, developers added new features using redstone: this will improve the gameplay and add even more excitement and new sensations. Another feature was the use of space - the authors worked on this aspect.",
+    "desc_ru" : "Quartz Parkour Mini Edition представляет новую версию аналогичного режима с упрощенным функционалом. Здесь представлено 20 уровней для поклонников паркура в блочном мире. Новые, уникальные уровни позволят потренировать навыки прыжков и даже улучшить их. Сборка протестирована самими разработчиками, поэтому проблемы прохождением возникнут только при неправильных прыжках: каждый прыжок возможен. В творении разработчики добавили новые функции с использованием редстоуна: это улучшит геймплей и добавит еще больше азарта и новых ощущений. Еще одной фишкой стало использование пространства - авторы поработали и над этим аспектом."
+  },
+  {
+    "images" : [
+      {
+        "image" : "26_1.jpg"
+      },
+      {
+        "image" : "26_2.jpg"
+      },
+      {
+        "image" : "26_3.jpg"
+      },
+      {
+        "image" : "26_4.jpg"
+      }
+    ],
+    "file" : "26.mcworld",
+    "title_def" : "White Dropper Parkour",
+    "title_ru" : "White Dropper Parkour",
+    "desc_def" : "As the author of the White Dropper Parkour card admits, he himself cannot go through his own creation, because it is so heavy that the nerves simply can not stand it. Everyone who dares to complete the assembly will, time after time, close the game from unrealistic anger that comes when trying to complete the level. The assembly is small, but the passage will take a lot of time, effort and nerves. Get ready for the hardest emotions and jumps.",
+    "desc_ru" : "Как признается автор карты White Dropper Parkour, он сам не может пройти собственное творение, поскольку оно настолько тяжело, что нервы попросту не выдерживают. Каждый, кто осмелится пройти сборку, будет раз за разом закрывать игру от нереальной злости, которая приходит при попытках пройти уровень. Сборка небольшая, но прохождение отнимет много времени, сил и нервов. Будьте готовы к самым тяжелым эмоциям и прыжкам."
+  },
+  {
+    "images" : [
+      {
+        "image" : "27_1.jpg"
+      },
+      {
+        "image" : "27_2.jpg"
+      },
+      {
+        "image" : "27_3.jpg"
+      }
+    ],
+    "file" : "27.mcworld",
+    "title_def" : "Pillar Parkour",
+    "title_ru" : "Pillar Parkour",
+    "desc_def" : "Have you ever had this when you simply wanted to jump on a parkour map without any special adventures or worries? At such moments, the desired assembly rarely falls out, but the creation of Pillar Parkour will be a great solution for parkour lovers who want standard levels in the game. Each level completed will send the player to the next. Time after time to the very end.",
+    "desc_ru" : "Бывало ли у Вас такое, когда Вы попросту хотели попрыгать на какой-либо паркур карте, без особых приключений или забот? В такие моменты редко выпадает желаемая сборка, но творение Pillar Parkour будет великолепным решением для любителей паркура, которые хотят стандартные уровни в игре. Каждый пройденный уровень будет отправлять игрока на следующий. Раз за разом и до самого конца."
+  },
+  {
+    "images" : [
+      {
+        "image" : "28_1.jpg"
+      },
+      {
+        "image" : "28_2.jpg"
+      },
+      {
+        "image" : "28_3.jpg"
+      },
+      {
+        "image" : "28_4.jpg"
+      }
+    ],
+    "file" : "28.mcworld",
+    "title_def" : "Block Effect Parkour",
+    "title_ru" : "Block Effect Parkour",
+    "desc_def" : "Have you ever had this when you simply wanted to jump on a parkour map without any special adventures or worries? At such moments, the desired assembly rarely falls out, but the creation of Pillar Parkour will be a great solution for parkour lovers who want standard levels in the game. Each level completed will send the player to the next. Time after time to the very end.",
+    "desc_ru" : "Короткая, но крайне увлекательная карта Block Effect Parkour подарит незабываемое приключение с паркуром. Изюминкой сборки станут блоки, на которые игрок падает и изменяет свое поведение. Блоки придают пользователю разнообразные эффекты, например, высокие прыжки, увеличенная скорость и так далее. Такие эффекты в разы усложняют прохождение, поскольку изменяется сама механика прыжков."
+  },
+  {
+    "images" : [
+      {
+        "image" : "29_1.jpg"
+      },
+      {
+        "image" : "29_2.jpg"
+      }
+    ],
+    "file" : "29.mcworld",
+    "title_def" : "Giant Modern Mansion (Minecraft House)",
+    "title_ru" : "Giant Modern Mansion (Minecraft House)",
+    "desc_def" : "Even the most experienced parkour masters sometimes need to practice and hone their skills. The Parkour Paradise: Giant House map will help with this, where 10 levels with different levels of difficulty are presented. Each player can either learn what parkour is or improve the skills that he has. In addition, a bonus level with an increased level of difficulty is available, which only skilled craftsmen will get to. You can always go through the levels - the developers have repeatedly checked the map, so the main thing is to believe in yourself. The map is a giant house.",
+    "desc_ru" : "Даже самым опытным паркур мастерам иногда нужно практиковаться и оттачивать свои навыки. С этим поможет карта Parkour Paradise: Giant House, где представлено 10 уровней с различными уровнями сложности. Каждый игрок сможет либо узнать, что такое паркур, либо улучшить навыки, которыми обладает. Кроме этого, доступен бонусный уровень с повышенным уровнем сложности, до которого доберутся только умелые мастера. Уровни всегда можно пройти - разработчики не раз проверяли карту, поэтому главное верить в себя. Карта представляет собой гигантский дом."
+  },
+  {
+    "images" : [
+      {
+        "image" : "30_1.jpg"
+      },
+      {
+        "image" : "30_2.jpg"
+      },
+      {
+        "image" : "30_3.jpg"
+      }
+    ],
+    "file" : "30.mcworld",
+    "title_def" : "Ravine Parkour 2",
+    "title_ru" : "Ravine Parkour 2",
+    "desc_def" : "We offer everyone who tested their abilities in the first part of a series of maps to try the second - Ravine Parkour 2. Those who have not yet tried to make their way across blocks over a lava abyss are required to try this in this assembly. Do not forget about the first part, which is no less cool and funny.",
+    "desc_ru" : "Предлагаем каждому, кто испытал свои способности на первой части серии карт, попробовать и вторую - Ravine Parkour 2. Те, кто еще не пробовал пробираться по блокам над пропастью из лавы, обязаны попробовать это сделать в этой сборке. Не забудьте и про первую часть, которая не менее крута и забавна."
+  },
+  {
+    "images" : [
+      {
+        "image" : "18_1.jpg"
+      },
+      {
+        "image" : "18_2.jpg"
+      },
+      {
+        "image" : "18_3.jpg"
+      },
+      {
+        "image" : "18_4.jpg"
+      },
+      {
+        "image" : "18_5.jpg"
+      }
+    ],
+    "file" : "18.mcworld",
+    "title_def" : "Freerunning",
+    "title_ru" : "Freerunning",
+    "desc_def" : "Freerunning is an incredibly cool parkour map, which includes many different levels, which makes the gameplay even brighter and richer. The map is best suited for multiplayer games with friends, but you can also play it alone.",
+    "desc_ru" : "«Freerunning» - это невероятно крутая паркур-карта, которая включает в себя много различных уровней, что делает игровой процесс еще ярче и насыщеннее. Карта лучше всего подходит для многопользовательской игры с друзьями , но Вы также можете играть в нее в одиночку."
+  },
+  {
+    "images" : [
+      {
+        "image" : "32_1.jpg"
+      },
+      {
+        "image" : "32_2.jpg"
+      },
+      {
+        "image" : "32_3.jpg"
+      },
+      {
+        "image" : "32_4.jpg"
+      },
+      {
+        "image" : "32_5.jpg"
+      }
+    ],
+    "file" : "32.mcworld",
+    "title_def" : "Unfair Honey",
+    "title_ru" : "Unfair Honey",
+    "desc_def" : "The second part of a fascinating parkour for honey blocks is the Unfair Honey card. Those who are familiar with these types of parkour know that every time they have to start over. Any wrong decision - go to the beginning of the map and restart.",
+    "desc_ru" : "Вторая часть увлекательного паркура по медовым блокам - карта Unfair Honey. Те, кто знаком с такими типами паркура, знают, что каждый раз придется начинать сначала. Любое неверное решение - идем на начало карты и перезапускаемся."
+  },
+  {
+    "images" : [
+      {
+        "image" : "33_1.jpg"
+      },
+      {
+        "image" : "33_2.jpg"
+      },
+      {
+        "image" : "33_3.jpg"
+      }
+    ],
+    "file" : "33.mcworld",
+    "title_def" : "Ravine Parkour ",
+    "title_ru" : "Ravine Parkour ",
+    "desc_def" : "Classical creations for parkour are sometimes extremely annoying: I want to change the situation and play other modes. But the Ravine Parkour map will offer another option - a new type of parkour, in which the user will explore a deep gorge full of lava. One wrong step - and the user is already burning in the lava. 5 levels of the most difficult parkour, which will follow from the lowest level to the highest.",
+    "desc_ru" : "Классические творения для паркура порой крайне надоедают: хочется сменить обстановку и поиграть в другие режимы. Но карта Ravine Parkour предложит иной вариант - новый вид паркура, в котором пользователь будет исследовать глубокое ущелье, полное лавы. Один неверный шажок - и пользователь уже подгорает в лаве. 5 уровней сложнейшего паркура, которые будут следовать с самого нижнего уровня до самого верхнего."
+  },
+  {
+    "images" : [
+      {
+        "image" : "34_1.jpg"
+      },
+      {
+        "image" : "34_2.jpg"
+      },
+      {
+        "image" : "34_3.jpg"
+      },
+      {
+        "image" : "34_4.jpg"
+      }
+    ],
+    "file" : "34.mcworld",
+    "title_def" : "Earth Parkour Blocks",
+    "title_ru" : "Earth Parkour Blocks",
+    "desc_def" : "The standard Earth Parkour Blocks map for parkour, the distinguishing feature of which will be the new blocks. The assembly is designed with the addition of honey blocks, hive blocks and others. If you want to survive and get to the very end, you must know how the new blocks work - otherwise it is impossible to pass this card.",
+    "desc_ru" : "Стандартная карта Earth Parkour Blocks для паркура, отличительной особенностью которой станут новые блоки. Сборка сконструирована с добавлением медовых блоков, блоков улей и прочих. Если Вы хотите выжить и добраться до самого конца, то должны знать, как работают новые блоки - иначе пройти эту карту невозможно."
+  },
+  {
+    "images" : [
+      {
+        "image" : "35_1.jpg"
+      },
+      {
+        "image" : "35_2.jpg"
+      }
+    ],
+    "file" : "35.mcworld",
+    "title_def" : "Easy Rainbow Parkour",
+    "title_ru" : "Easy Rainbow Parkour",
+    "desc_def" : "An interesting parkour Easy Rainbow Parkour map for beginners. Seven levels of parkour so that each user can learn the basics of parkour for future heights. The assembly is designed for multiplayer, so feel free to call all your friends and go through the game. The author guarantees that users do not exit the game without completing all levels, since they are not so difficult. Great creation for the parkour community",
+    "desc_ru" : "Интересная паркур карта Easy Rainbow Parkour для начинающих паркурщиков. Семь уровней паркура, чтобы каждый пользователь смог научиться азам паркура для будущих высот. Сборка рассчитана на мультиплеер, поэтому смело зовите всех своих друзей и проходите игру. Автор гарантирует, что пользователи не выйдут из игры, не закончив все уровни, поскольку они не такие сложные. Отличное творение для сообщества паркура"
+  }
+]

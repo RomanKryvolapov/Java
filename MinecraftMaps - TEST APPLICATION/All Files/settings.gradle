@@ -1,0 +1,2 @@
+rootProject.name='Minecraft Maps'
+include ':app'

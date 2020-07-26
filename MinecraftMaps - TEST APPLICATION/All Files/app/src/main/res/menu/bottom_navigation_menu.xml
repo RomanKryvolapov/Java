@@ -1,0 +1,18 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/maps_button"
+        android:enabled="true"
+        android:icon="@drawable/icon_selector_maps"
+        android:title="@string/text_label_1"/>
+    <item
+        android:id="@+id/favorites_button"
+        android:enabled="true"
+        android:icon="@drawable/icon_selector_favorites"
+        android:title="@string/text_label_2"/>
+    <item
+        android:id="@+id/gide_button"
+        android:enabled="true"
+        android:icon="@drawable/icon_selector_gides"
+        android:title="@string/text_label_3"/>
+
+</menu>

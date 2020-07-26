@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">Minecraft Maps</string>
+    <string name="text_label_1">Карты</string>
+    <string name="text_label_2">Избранное</string>
+    <string name="text_label_3">Гайд</string>
+    <string name="json_title">title_ru</string>
+    <string name="json_desc">desc_ru</string>
+    <string name="add_to_favorites">Добавлено в избранное</string>
+    <string name="remove_from_favorites">Удалено из избранного</string>
+    <string name="manual_field_1">Инструкция по использованию приложения</string>
+    <string name="manual_field_2">1. Выберите понравившуюся карту или мод.</string>
+    <string name="manual_field_3">Jump League</string>
+    <string name="manual_field_4">This is a simple parkour map that overcomes obstacles using command blocks and must defeat…</string>
+    <string name="manual_field_5">2. Нажмите кнопку скачать и дождитесь пока карта или мод загрузятся на устройство.</string>
+    <string name="manual_field_6">Download</string>
+    <string name="manual_field_7">Downloading</string>
+    <string name="manual_field_8">3. Нажмите кнопку установить, откроется Minecraft и начнется импорт в игру. Дождитесь пока импорт закончится.</string>
+    <string name="manual_field_9">Install</string>
+    <string name="manual_field_10">4. Скачанная карта появится в разделе Миры</string>
+    <string name="manual_field_11">5. Наслаждайтесь игрой</string>
+    <string name="manual_field_12">Если вы установили моды. то они появятся в соответствующием разделе в настройках карты.</string>
+    <string name="manual_field_13">Наслаждайтесь игрой :)</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">Minecraft Maps</string>
+    <string name="text_label_1">Maps</string>
+    <string name="text_label_2">Favorites</string>
+    <string name="text_label_3">Gide</string>
+    <string name="json_title">title_def</string>
+    <string name="json_desc">desc_def</string>
+    <string name="add_to_favorites">Added to favorites</string>
+    <string name="remove_from_favorites">Removed from favorites</string>
+    <string name="manual_field_1"> Instructions for using the application </string>
+    <string name="manual_field_2"> 1. Choose your favorite card or mod. </string>
+    <string name="manual_field_3"> Jump League </string>
+    <string name="manual_field_4"> This is a simple parkour map that overcomes obstacles using command blocks and must defeat ... </string>
+    <string name="manual_field_5"> 2. Click the download button and wait for the map or mod to download to your device. </string>
+    <string name="manual_field_6"> Download </string>
+    <string name="manual_field_7"> Downloading </string>
+    <string name="manual_field_8"> 3. Click the install button, Minecraft will open and import into the game will begin. Wait for the import to finish. </string>
+    <string name="manual_field_9"> Install </string>
+    <string name="manual_field_10"> 4. The downloaded map will appear in the Worlds section </string>
+    <string name="manual_field_11"> 5. Enjoy the game </string>
+    <string name="manual_field_12"> If you have installed mods. then they will appear in the appropriate section in the map settings. </string>
+    <string name="manual_field_13"> Enjoy the game :) </string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
