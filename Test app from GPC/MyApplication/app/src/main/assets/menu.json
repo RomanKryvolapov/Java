@@ -1,0 +1,24 @@
+{
+  "menu": [
+    {
+      "name": "Item 1",
+      "function": "text",
+      "param": "Hello, World!"
+    },
+    {
+      "name": "Item 2",
+      "function": "image",
+      "param": "https://3.bp.blogspot.com/-MWOPd0fZUDU/V7pQm0LT78I/AAAAAAAADX4/zl4bJGHBQuAN2bPJD_xNTQ7GRCLW51VcACLcB/s800/android_nougat.png"
+    },
+    {
+      "name": "Item 3",
+      "function": "url",
+      "param": "https://www.google.lv"
+    },
+    {
+      "name": "Item 4",
+      "function": "text",
+      "param": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque dapibus pellentesque orci, ut consequat arcu vestibulum quis. Etiam non tortor in elit semper euismod at vel est. Morbi et ex in quam faucibus efficitur at eget neque. Suspendisse potenti. Sed ut vehicula lorem. Pellentesque elementum, felis ornare lobortis porta, nisl purus auctor nibh, nec dapibus libero mauris et mi. Phasellus sem urna, consectetur ac ex at, fermentum facilisis urna. Curabitur nec velit volutpat, dapibus ante ut, pretium orci. Nulla id leo iaculis, condimentum mi a, pretium leo. Aliquam sagittis neque ac nunc blandit mattis. Morbi rhoncus, ante ut fermentum commodo, elit risus interdum tortor, in blandit risus orci commodo est. Nullam suscipit purus justo, vel semper felis blandit eu. Donec rutrum pretium tempus. Vivamus quis efficitur mauris. Praesent tempor pulvinar vulputate. Suspendisse arcu tellus, commodo sit amet pretium eget, porttitor non velit."
+    }
+  ]
+}
