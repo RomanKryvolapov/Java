@@ -1,7 +1,6 @@
 package com.romankryvolapov.minecraftmaps;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
@@ -27,13 +26,12 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class MapsFragment extends Fragment {
 
     private FrameLayout fragment_container;
     private ArrayList<Navigation> navigations;
-    LinearLayout linearLayout;
+    private LinearLayout linearLayout;
 
     public MapsFragment() {
     }
@@ -56,7 +54,7 @@ public class MapsFragment extends Fragment {
     // Этот клас содержит элементы для отрисовки, они будут добавлены в ArrayList
     private class Navigation {
 
-        Drawable image;
+        private Drawable image;
         private int id;
         private String name;
         private String description;
@@ -66,16 +64,18 @@ public class MapsFragment extends Fragment {
             this.image = image;
             this.id = id;
             this.name = name;
+
+            // если описание длинней 100 символов, оно обрезается
             this.description = description.substring(0, 100) + " ...";
             this.filename = filename;
         }
     }
 
+    // здесь есть дублирование кода с Избранным
+    // знаю, что лучше бы объеденить оба кода в один метод, но несколько полей отличаюстя, и не стал так делать, чтобы не запутаться
+
     private class MyTask extends AsyncTask<Void, Void, Void> {
 
-        // HashMap содержит ID элементов, чтобы OnClickListener знал, какой элемент нажали
-//        HashMap hashMap_fields;
-//        HashMap hashMap_favorites;
         Drawable drawable;
         int iterator = 0;
 
@@ -87,6 +87,7 @@ public class MapsFragment extends Fragment {
         protected Void doInBackground(Void... voids) {
 
             // добавление в фоне элементов для отрисовки из json в ArrayList <Navigation>
+            // не стал заморачиватсья на счет обработки ошибок, так как здесь или работает, или нет, так как все в памяти, а не в сети
             navigations = new ArrayList<Navigation>();
             try {
                 InputStream inputStream = getActivity().getAssets().open("maps.json");
@@ -106,6 +107,8 @@ public class MapsFragment extends Fragment {
                         drawable = Drawable.createFromStream(inputStream_image, null);
                     } catch (IOException e) {
                         Log.d(MainActivity.LOG_TAG, e + "");
+
+                        // не проверял на счет утечек памяти, но вроде не должно быть
                     } finally {
                         try {
                             if (inputStream_image != null)
@@ -114,6 +117,8 @@ public class MapsFragment extends Fragment {
                             Log.d(MainActivity.LOG_TAG, ex + "");
                         }
                     }
+
+                    // экземпляры класса добавляются в ArrayList
                     navigations.add(new Navigation(i, jsonObject_temp.getString(getResources().getString(R.string.json_title)), jsonObject_temp.getString(getResources().getString(R.string.json_desc)), jsonObject_temp2.getString("image"), drawable));
                 }
             } catch (Exception e) {
@@ -126,7 +131,9 @@ public class MapsFragment extends Fragment {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
+
             // после добавления всех элементов в ArraList они загружаются в UI добавлением в LinearLayout
+            // лучше бы было использовать recyclerview но будет больше кода и сложней, грузится за пол секунды даже в эмуляторе
             LayoutInflater ltInflater = getLayoutInflater();
             for (int i = 0; i < navigations.size(); i++) {
                 iterator = navigations.get(i).id;
@@ -157,6 +164,9 @@ public class MapsFragment extends Fragment {
                     imageView_favorites.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.favorite));
 
                 imageView_favorites.setOnClickListener(new View.OnClickListener() {
+
+                    // здесь есть интересная фишка- number для каждого слушателя различный
+                    // в интернете все пишут определять кнопку по id, но этот код также работает, придумал его сам в ходе экспериментов в другом приложении
                     int number = iterator;
                     @Override
                     public void onClick(View v) {

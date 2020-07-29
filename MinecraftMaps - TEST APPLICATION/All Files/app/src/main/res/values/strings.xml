@@ -20,6 +20,11 @@
     <string name="manual_field_11"> 5. Enjoy the game </string>
     <string name="manual_field_12"> If you have installed mods. then they will appear in the appropriate section in the map settings. </string>
     <string name="manual_field_13"> Enjoy the game :) </string>
+    <string name="download_button_status_1">Download</string>
+    <string name="download_button_status_2">Downloading</string>
+    <string name="download_button_status_3">Install</string>
+    <string name="download_button_status_4">Installed</string>
+
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

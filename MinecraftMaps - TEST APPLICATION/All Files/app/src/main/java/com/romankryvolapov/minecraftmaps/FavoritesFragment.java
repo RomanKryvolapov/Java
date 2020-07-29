@@ -1,7 +1,5 @@
 package com.romankryvolapov.minecraftmaps;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
@@ -16,15 +14,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -32,7 +25,6 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class FavoritesFragment extends Fragment {
 
@@ -70,6 +62,8 @@ public class FavoritesFragment extends Fragment {
             this.id = id;
             this.image = image;
             this.name = name;
+
+            // если описание длинней 100 символов, оно обрезается
             this.description = description.substring(0, 100) + " ...";
             this.filename = filename;
         }
@@ -77,7 +71,6 @@ public class FavoritesFragment extends Fragment {
 
     private class MyTask extends AsyncTask<Void, Void, Void> {
 
-        // HashMap содержит ID элементов, чтобы OnClickListener знал, какой элемент нажали
         Drawable drawable;
         int iterator = 0;
 
@@ -89,6 +82,7 @@ public class FavoritesFragment extends Fragment {
         protected Void doInBackground(Void... voids) {
 
             // добавление в фоне элементов для отрисовки из json в ArrayList <Navigation>
+
             favorites = new ArrayList<Favorites>();
             try {
                 InputStream inputStream = getActivity().getAssets().open("maps.json");
@@ -109,6 +103,8 @@ public class FavoritesFragment extends Fragment {
                         drawable = Drawable.createFromStream(inputStream_image, null);
                     } catch (IOException e) {
                         Log.d(MainActivity.LOG_TAG, e + "");
+
+                        // не проверял на счет утечек памяти, но вроде не должно быть
                     } finally {
                         try {
                             if (inputStream_image != null)
@@ -130,7 +126,9 @@ public class FavoritesFragment extends Fragment {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
+
             // после добавления всех элементов в ArraList они загружаются в UI добавлением в LinearLayout
+            // лучше бы было использовать recyclerview но будет больше кода и сложней, грузится за пол секунды даже в эмуляторе
             LayoutInflater ltInflater = getLayoutInflater();
             for (int i = 0; i < favorites.size(); i++) {
                 if (MainActivity.favorite_or_not(i)) {
@@ -159,6 +157,9 @@ public class FavoritesFragment extends Fragment {
                     });
                     imageView_favorites.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.favorite_black));
                     imageView_favorites.setOnClickListener(new View.OnClickListener() {
+
+                        // здесь есть интересная фишка- number для каждого слушателя различный
+                        // в интернете все пишут определять кнопку по id, но этот код также работает, придумал его сам в ходе экспериментов в другом приложении
                         int number = iterator;
                         @Override
                         public void onClick(View v) {

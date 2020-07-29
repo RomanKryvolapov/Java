@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -14,12 +15,16 @@ import android.Manifest;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
@@ -37,10 +42,20 @@ import android.widget.Toast;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomnavigation.LabelVisibilityMode;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.nio.channels.FileChannel;
+import java.nio.file.Files;
+import java.nio.file.LinkOption;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -50,8 +65,9 @@ public class MainActivity extends AppCompatActivity {
     public static SharedPreferences mSettings;
     private static String remove_from_favorites;
     private static String add_to_favorites;
-    public static int height = 0;
 
+    // этот код обрабатывает кнопку назад
+    // он работает немного не правильно по логике, так как из открытой карты перекидывает на первую вкладку, даже если карта открыта из избранного, но мне так показалось лучше
     @Override
     public void onBackPressed() {
         Log.d(LOG_TAG, "onBackPressed()");
@@ -65,24 +81,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        if (checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            Log.d(LOG_TAG, "WRITE_EXTERNAL_STORAGE NO!!!");
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 112);
-//            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
-        } else {
-            Log.d(LOG_TAG, "WRITE_EXTERNAL_STORAGE YES!!!");
-        }
-
-        writeFile();
-
-
-        Log.d(LOG_TAG, "MainActivity onCreate");
+        // этот код изменяет цвет самой верхней панели, если таковая имеется, под цвет приложения
         if (Build.VERSION.SDK_INT >= 21) {
             Window window = getWindow();
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(ContextCompat.getColor(this, R.color.colorBrown));
         }
+
+        Log.d(LOG_TAG, "MainActivity onCreate");
         selectedFragment = new MapsFragment();
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
         bottomNavigationView = findViewById(R.id.bottom_navigation);
@@ -92,41 +99,9 @@ public class MainActivity extends AppCompatActivity {
         remove_from_favorites = getResources().getString(R.string.remove_from_favorites);
         add_to_favorites = getResources().getString(R.string.add_to_favorites);
         mSettings = getSharedPreferences("mysettings", Context.MODE_PRIVATE);
-//        SharedPreferences.Editor editor = mSettings.edit();
-//        editor.clear();
-//        editor.apply();
-
     }
 
-    private void writeFile() {
-
-        Log.d(LOG_TAG, "ExternalStorageUtils.isExternalStorageMounted() = " + ExternalStorageUtils.isExternalStorageMounted());
-        Log.d(LOG_TAG, "ExternalStorageUtils.isExternalStorageReadOnly() = " + ExternalStorageUtils.isExternalStorageReadOnly());
-        Log.d(LOG_TAG, "ExternalStorageUtils.getPrivateExternalStorageBaseDir = " + ExternalStorageUtils.getPrivateExternalStorageBaseDir(this, ""));
-
-
-
-        try {
-//            String path = "/storage/emulated/0/games/com.mojang/minecraftWorlds/";
-            String path = "/storage/emulated/0/Android/data/com.mojang/minecraftWorlds/";
-            File file = new File(path);
-            String q = "eaibnbne";
-            // ==> /storage/emulated/0/note.txt  (API < 29)
-            // ==> /storage/emulated/0/Android/data/org.o7planning.externalstoragedemo/files/note.txt (API >=29)
-            FileOutputStream fileOutputStream = new FileOutputStream(path);
-            fileOutputStream.write(q.getBytes());
-            fileOutputStream.close();
-        } catch (FileNotFoundException e) {
-            Log.d(LOG_TAG, "FileNotFoundException");
-            e.printStackTrace();
-        } catch (IOException e) {
-            Log.d(LOG_TAG, "IOException");
-            e.printStackTrace();
-        }
-    }
-
-
-
+    // избранное запоминается в SharedPreferences, если статус единичка, то значит есть в избранном
     public static void femove_from_favorites(int id, Context context, String description) {
         SharedPreferences.Editor editor = mSettings.edit();
         editor.remove(Integer.toString(id));

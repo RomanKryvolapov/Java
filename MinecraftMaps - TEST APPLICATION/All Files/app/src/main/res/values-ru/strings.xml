@@ -20,6 +20,10 @@
     <string name="manual_field_11">5. Наслаждайтесь игрой</string>
     <string name="manual_field_12">Если вы установили моды. то они появятся в соответствующием разделе в настройках карты.</string>
     <string name="manual_field_13">Наслаждайтесь игрой :)</string>
+    <string name="download_button_status_1">Загрузить</string>
+    <string name="download_button_status_2">Загрузка</string>
+    <string name="download_button_status_3">Установить</string>
+    <string name="download_button_status_4">Установлено</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
