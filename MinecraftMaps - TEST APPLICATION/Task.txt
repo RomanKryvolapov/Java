@@ -1,5 +1,9 @@
 Got this assignment as test for Android Developer vacancy as description and UI on Figma
 Made this app 90 percent in 1 business day
+update:
+Made this app 100 percent in 2 business day
 
 Получил это задание как тестовое на вакансию Android Developer как описание и UI на Figma
 Cделал это приложение на 90 процентов за 1 рабочий день
+обновление:
+Cделал это приложение на 100 процентов за 2 рабочих дня
