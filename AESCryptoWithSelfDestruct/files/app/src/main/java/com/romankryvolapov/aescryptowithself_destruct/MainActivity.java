@@ -37,29 +37,29 @@ import javax.crypto.spec.SecretKeySpec;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button buttonPass1;
-    Button buttonPass2;
-    Button buttonPass3;
-    Button buttonPass4;
-    Button buttonPass5;
-    Button buttonPass6;
-    Button buttonPass7;
-    Button buttonPass8;
-    Button buttonPass9;
-    Button buttonPassOk;
-    Button buttonPassDel;
-    TextView textViewPass1;
-    TextView textViewPass2;
-    TextView textViewPass3;
-    TextView textViewPass4;
-    TextView textViewPassInfo;
-    Button buttonEraseAllatStart1;
-    Button buttonEraseAllatStart2;
-    Button buttonEraseAllatStart3;
+    private Button buttonPass1;
+    private Button buttonPass2;
+    private Button buttonPass3;
+    private Button buttonPass4;
+    private Button buttonPass5;
+    private Button buttonPass6;
+    private Button buttonPass7;
+    private Button buttonPass8;
+    private Button buttonPass9;
+    private Button buttonPassOk;
+    private Button buttonPassDel;
+    private TextView textViewPass1;
+    private TextView textViewPass2;
+    private TextView textViewPass3;
+    private TextView textViewPass4;
+    private TextView textViewPassInfo;
+    private Button buttonEraseAllatStart1;
+    private Button buttonEraseAllatStart2;
+    private Button buttonEraseAllatStart3;
     private String pass = "";
     private Boolean noSavedPass = true;
     private Boolean newEnter = true;
-    SharedPreferences sharedPreferences;
+    private SharedPreferences sharedPreferences;
     private Boolean EraseAllatStart1 = false;
     private Boolean EraseAllatStart2 = false;
     private Boolean EraseAllatStart3 = false;
@@ -197,18 +197,16 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void buttonEraseAll() {
+    private void buttonEraseAll() {
         if (EraseAllatStart1 && EraseAllatStart2 && EraseAllatStart3) {
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.clear();
             editor.apply();
             this.finish();
         }
-
-
     }
 
-    public String encrypt(String strToEncrypt, String key, String salt)
+    public static String encrypt(String text, String key, String salt)
     {
         try
         {
@@ -220,20 +218,19 @@ public class MainActivity extends AppCompatActivity {
             SecretKey tmp = factory.generateSecret(spec);
             SecretKeySpec secretKey = new SecretKeySpec(tmp.getEncoded(), "AES");
 
-            Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
+            Cipher cipher = Cipher.getInstance("AES/GCM/NoPadding");
             cipher.init(Cipher.ENCRYPT_MODE, secretKey, ivspec);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                return Base64.getEncoder().encodeToString(cipher.doFinal(strToEncrypt.getBytes("UTF-8")));
+                return Base64.getEncoder().encodeToString(cipher.doFinal(text.getBytes("UTF-8")));
             }
         }
         catch (Exception e)
         {
-            textViewPassInfo.setText("Exception");
         }
         return null;
     }
 
-    public String decrypt(String strToDecrypt, String key, String salt) {
+    public static String decrypt(String text, String key, String salt) {
         try
         {
             byte[] iv = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
@@ -244,10 +241,10 @@ public class MainActivity extends AppCompatActivity {
             SecretKey tmp = factory.generateSecret(spec);
             SecretKeySpec secretKey = new SecretKeySpec(tmp.getEncoded(), "AES");
 
-            Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5PADDING");
+            Cipher cipher = Cipher.getInstance("AES/GCM/NoPadding");
             cipher.init(Cipher.DECRYPT_MODE, secretKey, ivspec);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                return new String(cipher.doFinal(Base64.getDecoder().decode(strToDecrypt)));
+                return new String(cipher.doFinal(Base64.getDecoder().decode(text)));
             }
         }
         catch (Exception e) {
@@ -255,7 +252,7 @@ public class MainActivity extends AppCompatActivity {
         return null;
     }
 
-    public void setStatusBarColor() {
+    private void setStatusBarColor() {
         if (Build.VERSION.SDK_INT >= 21) {
             Window window = getWindow();
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
@@ -264,7 +261,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void generateKey() {
+    private void generateKey() {
         sharedPreferences = getSharedPreferences("sharedPreferences", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("secretKey", encrypt("secretKey", pass, pass));
@@ -276,20 +273,18 @@ public class MainActivity extends AppCompatActivity {
         this.finish();
     }
 
-    public void checkKey() {
+    private void checkKey() {
         sharedPreferences = getSharedPreferences("sharedPreferences", Context.MODE_PRIVATE);
         String secretKey = sharedPreferences.getString("secretKey", "");
         if(decrypt(secretKey, pass, pass)!=null){
-            Toast toast = Toast.makeText(getApplicationContext(), "Pass OK", Toast.LENGTH_SHORT);
-            toast.show();
+//            Toast toast = Toast.makeText(getApplicationContext(), "OK", Toast.LENGTH_SHORT);
+//            toast.show();
             Intent intent = new Intent(this, InternalActivity.class);
             intent.putExtra("pass", pass);
             startActivity(intent);
             this.finish();
 
         }  else {
-            Toast toast = Toast.makeText(getApplicationContext(), "Pass NOT OK", Toast.LENGTH_SHORT);
-            toast.show();
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.clear();
             editor.apply();
@@ -303,7 +298,6 @@ public class MainActivity extends AppCompatActivity {
             intent.putExtra("pass", pass);
             startActivity(intent);
             this.finish();
-
         }
 
 

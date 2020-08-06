@@ -1,0 +1,67 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#101010"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/textDialog"
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="5dp"
+        android:fontFamily="sans-serif"
+        android:inputType="textMultiLine"
+        android:isScrollContainer="true"
+        android:maxHeight="300dp"
+        android:minHeight="200dp"
+        android:overScrollMode="always"
+        android:scrollbars="vertical"
+        android:singleLine="false"
+        android:textColor="#FFFFFF"
+        android:textColorHighlight="#FFFFFF"
+        android:textColorHint="#FFFFFF"
+        android:textColorLink="#FFFFFF"
+        android:textSize="14sp"
+        android:windowSoftInputMode="stateVisible"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/buttonDialogNo"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_margin="5dp"
+            android:layout_marginBottom="20dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_style_2"
+            android:fontFamily="sans-serif-light"
+            android:gravity="center"
+            android:text="@string/alert_cancel"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:textIsSelectable="false"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/buttonDialogYes"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_margin="5dp"
+            android:layout_marginBottom="20dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_style_4"
+            android:fontFamily="sans-serif-light"
+            android:gravity="center"
+            android:text="@string/alert_save"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:textIsSelectable="false"
+            android:textSize="18sp" />
+    </LinearLayout>
+</LinearLayout>

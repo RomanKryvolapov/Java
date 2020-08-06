@@ -1,3 +1,30 @@
 <resources>
     <string name="app_name">AES Crypto With Self-Destruct</string>
+    <string name="button_del_all">delete all</string>
+    <string name="button_use">use</string>
+    <string name="button_generate">generate keys</string>
+    <string name="button_add_to_base">add key to base</string>
+    <string name="button_copy">copy</string>
+    <string name="button_paste">paste</string>
+    <string name="button_delete">delete</string>
+
+    <string name="text_1">Your public and private keys:</string>
+    <string name="text_2">Encryption / Decryption algorithm:</string>
+    <string name="text_3">Public key:</string>
+    <string name="text_4">Private key:</string>
+    <string name="text_5">Text encryption</string>
+    <string name="text_6">Text decryption</string>
+    <string name="text_7">Text send</string>
+    <string name="text_8">Source text:</string>
+    <string name="text_9">Encrypted / Decrypted text:</string>
+
+    <string name="alert_save">Save</string>
+    <string name="alert_cancel">Cancel</string>
+
+    <string name="enter_text">Enter or paste text in the field Source text</string>
+
+    <string name="text_copied">Copied to clipboard</string>
+    <string name="exception">Exception</string>
+    <string name="key_not_valide">Key is not valid</string>
+
 </resources>
