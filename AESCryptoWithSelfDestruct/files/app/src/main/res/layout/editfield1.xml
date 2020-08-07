@@ -5,7 +5,7 @@
     android:orientation="vertical">
 
     <EditText
-        android:id="@+id/textDialog"
+        android:id="@+id/dialogEditField1text"
         android:layout_width="400dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
@@ -33,7 +33,7 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/buttonDialogNo"
+            android:id="@+id/buttonDialogEditField1No"
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:layout_margin="5dp"
@@ -49,7 +49,7 @@
             android:textSize="18sp" />
 
         <Button
-            android:id="@+id/buttonDialogYes"
+            android:id="@+id/buttonDialogEditField1Yes"
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:layout_margin="5dp"

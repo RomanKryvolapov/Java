@@ -1,30 +1,35 @@
 <resources>
     <string name="app_name">AES Crypto With Self-Destruct</string>
     <string name="button_del_all">delete all</string>
-    <string name="button_use">use</string>
-    <string name="button_generate">generate keys</string>
+    <string name="button_use">use keys</string>
+    <string name="button_generate">generate key</string>
     <string name="button_add_to_base">add key to base</string>
     <string name="button_copy">copy</string>
     <string name="button_paste">paste</string>
     <string name="button_delete">delete</string>
+    <string name="button_manual">see manual</string>
+    <string name="button_send_keys">send keys</string>
 
-    <string name="text_1">Your public and private keys:</string>
-    <string name="text_2">Encryption / Decryption algorithm:</string>
-    <string name="text_3">Public key:</string>
-    <string name="text_4">Private key:</string>
+    <string name="text_1">Your keys:</string>
+    <string name="text_2">Select encryption/decryption algorithm:</string>
+    <string name="text_3">Public key (for key pair):</string>
+    <string name="text_4">Private key (for key pair) or Key:</string>
     <string name="text_5">Text encryption</string>
     <string name="text_6">Text decryption</string>
     <string name="text_7">Text send</string>
     <string name="text_8">Source text:</string>
     <string name="text_9">Encrypted / Decrypted text:</string>
+    <string name="text_only_private_key">only private key</string>
 
-    <string name="alert_save">Save</string>
-    <string name="alert_cancel">Cancel</string>
+    <string name="alert_save">save</string>
+    <string name="alert_cancel">cancel</string>
 
-    <string name="enter_text">Enter or paste text in the field Source text</string>
+    <string name="enter_text">enter or paste text in the field Source text</string>
 
-    <string name="text_copied">Copied to clipboard</string>
-    <string name="exception">Exception</string>
-    <string name="key_not_valide">Key is not valid</string>
+    <string name="text_copied">copied to clipboard</string>
+    <string name="exception">exception</string>
+    <string name="key_not_valide">key is not valid</string>
+    <string name="wait">wait</string>
+    <string name="close">close</string>
 
 </resources>

@@ -98,6 +98,21 @@
                 android:orientation="horizontal">
 
                 <Button
+                    android:id="@+id/buttonSendKeys"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_style_4"
+                    android:fontFamily="sans-serif-light"
+                    android:gravity="center"
+                    android:text="@string/button_send_keys"
+                    android:textAllCaps="false"
+                    android:textColor="#FFFFFF"
+                    android:textIsSelectable="false"
+                    android:textSize="14sp" />
+
+                <Button
                     android:id="@+id/buttonUse"
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"
@@ -153,6 +168,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
+                <Button
+                    android:id="@+id/buttonManual"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_style_4"
+                    android:fontFamily="sans-serif-light"
+                    android:text="@string/button_manual"
+                    android:textAllCaps="false"
+                    android:textColor="#FFFFFF"
+                    android:textIsSelectable="false"
+                    android:textSize="14sp" />
 
                 <Button
                     android:id="@+id/buttonGenerateKey"
@@ -160,7 +188,7 @@
                     android:layout_height="30dp"
                     android:layout_margin="1dp"
                     android:layout_weight="1"
-                    android:background="@drawable/button_style_4"
+                    android:background="@drawable/button_style_3"
                     android:fontFamily="sans-serif-light"
                     android:text="@string/button_generate"
                     android:textAllCaps="false"
@@ -174,7 +202,7 @@
                     android:layout_height="30dp"
                     android:layout_margin="1dp"
                     android:layout_weight="1"
-                    android:background="@drawable/button_style_3"
+                    android:background="@drawable/button_style_2"
                     android:fontFamily="sans-serif-light"
                     android:text="@string/button_add_to_base"
                     android:textAllCaps="false"
