@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -37,6 +38,7 @@ import javax.crypto.spec.SecretKeySpec;
 
 public class MainActivity extends AppCompatActivity {
 
+    private final String LOG_TAG = "Status";
     private Button buttonPass1;
     private Button buttonPass2;
     private Button buttonPass3;
@@ -63,11 +65,40 @@ public class MainActivity extends AppCompatActivity {
     private Boolean EraseAllatStart1 = false;
     private Boolean EraseAllatStart2 = false;
     private Boolean EraseAllatStart3 = false;
+    private String received;
+    private String receivedText;
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        this.finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        this.finish();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        try {
+            Intent receivedIntent = getIntent();
+            String receivedAction = receivedIntent.getAction();
+            String receivedType = receivedIntent.getType();
+            if (receivedAction.equals(Intent.ACTION_SEND)) {
+                received = receivedIntent.getStringExtra(Intent.EXTRA_TEXT);
+                if (received != null && receivedType.startsWith("text/")) {
+                    if (received.length() > 0) {
+                        receivedText = received;
+                    }
+                }
+            }
+        } catch (Exception e) {
+            Log.d(LOG_TAG, "Exception = " + e);
+        }
         setStatusBarColor();
         buttonPass1 = findViewById(R.id.buttonPass1);
         buttonPass2 = findViewById(R.id.buttonPass2);
@@ -206,11 +237,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public static String encrypt(String text, String key, String salt)
-    {
-        try
-        {
-            byte[] iv = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+    public static String encrypt(String text, String key, String salt) {
+        try {
+            byte[] iv = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
             IvParameterSpec ivspec = new IvParameterSpec(iv);
 
             SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
@@ -223,17 +252,14 @@ public class MainActivity extends AppCompatActivity {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 return Base64.getEncoder().encodeToString(cipher.doFinal(text.getBytes("UTF-8")));
             }
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
         }
         return null;
     }
 
     public static String decrypt(String text, String key, String salt) {
-        try
-        {
-            byte[] iv = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+        try {
+            byte[] iv = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
             IvParameterSpec ivspec = new IvParameterSpec(iv);
 
             SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
@@ -246,8 +272,7 @@ public class MainActivity extends AppCompatActivity {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 return new String(cipher.doFinal(Base64.getDecoder().decode(text)));
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
         }
         return null;
     }
@@ -269,6 +294,9 @@ public class MainActivity extends AppCompatActivity {
         editor = null;
         Intent intent = new Intent(this, InternalActivity.class);
         intent.putExtra("pass", pass);
+        if (receivedText != null)
+            if (receivedText.length() > 0)
+                intent.putExtra("receivedText", receivedText);
         startActivity(intent);
         this.finish();
     }
@@ -276,15 +304,18 @@ public class MainActivity extends AppCompatActivity {
     private void checkKey() {
         sharedPreferences = getSharedPreferences("sharedPreferences", Context.MODE_PRIVATE);
         String secretKey = sharedPreferences.getString("secretKey", "");
-        if(decrypt(secretKey, pass, pass)!=null){
+        if (decrypt(secretKey, pass, pass) != null) {
 //            Toast toast = Toast.makeText(getApplicationContext(), "OK", Toast.LENGTH_SHORT);
 //            toast.show();
             Intent intent = new Intent(this, InternalActivity.class);
             intent.putExtra("pass", pass);
+            if (receivedText != null)
+                if (receivedText.length() > 0)
+                    intent.putExtra("receivedText", receivedText);
             startActivity(intent);
             this.finish();
 
-        }  else {
+        } else {
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.clear();
             editor.apply();
@@ -296,6 +327,9 @@ public class MainActivity extends AppCompatActivity {
             editor2 = null;
             Intent intent = new Intent(this, InternalActivity.class);
             intent.putExtra("pass", pass);
+            if (receivedText != null)
+                if (receivedText.length() > 0)
+                    intent.putExtra("receivedText", receivedText);
             startActivity(intent);
             this.finish();
         }

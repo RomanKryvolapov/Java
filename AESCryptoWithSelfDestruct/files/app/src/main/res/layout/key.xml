@@ -6,7 +6,7 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/key"
+        android:id="@+id/textViewManual"
         android:layout_width="400dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
@@ -79,7 +79,7 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/buttonDialogKeyCancel"
+            android:id="@+id/buttonCloseManual"
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:layout_margin="1dp"

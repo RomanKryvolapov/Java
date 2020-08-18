@@ -10,6 +10,8 @@ import android.content.ClipData;
 import android.content.ClipDescription;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.AsyncTask;
@@ -20,6 +22,7 @@ import android.util.Base64;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -38,21 +41,27 @@ import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.PrivateKey;
 import java.security.PublicKey;
+import java.security.SecureRandom;
+import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
+import javax.crypto.spec.SecretKeySpec;
 
 public class InternalActivity extends AppCompatActivity {
 
-    public static final String LOG_TAG = "Status";
+    private final String LOG_TAG = "Status";
     private Dialog dialogEditText;
     private Dialog dialogKey;
     private Dialog dialogManual;
+    private Button buttonSeeManual;
+    private Button buttonSendKeys;
+    private TextView textViewManual;
     private Button buttonDialogKeyCancel;
+    private Button buttonCloseManual;
     private Button buttonDialogKeySave;
     private TextView textViewDialogKey;
     private Button buttonEraseAll1;
@@ -105,43 +114,44 @@ public class InternalActivity extends AppCompatActivity {
     private String privateKeyString = "";
     private int spinnerAlgorithmPosition = 0;
     private int spinnerAlgorithmPositionOnStart = 0;
+    private String receivedText;
 
     private String[] algorithms = new String[]{
             "RSA NoPadding 4096 bit",
             "RSA NoPadding 3072 bit",
             "RSA NoPadding 2048 bit",
             "RSA NoPadding 1024 bit",
-            "RSA NoPadding 515 bit",
+            "RSA NoPadding 512 bit",
             "RSA None PKCS1 4096 bit",
             "RSA None PKCS1 3072 bit",
             "RSA None PKCS1 2048 bit",
             "RSA None PKCS1 1024 bit",
-            "RSA None PKCS1 515 bit",
+            "RSA None PKCS1 512 bit",
             "RSA ECB PKCS1 4096 bit",
             "RSA ECB PKCS1 3072 bit",
             "RSA ECB PKCS1 2048 bit",
             "RSA ECB PKCS1 1024 bit",
-            "RSA ECB PKCS1 515 bit",
+            "RSA ECB PKCS1 512 bit",
             "RSA None OAEP SHA-1 MGF 4096 bit",
             "RSA None OAEP SHA-1 MGF1 3072 bit",
             "RSA None OAEP SHA-1 MGF1 2048 bit",
             "RSA None OAEP SHA-1 MGF1 1024 bit",
-            "RSA None OAEP SHA-1 MGF1 515 bit",
+            "RSA None OAEP SHA-1 MGF1 512 bit",
             "RSA ECB OAEP SHA-1 MGF1 4096 bit",
             "RSA ECB OAE SHA-1 MGF1 3072 bit",
             "RSA ECB OAEP SHA-1 MGF1 2048 bit",
             "RSA ECB OAEP SHA-1 MGF1 1024 bit",
-            "RSA ECB OAEP SHA-1 MGF1 515 bit",
+            "RSA ECB OAEP SHA-1 MGF1 512 bit",
             "RSA None OAEP SHA-256 MGF1 4096 bit",
             "RSA None OAEP SHA-256 MGF1 3072 bit",
             "RSA None OAEP SHA-256 MGF1 2048 bit",
             "RSA None OAEP SHA-256 MGF1 1024 bit",
-            "RSA None OAEP SHA-256 MGF1 515 bit",
+            "RSA None OAEP SHA-256 MGF1 512 bit",
             "RSA ECB OAEP SHA-256 MGF1 4096 bit",
             "RSA ECB OAEP SHA-256 MGF1 3072 bit",
             "RSA ECB OAEP SHA-256 MGF1 2048 bit",
             "RSA ECB OAEP SHA-256 MGF1 1024 bit",
-            "RSA ECB OAEP SHA-256 MGF1 515 bit",
+            "RSA ECB OAEP SHA-256 MGF1 512 bit",
             "AES GCM NoPadding 256 bit",
             "AES CBC NoPadding 256 bit",
             "AES ECB NoPadding 256 bit",
@@ -155,6 +165,17 @@ public class InternalActivity extends AppCompatActivity {
     };
 
     @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        this.finish();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_internal);
@@ -163,7 +184,9 @@ public class InternalActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             pass = bundle.getString("pass");
+            receivedText = bundle.getString("receivedText");
         }
+
 
         sharedPreferences = getSharedPreferences("sharedPreferences", Context.MODE_PRIVATE);
 
@@ -175,13 +198,13 @@ public class InternalActivity extends AppCompatActivity {
         findAllElements();
         addListiners();
         arrayAdapterAlgorithm();
-        if (sharedPreferences.contains("totalKeys")) {
-            totalKeys = sharedPreferences.getInt("totalKeys", 0);
-            if (totalKeys > 0) {
-                textViewKey1.setText(getString(R.string.wait));
-                textViewKey2.setText(getString(R.string.wait));
-            }
-        }
+//        if (sharedPreferences.contains("totalKeys")) {
+//            totalKeys = sharedPreferences.getInt("totalKeys", 0);
+//            if (totalKeys > 0) {
+//                textViewKey1.setText(getString(R.string.wait));
+//                textViewKey2.setText(getString(R.string.wait));
+//            }
+//        }
         GetAllKeysFromSharedPreferences getAllKeysFromSharedPreferences = new GetAllKeysFromSharedPreferences();
         getAllKeysFromSharedPreferences.execute();
     }
@@ -215,6 +238,8 @@ public class InternalActivity extends AppCompatActivity {
         textViewKey2 = findViewById(R.id.textViewKey2);
         textField1 = findViewById(R.id.textField1);
         textField2 = findViewById(R.id.textField2);
+        buttonSeeManual = findViewById(R.id.buttonSeeManual);
+        buttonSendKeys = findViewById(R.id.buttonSendKeys);
     }
 
     private void addListiners() {
@@ -281,15 +306,17 @@ public class InternalActivity extends AppCompatActivity {
         buttonCopyPublicKey.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (publicKeyString.length() > 0)
-                    copyToClipboard(publicKeyString);
+                if (publicKeyString != null)
+                    if (publicKeyString.length() > 0)
+                        copyToClipboard(publicKeyString);
             }
         });
         buttonCopyPrivateKey.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (privateKeyString.length() > 0)
-                    copyToClipboard(privateKeyString);
+                if (privateKeyString != null)
+                    if (privateKeyString.length() > 0)
+                        copyToClipboard(privateKeyString);
             }
         });
         buttonGenerateKey.setOnClickListener(new View.OnClickListener() {
@@ -301,66 +328,86 @@ public class InternalActivity extends AppCompatActivity {
         buttonEncryptionText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                text1 = textField1.getText().toString();
-                if (text1.length() > 0 && publicKeyString.length() > 0) {
-                    text2 = encryptionText(text1, publicKeyString);
-                    if (text2.length() > 0) {
-                        textField1.setText(text1);
-                        textField2.setText(text2);
-                    }
-                }
+                encryptionText();
             }
         });
         buttonDecryptionText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                decryptionText();
             }
         });
         buttonPastePublicKey.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String key = pasteFromClipboard();
-                if (key.length() > 0)
-                    publicKeyString = key;
-                textViewKey1.setText(substringer(publicKeyString, substring, true));
+                if (key != null)
+                    if (key.length() > 0) {
+                        publicKeyString = key;
+                        textViewKey1.setText(substringer(publicKeyString, substring, true));
+                    } else {
+                        publicKeyString = "";
+                        textViewKey1.setText("");
+                    }
+            }
+        });
+        buttonPastePrivateKey.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String key = pasteFromClipboard();
+                if (key != null)
+                    if (key.length() > 0) {
+                        privateKeyString = key;
+                        textViewKey2.setText(substringer(privateKeyString, substring, true));
+                    } else {
+                        privateKeyString = "";
+                        textViewKey2.setText("");
+                    }
             }
         });
         buttonCopyOriginalText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 text1 = textField1.getText().toString();
-                if (text1.length() > 0) {
-                    copyToClipboard(text1);
-                    textField1.setText(text1);
-                }
+                if (text1 != null)
+                    if (text1.length() > 0) {
+                        copyToClipboard(text1);
+                    }
             }
         });
         buttonCopyEncryptedText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (text2.length() > 0) {
-                    copyToClipboard(text2);
-                    textField2.setText(text2);
-                }
+                if (text2 != null)
+                    if (text2.length() > 0) {
+                        copyToClipboard(text2);
+                    }
             }
         });
         buttonPasteOriginalText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 text1 = pasteFromClipboard();
-                if (text1.length() > 0) {
-                    textField1.setText(text1);
-                }
+                if (text1 != null)
+                    if (text1.length() > 0) {
+                        textField1.setText(text1);
+                    } else {
+                        text1 = "";
+                        textField1.setText(text1);
+                    }
             }
         });
         buttonPasteEncryptedText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 text2 = pasteFromClipboard();
-                if (text2.length() > 0) {
-                    textField2.setText(text2);
-                }
+                if (text2 != null)
+                    if (text2.length() > 0) {
+                        textField2.setText(text2);
+                    } else {
+                        text2 = "";
+                        textField2.setText(text2);
+                    }
             }
         });
         buttonDeleteOriginalText.setOnClickListener(new View.OnClickListener() {
@@ -375,12 +422,6 @@ public class InternalActivity extends AppCompatActivity {
             public void onClick(View v) {
                 text2 = "";
                 textField2.setText(text2);
-            }
-        });
-        buttonPastePrivateKey.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                qqq
             }
         });
         buttonUse.setOnClickListener(new View.OnClickListener() {
@@ -404,13 +445,14 @@ public class InternalActivity extends AppCompatActivity {
         buttonAddKeyToBase.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (publicKeyString.length() > 0 || privateKeyString.length() > 0) {
-                    textViewKey1.setText(getString(R.string.wait));
-                    textViewKey2.setText(getString(R.string.wait));
-                    addCurrentKeyToHashMap();
-                    AddAllKeysToSharedPreferences addAllKeysToSharedPreferences = new AddAllKeysToSharedPreferences();
-                    addAllKeysToSharedPreferences.execute();
-                }
+                if (publicKeyString != null && privateKeyString != null)
+                    if (publicKeyString.length() > 0 || privateKeyString.length() > 0) {
+                        textViewKey1.setText(getString(R.string.wait));
+                        textViewKey2.setText(getString(R.string.wait));
+                        addCurrentKeyToHashMap();
+                        AddAllKeysToSharedPreferences addAllKeysToSharedPreferences = new AddAllKeysToSharedPreferences();
+                        addAllKeysToSharedPreferences.execute();
+                    }
 
             }
         });
@@ -429,21 +471,46 @@ public class InternalActivity extends AppCompatActivity {
                 }
             }
         });
+        buttonSeeManual.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                newDialogManual();
+            }
+        });
+        buttonSendText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendText();
+            }
+        });
+        buttonSendKeys.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendKey();
+            }
+        });
+        if (receivedText != null)
+            if (receivedText.length() > 0) {
+                text1 = receivedText;
+                textField1.setText(text1);
+            }
     }
 
     private String substringer(String text, int substringSize, boolean addDots) {
         StringBuilder stringBuilder = new StringBuilder();
-        if (text.length() > substringSize && addDots) {
-            stringBuilder.append(text.substring(0, substringSize));
-            stringBuilder.append(" ...");
-            return stringBuilder.toString();
-        } else if (text.length() > substringSize && !addDots) {
-            stringBuilder.append(text.substring(0, substringSize));
-            return stringBuilder.toString();
-        } else {
-            stringBuilder.append(text);
-            return stringBuilder.toString();
-        }
+        if (text != null)
+            if (text.length() > substringSize && addDots) {
+                stringBuilder.append(text.substring(0, substringSize));
+                stringBuilder.append(" ...");
+                return stringBuilder.toString();
+            } else if (text.length() > substringSize && !addDots) {
+                stringBuilder.append(text.substring(0, substringSize));
+                return stringBuilder.toString();
+            } else {
+                stringBuilder.append(text);
+                return stringBuilder.toString();
+            }
+        return "";
     }
 
     private void buttonEraseAll() {
@@ -498,7 +565,7 @@ public class InternalActivity extends AppCompatActivity {
             b = substringer(keys.get(temp), substring2, false);
             temp++;
             temp++;
-            keyWithItemNumber[i] = (i + 1) + ". Public=" + a + "... Private=" + b + "...";
+            keyWithItemNumber[i] = "" + (i + 1) + ". " + getText(R.string.key1) + " " + a + "... " + getText(R.string.key2) + " " + b + "...";
 
         }
 //        Log.d(LOG_TAG, "keyWithItemNumber size = " + keyWithItemNumber.length);
@@ -517,6 +584,47 @@ public class InternalActivity extends AppCompatActivity {
         spinnerKeys.setSelection(totalKeys - 1);
 
 
+    }
+
+    private void sendText() {
+        if (text2 != null)
+            if (text2.length() > 0) {
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.setType("text/plain");
+                sendIntent.putExtra(android.content.Intent.EXTRA_TEXT, text2);
+                Intent shareIntent = Intent.createChooser(sendIntent, null);
+                startActivity(shareIntent);
+            }
+    }
+
+    private void sendKey() {
+        StringBuilder text = new StringBuilder();
+        text.append(getText(R.string.send_text_1));
+        text.append("\n");
+        if (spinnerAlgorithm.getSelectedItemPosition() >= 35) {
+            text.append(getText(R.string.send_text_3));
+        } else {
+            text.append(getText(R.string.send_text_4));
+        }
+        text.append("\n");
+        text.append(getText(R.string.send_text_5));
+        text.append("\n");
+        text.append(algorithms[spinnerAlgorithm.getSelectedItemPosition()]);
+        text.append("\n");
+        text.append(getText(R.string.send_text_2));
+        text.append("\n");
+        if (spinnerAlgorithm.getSelectedItemPosition() >= 35) {
+            text.append(privateKeyString);
+        } else {
+            text.append(publicKeyString);
+        }
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.setType("text/plain");
+        sendIntent.putExtra(android.content.Intent.EXTRA_TEXT, text.toString());
+        Intent shareIntent = Intent.createChooser(sendIntent, null);
+        startActivity(shareIntent);
     }
 
     private void addCurrentKeyToHashMap() {
@@ -553,6 +661,16 @@ public class InternalActivity extends AppCompatActivity {
                 dialogEditText.dismiss();
             }
         });
+        dialogEditText.setOnKeyListener(new DialogInterface.OnKeyListener() {
+            @Override
+            public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+                if (keyCode == KeyEvent.KEYCODE_BACK) {
+                    dialogEditText.dismiss();
+                    return true;
+                }
+                return false;
+            }
+        });
         dialogEditText.show();
         InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         inputMethodManager.toggleSoftInputFromWindow(textDialogEditText.getApplicationWindowToken(), InputMethodManager.SHOW_FORCED, 0);
@@ -566,6 +684,33 @@ public class InternalActivity extends AppCompatActivity {
         sharedPreferenceseditor = null;
     }
 
+    private void newDialogManual() {
+        dialogManual = new Dialog(InternalActivity.this);
+        dialogManual.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialogManual.setCancelable(false);
+        dialogManual.setContentView(R.layout.manual);
+        textViewManual = dialogManual.findViewById(R.id.textViewManual);
+        textViewManual.setText(getText(R.string.manual));
+        buttonCloseManual = dialogManual.findViewById(R.id.buttonCloseManual);
+        buttonCloseManual.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialogManual.dismiss();
+            }
+        });
+        dialogManual.setOnKeyListener(new DialogInterface.OnKeyListener() {
+            @Override
+            public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+                if (keyCode == KeyEvent.KEYCODE_BACK) {
+                    dialogManual.dismiss();
+                    return true;
+                }
+                return false;
+            }
+        });
+        dialogManual.show();
+    }
+
     private void newDialogKey(final boolean isPrivate) {
         if (isPrivate)
             keyString = privateKeyString;
@@ -576,11 +721,12 @@ public class InternalActivity extends AppCompatActivity {
         dialogKey.setCancelable(false);
         dialogKey.setContentView(R.layout.key);
 
-        textViewDialogKey = dialogKey.findViewById(R.id.key);
-        if (keyString.length() > 0)
-            textViewDialogKey.setText(keyString);
+        textViewDialogKey = dialogKey.findViewById(R.id.textViewManual);
+        if (keyString != null)
+            if (keyString.length() > 0)
+                textViewDialogKey.setText(keyString);
 
-        buttonDialogKeyCancel = dialogKey.findViewById(R.id.buttonDialogKeyCancel);
+        buttonDialogKeyCancel = dialogKey.findViewById(R.id.buttonCloseManual);
         buttonDialogKeyCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -622,144 +768,307 @@ public class InternalActivity extends AppCompatActivity {
                 copyToClipboard(keyString);
             }
         });
+        dialogKey.setOnKeyListener(new DialogInterface.OnKeyListener() {
+            @Override
+            public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+                if (keyCode == KeyEvent.KEYCODE_BACK) {
+                    dialogKey.dismiss();
+                    return true;
+                }
+                return false;
+            }
+        });
         dialogKey.show();
     }
 
-    private String encryptionText(String text, String key) {
-        if (text.length() > 0) {
-            spinnerAlgorithmPosition = spinnerAlgorithm.getSelectedItemPosition();
-            Log.d(LOG_TAG, "spinnerAlgorithmPosition = " + spinnerAlgorithmPosition);
-            switch (spinnerAlgorithmPosition) {
-                case 0:
-                case 1:
-                case 2:
-                case 3:
-                case 4:
-                    return encryptionText_RSA(text, key, "RSA", "RSA");
-                case 5:
-                case 6:
-                case 7:
-                case 8:
-                case 9:
-                    return encryptionText_RSA(text, key, "RSA", "RSA/NONE/PKCS1Padding");
-                case 10:
-                case 11:
-                case 12:
-                case 13:
-                case 14:
-                    return encryptionText_RSA(text, key, "RSA", "RSA/ECB/PKCS1Padding");
-                case 15:
-                case 16:
-                case 17:
-                case 18:
-                case 19:
-                    return encryptionText_RSA(text, key, "RSA", "RSA/NONE/OAEPwithSHA-1andMGF1Padding");
-                case 20:
-                case 21:
-                case 22:
-                case 23:
-                case 24:
-                    return encryptionText_RSA(text, key, "RSA", "RSA/ECB/OAEPwithSHA-1andMGF1Padding");
-                case 25:
-                case 26:
-                case 27:
-                case 28:
-                case 29:
-                    return encryptionText_RSA(text, key, "RSA", "RSA/NONE/OAEPwithSHA-256andMGF1Padding");
-                case 30:
-                case 31:
-                case 32:
-                case 33:
-                case 34:
-                    return encryptionText_RSA(text, key, "RSA", "RSA/ECB/OAEPwithSHA-256andMGF1Padding");
-                case 35:
-                case 36:
-                case 37:
-                case 38:
-                case 39:
-                case 40:
-                case 41:
-                case 42:
-                case 43:
-                case 44:
-
-                    return null;
-            }
-        } else {
-            Toast toast = Toast.makeText(this, getString(R.string.exception), Toast.LENGTH_SHORT);
-            toast.show();
+    private void encryptionText() {
+        spinnerAlgorithmPosition = spinnerAlgorithm.getSelectedItemPosition();
+        Log.d(LOG_TAG, "spinnerAlgorithmPosition = " + spinnerAlgorithmPosition);
+        switch (spinnerAlgorithmPosition) {
+            case 0:
+            case 1:
+            case 2:
+            case 3:
+            case 4:
+                encryptionText_RSA("RSA", "RSA");
+                break;
+            case 5:
+            case 6:
+            case 7:
+            case 8:
+            case 9:
+                encryptionText_RSA("RSA", "RSA/NONE/PKCS1Padding");
+                break;
+            case 10:
+            case 11:
+            case 12:
+            case 13:
+            case 14:
+                encryptionText_RSA("RSA", "RSA/ECB/PKCS1Padding");
+                break;
+            case 15:
+            case 16:
+            case 17:
+            case 18:
+            case 19:
+                encryptionText_RSA("RSA", "RSA/NONE/OAEPwithSHA-1andMGF1Padding");
+                break;
+            case 20:
+            case 21:
+            case 22:
+            case 23:
+            case 24:
+                encryptionText_RSA("RSA", "RSA/ECB/OAEPwithSHA-1andMGF1Padding");
+                break;
+            case 25:
+            case 26:
+            case 27:
+            case 28:
+            case 29:
+                encryptionText_RSA("RSA", "RSA/NONE/OAEPwithSHA-256andMGF1Padding");
+                break;
+            case 30:
+            case 31:
+            case 32:
+            case 33:
+            case 34:
+                encryptionText_RSA("RSA", "RSA/ECB/OAEPwithSHA-256andMGF1Padding");
+                break;
+            case 35:
+            case 40:
+                encryptionText_AES("AES", "AES/GCM/NoPadding");
+                break;
+            case 36:
+            case 41:
+                encryptionText_AES("AES", "AES/CBC/NoPadding");
+                break;
+            case 37:
+            case 42:
+                encryptionText_AES("AES", "AES/ECB/NoPadding");
+                break;
+            case 38:
+            case 43:
+                encryptionText_AES("AES", "AES/CBC/PKCS5Padding");
+                break;
+            case 39:
+            case 44:
+                encryptionText_AES("AES", "AES/ECB/PKCS5Padding");
+                break;
         }
-        return null;
+    }
+
+    private void decryptionText() {
+        spinnerAlgorithmPosition = spinnerAlgorithm.getSelectedItemPosition();
+        Log.d(LOG_TAG, "spinnerAlgorithmPosition = " + spinnerAlgorithmPosition);
+        switch (spinnerAlgorithmPosition) {
+            case 0:
+            case 1:
+            case 2:
+            case 3:
+            case 4:
+                decryptionText_RSA("RSA", "RSA");
+                break;
+            case 5:
+            case 6:
+            case 7:
+            case 8:
+            case 9:
+                decryptionText_RSA("RSA", "RSA/NONE/PKCS1Padding");
+                break;
+            case 10:
+            case 11:
+            case 12:
+            case 13:
+            case 14:
+                decryptionText_RSA("RSA", "RSA/ECB/PKCS1Padding");
+                break;
+            case 15:
+            case 16:
+            case 17:
+            case 18:
+            case 19:
+                decryptionText_RSA("RSA", "RSA/NONE/OAEPwithSHA-1andMGF1Padding");
+                break;
+            case 20:
+            case 21:
+            case 22:
+            case 23:
+            case 24:
+                decryptionText_RSA("RSA", "RSA/ECB/OAEPwithSHA-1andMGF1Padding");
+                break;
+            case 25:
+            case 26:
+            case 27:
+            case 28:
+            case 29:
+                decryptionText_RSA("RSA", "RSA/NONE/OAEPwithSHA-256andMGF1Padding");
+                break;
+            case 30:
+            case 31:
+            case 32:
+            case 33:
+            case 34:
+                decryptionText_RSA("RSA", "RSA/ECB/OAEPwithSHA-256andMGF1Padding");
+                break;
+            case 35:
+            case 40:
+                decryptionText_AES("AES", "AES/GCM/NoPadding");
+                break;
+            case 36:
+            case 41:
+                decryptionText_AES("AES", "AES/CBC/NoPadding");
+                break;
+            case 37:
+            case 42:
+                decryptionText_AES("AES", "AES/ECB/NoPadding");
+                break;
+            case 38:
+            case 43:
+                decryptionText_AES("AES", "AES/CBC/PKCS5Padding");
+                break;
+            case 39:
+            case 44:
+                decryptionText_AES("AES", "AES/ECB/PKCS5Padding");
+                break;
+        }
     }
 
     private void copyToClipboard(String text) {
-        if (text.length() > 0) {
-            ClipboardManager clipboardManager = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-            ClipData clipData = ClipData.newPlainText("Copied Text", text);
-            clipboardManager.setPrimaryClip(clipData);
-            Toast toast = Toast.makeText(this, getString(R.string.text_copied), Toast.LENGTH_SHORT);
-            toast.show();
-        } else {
-            Toast toast = Toast.makeText(this, getString(R.string.exception), Toast.LENGTH_SHORT);
-            toast.show();
-        }
+        if (text != null)
+            if (text.length() > 0) {
+                ClipboardManager clipboardManager = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipData clipData = ClipData.newPlainText("Copied Text", text);
+                clipboardManager.setPrimaryClip(clipData);
+                Toast toast = Toast.makeText(this, getString(R.string.text_copied), Toast.LENGTH_SHORT);
+                toast.show();
+            } else {
+                Toast toast = Toast.makeText(this, getString(R.string.exception), Toast.LENGTH_SHORT);
+                toast.show();
+            }
     }
 
-    private String encryptionText_RSA(String text, String key, String keyTypeField1, String keyTypeField2) {
+    private void encryptionText_AES(String keyTypeField1, String keyTypeField2) {
         try {
-
-            byte[] publicBytes = Base64.decode(key, Base64.DEFAULT);
-            X509EncodedKeySpec keySpec = new X509EncodedKeySpec(publicBytes);
-            KeyFactory keyFactory = KeyFactory.getInstance(keyTypeField1);
-            PublicKey publicKey = keyFactory.generatePublic(keySpec);
-
-//            byte[] decodedKey = Base64.getDecoder().decode(encodedKey);
-//            SecretKey originalKey = new SecretKeySpec(decodedKey, 0, decodedKey.length, "AES");
-
-//            Log.d(LOG_TAG, "publicKey = " + publicKey.toString());
-//            publicKeyString = Base64.encodeToString(publicKey.getEncoded(), Base64.DEFAULT);
-//            textViewKey1.setText(publicKeyString);
-//            textViewKey2.setText(privateKeyString);
-
-            Cipher cipher = Cipher.getInstance(keyTypeField2);
-            cipher.init(Cipher.ENCRYPT_MODE, publicKey);
-
-            byte[] encrypted = cipher.doFinal(text.getBytes());
-            text2 = Base64.encodeToString(encrypted, Base64.DEFAULT);
-            Log.d(LOG_TAG, "publicKeyString length = " + publicKeyString.length() + " privateKeyString length = " + privateKeyString.length());
-            return text2;
+            text1 = textField1.getText().toString();
+            if (text1 != null && privateKeyString != null)
+                if (text1.length() > 0 && privateKeyString.length() > 0) {
+                    byte[] publicBytes = Base64.decode(privateKeyString, Base64.DEFAULT);
+                    SecretKeySpec skeySpec = new SecretKeySpec(publicBytes, keyTypeField1);
+                    Cipher cipher = Cipher.getInstance(keyTypeField2);
+                    cipher.init(Cipher.ENCRYPT_MODE, skeySpec);
+                    byte[] encryptedBytes = cipher.doFinal(text1.getBytes());
+                    text2 = Base64.encodeToString(encryptedBytes, Base64.DEFAULT);
+                    if (text2 != null)
+                        if (text2.length() > 0) {
+                            textField2.setText(text2);
+                        }
+                } else {
+                    Log.d(LOG_TAG, "length = 0");
+                    Toast toast = Toast.makeText(this, getString(R.string.exception), Toast.LENGTH_SHORT);
+                    toast.show();
+                }
         } catch (Exception e) {
-            Toast toast = Toast.makeText(this, getString(R.string.exception), Toast.LENGTH_SHORT);
+            Log.d(LOG_TAG, "Exception = " + e);
+            Toast toast = Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT);
             toast.show();
-            return "";
         }
     }
 
-//    private String decryptionText(String text) {
-//        text1 = textField1.getText().toString();
-//        if (text1.length() > 0) {
-//            spinnerAlgorithmPosition = spinnerAlgorithm.getSelectedItemPosition();
-//            switch (spinnerAlgorithmPosition) {
-//                case 0:
-//
-//
-//                    return "";
-//                case 1:
-//
-//
-//                    return "";
-//                case 2:
-//
-//
-//                    return "";
-//            }
-//        } else {
-//            Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.exception), Toast.LENGTH_SHORT);
-//            toast.show();
-//
-//        }
-//        return null;
-//    }
+    private void encryptionText_RSA(String keyTypeField1, String keyTypeField2) {
+        try {
+            text1 = textField1.getText().toString();
+            if (text1 != null && publicKeyString != null)
+                if (text1.length() > 0 && publicKeyString.length() > 0) {
+                    byte[] publicBytes = Base64.decode(publicKeyString, Base64.DEFAULT);
+                    X509EncodedKeySpec keySpec = new X509EncodedKeySpec(publicBytes);
+                    KeyFactory keyFactory = KeyFactory.getInstance(keyTypeField1);
+                    PublicKey publicKey = keyFactory.generatePublic(keySpec);
+
+                    Cipher cipher = Cipher.getInstance(keyTypeField2);
+                    cipher.init(Cipher.ENCRYPT_MODE, publicKey);
+
+//                    Log.d(LOG_TAG, "publicKey Algorithm = " + publicKey.getAlgorithm() + " publicKey Format = " + publicKey.getFormat());
+//                    Log.d(LOG_TAG, "publicKeyString length = " + publicKeyString.length() + " privateKeyString length = " + privateKeyString.length());
+
+                    byte[] encryptedBytes = cipher.doFinal(text1.getBytes());
+                    text2 = Base64.encodeToString(encryptedBytes, Base64.DEFAULT);
+                    if (text2 != null)
+                        if (text2.length() > 0) {
+                            textField2.setText(text2);
+                        }
+                } else {
+//                    Log.d(LOG_TAG, "length = 0");
+                    Toast toast = Toast.makeText(this, getString(R.string.exception), Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+        } catch (Exception e) {
+//            Log.d(LOG_TAG, "Exception = " + e);
+            Toast toast = Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT);
+            toast.show();
+        }
+    }
+
+
+    private void decryptionText_AES(String keyTypeField1, String keyTypeField2) {
+        try {
+            text1 = textField1.getText().toString();
+            if (text1 != null && privateKeyString != null) {
+                byte[] privateBytes = Base64.decode(privateKeyString, Base64.DEFAULT);
+                SecretKeySpec skeySpec = new SecretKeySpec(privateBytes, keyTypeField1);
+                Cipher cipher = Cipher.getInstance(keyTypeField2);
+                cipher.init(Cipher.DECRYPT_MODE, skeySpec);
+                byte[] bytesToDecrypt = Base64.decode(text1, Base64.DEFAULT);
+                Log.d(LOG_TAG, "publicKeyString length = " + publicKeyString.length() + " privateKeyString length = " + privateKeyString.length());
+                byte[] decryptedBytes = cipher.doFinal(bytesToDecrypt);
+                text2 = new String(decryptedBytes);
+                if (text2 != null)
+                    if (text2.length() > 0) {
+                        textField2.setText(text2);
+                    }
+            } else {
+                Log.d(LOG_TAG, "length = 0");
+                Toast toast = Toast.makeText(this, getString(R.string.exception), Toast.LENGTH_SHORT);
+                toast.show();
+            }
+
+        } catch (Exception e) {
+            Log.d(LOG_TAG, "Exception = " + e);
+            Toast toast = Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT);
+            toast.show();
+        }
+    }
+
+    private void decryptionText_RSA(String keyTypeField1, String keyTypeField2) {
+        try {
+            text1 = textField1.getText().toString();
+            if (text1 != null && privateKeyString != null)
+                if (text1.length() > 0 && privateKeyString.length() > 0) {
+                    byte[] privateBytes = Base64.decode(privateKeyString, Base64.DEFAULT);
+                    PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(privateBytes);
+                    KeyFactory keyFactory = KeyFactory.getInstance(keyTypeField1);
+                    PrivateKey privateKey = keyFactory.generatePrivate(keySpec);
+                    Cipher cipher = Cipher.getInstance(keyTypeField2);
+                    cipher.init(Cipher.DECRYPT_MODE, privateKey);
+                    Log.d(LOG_TAG, "privateKey Algorithm = " + privateKey.getAlgorithm() + " privateKey Format = " + privateKey.getFormat());
+                    Log.d(LOG_TAG, "publicKeyString length = " + publicKeyString.length() + " privateKeyString length = " + privateKeyString.length());
+                    byte[] bytesToDecrypt = Base64.decode(text1, Base64.DEFAULT);
+                    byte[] decryptedBytes = cipher.doFinal(bytesToDecrypt);
+                    text2 = new String(decryptedBytes);
+                    if (text2 != null)
+                        if (text2.length() > 0) {
+                            textField2.setText(text2);
+                        }
+                } else {
+                    Log.d(LOG_TAG, "length = 0");
+                    Toast toast = Toast.makeText(this, getString(R.string.exception), Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+        } catch (Exception e) {
+            Log.d(LOG_TAG, "Exception = " + e);
+            Toast toast = Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT);
+            toast.show();
+        }
+    }
 
     private void setStatusBarColor() {
         if (Build.VERSION.SDK_INT >= 21) {
@@ -866,19 +1175,19 @@ public class InternalActivity extends AppCompatActivity {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             arrayAdapterKeys();
-            if (publicKeyString.length() == 0 && privateKeyString.length() == 0 && totalKeys>0) {
-                publicKeyString = keys.get((totalKeys-1) * 3);
-                privateKeyString = keys.get((totalKeys-1) * 3 + 1);
-                String temp = keys.get((totalKeys-1) * 3 + 2);
-                for (int i = 0; i < algorithms.length; i++) {
-                    if (temp.equals(algorithms[i])) {
-                        spinnerAlgorithm.setSelection(i);
-                        break;
-                    }
-                }
-            }
-            textViewKey1.setText(substringer(publicKeyString, substring, true));
-            textViewKey2.setText(substringer(privateKeyString, substring, true));
+//            if (publicKeyString.length() == 0 && privateKeyString.length() == 0 && totalKeys>0) {
+//                publicKeyString = keys.get((totalKeys-1) * 3);
+//                privateKeyString = keys.get((totalKeys-1) * 3 + 1);
+//                String temp = keys.get((totalKeys-1) * 3 + 2);
+//                for (int i = 0; i < algorithms.length; i++) {
+//                    if (temp.equals(algorithms[i])) {
+//                        spinnerAlgorithm.setSelection(i);
+//                        break;
+//                    }
+//                }
+//            }
+//            textViewKey1.setText(substringer(publicKeyString, substring, true));
+//            textViewKey2.setText(substringer(privateKeyString, substring, true));
         }
     }
 
@@ -946,10 +1255,9 @@ public class InternalActivity extends AppCompatActivity {
                 PrivateKey privateKey = keyPair.getPrivate();
                 publicKeyString = Base64.encodeToString(publicKey.getEncoded(), Base64.DEFAULT);
                 privateKeyString = Base64.encodeToString(privateKey.getEncoded(), Base64.DEFAULT);
-                Log.d(LOG_TAG, "publicKeyString length = " + publicKeyString.length() + " privateKeyString length = " + privateKeyString.length());
                 return null;
             } catch (Exception e) {
-                Log.d(LOG_TAG, "Exception!!!");
+                Log.d(LOG_TAG, "Exception = " + e);
             }
             return null;
         }
@@ -974,12 +1282,14 @@ public class InternalActivity extends AppCompatActivity {
         protected Void doInBackground(Void... voids) {
             try {
                 KeyGenerator keyGenerator = KeyGenerator.getInstance(keyTypeField1);
-                keyGenerator.init(keySize);
+                SecureRandom random = new SecureRandom();
+                keyGenerator.init(keySize, random);
                 SecretKey secretKey = keyGenerator.generateKey();
-                privateKeyString = Base64.encodeToString(secretKey.getEncoded(), Base64.DEFAULT);
+                privateKeyString = Base64.encodeToString(secretKey.getEncoded(), Base64.DEFAULT).substring(0, 32);
                 publicKeyString = "";
                 return null;
             } catch (Exception e) {
+                Log.d(LOG_TAG, "Exception = " + e);
             }
             return null;
         }
