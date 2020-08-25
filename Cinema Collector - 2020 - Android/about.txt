@@ -1,0 +1,3 @@
+https://play.google.com/store/apps/details?id=com.romankryvolapov.cinemacollector
+
+This application is a personal base of films, which works through the API of the site https://developers.themoviedb.org/3 and allows you to follow new films, add films to the list for viewing, watched and not interesting

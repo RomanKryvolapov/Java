@@ -1,3 +1,5 @@
+https://play.google.com/store/apps/details?id=com.romankryvolapov.minecraftmaps
+
 Got this assignment as test for Android Developer vacancy as description and UI on Figma
 Made this app 90 percent in 1 business day
 update:
@@ -7,3 +9,4 @@ Made this app 100 percent in 2 business day
 Cделал это приложение на 90 процентов за 1 рабочий день
 обновление:
 Cделал это приложение на 100 процентов за 2 рабочих дня
+

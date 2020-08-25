@@ -1,0 +1,4 @@
+https://play.google.com/store/apps/details?id=com.romankryvolapov.minesweeper
+
+This application is a Minesweeper game
+I came up with all the algorithms myself but on the basis of how they should work

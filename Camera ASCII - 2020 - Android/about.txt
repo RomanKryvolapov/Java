@@ -1,0 +1,1 @@
+This application must convert the camera image to symbols
