@@ -1,0 +1,59 @@
+<resources>
+    <string name="app_name">RSA/AES Encryption With Self-Destruct</string>
+    <string name="button_del_all">delete all</string>
+    <string name="button_use">use keys</string>
+    <string name="button_generate">generate key</string>
+    <string name="button__del_key">delete key</string>
+    <string name="button_add_to_base">add key to base</string>
+    <string name="button_copy">copy</string>
+    <string name="button_paste">paste</string>
+    <string name="button_delete">delete</string>
+    <string name="button_manual">see manual</string>
+    <string name="button_send_keys">send keys</string>
+    <string name="key1">Public:</string>
+    <string name="key2">Private:</string>
+    <string name="send_text_subject">Key</string>
+    <string name="send_text_1">Key type:</string>
+    <string name="send_text_2">Key:</string>
+    <string name="send_text_5">Algorithm:</string>
+    <string name="send_text_3">PRIVATE KEY</string>
+    <string name="send_text_4">PUBLIC KEY</string>
+    <string name="chooser">share via</string>
+    <string name="text_1">your keys:</string>
+    <string name="text_2">select encryption/decryption algorithm:</string>
+    <string name="text_3">public key (for RSA):</string>
+    <string name="text_4">private key (for RSA and AES):</string>
+    <string name="text_5">text encryption</string>
+    <string name="text_6">text decryption</string>
+    <string name="text_7">text send</string>
+    <string name="text_8">source text:</string>
+    <string name="text_9">encrypted / decrypted text:</string>
+    <string name="text_only_private_key">for AES only private key available</string>
+    <string name="alert_save">save</string>
+    <string name="alert_cancel">cancel</string>
+    <string name="enter_text">enter or paste text in the field Source text</string>
+    <string name="text_copied">copied to clipboard</string>
+    <string name="exception">exception</string>
+    <string name="key_not_valide">key is not valid</string>
+    <string name="wait">wait</string>
+    <string name="close">close</string>
+    <string name="manual">Hello!\n
+This program is designed to encrypt and decrypt messages using RSA and AES algorithms.\n
+With RSA, a message can be encrypted with a public key, but it can only be decrypted with a private key.\n
+This means that you can send your public key to another person, he can encrypt a message with them, but it can only be decrypted using your private key.\n
+In this case, one public key corresponds to one private key, and a public-private key pair is generated simultaneously.\n
+When using the AES algorithm, only a private key is generated; it serves both for encryption and decryption.\n
+There is a limitation on the maximum message length for the RSA algorithm, so if you want to encrypt a long message, you can either increase the
+        RSA key size, or generate an AES key, encrypt the message with this key, and then encrypt the AES key itself using the recipients public
+        RSA key, when In this case, only the recipient will be able to decrypt the AES encrypted key with the help of his private key and, with the help of it, decrypt the message.\n
+I did not include other algorithms supported by Android in the program, as they are outdated.\n
+You can add keys that you want to use to the program database.\n
+These keys will be encrypted as well, but I do not guarantee that if someone breaks into your phone that that person cannot decrypt them.\n
+For this purpose, the program has 3 buttons at the top, when you press them, the program key database will be erased and the application will close.\n
+When you open the program, it will ask you to enter a password.\n
+Be careful, because if you enter the password incorrectly once, the program will erase all data and remember the entered password as a new one.\n
+When you click on the field with the key, a window will open in which it will be fully visible.\n
+When you click on the field of the original message, a window will open in which you can edit it.\n
+Key generation and encryption and decryption operations can be time consuming.\n
+If you have any questions, you can write to me at roman.kryvolapov@gmail.com</string>
+</resources>

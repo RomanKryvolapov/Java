@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:ns1="urn:oasis:names:tc:xliff:document:1.2">
+    <string msgid="7903180715631665059" name="abc_action_bar_home_description">"Перейти на главный экран"</string>
+    <string msgid="6794660482873516081" name="abc_action_bar_up_description">"Перейти вверх"</string>
+    <string msgid="1155814932213556626" name="abc_action_menu_overflow_description">"Ещё"</string>
+    <string msgid="2571498368472823490" name="abc_action_mode_done">"Готово"</string>
+    <string msgid="3732416590524162402" name="abc_activity_chooser_view_see_all">"Показать все"</string>
+    <string msgid="1798588241954930982" name="abc_activitychooserview_choose_application">"Выберите приложение"</string>
+    <string msgid="3403923230105792483" name="abc_capital_off">"ВЫКЛ"</string>
+    <string msgid="7831734969929204599" name="abc_capital_on">"ВКЛ"</string>
+    <string msgid="5725160506500770567" name="abc_menu_alt_shortcut_label">"Alt +"</string>
+    <string msgid="944415252197684443" name="abc_menu_ctrl_shortcut_label">"Ctrl +"</string>
+    <string msgid="129742188101734366" name="abc_menu_delete_shortcut_label">"Delete"</string>
+    <string msgid="6840127756824236027" name="abc_menu_enter_shortcut_label">"Ввод"</string>
+    <string msgid="4974283687810130415" name="abc_menu_function_shortcut_label">"Fn +"</string>
+    <string msgid="8046416353848716905" name="abc_menu_meta_shortcut_label">"Meta +"</string>
+    <string msgid="3271697756921353410" name="abc_menu_shift_shortcut_label">"Shift +"</string>
+    <string msgid="2304645930658438191" name="abc_menu_space_shortcut_label">"Пробел"</string>
+    <string msgid="8327365089695024394" name="abc_menu_sym_shortcut_label">"Sym +"</string>
+    <string msgid="3570106412128999382" name="abc_prepend_shortcut_label">"Меню +"</string>
+    <string msgid="940844115270746197" name="abc_search_hint">"Введите запрос"</string>
+    <string msgid="1769270744562318534" name="abc_searchview_description_clear">"Удалить запрос"</string>
+    <string msgid="908784302972860853" name="abc_searchview_description_query">"Поисковый запрос"</string>
+    <string msgid="5466662225065974044" name="abc_searchview_description_search">"Поиск"</string>
+    <string msgid="8203855622131699655" name="abc_searchview_description_submit">"Отправить запрос"</string>
+    <string msgid="3478748990613108725" name="abc_searchview_description_voice">"Голосовой поиск"</string>
+    <string msgid="2650565705514630347" name="abc_shareactionprovider_share_with">"Поделиться с помощью"</string>
+    <string msgid="9009661856846212431" name="abc_shareactionprovider_share_with_application">"Поделиться с помощью <ns1:g id="APPLICATION_NAME">%s</ns1:g>"</string>
+    <string msgid="6389460216547290468" name="abc_toolbar_collapse_description">"Свернуть"</string>
+    <string name="alert_cancel">отмена</string>
+    <string name="alert_save">сохранить</string>
+    <string name="app_name">AES/RSA Шифрование с Самоуничтожением</string>
+    <string name="button__del_key">удалить ключ</string>
+    <string name="button_add_to_base">добавить ключ в базу</string>
+    <string name="button_copy">копировать</string>
+    <string name="button_del_all">удалить все</string>
+    <string name="button_delete">удалить</string>
+    <string name="button_generate">сгенерировать ключ</string>
+    <string name="button_manual">инструкция</string>
+    <string name="button_paste">вставить</string>
+    <string name="button_send_keys">отправить ключ</string>
+    <string name="button_use">использовать ключ</string>
+    <string name="chooser">отправить с помощью</string>
+    <string name="close">закрыть</string>
+    <string name="enter_text">введите или вставьте текст в поле исходный текст</string>
+    <string name="exception">ошибка</string>
+    <string name="key1">Публичный:</string>
+    <string name="key2">Приватный:</string>
+    <string name="key_not_valide">ключ не действителен</string>
+    <string name="manual">Привет!\n
+Эта программа предназначена для зашифровки и расшифровки сообщений с использованием алгоритмов RSA и AES.\n
+При использовании алгоритма RSA сообщение может быть зашифровано публичным ключем, но расшифровать его можно только с помощью приватного ключа.\n
+Это означает, что вы можете отправить другому человеку свой публичный ключ, он может им зашифровать сообщение, но расшифровать его можно только с помошью вашего приватного ключа.\n
+При этом одному публичному ключу соответствует один приватный ключ, пара пубюличный-приватный ключ генерируется одновременно.\n
+При использовании алгоритма AES генерируется только приватный ключ, он служит как для зашифровки, так и для расшифровки.\n
+Для алгоритма RSA существует ограничение по максимальной длинне сообщения, поэтому если вы хотите зашифровать длинное сообщение, вы можете либо увеличить размер
+        RSA ключа, либо сгенерировать AES ключ, зашифровать этим ключом сообщение, а затем зашифровать сам AES ключ с помощью публичного ключа RSA получателя,
+        при этом только получатель с помощью своего приватного ключа сможет расшифровать зашифрованный вами AES ключ и уже с помошью него расшифровать сообщение.\n
+Я не стал включать в программу другие алгоритмы, поддерживаемые Android, так как они устарели.\n
+Вы можете добавлять ключи, которые хотите использовать в базу программы.\n
+Эти ключи будут также зашифрованы, но я не гарантирую, что если кто либо взломает ваш телефон, что этот человек не сможет их расшифровать.\n
+Для этой цели в программе есть 3 кнопки сверху, при нажатии них база данных ключей программы сотрется и приложение закроется.\n
+При открытии программы, она попросит вас ввести пароль.\n
+Будьте внимательны, так как в случае, если вы введете пароль один раз не правильно, программа сотрет все данные и запомнит введенный пароль как новый.\n
+При нажатии на поле с ключем откроется окно, в котором он будет виден полностью.\n
+При нажатии на поле исходного сообщения, откроется окно, в котором вы можете его отредактировать.\n
+Операции генерации ключей и зашифровки и расшифровки могут отнемать какое то время.\n
+Если у вас есть какие либо вопросы, вы можете написать мне на почту roman.kryvolapov@gmail.com</string>
+    <string msgid="730395136688082741" name="search_menu_title">"Поиск"</string>
+    <string name="send_text_1">Key type:</string>
+    <string name="send_text_2">Key:</string>
+    <string name="send_text_3">PRIVATE KEY</string>
+    <string name="send_text_4">PUBLIC KEY</string>
+    <string name="send_text_5">Algorithm:</string>
+    <string name="send_text_subject">Key</string>
+    <string msgid="8106346172024741305" name="status_bar_notification_info_overflow">">999"</string>
+    <string name="text_1">ваши ключи:</string>
+    <string name="text_2">выбрать алгоритм шифровки/расшифровки:</string>
+    <string name="text_3">публичный ключ (для RSA):</string>
+    <string name="text_4">приватный ключ (для RSA и AES):</string>
+    <string name="text_5">зашифровать текст</string>
+    <string name="text_6">расшифровать текст</string>
+    <string name="text_7">отправить текст</string>
+    <string name="text_8">исходный текст:</string>
+    <string name="text_9">зашифрованный / расшифрованный текст:</string>
+    <string name="text_copied">скопировано в буфер обмена</string>
+    <string name="text_only_private_key">для AES возможен только приватный ключ</string>
+    <string name="wait">подождите</string>
+</resources>

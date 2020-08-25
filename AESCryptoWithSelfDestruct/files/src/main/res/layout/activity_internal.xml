@@ -1,0 +1,568 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000"
+    tools:context=".InternalActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="26dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/buttonEraseAll1"
+                    android:layout_width="match_parent"
+                    android:layout_height="26dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_style_2"
+                    android:fontFamily="sans-serif-light"
+                    android:gravity="center"
+                    android:text="@string/button_del_all"
+                    android:textAllCaps="false"
+                    android:textColor="#FFFFFF"
+                    android:textIsSelectable="false"
+                    android:textSize="14sp" />
+
+                <Button
+                    android:id="@+id/buttonEraseAll2"
+                    android:layout_width="match_parent"
+                    android:layout_height="26dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_style_2"
+                    android:fontFamily="sans-serif-light"
+                    android:gravity="center"
+                    android:text="@string/button_del_all"
+                    android:textAllCaps="false"
+                    android:textColor="#FFFFFF"
+                    android:textIsSelectable="false"
+                    android:textSize="14sp" />
+
+                <Button
+                    android:id="@+id/buttonEraseAll3"
+                    android:layout_width="match_parent"
+                    android:layout_height="26dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_style_2"
+                    android:fontFamily="sans-serif-light"
+                    android:gravity="center"
+                    android:text="@string/button_del_all"
+                    android:textAllCaps="false"
+                    android:textColor="#FFFFFF"
+                    android:textIsSelectable="false"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:fontFamily="sans-serif-light"
+                android:gravity="center"
+                android:text="@string/text_1"
+                android:textAllCaps="false"
+                android:textColor="#FFFFFF"
+                android:textIsSelectable="false"
+                android:textSize="14sp" />
+
+            <Spinner
+                android:id="@+id/spinnerKeys"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:layout_margin="1dp"
+                android:layout_weight="1"
+                android:background="@drawable/button_style_1"
+                android:gravity="center" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/buttonSendKeys"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_style_4"
+                    android:fontFamily="sans-serif-light"
+                    android:gravity="center"
+                    android:text="@string/button_send_keys"
+                    android:textAllCaps="false"
+                    android:textColor="#FFFFFF"
+                    android:textIsSelectable="false"
+                    android:textSize="14sp" />
+
+                <Button
+                    android:id="@+id/buttonUse"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_style_3"
+                    android:fontFamily="sans-serif-light"
+                    android:gravity="center"
+                    android:text="@string/button_use"
+                    android:textAllCaps="false"
+                    android:textColor="#FFFFFF"
+                    android:textIsSelectable="false"
+                    android:textSize="14sp" />
+
+                <Button
+                    android:id="@+id/buttonDelKey"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_style_2"
+                    android:fontFamily="sans-serif-light"
+                    android:gravity="center"
+                    android:text="@string/button_delete"
+                    android:textAllCaps="false"
+                    android:textColor="#FFFFFF"
+                    android:textIsSelectable="false"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:fontFamily="sans-serif-light"
+                android:gravity="center"
+                android:text="@string/text_2"
+                android:textAllCaps="false"
+                android:textColor="#FFFFFF"
+                android:textIsSelectable="false" />
+
+            <Spinner
+                android:id="@+id/spinnerAlgorithm"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:layout_margin="1dp"
+                android:layout_weight="1"
+                android:background="@drawable/button_style_1"
+                android:gravity="center" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+                <Button
+                    android:id="@+id/buttonSeeManual"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_style_4"
+                    android:fontFamily="sans-serif-light"
+                    android:text="@string/button_manual"
+                    android:textAllCaps="false"
+                    android:textColor="#FFFFFF"
+                    android:textIsSelectable="false"
+                    android:textSize="14sp" />
+
+                <Button
+                    android:id="@+id/buttonGenerateKey"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_style_3"
+                    android:fontFamily="sans-serif-light"
+                    android:text="@string/button_generate"
+                    android:textAllCaps="false"
+                    android:textColor="#FFFFFF"
+                    android:textIsSelectable="false"
+                    android:textSize="14sp" />
+
+                <Button
+                    android:id="@+id/buttonAddKeyToBase"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_style_2"
+                    android:fontFamily="sans-serif-light"
+                    android:text="@string/button_add_to_base"
+                    android:textAllCaps="false"
+                    android:textColor="#FFFFFF"
+                    android:textIsSelectable="false"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:fontFamily="sans-serif-light"
+                android:gravity="center"
+                android:text="@string/text_3"
+                android:textAllCaps="false"
+                android:textColor="#FFFFFF"
+                android:textIsSelectable="false"
+                android:textSize="14sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/buttonCopyPublicKey"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_style_4"
+                    android:fontFamily="sans-serif-light"
+                    android:gravity="center"
+                    android:text="@string/button_copy"
+                    android:textAllCaps="false"
+                    android:textColor="#FFFFFF"
+                    android:textIsSelectable="false"
+                    android:textSize="14sp" />
+
+                <Button
+                    android:id="@+id/buttonPastePublicKey"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_style_3"
+                    android:fontFamily="sans-serif-light"
+                    android:gravity="center"
+                    android:text="@string/button_paste"
+                    android:textAllCaps="false"
+                    android:textColor="#FFFFFF"
+                    android:textIsSelectable="false"
+                    android:textSize="14sp" />
+
+                <Button
+                    android:id="@+id/buttonDeletePublicKey"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_style_2"
+                    android:fontFamily="sans-serif-light"
+                    android:gravity="center"
+                    android:text="@string/button_delete"
+                    android:textAllCaps="false"
+                    android:textColor="#FFFFFF"
+                    android:textIsSelectable="false"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textViewKey1"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:layout_margin="1dp"
+                android:layout_weight="1"
+                android:background="@drawable/button_style_1"
+                android:fontFamily="sans-serif-light"
+                android:gravity="center"
+                android:textAlignment="center"
+                android:textColor="#FFFFFF"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:fontFamily="sans-serif-light"
+                android:gravity="center"
+                android:text="@string/text_4"
+                android:textAllCaps="false"
+                android:textColor="#FFFFFF"
+                android:textIsSelectable="false"
+                android:textSize="14sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/buttonCopyPrivateKey"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_style_4"
+                    android:fontFamily="sans-serif-light"
+                    android:gravity="center"
+                    android:text="@string/button_copy"
+                    android:textAllCaps="false"
+                    android:textColor="#FFFFFF"
+                    android:textIsSelectable="false"
+                    android:textSize="14sp" />
+
+                <Button
+                    android:id="@+id/buttonPastePrivateKey"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_style_3"
+                    android:fontFamily="sans-serif-light"
+                    android:gravity="center"
+                    android:text="@string/button_paste"
+                    android:textAllCaps="false"
+                    android:textColor="#FFFFFF"
+                    android:textIsSelectable="false"
+                    android:textSize="14sp" />
+
+                <Button
+                    android:id="@+id/buttonDeletePrivateKey"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_style_2"
+                    android:fontFamily="sans-serif-light"
+                    android:gravity="center"
+                    android:text="@string/button_delete"
+                    android:textAllCaps="false"
+                    android:textColor="#FFFFFF"
+                    android:textIsSelectable="false"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textViewKey2"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:layout_margin="1dp"
+                android:background="@drawable/button_style_1"
+                android:fontFamily="sans-serif-light"
+                android:gravity="center"
+                android:textAlignment="center"
+                android:textColor="#FFFFFF"
+                android:textSize="14sp" />
+
+            <Button
+                android:id="@+id/buttonEncryptionText"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_margin="1dp"
+                android:background="@drawable/button_style_2"
+                android:fontFamily="sans-serif-light"
+                android:gravity="center"
+                android:text="@string/text_5"
+                android:textAllCaps="false"
+                android:textColor="#FFFFFF"
+                android:textIsSelectable="false"
+                android:textSize="14sp" />
+
+            <Button
+                android:id="@+id/buttonDecryptionText"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_margin="1dp"
+                android:background="@drawable/button_style_3"
+                android:fontFamily="sans-serif-light"
+                android:gravity="center"
+                android:text="@string/text_6"
+                android:textAllCaps="false"
+                android:textColor="#FFFFFF"
+                android:textIsSelectable="false"
+                android:textSize="14sp" />
+
+            <Button
+                android:id="@+id/buttonSendText"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_margin="1dp"
+                android:background="@drawable/button_style_4"
+                android:fontFamily="sans-serif-light"
+                android:gravity="center"
+                android:text="@string/text_7"
+                android:textAllCaps="false"
+                android:textColor="#FFFFFF"
+                android:textIsSelectable="false"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/textView10"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:fontFamily="sans-serif-light"
+                android:gravity="center"
+                android:text="@string/text_8"
+                android:textAllCaps="false"
+                android:textColor="#FFFFFF"
+                android:textIsSelectable="false"
+                android:textSize="14sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/buttonCopyOriginalText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_style_4"
+                    android:fontFamily="sans-serif-light"
+                    android:gravity="center"
+                    android:text="@string/button_copy"
+                    android:textAllCaps="false"
+                    android:textColor="#FFFFFF"
+                    android:textIsSelectable="false"
+                    android:textSize="14sp" />
+
+                <Button
+                    android:id="@+id/buttonPasteOriginalText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_style_3"
+                    android:fontFamily="sans-serif-light"
+                    android:gravity="center"
+                    android:text="@string/button_paste"
+                    android:textAllCaps="false"
+                    android:textColor="#FFFFFF"
+                    android:textIsSelectable="false"
+                    android:textSize="14sp" />
+
+                <Button
+                    android:id="@+id/buttonDeleteOriginalText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_style_2"
+                    android:fontFamily="sans-serif-light"
+                    android:gravity="center"
+                    android:text="@string/button_delete"
+                    android:textAllCaps="false"
+                    android:textColor="#FFFFFF"
+                    android:textIsSelectable="false"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textField1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="1dp"
+                android:background="@drawable/button_style_1"
+                android:fontFamily="sans-serif-light"
+                android:gravity="center"
+                android:isScrollContainer="true"
+                android:maxLines="3"
+                android:minHeight="50dp"
+                android:overScrollMode="always"
+                android:scrollbarAlwaysDrawVerticalTrack="true"
+                android:scrollbars="vertical"
+                android:textColor="#FFFFFF"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/textView11"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:fontFamily="sans-serif-light"
+                android:gravity="center"
+                android:text="@string/text_9"
+                android:textAllCaps="false"
+                android:textColor="#FFFFFF"
+                android:textIsSelectable="false"
+                android:textSize="14sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/buttonCopyEncryptedText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_style_4"
+                    android:fontFamily="sans-serif-light"
+                    android:text="@string/button_copy"
+                    android:textAllCaps="false"
+                    android:textColor="#FFFFFF"
+                    android:textIsSelectable="false"
+                    android:textSize="14sp" />
+
+                <Button
+                    android:id="@+id/buttonPasteEncryptedText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_style_3"
+                    android:fontFamily="sans-serif-light"
+                    android:text="@string/button_paste"
+                    android:textAllCaps="false"
+                    android:textColor="#FFFFFF"
+                    android:textIsSelectable="false"
+                    android:textSize="14sp" />
+
+                <Button
+                    android:id="@+id/buttonDeleteEncryptedText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_style_2"
+                    android:fontFamily="sans-serif-light"
+                    android:text="@string/button_delete"
+                    android:textAllCaps="false"
+                    android:textColor="#FFFFFF"
+                    android:textIsSelectable="false"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textField2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="1dp"
+                android:background="@drawable/button_style_1"
+                android:fontFamily="sans-serif-light"
+                android:gravity="center"
+                android:isScrollContainer="true"
+                android:minHeight="50dp"
+                android:overScrollMode="always"
+                android:scrollbarAlwaysDrawVerticalTrack="true"
+                android:scrollbars="vertical"
+                android:textColor="#FFFFFF"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,46 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#101010"
+    android:isScrollContainer="true"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/textViewManual"
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="5dp"
+        android:editable="false"
+        android:fontFamily="sans-serif"
+        android:scrollHorizontally="true"
+        android:singleLine="false"
+        android:textColor="#FFFFFF"
+        android:textSize="12sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/buttonCloseManual"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_margin="1dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_style_4"
+            android:fontFamily="sans-serif-light"
+            android:gravity="center"
+            android:text="@string/close"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:textIsSelectable="false"
+            android:textSize="18sp" />
+
+
+    </LinearLayout>
+
+</LinearLayout>

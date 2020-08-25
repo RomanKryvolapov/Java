@@ -1,0 +1,66 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.romankryvolapov.aescryptowithself_destruct"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="22"
+8-->/Users/doctor/Documents/GitHub/AESCryptoWithSelfDestruct/app/src/main/AndroidManifest.xml
+9        android:targetSdkVersion="29" />
+9-->/Users/doctor/Documents/GitHub/AESCryptoWithSelfDestruct/app/src/main/AndroidManifest.xml
+10
+11    <application
+11-->/Users/doctor/Documents/GitHub/AESCryptoWithSelfDestruct/app/src/main/AndroidManifest.xml:5:5-27:19
+12        android:allowBackup="true"
+12-->/Users/doctor/Documents/GitHub/AESCryptoWithSelfDestruct/app/src/main/AndroidManifest.xml:6:9-35
+13        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+13-->[androidx.core:core:1.1.0] /Users/doctor/.gradle/caches/transforms-2/files-2.1/34b4ab0d8b65ac74ddd00d45b26dd963/core-1.1.0/AndroidManifest.xml:24:18-86
+14        android:icon="@mipmap/ic_launcher"
+14-->/Users/doctor/Documents/GitHub/AESCryptoWithSelfDestruct/app/src/main/AndroidManifest.xml:7:9-43
+15        android:label="@string/app_name"
+15-->/Users/doctor/Documents/GitHub/AESCryptoWithSelfDestruct/app/src/main/AndroidManifest.xml:8:9-41
+16        android:roundIcon="@mipmap/ic_launcher_round"
+16-->/Users/doctor/Documents/GitHub/AESCryptoWithSelfDestruct/app/src/main/AndroidManifest.xml:9:9-54
+17        android:supportsRtl="true"
+17-->/Users/doctor/Documents/GitHub/AESCryptoWithSelfDestruct/app/src/main/AndroidManifest.xml:10:9-35
+18        android:theme="@style/AppTheme" >
+18-->/Users/doctor/Documents/GitHub/AESCryptoWithSelfDestruct/app/src/main/AndroidManifest.xml:11:9-40
+19        <activity
+19-->/Users/doctor/Documents/GitHub/AESCryptoWithSelfDestruct/app/src/main/AndroidManifest.xml:12:9-13:82
+20            android:name="com.romankryvolapov.aescryptowithself_destruct.InternalActivity"
+20-->/Users/doctor/Documents/GitHub/AESCryptoWithSelfDestruct/app/src/main/AndroidManifest.xml:12:19-51
+21            android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
+21-->/Users/doctor/Documents/GitHub/AESCryptoWithSelfDestruct/app/src/main/AndroidManifest.xml:13:13-69
+22>
+23        </activity>
+24        <activity
+24-->/Users/doctor/Documents/GitHub/AESCryptoWithSelfDestruct/app/src/main/AndroidManifest.xml:14:9-26:20
+25            android:name="com.romankryvolapov.aescryptowithself_destruct.MainActivity"
+25-->/Users/doctor/Documents/GitHub/AESCryptoWithSelfDestruct/app/src/main/AndroidManifest.xml:15:13-41
+26            android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
+26-->/Users/doctor/Documents/GitHub/AESCryptoWithSelfDestruct/app/src/main/AndroidManifest.xml:16:13-69
+27            <intent-filter>
+27-->/Users/doctor/Documents/GitHub/AESCryptoWithSelfDestruct/app/src/main/AndroidManifest.xml:17:13-25:29
+28                <action android:name="android.intent.action.MAIN" />
+28-->/Users/doctor/Documents/GitHub/AESCryptoWithSelfDestruct/app/src/main/AndroidManifest.xml:18:17-69
+28-->/Users/doctor/Documents/GitHub/AESCryptoWithSelfDestruct/app/src/main/AndroidManifest.xml:18:25-66
+29                <action android:name="android.intent.action.SEND" />
+29-->/Users/doctor/Documents/GitHub/AESCryptoWithSelfDestruct/app/src/main/AndroidManifest.xml:19:17-69
+29-->/Users/doctor/Documents/GitHub/AESCryptoWithSelfDestruct/app/src/main/AndroidManifest.xml:19:25-66
+30
+31                <category android:name="android.intent.category.LAUNCHER" />
+31-->/Users/doctor/Documents/GitHub/AESCryptoWithSelfDestruct/app/src/main/AndroidManifest.xml:21:17-77
+31-->/Users/doctor/Documents/GitHub/AESCryptoWithSelfDestruct/app/src/main/AndroidManifest.xml:21:27-74
+32                <category android:name="android.intent.category.DEFAULT" />
+32-->/Users/doctor/Documents/GitHub/AESCryptoWithSelfDestruct/app/src/main/AndroidManifest.xml:22:17-76
+32-->/Users/doctor/Documents/GitHub/AESCryptoWithSelfDestruct/app/src/main/AndroidManifest.xml:22:27-73
+33
+34                <data android:mimeType="text/*" />
+34-->/Users/doctor/Documents/GitHub/AESCryptoWithSelfDestruct/app/src/main/AndroidManifest.xml:24:17-51
+34-->/Users/doctor/Documents/GitHub/AESCryptoWithSelfDestruct/app/src/main/AndroidManifest.xml:24:23-48
+35            </intent-filter>
+36        </activity>
+37    </application>
+38
+39</manifest>
