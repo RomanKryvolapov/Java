@@ -1,9 +1,9 @@
-<p>IIn this code, I wanted to test the ability to encrypt text into the last bits of pixels in jpeg format</p>
-<p>IThe idea is to duplicate the values many times in different pixels, and then, when a certain percentage of values match, consider the value correct</p>
-<p>IMy experience was unsuccessful as the compression greatly distorts the pixel color values and the data does not match 100 percent.</p>
-<p>I01110100011001010111100001110100</p>
-<p>I00100100100100100100100100100100</p>
-<p>Ihttps://en.wikipedia.org/wiki/Steganography</p>
+<p>In this code, I wanted to test the ability to encrypt text into the last bits of pixels in jpeg format</p>
+<p>The idea is to duplicate the values many times in different pixels, and then, when a certain percentage of values match, consider the value correct</p>
+<p>My experience was unsuccessful as the compression greatly distorts the pixel color values and the data does not match 100 percent.</p>
+<p>01110100011001010111100001110100</p>
+<p>00100100100100100100100100100100</p>
+<p>https://en.wikipedia.org/wiki/Steganography</p>
 <br>
 <p>В этом коде я хотел протестировать возможность зашифровать текст в последние биты пикселей в формате jpeg</p>
 <p>Идея заключается в том, чтобы продублировать значения многократно в разных пикселях, а затем при совпадении определенного процента значений считать значение верных</p>
