@@ -2,11 +2,11 @@
 <div align="center"><h1>RSA / AES Encryption With Self - Destruct</h1></div>
 
 <div align="center"><h4>Open in Google Play: <a href="https://play.google.com/store/apps/details?id=com.romankryvolapov.aescryptowithself_destruct" target="_blank">https://play.google.com/store/apps/details?id=com.romankryvolapov.aescryptowithself_destruct</a></h4></div>
-
+<br>
 <div align="center">
 <img src="https://raw.githubusercontent.com/RomanKryvolapov/Java-and-Android/master/AESCryptoWithSelfDestruct%20%20-%202020%20-%20Android/Screenshot_1.png" width="23%" />&nbsp;&nbsp;<img src="https://raw.githubusercontent.com/RomanKryvolapov/Java-and-Android/master/AESCryptoWithSelfDestruct%20%20-%202020%20-%20Android/Screenshot_2.png" width="23%" />&nbsp;&nbsp;<img src="https://raw.githubusercontent.com/RomanKryvolapov/Java-and-Android/master/AESCryptoWithSelfDestruct%20%20-%202020%20-%20Android/Screenshot_3.png" width="23%" />&nbsp;&nbsp;<img src="https://raw.githubusercontent.com/RomanKryvolapov/Java-and-Android/master/AESCryptoWithSelfDestruct%20%20-%202020%20-%20Android/Screenshot_4.png" width="23%" /></div>
 
-
+<br>
 <h4>This program is designed to encrypt and decrypt messages using RSA and AES algorithms.</h4>
 
 <p>With RSA, a message can be encrypted with a public key, but it can only be decrypted with a private key. This means that you can send your public key to another person, he can encrypt a message with them, but it can only be decrypted using your private key. In this case, one public key corresponds to one private key, and a public-private key pair is generated simultaneously.</p>
