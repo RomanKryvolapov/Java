@@ -1,6 +1,8 @@
 
-<h1><center>RSA / AES Encryption With Self - Destruct</center></h1>
-<h4><center>Open in Google Play: <a href="https://play.google.com/store/apps/details?id=com.romankryvolapov.aescryptowithself_destruct" target="_blank">https://play.google.com/store/apps/details?id=com.romankryvolapov.aescryptowithself_destruct</a></center></h4>
+<div align="center"><h1>RSA / AES Encryption With Self - Destruct</h1></div>
+
+<div align="center"><h4>Open in Google Play: <a href="https://play.google.com/store/apps/details?id=com.romankryvolapov.aescryptowithself_destruct" target="_blank">https://play.google.com/store/apps/details?id=com.romankryvolapov.aescryptowithself_destruct</a></h4></div>
+
 <div align="center">
 <img src="https://raw.githubusercontent.com/RomanKryvolapov/Java-and-Android/master/AESCryptoWithSelfDestruct%20%20-%202020%20-%20Android/Screenshot_1.png" width="23%" />&nbsp;&nbsp;<img src="https://raw.githubusercontent.com/RomanKryvolapov/Java-and-Android/master/AESCryptoWithSelfDestruct%20%20-%202020%20-%20Android/Screenshot_2.png" width="23%" />&nbsp;&nbsp;<img src="https://raw.githubusercontent.com/RomanKryvolapov/Java-and-Android/master/AESCryptoWithSelfDestruct%20%20-%202020%20-%20Android/Screenshot_3.png" width="23%" />&nbsp;&nbsp;<img src="https://raw.githubusercontent.com/RomanKryvolapov/Java-and-Android/master/AESCryptoWithSelfDestruct%20%20-%202020%20-%20Android/Screenshot_4.png" width="23%" /></div>
 
