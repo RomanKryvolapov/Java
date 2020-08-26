@@ -1,8 +1,8 @@
 
-<h1><center>RSA/AES Encryption With Self-Destruct</center></h1>
+<h1><center>RSA / AES Encryption With Self - Destruct</center></h1>
 <h4><center>Open in Google Play: <a href="https://play.google.com/store/apps/details?id=com.romankryvolapov.aescryptowithself_destruct" target="_blank">https://play.google.com/store/apps/details?id=com.romankryvolapov.aescryptowithself_destruct</a></center></h4>
-
-<img src="https://raw.githubusercontent.com/RomanKryvolapov/Java-and-Android/master/AESCryptoWithSelfDestruct%20%20-%202020%20-%20Android/Screenshot_1.png" width="23%" />&nbsp;&nbsp;<img src="https://raw.githubusercontent.com/RomanKryvolapov/Java-and-Android/master/AESCryptoWithSelfDestruct%20%20-%202020%20-%20Android/Screenshot_2.png" width="23%" />&nbsp;&nbsp;<img src="https://raw.githubusercontent.com/RomanKryvolapov/Java-and-Android/master/AESCryptoWithSelfDestruct%20%20-%202020%20-%20Android/Screenshot_3.png" width="23%" />&nbsp;&nbsp;<img src="https://raw.githubusercontent.com/RomanKryvolapov/Java-and-Android/master/AESCryptoWithSelfDestruct%20%20-%202020%20-%20Android/Screenshot_4.png" width="23%" />
+<div align="center">
+<img src="https://raw.githubusercontent.com/RomanKryvolapov/Java-and-Android/master/AESCryptoWithSelfDestruct%20%20-%202020%20-%20Android/Screenshot_1.png" width="23%" />&nbsp;&nbsp;<img src="https://raw.githubusercontent.com/RomanKryvolapov/Java-and-Android/master/AESCryptoWithSelfDestruct%20%20-%202020%20-%20Android/Screenshot_2.png" width="23%" />&nbsp;&nbsp;<img src="https://raw.githubusercontent.com/RomanKryvolapov/Java-and-Android/master/AESCryptoWithSelfDestruct%20%20-%202020%20-%20Android/Screenshot_3.png" width="23%" />&nbsp;&nbsp;<img src="https://raw.githubusercontent.com/RomanKryvolapov/Java-and-Android/master/AESCryptoWithSelfDestruct%20%20-%202020%20-%20Android/Screenshot_4.png" width="23%" /></div>
 
 
 <h4>This program is designed to encrypt and decrypt messages using RSA and AES algorithms.</h4>
@@ -15,7 +15,7 @@
 
 <p>When you open the program, it will ask you to enter a password. Be careful, because if you enter the password incorrectly once, the program will erase all data and remember the entered password as a new one. When you click on the field with the key, a window will open in which it will be fully visible. When you click on the field of the original message, a window will open in which you can edit it. Key generation and encryption and decryption operations can be time consuming.</p>
 
-<p>If you have any questions, you can write to me at [roman.kryvolapov@gmail.com](mailto:roman.kryvolapov@gmail.com)</p>
+<p>If you have any questions, you can write to me at <a href="mailto:roman.kryvolapov@gmail.com">roman.kryvolapov@gmail.com</a></p>
 
 <br>
 
@@ -29,4 +29,4 @@
 
 <p>При открытии программы, она попросит вас ввести пароль Будьте внимательны, так как в случае, если вы введете пароль один раз не правильно, программа сотрет все данные и запомнит введенный пароль как новый При нажатии на поле с ключем откроется окно, в котором он будет виден полностью. При нажатии на поле исходного сообщения, откроется окно, в котором вы можете его отредактировать. Операции генерации ключей и зашифровки и расшифровки могут отнемать какое то время.</p>
 
-<p>Если у вас есть какие либо вопросы, вы можете написать мне на почту [roman.kryvolapov@gmail.com](mailto:roman.kryvolapov@gmail.com)</p>
+<p>Если у вас есть какие либо вопросы, вы можете написать мне на почту <a href="mailto:roman.kryvolapov@gmail.com">roman.kryvolapov@gmail.com</a></p>
