@@ -1,6 +1,7 @@
-https://play.google.com/store/apps/details?id=com.romankryvolapov.aescryptowithself_destruct
+**Google Play link:**
+**https://play.google.com/store/apps/details?id=com.romankryvolapov.aescryptowithself_destruct**
 
-This program is designed to encrypt and decrypt messages using RSA and AES algorithms.
+**This program is designed to encrypt and decrypt messages using RSA and AES algorithms.**
 With RSA, a message can be encrypted with a public key, but it can only be decrypted with a private key.
 This means that you can send your public key to another person, he can encrypt a message with them, but it can only be decrypted using your private key.
 In this case, one public key corresponds to one private key, and a public-private key pair is generated simultaneously.
@@ -20,7 +21,7 @@ Key generation and encryption and decryption operations can be time consuming.
 If you have any questions, you can write to me at roman.kryvolapov@gmail.com
 
 
-Эта программа предназначена для зашифровки и расшифровки сообщений с использованием алгоритмов RSA и AES.
+**Эта программа предназначена для зашифровки и расшифровки сообщений с использованием алгоритмов RSA и AES.**
 При использовании алгоритма RSA сообщение может быть зашифровано публичным ключем, но расшифровать его можно только с помощью приватного ключа.
 Это означает, что вы можете отправить другому человеку свой публичный ключ, он может им зашифровать сообщение, но расшифровать его можно только с помошью вашего приватного ключа.
 При этом одному публичному ключу соответствует один приватный ключ, пара пубюличный-приватный ключ генерируется одновременно.
@@ -38,4 +39,3 @@ RSA ключа, либо сгенерировать AES ключ, зашифро
 При нажатии на поле исходного сообщения, откроется окно, в котором вы можете его отредактировать.
 Операции генерации ключей и зашифровки и расшифровки могут отнемать какое то время.
 Если у вас есть какие либо вопросы, вы можете написать мне на почту roman.kryvolapov@gmail.com
-
