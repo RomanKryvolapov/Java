@@ -1,0 +1,11 @@
+In this code, I wanted to test the ability to encrypt text into the last bits of pixels in jpeg format
+The idea is to duplicate the values many times in different pixels, and then, when a certain percentage of values match, consider the value correct
+My experience was unsuccessful as the compression greatly distorts the pixel color values and the data does not match 100 percent.
+01110100011001010111100001110100
+00100100100100100100100100100100
+
+В этом коде я хотел протестировать возможность зашифровать текст в последние биты пикселей в формате jpeg
+Идея заключается в том, чтобы продублировать значения многократно в разных пикселях, а затем при совпадении определенного процента значений считать значение верных
+Мой опыт оказался неудачным, так как сжатие сильно искажает значения цвета пикселей, и данные не совпадают на 100 процентов.
+01110100011001010111100001110100
+00100100100100100100100100100100
