@@ -394,9 +394,9 @@ public class MainActivity extends AppCompatActivity {
         textViewPass3.setText("○");
         textViewPass4.setText("○");
         if (noSavedPass) {
-            textViewPassInfo.setText("Create password");
+            textViewPassInfo.setText(getString(R.string.pass_create));
         } else {
-            textViewPassInfo.setText("Enter password");
+            textViewPassInfo.setText(getString(R.string.pass_enter_step_1));
         }
         EraseAllatStart1 = false;
         EraseAllatStart2 = false;
@@ -445,7 +445,7 @@ public class MainActivity extends AppCompatActivity {
         if (pass.length() == 4 && noSavedPass) {
             if (newEnter) {
                 newEnter = false;
-                textViewPassInfo.setText("Are you sure?");
+                textViewPassInfo.setText(getString(R.string.pass_enter_step_2));
             } else {
                 generateKey();
             }
@@ -453,7 +453,7 @@ public class MainActivity extends AppCompatActivity {
         } else if (pass.length() == 4 && !noSavedPass) {
             if (newEnter) {
                 newEnter = false;
-                textViewPassInfo.setText("Are you sure?");
+                textViewPassInfo.setText(getString(R.string.pass_enter_step_2));
             } else {
                 checkKey();
             }

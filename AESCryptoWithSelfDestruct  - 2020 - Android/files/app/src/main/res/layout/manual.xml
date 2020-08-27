@@ -38,7 +38,7 @@
             android:textAllCaps="false"
             android:textColor="#FFFFFF"
             android:textIsSelectable="false"
-            android:textSize="18sp" />
+            android:textSize="12sp" />
 
 
     </LinearLayout>

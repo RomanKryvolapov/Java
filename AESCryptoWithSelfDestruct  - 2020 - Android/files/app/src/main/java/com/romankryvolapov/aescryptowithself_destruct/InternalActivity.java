@@ -117,6 +117,8 @@ public class InternalActivity extends AppCompatActivity {
     private String receivedText;
 
     private String[] algorithms = new String[]{
+//          2 of the variants of AES algorithms do not always give the correct result
+//          also did not use outdated algorithms
             "RSA NoPadding 4096 bit",
             "RSA NoPadding 3072 bit",
             "RSA NoPadding 2048 bit",
@@ -166,6 +168,8 @@ public class InternalActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+//        the program should have the following behavior - when you press the back button in the main activity, the program closes,
+//        when you click the back button in the dialog box, it returns to the main activity
         super.onBackPressed();
         this.finish();
     }
@@ -173,6 +177,8 @@ public class InternalActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
+//        in the future, there is an idea to make the program close when onPause, this will increase safety
+//        now this cannot be done, as it will complicate the use of the clipboard
     }
 
     @Override
@@ -183,13 +189,20 @@ public class InternalActivity extends AppCompatActivity {
 
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
+//            pass is the password entered when entering the program, with the help of it all data is decrypted
+//            if the password was entered incorrectly, all saved keys are erased and the program uses the entered password as a new one
+//            at the same time, the one who entered the wrong password will not be able to find out that the password is incorrect, he will see the same
+//            what will see when the program is first launched
             pass = bundle.getString("pass");
+//            receivedText is the text that the program receives along with intent, if the user
+//            when share text chose this program
             receivedText = bundle.getString("receivedText");
         }
 
 
         sharedPreferences = getSharedPreferences("sharedPreferences", Context.MODE_PRIVATE);
 
+        // the last used algorithm opens
         if (sharedPreferences.contains("spinnerAlgorithmPositionOnStart")) {
             spinnerAlgorithmPositionOnStart = sharedPreferences.getInt("spinnerAlgorithmPositionOnStart", 0);
         }
@@ -243,10 +256,9 @@ public class InternalActivity extends AppCompatActivity {
     }
 
     private void addListiners() {
-
+        // here one could use ->
         textField1.setMovementMethod(new ScrollingMovementMethod());
         textField2.setMovementMethod(new ScrollingMovementMethod());
-
         textField1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -497,6 +509,8 @@ public class InternalActivity extends AppCompatActivity {
     }
 
     private String substringer(String text, int substringSize, boolean addDots) {
+//        this method is needed in order to trim the keys in the main activity, only the beginning of the key will be shown, since there is only a one-line field,
+//         when you click it, you can view the entire key in dialog
         StringBuilder stringBuilder = new StringBuilder();
         if (text != null)
             if (text.length() > substringSize && addDots) {
@@ -514,6 +528,11 @@ public class InternalActivity extends AppCompatActivity {
     }
 
     private void buttonEraseAll() {
+//        by consecutive pressing of 3 erase buttons all saved keys are erased and the program is closed
+//        in the future, there is an idea to make the program uninstall or at least remove it from the list
+//        last running programs
+//        also in the future there is an idea to make the program code encrypted and it could not be decompiled
+//        or run dynamic analysis
         if (EraseAll1 && EraseAll2 && EraseAll3) {
             SharedPreferences.Editor sharedPreferenceseditor = sharedPreferences.edit();
             sharedPreferenceseditor.clear();
@@ -554,7 +573,12 @@ public class InternalActivity extends AppCompatActivity {
     }
 
     private void arrayAdapterKeys() {
-
+//      the application displays the saved keys, this does not happen instantly,
+//      since the keys are stored encrypted and require decryption for display
+//      the decryption key is the password from the first activation
+//      if the password was entered incorrectly, the data is erased and the entered password is used as a new one,
+//      at the same time, the one who entered the wrong password will not know that he was mistaken-
+//      he will display how he first launched the program
         String[] keyWithItemNumber = new String[totalKeys];
         int temp = 0;
         String a = "";
@@ -587,6 +611,8 @@ public class InternalActivity extends AppCompatActivity {
     }
 
     private void sendText() {
+//        encrypted or decrypted text can be sent as a message to any messenger
+//        tried to make this app null safety
         if (text2 != null)
             if (text2.length() > 0) {
                 Intent sendIntent = new Intent();
@@ -599,6 +625,8 @@ public class InternalActivity extends AppCompatActivity {
     }
 
     private void sendKey() {
+//        the key can be sent as a message, and the used algorithm is added to the message
+//        and key type
         StringBuilder text = new StringBuilder();
         text.append(getText(R.string.send_text_1));
         text.append("\n");
@@ -614,6 +642,7 @@ public class InternalActivity extends AppCompatActivity {
         text.append("\n");
         text.append(getText(R.string.send_text_2));
         text.append("\n");
+//      when choosing AES encryption, the key is designated as private when sent
         if (spinnerAlgorithm.getSelectedItemPosition() >= 35) {
             text.append(privateKeyString);
         } else {
@@ -628,6 +657,9 @@ public class InternalActivity extends AppCompatActivity {
     }
 
     private void addCurrentKeyToHashMap() {
+//        each key is stored in the form of 3 fields - the public key, the private key and the algorithm used during generation or insertion
+//        the algorithm is stored in the form of a string, so that if any new ones are added, they will have a different description anyway
+//        and when updating the program with the added algorithms, the old keys continued to work normally
         spinnerAlgorithmPosition = spinnerAlgorithm.getSelectedItemPosition();
         totalKeys++;
         keys.add(publicKeyString);
@@ -637,6 +669,7 @@ public class InternalActivity extends AppCompatActivity {
     }
 
     private void newDialogEditText() {
+//        in this method, you can edit text to encrypt or cipher text to decrypt
         dialogEditText = new Dialog(InternalActivity.this);
         dialogEditText.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialogEditText.setCancelable(false);
@@ -678,6 +711,7 @@ public class InternalActivity extends AppCompatActivity {
     }
 
     private void setSpinnerAlgorithmPositionOnStart(int position) {
+//        this method sets the last algorithm used in the previous run
         SharedPreferences.Editor sharedPreferenceseditor = sharedPreferences.edit();
         sharedPreferenceseditor.putInt("spinnerAlgorithmPositionOnStart", position);
         sharedPreferenceseditor.apply();
@@ -685,6 +719,8 @@ public class InternalActivity extends AppCompatActivity {
     }
 
     private void newDialogManual() {
+//        displays instructions for use, at the moment it works in English or Russian
+//        depending on device language
         dialogManual = new Dialog(InternalActivity.this);
         dialogManual.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialogManual.setCancelable(false);
@@ -712,6 +748,12 @@ public class InternalActivity extends AppCompatActivity {
     }
 
     private void newDialogKey(final boolean isPrivate) {
+//        when you click on the key field, a dialog opens, in which the entire key is shown, and it can be copied, erased or pasted from the clipboard
+//        initially, the program had an algorithm for checking the key for correctness in accordance with the algorithm selected in the spinner,
+//        the program encrypted or decrypted the text and read the error, if any, and displayed
+//        error in toast if the key size or content is not correct
+//        but I removed this check, as it made it difficult to use the program - the user will understand
+//        that the key is not correct, if it tries to use it, toast will be displayed with an error
         if (isPrivate)
             keyString = privateKeyString;
         else
@@ -722,6 +764,7 @@ public class InternalActivity extends AppCompatActivity {
         dialogKey.setContentView(R.layout.key);
 
         textViewDialogKey = dialogKey.findViewById(R.id.textViewManual);
+//        tried to make this app null safety
         if (keyString != null)
             if (keyString.length() > 0)
                 textViewDialogKey.setText(keyString);
@@ -782,6 +825,7 @@ public class InternalActivity extends AppCompatActivity {
     }
 
     private void encryptionText() {
+//        encryption and decryption occurs depending on the algorithm selected in the spinner
         spinnerAlgorithmPosition = spinnerAlgorithm.getSelectedItemPosition();
         Log.d(LOG_TAG, "spinnerAlgorithmPosition = " + spinnerAlgorithmPosition);
         switch (spinnerAlgorithmPosition) {
@@ -858,6 +902,7 @@ public class InternalActivity extends AppCompatActivity {
     }
 
     private void decryptionText() {
+//        encryption and decryption occurs depending on the algorithm selected in the spinner
         spinnerAlgorithmPosition = spinnerAlgorithm.getSelectedItemPosition();
         Log.d(LOG_TAG, "spinnerAlgorithmPosition = " + spinnerAlgorithmPosition);
         switch (spinnerAlgorithmPosition) {
@@ -934,6 +979,7 @@ public class InternalActivity extends AppCompatActivity {
     }
 
     private void copyToClipboard(String text) {
+//      tried to make this app null safety
         if (text != null)
             if (text.length() > 0) {
                 ClipboardManager clipboardManager = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
@@ -948,8 +994,11 @@ public class InternalActivity extends AppCompatActivity {
     }
 
     private void encryptionText_AES(String keyTypeField1, String keyTypeField2) {
+//        only key generation is performed in AsyncTask, since decryption and encryption occurs almost instantly even
+//        on an old test device Nexus 7 and does not slow down the interface
         try {
             text1 = textField1.getText().toString();
+//      tried to make this app null safety
             if (text1 != null && privateKeyString != null)
                 if (text1.length() > 0 && privateKeyString.length() > 0) {
                     byte[] publicBytes = Base64.decode(privateKeyString, Base64.DEFAULT);
@@ -975,8 +1024,11 @@ public class InternalActivity extends AppCompatActivity {
     }
 
     private void encryptionText_RSA(String keyTypeField1, String keyTypeField2) {
+//        only key generation is performed in AsyncTask, since decryption and encryption occurs almost instantly even
+//        on an old test device Nexus 7 and does not slow down the interface
         try {
             text1 = textField1.getText().toString();
+//      tried to make this app null safety
             if (text1 != null && publicKeyString != null)
                 if (text1.length() > 0 && publicKeyString.length() > 0) {
                     byte[] publicBytes = Base64.decode(publicKeyString, Base64.DEFAULT);
@@ -1010,8 +1062,11 @@ public class InternalActivity extends AppCompatActivity {
 
 
     private void decryptionText_AES(String keyTypeField1, String keyTypeField2) {
+//        only key generation is performed in AsyncTask, since decryption and encryption occurs almost instantly even
+//        on an old test device Nexus 7 and does not slow down the interface
         try {
             text1 = textField1.getText().toString();
+//      tried to make this app null safety
             if (text1 != null && privateKeyString != null) {
                 byte[] privateBytes = Base64.decode(privateKeyString, Base64.DEFAULT);
                 SecretKeySpec skeySpec = new SecretKeySpec(privateBytes, keyTypeField1);
@@ -1039,6 +1094,8 @@ public class InternalActivity extends AppCompatActivity {
     }
 
     private void decryptionText_RSA(String keyTypeField1, String keyTypeField2) {
+//        only key generation is performed in AsyncTask, since decryption and encryption occurs almost instantly even
+//        on an old test device Nexus 7 and does not slow down the interface
         try {
             text1 = textField1.getText().toString();
             if (text1 != null && privateKeyString != null)
@@ -1200,21 +1257,12 @@ public class InternalActivity extends AppCompatActivity {
             int temp = 0;
             sharedPreferenceseditor.putInt("totalKeys", totalKeys);
             for (int i = 0; i < totalKeys; i++) {
-                String a1 = keys.get(temp);
+                sharedPreferenceseditor.putString(MainActivity.encrypt("key" + i + "public", pass, pass), MainActivity.encrypt(keys.get(temp), pass, pass));
                 temp++;
-                String b1 = keys.get(temp);
+                sharedPreferenceseditor.putString(MainActivity.encrypt("key" + i + "private", pass, pass), MainActivity.encrypt(keys.get(temp), pass, pass));
                 temp++;
-                String c1 = keys.get(temp);
+                sharedPreferenceseditor.putString(MainActivity.encrypt("key" + i + "algorithm", pass, pass), MainActivity.encrypt(keys.get(temp), pass, pass));
                 temp++;
-                String a2 = MainActivity.encrypt(a1, pass, pass);
-                String b2 = MainActivity.encrypt(b1, pass, pass);
-                String c2 = MainActivity.encrypt(c1, pass, pass);
-                String a3 = MainActivity.encrypt("key" + i + "public", pass, pass);
-                String b3 = MainActivity.encrypt("key" + i + "private", pass, pass);
-                String c3 = MainActivity.encrypt("key" + i + "algorithm", pass, pass);
-                sharedPreferenceseditor.putString(a3, a2);
-                sharedPreferenceseditor.putString(b3, b2);
-                sharedPreferenceseditor.putString(c3, c2);
                 sharedPreferenceseditor.apply();
             }
             sharedPreferenceseditor = null;

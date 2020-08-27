@@ -1,15 +1,18 @@
 <resources>
     <string name="app_name">AES/RSA Шифрование с Самоуничтожением</string>
     <string name="button_del_all">удалить все</string>
-    <string name="button_use">использовать ключ</string>
-    <string name="button_generate">сгенерировать ключ</string>
-    <string name="button_add_to_base">добавить ключ в базу</string>
-    <string name="button__del_key">удалить ключ</string>
+    <string name="button_use">использовать</string>
+    <string name="pass_enter_step_1">Введите пароль</string>
+    <string name="pass_enter_step_2">Вы уверены?</string>
+    <string name="pass_create">Создайте пароль</string>
+    <string name="button_generate">генерировать</string>
+    <string name="button_add_to_base">в базу</string>
+    <string name="button__del_key">удалить</string>
     <string name="button_copy">копировать</string>
     <string name="button_paste">вставить</string>
     <string name="button_delete">удалить</string>
     <string name="button_manual">инструкция</string>
-    <string name="button_send_keys">отправить ключ</string>
+    <string name="button_send_keys">отправить</string>
     <string name="text_1">ваши ключи:</string>
     <string name="text_2">выбрать алгоритм шифровки/расшифровки:</string>
     <string name="text_3">публичный ключ (для RSA):</string>
@@ -37,6 +40,7 @@
     <string name="key_not_valide">ключ не действителен</string>
     <string name="wait">подождите</string>
     <string name="close">закрыть</string>
+    <string name="internalactivity">InternalActivity</string>
     <string name="manual">Привет!\n
 Эта программа предназначена для зашифровки и расшифровки сообщений с использованием алгоритмов RSA и AES.\n
 При использовании алгоритма RSA сообщение может быть зашифровано публичным ключем, но расшифровать его можно только с помощью приватного ключа.\n

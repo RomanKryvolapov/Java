@@ -27,7 +27,8 @@
             android:fontFamily="sans-serif-light"
             android:text="@string/button_del_all"
             android:textAllCaps="false"
-            android:textColor="#FFFFFF" />
+            android:textColor="#FFFFFF"
+            android:textSize="12sp" />
 
         <Button
             android:id="@+id/buttonEraseAllatStart2"
@@ -39,7 +40,8 @@
             android:fontFamily="sans-serif-light"
             android:text="@string/button_del_all"
             android:textAllCaps="false"
-            android:textColor="#FFFFFF" />
+            android:textColor="#FFFFFF"
+            android:textSize="12sp" />
 
         <Button
             android:id="@+id/buttonEraseAllatStart3"
@@ -51,7 +53,8 @@
             android:fontFamily="sans-serif-light"
             android:text="@string/button_del_all"
             android:textAllCaps="false"
-            android:textColor="#FFFFFF" />
+            android:textColor="#FFFFFF"
+            android:textSize="12sp" />
     </LinearLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -71,7 +74,7 @@
             android:gravity="center"
             android:text="Create password"
             android:textColor="#FFFFFF"
-            android:textSize="24sp"
+            android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -152,7 +155,7 @@
             android:text="@string/button_delete"
             android:textAllCaps="false"
             android:textColor="#FFFFFF"
-            android:textSize="18sp" />
+            android:textSize="14sp" />
 
     </LinearLayout>
 
@@ -176,7 +179,7 @@
             android:fontFamily="sans-serif-light"
             android:text="1"
             android:textColor="#ffffff"
-            android:textSize="36sp"
+            android:textSize="24sp"
             app:layout_constraintBottom_toTopOf="@+id/buttonPass4"
             app:layout_constraintEnd_toStartOf="@+id/buttonPass2"
             app:layout_constraintStart_toStartOf="parent"
@@ -191,7 +194,7 @@
             android:fontFamily="sans-serif-light"
             android:text="2"
             android:textColor="#ffffff"
-            android:textSize="36sp"
+            android:textSize="24sp"
             app:layout_constraintBottom_toTopOf="@+id/buttonPass5"
             app:layout_constraintEnd_toStartOf="@+id/buttonPass3"
             app:layout_constraintStart_toEndOf="@+id/buttonPass1"
@@ -206,7 +209,7 @@
             android:fontFamily="sans-serif-light"
             android:text="3"
             android:textColor="#ffffff"
-            android:textSize="36sp"
+            android:textSize="24sp"
             app:layout_constraintBottom_toTopOf="@+id/buttonPass6"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/buttonPass2"
@@ -221,7 +224,7 @@
             android:fontFamily="sans-serif-light"
             android:text="4"
             android:textColor="#ffffff"
-            android:textSize="36sp"
+            android:textSize="24sp"
             app:layout_constraintBottom_toTopOf="@+id/buttonPass7"
             app:layout_constraintEnd_toStartOf="@+id/buttonPass5"
             app:layout_constraintStart_toStartOf="parent"
@@ -236,7 +239,7 @@
             android:fontFamily="sans-serif-light"
             android:text="5"
             android:textColor="#ffffff"
-            android:textSize="36sp"
+            android:textSize="24sp"
             app:layout_constraintBottom_toTopOf="@+id/buttonPass8"
             app:layout_constraintEnd_toStartOf="@+id/buttonPass6"
             app:layout_constraintStart_toEndOf="@+id/buttonPass4"
@@ -251,7 +254,7 @@
             android:fontFamily="sans-serif-light"
             android:text="6"
             android:textColor="#ffffff"
-            android:textSize="36sp"
+            android:textSize="24sp"
             app:layout_constraintBottom_toTopOf="@+id/buttonPass9"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/buttonPass5"
@@ -266,7 +269,7 @@
             android:fontFamily="sans-serif-light"
             android:text="7"
             android:textColor="#ffffff"
-            android:textSize="36sp"
+            android:textSize="24sp"
             app:layout_constraintBottom_toTopOf="@+id/buttonPassOk"
             app:layout_constraintEnd_toStartOf="@+id/buttonPass8"
             app:layout_constraintStart_toStartOf="parent"
@@ -281,7 +284,7 @@
             android:fontFamily="sans-serif-light"
             android:text="8"
             android:textColor="#ffffff"
-            android:textSize="36sp"
+            android:textSize="24sp"
             app:layout_constraintBottom_toTopOf="@+id/buttonPassOk"
             app:layout_constraintEnd_toStartOf="@+id/buttonPass9"
             app:layout_constraintStart_toEndOf="@+id/buttonPass7"
@@ -296,7 +299,7 @@
             android:fontFamily="sans-serif-light"
             android:text="9"
             android:textColor="#ffffff"
-            android:textSize="36sp"
+            android:textSize="24sp"
             app:layout_constraintBottom_toTopOf="@+id/buttonPassOk"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/buttonPass8"

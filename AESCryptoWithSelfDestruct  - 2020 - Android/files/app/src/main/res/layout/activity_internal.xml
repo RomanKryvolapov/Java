@@ -38,7 +38,7 @@
                     android:textAllCaps="false"
                     android:textColor="#FFFFFF"
                     android:textIsSelectable="false"
-                    android:textSize="14sp" />
+                    android:textSize="12sp" />
 
                 <Button
                     android:id="@+id/buttonEraseAll2"
@@ -53,7 +53,7 @@
                     android:textAllCaps="false"
                     android:textColor="#FFFFFF"
                     android:textIsSelectable="false"
-                    android:textSize="14sp" />
+                    android:textSize="12sp" />
 
                 <Button
                     android:id="@+id/buttonEraseAll3"
@@ -68,7 +68,7 @@
                     android:textAllCaps="false"
                     android:textColor="#FFFFFF"
                     android:textIsSelectable="false"
-                    android:textSize="14sp" />
+                    android:textSize="12sp" />
             </LinearLayout>
 
             <TextView
@@ -80,7 +80,7 @@
                 android:textAllCaps="false"
                 android:textColor="#FFFFFF"
                 android:textIsSelectable="false"
-                android:textSize="14sp" />
+                android:textSize="12sp" />
 
             <Spinner
                 android:id="@+id/spinnerKeys"
@@ -99,7 +99,7 @@
 
                 <Button
                     android:id="@+id/buttonSendKeys"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="30dp"
                     android:layout_margin="1dp"
                     android:layout_weight="1"
@@ -110,11 +110,11 @@
                     android:textAllCaps="false"
                     android:textColor="#FFFFFF"
                     android:textIsSelectable="false"
-                    android:textSize="14sp" />
+                    android:textSize="12sp" />
 
                 <Button
                     android:id="@+id/buttonUse"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="30dp"
                     android:layout_margin="1dp"
                     android:layout_weight="1"
@@ -125,11 +125,11 @@
                     android:textAllCaps="false"
                     android:textColor="#FFFFFF"
                     android:textIsSelectable="false"
-                    android:textSize="14sp" />
+                    android:textSize="12sp" />
 
                 <Button
                     android:id="@+id/buttonDelKey"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="30dp"
                     android:layout_margin="1dp"
                     android:layout_weight="1"
@@ -140,7 +140,7 @@
                     android:textAllCaps="false"
                     android:textColor="#FFFFFF"
                     android:textIsSelectable="false"
-                    android:textSize="14sp" />
+                    android:textSize="12sp" />
             </LinearLayout>
 
             <TextView
@@ -152,7 +152,8 @@
                 android:text="@string/text_2"
                 android:textAllCaps="false"
                 android:textColor="#FFFFFF"
-                android:textIsSelectable="false" />
+                android:textIsSelectable="false"
+                android:textSize="12sp" />
 
             <Spinner
                 android:id="@+id/spinnerAlgorithm"
@@ -168,6 +169,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
+
                 <Button
                     android:id="@+id/buttonSeeManual"
                     android:layout_width="match_parent"
@@ -180,7 +182,7 @@
                     android:textAllCaps="false"
                     android:textColor="#FFFFFF"
                     android:textIsSelectable="false"
-                    android:textSize="14sp" />
+                    android:textSize="12sp" />
 
                 <Button
                     android:id="@+id/buttonGenerateKey"
@@ -194,7 +196,7 @@
                     android:textAllCaps="false"
                     android:textColor="#FFFFFF"
                     android:textIsSelectable="false"
-                    android:textSize="14sp" />
+                    android:textSize="12sp" />
 
                 <Button
                     android:id="@+id/buttonAddKeyToBase"
@@ -208,7 +210,7 @@
                     android:textAllCaps="false"
                     android:textColor="#FFFFFF"
                     android:textIsSelectable="false"
-                    android:textSize="14sp" />
+                    android:textSize="12sp" />
             </LinearLayout>
 
             <TextView
@@ -220,7 +222,7 @@
                 android:textAllCaps="false"
                 android:textColor="#FFFFFF"
                 android:textIsSelectable="false"
-                android:textSize="14sp" />
+                android:textSize="12sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -240,7 +242,7 @@
                     android:textAllCaps="false"
                     android:textColor="#FFFFFF"
                     android:textIsSelectable="false"
-                    android:textSize="14sp" />
+                    android:textSize="12sp" />
 
                 <Button
                     android:id="@+id/buttonPastePublicKey"
@@ -255,7 +257,7 @@
                     android:textAllCaps="false"
                     android:textColor="#FFFFFF"
                     android:textIsSelectable="false"
-                    android:textSize="14sp" />
+                    android:textSize="12sp" />
 
                 <Button
                     android:id="@+id/buttonDeletePublicKey"
@@ -270,7 +272,7 @@
                     android:textAllCaps="false"
                     android:textColor="#FFFFFF"
                     android:textIsSelectable="false"
-                    android:textSize="14sp" />
+                    android:textSize="12sp" />
 
             </LinearLayout>
 
@@ -286,7 +288,7 @@
                 android:gravity="center"
                 android:textAlignment="center"
                 android:textColor="#FFFFFF"
-                android:textSize="14sp" />
+                android:textSize="12sp" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -297,7 +299,7 @@
                 android:textAllCaps="false"
                 android:textColor="#FFFFFF"
                 android:textIsSelectable="false"
-                android:textSize="14sp" />
+                android:textSize="12sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -317,7 +319,7 @@
                     android:textAllCaps="false"
                     android:textColor="#FFFFFF"
                     android:textIsSelectable="false"
-                    android:textSize="14sp" />
+                    android:textSize="12sp" />
 
                 <Button
                     android:id="@+id/buttonPastePrivateKey"
@@ -332,7 +334,7 @@
                     android:textAllCaps="false"
                     android:textColor="#FFFFFF"
                     android:textIsSelectable="false"
-                    android:textSize="14sp" />
+                    android:textSize="12sp" />
 
                 <Button
                     android:id="@+id/buttonDeletePrivateKey"
@@ -347,7 +349,7 @@
                     android:textAllCaps="false"
                     android:textColor="#FFFFFF"
                     android:textIsSelectable="false"
-                    android:textSize="14sp" />
+                    android:textSize="12sp" />
             </LinearLayout>
 
             <TextView
@@ -361,7 +363,7 @@
                 android:gravity="center"
                 android:textAlignment="center"
                 android:textColor="#FFFFFF"
-                android:textSize="14sp" />
+                android:textSize="12sp" />
 
             <Button
                 android:id="@+id/buttonEncryptionText"
@@ -375,7 +377,7 @@
                 android:textAllCaps="false"
                 android:textColor="#FFFFFF"
                 android:textIsSelectable="false"
-                android:textSize="14sp" />
+                android:textSize="12sp" />
 
             <Button
                 android:id="@+id/buttonDecryptionText"
@@ -389,7 +391,7 @@
                 android:textAllCaps="false"
                 android:textColor="#FFFFFF"
                 android:textIsSelectable="false"
-                android:textSize="14sp" />
+                android:textSize="12sp" />
 
             <Button
                 android:id="@+id/buttonSendText"
@@ -403,7 +405,7 @@
                 android:textAllCaps="false"
                 android:textColor="#FFFFFF"
                 android:textIsSelectable="false"
-                android:textSize="14sp" />
+                android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/textView10"
@@ -415,7 +417,7 @@
                 android:textAllCaps="false"
                 android:textColor="#FFFFFF"
                 android:textIsSelectable="false"
-                android:textSize="14sp" />
+                android:textSize="12sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -424,7 +426,7 @@
 
                 <Button
                     android:id="@+id/buttonCopyOriginalText"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="30dp"
                     android:layout_margin="1dp"
                     android:layout_weight="1"
@@ -435,11 +437,11 @@
                     android:textAllCaps="false"
                     android:textColor="#FFFFFF"
                     android:textIsSelectable="false"
-                    android:textSize="14sp" />
+                    android:textSize="12sp" />
 
                 <Button
                     android:id="@+id/buttonPasteOriginalText"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="30dp"
                     android:layout_margin="1dp"
                     android:layout_weight="1"
@@ -450,11 +452,11 @@
                     android:textAllCaps="false"
                     android:textColor="#FFFFFF"
                     android:textIsSelectable="false"
-                    android:textSize="14sp" />
+                    android:textSize="12sp" />
 
                 <Button
                     android:id="@+id/buttonDeleteOriginalText"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="30dp"
                     android:layout_margin="1dp"
                     android:layout_weight="1"
@@ -465,7 +467,7 @@
                     android:textAllCaps="false"
                     android:textColor="#FFFFFF"
                     android:textIsSelectable="false"
-                    android:textSize="14sp" />
+                    android:textSize="12sp" />
             </LinearLayout>
 
             <TextView
@@ -484,7 +486,7 @@
                 android:scrollbarAlwaysDrawVerticalTrack="true"
                 android:scrollbars="vertical"
                 android:textColor="#FFFFFF"
-                android:textSize="14sp" />
+                android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/textView11"
@@ -496,7 +498,7 @@
                 android:textAllCaps="false"
                 android:textColor="#FFFFFF"
                 android:textIsSelectable="false"
-                android:textSize="14sp" />
+                android:textSize="12sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -505,7 +507,7 @@
 
                 <Button
                     android:id="@+id/buttonCopyEncryptedText"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="30dp"
                     android:layout_margin="1dp"
                     android:layout_weight="1"
@@ -515,11 +517,11 @@
                     android:textAllCaps="false"
                     android:textColor="#FFFFFF"
                     android:textIsSelectable="false"
-                    android:textSize="14sp" />
+                    android:textSize="12sp" />
 
                 <Button
                     android:id="@+id/buttonPasteEncryptedText"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="30dp"
                     android:layout_margin="1dp"
                     android:layout_weight="1"
@@ -529,11 +531,11 @@
                     android:textAllCaps="false"
                     android:textColor="#FFFFFF"
                     android:textIsSelectable="false"
-                    android:textSize="14sp" />
+                    android:textSize="12sp" />
 
                 <Button
                     android:id="@+id/buttonDeleteEncryptedText"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="30dp"
                     android:layout_margin="1dp"
                     android:layout_weight="1"
@@ -543,7 +545,7 @@
                     android:textAllCaps="false"
                     android:textColor="#FFFFFF"
                     android:textIsSelectable="false"
-                    android:textSize="14sp" />
+                    android:textSize="12sp" />
             </LinearLayout>
 
             <TextView
@@ -561,7 +563,7 @@
                 android:scrollbarAlwaysDrawVerticalTrack="true"
                 android:scrollbars="vertical"
                 android:textColor="#FFFFFF"
-                android:textSize="14sp" />
+                android:textSize="12sp" />
 
         </LinearLayout>
     </ScrollView>

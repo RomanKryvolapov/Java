@@ -40,7 +40,7 @@
             android:textAllCaps="false"
             android:textColor="#FFFFFF"
             android:textIsSelectable="false"
-            android:textSize="14sp" />
+            android:textSize="12sp" />
 
         <Button
             android:id="@+id/buttonDialogPasteKey"
@@ -55,7 +55,7 @@
             android:textAllCaps="false"
             android:textColor="#FFFFFF"
             android:textIsSelectable="false"
-            android:textSize="14sp" />
+            android:textSize="12sp" />
 
         <Button
             android:id="@+id/buttonDialogDeleteKey"
@@ -70,7 +70,7 @@
             android:textAllCaps="false"
             android:textColor="#FFFFFF"
             android:textIsSelectable="false"
-            android:textSize="14sp" />
+            android:textSize="12sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -91,7 +91,7 @@
             android:textAllCaps="false"
             android:textColor="#FFFFFF"
             android:textIsSelectable="false"
-            android:textSize="18sp" />
+            android:textSize="12sp" />
 
         <Button
             android:id="@+id/buttonDialogKeySave"
@@ -106,7 +106,7 @@
             android:textAllCaps="false"
             android:textColor="#FFFFFF"
             android:textIsSelectable="false"
-            android:textSize="18sp" />
+            android:textSize="12sp" />
     </LinearLayout>
 
 </LinearLayout>

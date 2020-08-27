@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">RSA/AES Encryption With Self-Destruct</string>
     <string name="button_del_all">delete all</string>
+    <string name="pass_enter_step_1">Enter password</string>
+    <string name="pass_enter_step_2">Are you sure?</string>
+    <string name="pass_create">Create password</string>
     <string name="button_use">use keys</string>
     <string name="button_generate">generate key</string>
     <string name="button__del_key">delete key</string>
@@ -37,6 +40,7 @@
     <string name="key_not_valide">key is not valid</string>
     <string name="wait">wait</string>
     <string name="close">close</string>
+    <string name="internalactivity">InternalActivity</string>
     <string name="manual">Hello!\n
 This program is designed to encrypt and decrypt messages using RSA and AES algorithms.\n
 With RSA, a message can be encrypted with a public key, but it can only be decrypted with a private key.\n

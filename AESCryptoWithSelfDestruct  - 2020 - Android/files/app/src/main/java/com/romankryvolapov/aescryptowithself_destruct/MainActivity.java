@@ -72,10 +72,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         this.finish();
+//        this activity does not imply pasting data from another application via the clipboard,
+//        so when paused, the application closes
     }
 
     @Override
     public void onBackPressed() {
+//        the program should have the following behavior - when you press the back button in the main activity, the program closes,
+//        when you click the back button in the dialog box, it returns to the main activity
         super.onBackPressed();
         this.finish();
     }
@@ -88,6 +92,9 @@ public class MainActivity extends AppCompatActivity {
             Intent receivedIntent = getIntent();
             String receivedAction = receivedIntent.getAction();
             String receivedType = receivedIntent.getType();
+//            receivedText is the text that the program receives along with intent, if the user
+//            when share text chose this program
+//            here it is accepted and after entering the password it is passed to the next activity
             if (receivedAction.equals(Intent.ACTION_SEND)) {
                 received = receivedIntent.getStringExtra(Intent.EXTRA_TEXT);
                 if (received != null && receivedType.startsWith("text/")) {
@@ -97,28 +104,37 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         } catch (Exception e) {
+//            if something is wrong with the incoming text, toast will pop up
+//            in general, the program does not know how to correctly log errors and send them, but there are potentially not many errors either
+//            due to the specifics of the program, I tried to make it so that the user could find out
+//            what exactly is the mistake
             Log.d(LOG_TAG, "Exception = " + e);
+            Toast toast = Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT);
+            toast.show();
         }
         setStatusBarColor();
-        buttonPass1 = findViewById(R.id.buttonPass1);
-        buttonPass2 = findViewById(R.id.buttonPass2);
-        buttonPass3 = findViewById(R.id.buttonPass3);
-        buttonPass4 = findViewById(R.id.buttonPass4);
-        buttonPass5 = findViewById(R.id.buttonPass5);
-        buttonPass6 = findViewById(R.id.buttonPass6);
-        buttonPass7 = findViewById(R.id.buttonPass7);
-        buttonPass8 = findViewById(R.id.buttonPass8);
-        buttonPass9 = findViewById(R.id.buttonPass9);
-        buttonPassOk = findViewById(R.id.buttonPassOk);
-        buttonPassDel = findViewById(R.id.buttonPassDel);
-        buttonEraseAllatStart1 = findViewById(R.id.buttonEraseAllatStart1);
-        buttonEraseAllatStart2 = findViewById(R.id.buttonEraseAllatStart2);
-        buttonEraseAllatStart3 = findViewById(R.id.buttonEraseAllatStart3);
-        textViewPass1 = findViewById(R.id.textViewPass1);
-        textViewPass2 = findViewById(R.id.textViewPass2);
-        textViewPass3 = findViewById(R.id.textViewPass3);
-        textViewPass4 = findViewById(R.id.textViewPass4);
-        textViewPassInfo = findViewById(R.id.textViewPassInfo);
+        findAllElements();
+        addListiners();
+        sharedPreferences = getSharedPreferences("sharedPreferences", Context.MODE_PRIVATE);
+        if (sharedPreferences.contains("secretKey")) {
+            if (sharedPreferences.getString("secretKey", "").length() > 0) {
+                noSavedPass = false;
+            } else {
+                noSavedPass = true;
+            }
+        } else {
+            noSavedPass = true;
+        }
+        if (noSavedPass) {
+            textViewPassInfo.setText("Create password");
+        } else {
+            textViewPassInfo.setText("Enter password");
+        }
+
+    }
+
+    private void addListiners() {
+        // could have been used here ->
         buttonPass1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -210,25 +226,39 @@ public class MainActivity extends AppCompatActivity {
                 buttonEraseAll();
             }
         });
-        sharedPreferences = getSharedPreferences("sharedPreferences", Context.MODE_PRIVATE);
-        if (sharedPreferences.contains("secretKey")) {
-            if (sharedPreferences.getString("secretKey", "").length() > 0) {
-                noSavedPass = false;
-            } else {
-                noSavedPass = true;
-            }
-        } else {
-            noSavedPass = true;
-        }
-        if (noSavedPass) {
-            textViewPassInfo.setText("Create password");
-        } else {
-            textViewPassInfo.setText("Enter password");
-        }
+
+
 
     }
 
+    private void findAllElements() {
+        buttonPass1 = findViewById(R.id.buttonPass1);
+        buttonPass2 = findViewById(R.id.buttonPass2);
+        buttonPass3 = findViewById(R.id.buttonPass3);
+        buttonPass4 = findViewById(R.id.buttonPass4);
+        buttonPass5 = findViewById(R.id.buttonPass5);
+        buttonPass6 = findViewById(R.id.buttonPass6);
+        buttonPass7 = findViewById(R.id.buttonPass7);
+        buttonPass8 = findViewById(R.id.buttonPass8);
+        buttonPass9 = findViewById(R.id.buttonPass9);
+        buttonPassOk = findViewById(R.id.buttonPassOk);
+        buttonPassDel = findViewById(R.id.buttonPassDel);
+        buttonEraseAllatStart1 = findViewById(R.id.buttonEraseAllatStart1);
+        buttonEraseAllatStart2 = findViewById(R.id.buttonEraseAllatStart2);
+        buttonEraseAllatStart3 = findViewById(R.id.buttonEraseAllatStart3);
+        textViewPass1 = findViewById(R.id.textViewPass1);
+        textViewPass2 = findViewById(R.id.textViewPass2);
+        textViewPass3 = findViewById(R.id.textViewPass3);
+        textViewPass4 = findViewById(R.id.textViewPass4);
+        textViewPassInfo = findViewById(R.id.textViewPassInfo);
+    }
+
     private void buttonEraseAll() {
+//        by consecutive pressing of 3 erase buttons all saved keys are erased and the program is closed
+//        in the future, there is an idea to make the program uninstall or at least remove it from the list
+//        last running programs
+//        also in the future there is an idea to make the program code encrypted and it could not be decompiled
+//        or run dynamic analysis
         if (EraseAllatStart1 && EraseAllatStart2 && EraseAllatStart3) {
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.clear();
@@ -238,6 +268,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public static String encrypt(String text, String key, String salt) {
+//        all data is decrypted using the password from the startup activity
+//        if the password was entered incorrectly, all saved keys are erased and the program uses the entered password as a new one
+//        at the same time, the one who entered the wrong password will not be able to find out that the password is incorrect, he will see the same
+//        what will see when the program is first launched
         try {
             byte[] iv = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
             IvParameterSpec ivspec = new IvParameterSpec(iv);
@@ -258,6 +292,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public static String decrypt(String text, String key, String salt) {
+//        all data is decrypted using the password from the startup activity
+//        if the password was entered incorrectly, all saved keys are erased and the program uses the entered password as a new one
+//        at the same time, the one who entered the wrong password will not be able to find out that the password is incorrect, he will see the same
+//        what will see when the program is first launched
         try {
             byte[] iv = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
             IvParameterSpec ivspec = new IvParameterSpec(iv);
@@ -278,6 +316,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setStatusBarColor() {
+//        in some android versions the top bar does not change color when the application is opened, this method changes color forcibly
         if (Build.VERSION.SDK_INT >= 21) {
             Window window = getWindow();
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
@@ -287,6 +326,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void generateKey() {
+//        pass is the password entered when entering the program, with the help of it all data is decrypted
+//        if the password was entered incorrectly, all saved keys are erased and the program uses the entered password as a new one
+//        at the same time, the one who entered the wrong password will not be able to find out that the password is incorrect, he will see the same
+//        what will see when the program is first launched
         sharedPreferences = getSharedPreferences("sharedPreferences", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("secretKey", encrypt("secretKey", pass, pass));
@@ -304,6 +347,10 @@ public class MainActivity extends AppCompatActivity {
     private void checkKey() {
         sharedPreferences = getSharedPreferences("sharedPreferences", Context.MODE_PRIVATE);
         String secretKey = sharedPreferences.getString("secretKey", "");
+//        it is checked whether the "secretKey" phrase can be encrypted, if possible, the key is correct
+//        if not, the data is erased
+//        at the same time, the one who entered the wrong password will not be able to find out that the password is incorrect, he will see the same
+//        what will see when the program is first launched
         if (decrypt(secretKey, pass, pass) != null) {
 //            Toast toast = Toast.makeText(getApplicationContext(), "OK", Toast.LENGTH_SHORT);
 //            toast.show();
@@ -338,6 +385,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void buttonDel() {
+//        erases the password if the user saw that he entered it incorrectly
+//        also resets the Erase All buttons if the user accidentally presses one of them
         newEnter = true;
         pass = "";
         textViewPass1.setText("○");
@@ -345,9 +394,9 @@ public class MainActivity extends AppCompatActivity {
         textViewPass3.setText("○");
         textViewPass4.setText("○");
         if (noSavedPass) {
-            textViewPassInfo.setText("Create password");
+            textViewPassInfo.setText(getString(R.string.pass_create));
         } else {
-            textViewPassInfo.setText("Enter password");
+            textViewPassInfo.setText(getString(R.string.pass_enter_step_1));
         }
         EraseAllatStart1 = false;
         EraseAllatStart2 = false;
@@ -391,11 +440,12 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void buttonPOk() {
+    private void buttonPOk(){
+//        the user is given the opportunity to think if he made a mistake when entering the key
         if (pass.length() == 4 && noSavedPass) {
             if (newEnter) {
                 newEnter = false;
-                textViewPassInfo.setText("Are you sure?");
+                textViewPassInfo.setText(getString(R.string.pass_enter_step_2));
             } else {
                 generateKey();
             }
@@ -403,7 +453,7 @@ public class MainActivity extends AppCompatActivity {
         } else if (pass.length() == 4 && !noSavedPass) {
             if (newEnter) {
                 newEnter = false;
-                textViewPassInfo.setText("Are you sure?");
+                textViewPassInfo.setText(getString(R.string.pass_enter_step_2));
             } else {
                 checkKey();
             }
