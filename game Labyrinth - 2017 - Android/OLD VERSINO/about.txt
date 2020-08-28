@@ -1,3 +1,0 @@
-Лабиринт строится по этому алгоритму
-https://habr.com/ru/post/176671/
-http://www.neocomputer.org/projects/eller.html
