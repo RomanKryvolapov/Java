@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">Running from DEX file</string>
+    <string name="app_field_1">Manual</string>
+    <string name="app_field_2">Enter File address (in format https://.../)</string>
+    <string name="app_field_8">Enter File name (for example classes.dex)</string>
+    <string name="app_field_3">Enter Class name (for example Main)</string>
+    <string name="app_field_4">Enter Method name (for example main)</string>
+    <string name="app_field_5">Layout name at the bottom of the screen is myLayout</string>
+    <string name="app_field_6">Run</string>
+    <string name="app_field_7">Enter package name (for example com.android.chrome)</string>
+    <string name="app_field_9">Methods</string>
+    <string name="app_field_10">Fields</string>
+    <string name="app_field_11">Open</string>
+    <string name="app_ready">Download Ready</string>
+    <string name="app_error">Download Error</string>
+    <string name="app_no_inet">No internet access</string>
+    <string name="manual">You can save executable code on any server in the .dex file format and run it using this application.
+        \nThe .dex format can be obtained from files in the .class format or from files in the .jar format
+        \n(when compiling a project in Android Studio, the .dex files of all classes are saved in the /app/build/intermediates/project_dex_archive/debug/out/com/...(userName)/runningfromdexfile).
+    \nAt the bottom of this screen is a ConstraintLayout named myLayout, you can refer to it from code and output information to it, for example you can generate programmatically
+    TextView and place it on this myLayout.\nFor all questions, write to roman.kryvolapov@gmail.com</string>
+    <string name="app_close_manual">Close</string>
+</resources>

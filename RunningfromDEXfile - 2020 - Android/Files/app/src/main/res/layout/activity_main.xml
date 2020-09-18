@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <EditText
+            android:id="@+id/editText1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:gravity="center|start"
+            android:hint="@string/app_field_2"
+            android:inputType="textPersonName"
+            android:textColor="@color/colorTextBlack"
+            android:textColorHint="@color/colorTextBlack"
+            android:textSize="12sp" />
+
+        <EditText
+            android:id="@+id/editText2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:gravity="center|start"
+            android:hint="@string/app_field_8"
+            android:inputType="textPersonName"
+            android:textColor="@color/colorTextBlack"
+            android:textColorHint="@color/colorTextBlack"
+            android:textSize="12sp" />
+
+        <EditText
+            android:id="@+id/editText3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:gravity="center|start"
+            android:hint="@string/app_field_7"
+            android:inputType="textPersonName"
+            android:textColor="@color/colorTextBlack"
+            android:textColorHint="@color/colorTextBlack"
+            android:textSize="12sp" />
+
+        <EditText
+            android:id="@+id/editText4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:gravity="center|start"
+            android:hint="@string/app_field_3"
+            android:inputType="textPersonName"
+            android:textColor="@color/colorTextBlack"
+            android:textColorHint="@color/colorTextBlack"
+            android:textSize="12sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="4"
+                android:gravity="center|start"
+                android:text="@string/app_field_9"
+                android:textColor="@color/colorTextBlack"
+                android:textSize="14sp" />
+
+            <Spinner
+                android:id="@+id/spinnerMethods"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_weight="4"
+                android:gravity="center|start"
+                android:text="@string/app_field_10"
+                android:textColor="@color/colorTextBlack"
+                android:textSize="14sp" />
+
+            <Spinner
+                android:id="@+id/spinnerFields"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/app_field_5"
+            android:textColor="@color/colorTextBlack"
+            android:textSize="12sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/buttonManual"
+                style="@style/Widget.AppCompat.Button"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_margin="0dp"
+                android:layout_weight="1"
+                android:background="@drawable/button_style_4"
+                android:text="@string/app_field_1"
+                android:textAllCaps="false"
+                android:textColor="@color/colorTextWhite"
+                android:textSize="12sp" />
+
+            <Button
+                android:id="@+id/button3"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_weight="1"
+                android:background="@drawable/button_style_3"
+                android:text="@string/app_field_11"
+                android:textAllCaps="false"
+                android:textColor="@color/colorTextWhite"
+                android:textSize="12sp" />
+
+            <Button
+                android:id="@+id/buttonRun"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_weight="1"
+                android:background="@drawable/button_style_2"
+                android:text="@string/app_field_6"
+                android:textAllCaps="false"
+                android:textColor="@color/colorTextWhite"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/myLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/button_style_1" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

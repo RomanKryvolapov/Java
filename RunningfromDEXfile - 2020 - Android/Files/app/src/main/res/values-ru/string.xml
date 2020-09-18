@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">Запуск из DEX файла</string>
+    <string name="app_field_1">Инструкция</string>
+    <string name="app_field_2">Введите адрес файла (в формате https://.../)</string>
+    <string name="app_field_8">Введине имя файла (для примера classes.dex)</string>
+    <string name="app_field_3">Введите имя класса (для примера Main)</string>
+    <string name="app_field_4">Введите имя метода (для примера main)</string>
+    <string name="app_field_5">Название слоя внизу экрана - myLayout</string>
+    <string name="app_field_6">Запуск</string>
+    <string name="app_field_7">Введите имя пакета (для примера com.android.chrome)</string>
+    <string name="app_field_9">Методы</string>
+    <string name="app_field_10">Поля</string>
+    <string name="app_field_11">Открыть</string>
+    <string name="app_ready">Загрузка завершена</string>
+    <string name="app_error">Ошибка загрузки</string>
+    <string name="app_no_inet">Нет доступа в интернет</string>
+    <string name="manual">Вы можете сохранять исполняемый код на любом сервере в формате файла .dex и запускать его с помощью этого приложения.
+\nФормат .dex  можно получить из файлов формата .class или из файлов формата .jar (при компилировании проекта в Android Studio файлы .dex всех классов сохраняются в папку /app/build/intermediates/project_dex_archive/debug/out/com/...(userName)/runningfromdexfile).
+\nВ нижней части этого экрана находится ConstraintLayout с именем myLayout, вы можете обращаться к нему из кода и выводить на него информацию, например вы можете сгенерировать программно
+\nTextView и поместить его на этот myLayout. По всем вопросам пишите на roman.kryvolapov@gmail.com</string>
+    <string name="app_close_manual">Закрыть</string>
+</resources>
