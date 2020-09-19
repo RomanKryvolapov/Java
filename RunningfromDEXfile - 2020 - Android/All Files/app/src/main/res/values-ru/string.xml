@@ -14,6 +14,8 @@
     <string name="app_ready">Загрузка завершена</string>
     <string name="app_error">Ошибка загрузки</string>
     <string name="app_no_inet">Нет доступа в интернет</string>
+    <string name="app_load_fiels">Открыть</string>
+    <string name="app_field_value">Значение</string>
     <string name="app_fields_not_correct">Вы не заполнили одно из полей</string>
     <string name="manual">Вы можете сохранять исполняемый код на любом сервере в формате файла .dex и запускать его с помощью этого приложения.
 \nФормат .dex  можно получить из файлов формата .class или из файлов формата .jar (при компилировании проекта в Android Studio файлы .dex всех классов сохраняются в папку /app/build/intermediates/project_dex_archive/debug/out/com/...(userName)/runningfromdexfile).
