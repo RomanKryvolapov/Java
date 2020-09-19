@@ -29,60 +29,56 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.Type;
 import java.net.URL;
-import java.util.Enumeration;
 
-import dalvik.system.BaseDexClassLoader;
 import dalvik.system.DexClassLoader;
-import dalvik.system.DexFile;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static String dataDir;
-    private static final String LOG_TAG = "Status";
 
+    private final String LOG_TAG = "Status";
+    private String dataDir;
     private Button buttonManual;
     private Button buttonRun;
-
+    private Button buttonOpen;
     private EditText editText1;
     private EditText editText2;
     private EditText editText3;
     private EditText editText4;
-
-    Button buttonCloseManual;
-
-    TextView textViewManual;
-
+    private TextView textViewField;
+    private Button buttonCloseManual;
+    private TextView textViewManual;
     private Dialog dialogManual;
-
     private Spinner spinnerMethods;
     private Spinner spinnerFields;
-
-    private static String stringUrl = "";
-    private static String stringFileName = "";
-    private static String stringPackage = "";
-    private static String stringClass = "";
-    private static String stringMethod = "";
-
-    public ConstraintLayout myLayout;
+    private String stringUrl = "";
+    private String stringFileName = "";
+    private String stringPackage = "";
+    private String stringClass = "";
     private Class<?> newClass;
-    //    private Method newMethod;
     private Method[] newMethods;
     private Field[] newFields;
     private String[] newMethodsString;
     private String[] newFieldsString;
+    private Button buttonLoadField;
+
+    public static TextView myTextView;
+    public static ConstraintLayout myLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        dataDir = getApplicationInfo().dataDir;
         findAll();
         addButtonListiners();
         changeTopColor();
         checkPermittion();
-        test();
+        dataDir = getApplicationInfo().dataDir;
+        myTextView = new TextView(this);
+        myTextView.setTextColor(ContextCompat.getColor(this, R.color.colorTextBlack));
     }
 
 //    private boolean isPackageInstalled(String packageName) {
@@ -97,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
 
     void checkPermittion() {
         if (ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.INTERNET) == PackageManager.PERMISSION_DENIED) {
-            showToast(getString(R.string.app_no_inet) + "");
+            showToast(getString(R.string.app_no_inet) + "", Toast.LENGTH_LONG);
             ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.INTERNET}, 0);
             Log.d(LOG_TAG, "Permission.INTERNET = false");
         } else {
@@ -106,17 +102,29 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void test() {
-        try {
-            stringUrl = "https://raw.githubusercontent.com/RomanKryvolapov/Java-and-Android/master/Old%202016/";
-            stringFileName = "Test.dex";
-            stringPackage = "com.romankryvolapov.runningfromdexfile";
-            stringClass = "Test";
-            stringMethod = "test";
-            run();
-        } catch (Exception e) {
-            Log.d(LOG_TAG, "Exception 3 = " + e);
-        }
+        stringUrl = "https://raw.githubusercontent.com/RomanKryvolapov/Java-and-Android/master/Old%202016/";
+        stringFileName = "Test.dex";
+        stringPackage = "com.romankryvolapov.runningfromdexfile";
+        stringClass = "Test";
+    }
 
+    private void run() {
+        if (newClass != null) {
+            if (newMethods != null && newMethods.length > 0) {
+                try {
+                    Log.d(LOG_TAG, "newMethods[spinnerMethods] name = " + newMethods[spinnerMethods.getSelectedItemPosition()].getName());
+                    newMethods[spinnerMethods.getSelectedItemPosition()].invoke(newClass.newInstance(), null);
+                } catch (InvocationTargetException e) {
+                    showToast(getString(R.string.app_server_code_error) + "\n" + e, Toast.LENGTH_LONG);
+                    Log.d(LOG_TAG, "InvocationTargetException = " + e);
+                    e.printStackTrace();
+                } catch (Exception e) {
+                    showToast(e + "", Toast.LENGTH_LONG);
+                    Log.d(LOG_TAG, "Exception 4 = " + e);
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     private void newDialogManual() {
@@ -151,21 +159,30 @@ public class MainActivity extends AppCompatActivity {
     private void findAll() {
         buttonManual = findViewById(R.id.buttonManual);
         buttonRun = findViewById(R.id.buttonRun);
+        buttonOpen = findViewById(R.id.buttonOpen);
+        buttonLoadField = findViewById(R.id.buttonLoadField);
         editText1 = findViewById(R.id.editText1);
         editText2 = findViewById(R.id.editText2);
         editText3 = findViewById(R.id.editText3);
         editText4 = findViewById(R.id.editText4);
+        textViewField = findViewById(R.id.textViewField);
         myLayout = findViewById(R.id.myLayout);
         spinnerMethods = findViewById(R.id.spinnerMethods);
         spinnerFields = findViewById(R.id.spinnerFields);
-    }
 
+    }
 
     private void addButtonListiners() {
         buttonManual.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                newDialogManual();
+            }
+        });
+        buttonOpen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openURL();
             }
         });
         buttonRun.setOnClickListener(new View.OnClickListener() {
@@ -174,16 +191,36 @@ public class MainActivity extends AppCompatActivity {
                 run();
             }
         });
-        buttonManual.setOnClickListener(new View.OnClickListener() {
+        buttonLoadField.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                newDialogManual();
+                loadfield();
             }
         });
     }
 
-    private void showToast(String text) {
-        Toast toast = Toast.makeText(MainActivity.this, text, Toast.LENGTH_SHORT);
+    private void loadfield() {
+        textViewField.setText("");
+        if (newFields != null && newFields.length > 0) {
+            try {
+                textViewField.setText("");
+                String value = newFields[spinnerFields.getSelectedItemPosition()].get(newClass.newInstance()).toString();
+                textViewField.setText(value);
+            } catch (Exception e) {
+                showToast(e + "", Toast.LENGTH_SHORT);
+                Log.d(LOG_TAG, "Exception 6 = " + e);
+                e.printStackTrace();
+            }
+
+
+        }
+//                textViewField.setText();
+
+
+    }
+
+    private void showToast(String text, int legnth) {
+        Toast toast = Toast.makeText(MainActivity.this, text, legnth);
         toast.setGravity(Gravity.CENTER, 0, 0);
         toast.show();
     }
@@ -191,52 +228,63 @@ public class MainActivity extends AppCompatActivity {
     void afterDownload() {
         try {
             File file = new File(dataDir, stringFileName);
-            Log.d(LOG_TAG, "File = " + file);
             File codeCacheDir = new File(getCacheDir() + File.separator + "codeCache");
             codeCacheDir.mkdirs();
             DexClassLoader dexClassLoader = new DexClassLoader(file.getAbsolutePath(), codeCacheDir.getAbsolutePath(), null, getClassLoader());
             newClass = dexClassLoader.loadClass(stringPackage + "." + stringClass);
-            newMethods = newClass.getDeclaredMethods();
-            if (newMethods != null && newMethods.length > 0) {
-                newMethodsString = new String[newMethods.length];
-                for (int i = 0; i < newMethods.length; i++) {
-                    newMethodsString[i] = newMethods[i].getName();
+            if (newClass != null) {
+                Log.d(LOG_TAG, "newClass name = " + newClass.getName());
+                newMethods = newClass.getDeclaredMethods();
+                if (newMethods != null && newMethods.length > 0) {
+                    newMethodsString = new String[newMethods.length];
+                    for (int i = 0; i < newMethods.length; i++) {
+                        Log.d(LOG_TAG, "newMethods[i] name = " + newMethods[i].getName());
+                        newMethods[i].setAccessible(true);
+                        newMethodsString[i] = newMethods[i].getName();
+                    }
+                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, newMethodsString);
+                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    spinnerMethods.setAdapter(adapter);
+                    spinnerMethods.setSelection(0);
                 }
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, newMethodsString);
-                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                spinnerMethods.setAdapter(adapter);
-                spinnerMethods.setSelection(0);
-            }
-
-            newFields = newClass.getDeclaredFields();
-            if (newFields != null && newFields.length > 0) {
-                newFieldsString = new String[newFields.length];
-                for (int i = 0; i < newFields.length; i++) {
-                    newFieldsString[i] = newFields[i].getName();
+                newFields = newClass.getDeclaredFields();
+                if (newFields != null && newFields.length > 0) {
+                    newFieldsString = new String[newFields.length];
+                    for (int i = 0; i < newFields.length; i++) {
+                        newFields[i].setAccessible(true);
+                        newFieldsString[i] = newFields[i].getName();
+                    }
+                    ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, newFieldsString);
+                    adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    spinnerFields.setAdapter(adapter2);
+                    spinnerFields.setSelection(0);
                 }
-                ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, newFieldsString);
-                adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                spinnerFields.setAdapter(adapter2);
-                spinnerFields.setSelection(0);
             }
-
-
         } catch (Exception e) {
             Log.d(LOG_TAG, "Exception 2 = " + e);
-            showToast(e + "");
+            showToast(e + "", Toast.LENGTH_LONG);
             e.printStackTrace();
         }
 
     }
 
-    private void run() {
-//        text1 = editText1.getText().toString();
-//        text2 = editText2.getText().toString();
-//        text3 = editText3.getText().toString();
-//        text4 = editText4.getText().toString();
-//        text5 = editText5.getText().toString();
-        DownloadTask downloadTask = new DownloadTask();
-        downloadTask.execute(null, null, null);
+    private void openURL() {
+        textViewField.setText("");
+        stringUrl = editText1.getText().toString();
+        stringFileName = editText2.getText().toString();
+        stringPackage = editText3.getText().toString();
+        stringClass = editText4.getText().toString();
+//        test();
+        if (stringUrl != null & stringFileName != null & stringPackage != null & stringClass != null) {
+            if (stringUrl.length() > 0 & stringFileName.length() > 0 & stringPackage.length() > 0 & stringClass.length() > 0) {
+                DownloadTask downloadTask = new DownloadTask();
+                downloadTask.execute(null, null, null);
+            } else {
+                showToast(getString(R.string.app_fields_not_correct), Toast.LENGTH_LONG);
+            }
+        } else {
+            showToast(getString(R.string.app_fields_not_correct), Toast.LENGTH_LONG);
+        }
     }
 
     private void changeTopColor() {
@@ -257,7 +305,6 @@ public class MainActivity extends AppCompatActivity {
                 File dir = new File(dataDir);
                 dir.mkdirs();
                 File file = new File(dir, stringFileName);
-                Log.d(LOG_TAG, "File = " + file);
                 if (file.exists()) {
                     Log.d(LOG_TAG, "Old file delete");
                     file.delete();
@@ -271,7 +318,6 @@ public class MainActivity extends AppCompatActivity {
                 fileOutputStream.flush();
                 fileOutputStream.close();
                 inputStream.close();
-                Log.d(LOG_TAG, "AsyncTask Finish");
             } catch (Exception e) {
                 Log.d(LOG_TAG, "Exception 1 = " + e);
                 e.printStackTrace();
@@ -284,11 +330,11 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onPostExecute(Object obj) {
             if (obj == null) {
-                showToast(getString(R.string.app_ready) + "");
+                showToast(getString(R.string.app_ready) + "", Toast.LENGTH_SHORT);
                 Log.d(LOG_TAG, "Download Ready");
                 afterDownload();
             } else {
-                showToast(getString(R.string.app_error) + "");
+                showToast(getString(R.string.app_error) + "", Toast.LENGTH_LONG);
                 Log.d(LOG_TAG, "Download Error");
             }
 

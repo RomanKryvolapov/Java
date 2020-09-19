@@ -14,10 +14,25 @@
     <string name="app_ready">Download Ready</string>
     <string name="app_error">Download Error</string>
     <string name="app_no_inet">No internet access</string>
+    <string name="app_load_fiels">Open</string>
+    <string name="app_field_value">Value</string>
+    <string name="app_fields_not_correct">You have not filled one of the fields</string>
     <string name="manual">You can save executable code on any server in the .dex file format and run it using this application.
         \nThe .dex format can be obtained from files in the .class format or from files in the .jar format
         \n(when compiling a project in Android Studio, the .dex files of all classes are saved in the /app/build/intermediates/project_dex_archive/debug/out/com/...(userName)/runningfromdexfile).
     \nAt the bottom of this screen is a ConstraintLayout named myLayout, you can refer to it from code and output information to it, for example you can generate programmatically
-    TextView and place it on this myLayout.\nFor all questions, write to roman.kryvolapov@gmail.com</string>
+    TextView and place it on this myLayout.
+\n
+\npackage com.romankryvolapov.runningfromdexfile;
+\npublic class Test {
+\npublic void test() {
+\nMainActivity.myTextView.setText("123");
+\nMainActivity.myLayout.removeAllViews();
+\nMainActivity.myLayout.addView(MainActivity.myTextView);
+\n}}
+\n
+
+        \nFor all questions, write to roman.kryvolapov@gmail.com</string>
     <string name="app_close_manual">Close</string>
+    <string name="app_server_code_error">The code on the server triggered the error</string>
 </resources>
