@@ -29,6 +29,6 @@
 
 <br>
 <div align="center">
-<img src="https://raw.githubusercontent.com/RomanKryvolapov/Java-and-Android/master/RunningfromDEXfile%20-%202020%20-%20Android/Screenshot.png" width="30%" />
+<img src="https://raw.githubusercontent.com/RomanKryvolapov/Java-and-Android/master/RunningfromDEXfile%20-%202020%20-%20Android/Screenshot_1.png" width="23%" />&nbsp;&nbsp;<img src="https://raw.githubusercontent.com/RomanKryvolapov/Java-and-Android/master/RunningfromDEXfile%20-%202020%20-%20Android/Screenshot_2.png" width="23%" />&nbsp;&nbsp;<img src="https://raw.githubusercontent.com/RomanKryvolapov/Java-and-Android/master/RunningfromDEXfile%20-%202020%20-%20Android/Screenshot_3.png" width="23%" />
 </div>
 <br>
