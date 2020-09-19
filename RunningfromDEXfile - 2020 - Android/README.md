@@ -18,7 +18,7 @@
 <br>
 
 <p>Example of DEX</p><br>
-<p>npackage com.romankryvolapov.runningfromdexfile;</p>
+<p>package com.romankryvolapov.runningfromdexfile;</p>
 <p>public class Test {</p>
 <p>public void test() {</p>
 <p>MainActivity.myTextView.setText("123");</p>
