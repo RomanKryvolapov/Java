@@ -15,6 +15,17 @@
 
 <br>
 <p>If you have any questions, you can write to me at <a href="mailto:roman.kryvolapov@gmail.com">roman.kryvolapov@gmail.com</a></p>
+<br>
+
+<p>Example of DEX</p><br>
+<p>npackage com.romankryvolapov.runningfromdexfile;</p>
+<p>public class Test {</p>
+<p>public void test() {</p>
+<p>MainActivity.myTextView.setText("123");</p>
+<p>MainActivity.myLayout.removeAllViews();</p>
+<p>MainActivity.myLayout.addView(MainActivity.myTextView);</p>
+<p>}}</p>
+
 
 <br>
 <div align="center">
