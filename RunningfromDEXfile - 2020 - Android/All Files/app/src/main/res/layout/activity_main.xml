@@ -12,6 +12,7 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="vertical"
+        android:padding="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,9 +22,9 @@
             android:id="@+id/buttonManual"
             style="@style/Widget.AppCompat.Button"
             android:layout_width="match_parent"
-            android:layout_height="20dp"
-            android:layout_margin="0dp"
-            android:background="@drawable/button_style_4"
+            android:layout_height="18dp"
+            android:background="@drawable/button_style_1"
+            android:gravity="center"
             android:text="@string/app_field_1"
             android:textAllCaps="false"
             android:textColor="@color/colorTextWhite"
@@ -33,12 +34,18 @@
             android:id="@+id/editText1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:cursorVisible="true"
             android:ems="10"
             android:gravity="center|start"
             android:hint="@string/app_field_2"
-            android:inputType="textPersonName"
+            android:inputType="text"
+            android:shadowColor="@color/colorTextWhite"
+            android:singleLine="true"
             android:textColor="@color/colorTextBlack"
-            android:textColorHint="@color/colorTextBlack"
+            android:textColorHighlight="@color/colorTextWhite"
+            android:textColorHint="@color/colorTextWhite"
+            android:textColorLink="@color/colorTextWhite"
+            android:textCursorDrawable="@color/colorTextWhite"
             android:textSize="12sp" />
 
         <EditText
@@ -46,11 +53,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
+            android:cursorVisible="true"
             android:gravity="center|start"
             android:hint="@string/app_field_8"
-            android:inputType="textPersonName"
+            android:inputType="text"
+            android:singleLine="true"
+            android:shadowColor="@color/colorTextWhite"
             android:textColor="@color/colorTextBlack"
-            android:textColorHint="@color/colorTextBlack"
+            android:textColorHighlight="@color/colorTextWhite"
+            android:textColorHint="@color/colorTextWhite"
+            android:textColorLink="@color/colorTextWhite"
+            android:textCursorDrawable="@color/colorTextWhite"
             android:textSize="12sp" />
 
         <EditText
@@ -58,11 +71,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
+            android:singleLine="true"
+            android:cursorVisible="true"
             android:gravity="center|start"
             android:hint="@string/app_field_7"
-            android:inputType="textPersonName"
+            android:inputType="text"
+            android:shadowColor="@color/colorTextWhite"
             android:textColor="@color/colorTextBlack"
-            android:textColorHint="@color/colorTextBlack"
+            android:textColorHighlight="@color/colorTextWhite"
+            android:textColorHint="@color/colorTextWhite"
+            android:textColorLink="@color/colorTextWhite"
+            android:textCursorDrawable="@color/colorTextWhite"
             android:textSize="12sp" />
 
         <EditText
@@ -70,27 +89,86 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
+            android:singleLine="true"
+            android:cursorVisible="true"
             android:gravity="center|start"
             android:hint="@string/app_field_3"
-            android:inputType="textPersonName"
+            android:inputType="text"
+            android:shadowColor="@color/colorTextWhite"
             android:textColor="@color/colorTextBlack"
-            android:textColorHint="@color/colorTextBlack"
+            android:textColorHighlight="@color/colorTextWhite"
+            android:textColorHint="@color/colorTextWhite"
+            android:textColorLink="@color/colorTextWhite"
+            android:textCursorDrawable="@color/colorTextWhite"
             android:textSize="12sp" />
 
-        <Button
-            android:id="@+id/buttonOpen"
+        <Spinner
+            android:id="@+id/spinnerSavedURL"
             android:layout_width="match_parent"
-            android:layout_height="20dp"
-            android:background="@drawable/button_style_3"
+            android:layout_height="24dp"
             android:gravity="center"
-            android:text="@string/app_field_11"
-            android:textAllCaps="false"
-            android:textColor="@color/colorTextWhite"
-            android:textSize="12sp" />
+            android:textAlignment="center" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/buttonDelete"
+                android:layout_width="match_parent"
+                android:layout_height="24dp"
+                android:layout_weight="1"
+                android:background="@drawable/button_style_1"
+                android:gravity="center"
+                android:text="@string/app_field_delete"
+                android:textAllCaps="false"
+                android:textColor="@color/colorTextWhite"
+                android:textSize="12sp" />
+
+            <Button
+                android:id="@+id/buttonSave"
+                android:layout_width="match_parent"
+                android:layout_height="24dp"
+                android:layout_weight="1"
+                android:background="@drawable/button_style_1"
+                android:gravity="center"
+                android:text="@string/app_field_save"
+                android:textAllCaps="false"
+                android:textColor="@color/colorTextWhite"
+                android:textIsSelectable="false"
+                android:textSize="12sp" />
+
+            <Button
+                android:id="@+id/buttonUse"
+                android:layout_width="match_parent"
+                android:layout_height="24dp"
+                android:layout_weight="1"
+                android:background="@drawable/button_style_1"
+                android:gravity="center"
+                android:text="@string/app_field_use"
+                android:textAllCaps="false"
+                android:textColor="@color/colorTextWhite"
+                android:textSize="12sp" />
+
+            <Button
+                android:id="@+id/buttonOpen"
+                android:layout_width="match_parent"
+                android:layout_height="24dp"
+                android:layout_weight="1"
+                android:background="@drawable/button_style_1"
+                android:gravity="center"
+                android:text="@string/app_field_open"
+                android:textAllCaps="false"
+                android:textColor="@color/colorTextWhite"
+                android:textSize="12sp" />
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="24dp"
+            android:layout_marginTop="5dp"
             android:gravity="center"
             android:orientation="horizontal">
 
@@ -98,7 +176,7 @@
                 android:id="@+id/textView9"
                 android:layout_width="match_parent"
                 android:layout_height="24dp"
-                android:layout_weight="2"
+                android:layout_weight="1.5"
                 android:gravity="center|end"
                 android:text="@string/app_field_10"
                 android:textColor="@color/colorTextBlack"
@@ -109,14 +187,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="24dp"
                 android:layout_weight="1"
-                android:gravity="center" />
+                android:gravity="center"
+                android:textAlignment="center" />
 
             <Button
                 android:id="@+id/buttonLoadField"
                 android:layout_width="match_parent"
                 android:layout_height="24dp"
-                android:layout_weight="2"
-                android:background="@drawable/button_style_4"
+                android:layout_weight="1.5"
+                android:background="@drawable/button_style_1"
                 android:gravity="center"
                 android:text="@string/app_load_fiels"
                 android:textAllCaps="false"
@@ -133,7 +212,7 @@
                 android:id="@+id/textView2"
                 android:layout_width="match_parent"
                 android:layout_height="24dp"
-                android:layout_weight="4"
+                android:layout_weight="3"
                 android:gravity="center|end"
                 android:text="@string/app_field_value"
                 android:textColor="@color/colorTextBlack"
@@ -143,6 +222,7 @@
                 android:id="@+id/textViewField"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:textColor="@color/colorTextBlack"
@@ -159,7 +239,7 @@
                 android:id="@+id/textView8"
                 android:layout_width="match_parent"
                 android:layout_height="24dp"
-                android:layout_weight="2"
+                android:layout_weight="1.5"
                 android:gravity="center|end"
                 android:text="@string/app_field_9"
                 android:textColor="@color/colorTextBlack"
@@ -170,14 +250,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="24dp"
                 android:layout_weight="1"
-                android:gravity="center" />
+                android:gravity="center"
+                android:textAlignment="center" />
 
             <Button
                 android:id="@+id/buttonRun"
                 android:layout_width="match_parent"
                 android:layout_height="24dp"
-                android:layout_weight="2"
-                android:background="@drawable/button_style_2"
+                android:layout_weight="1.5"
+                android:background="@drawable/button_style_1"
                 android:gravity="center"
                 android:text="@string/app_field_6"
                 android:textAllCaps="false"
@@ -186,21 +267,12 @@
 
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/textView6"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/app_field_5"
-            android:textColor="@color/colorTextBlack"
-            android:textSize="12sp" />
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/myLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:layout_margin="10dp"
+            android:layout_marginTop="5dp"
             android:background="@drawable/button_style_1"
             android:padding="10dp" />
 

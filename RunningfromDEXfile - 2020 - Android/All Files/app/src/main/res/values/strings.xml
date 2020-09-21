@@ -1,38 +1,47 @@
 <resources>
     <string name="app_name">Running from DEX file</string>
-    <string name="app_field_1">Manual</string>
-    <string name="app_field_2">Enter File address (in format https://.../)</string>
-    <string name="app_field_8">Enter File name (for example classes.dex)</string>
-    <string name="app_field_3">Enter Class name (for example Main)</string>
-    <string name="app_field_4">Enter Method name (for example main)</string>
-    <string name="app_field_5">Layout name at the bottom of the screen is myLayout</string>
-    <string name="app_field_6">Run</string>
-    <string name="app_field_7">Enter package name (for example com.android.chrome)</string>
-    <string name="app_field_9">Methods</string>
-    <string name="app_field_10">Fields</string>
-    <string name="app_field_11">Open</string>
-    <string name="app_ready">Download Ready</string>
-    <string name="app_error">Download Error</string>
-    <string name="app_no_inet">No internet access</string>
-    <string name="app_load_fiels">Open</string>
-    <string name="app_field_value">Value</string>
-    <string name="app_fields_not_correct">You have not filled one of the fields</string>
-    <string name="manual">You can save executable code on any server in the .dex file format and run it using this application.
-        \nThe .dex format can be obtained from files in the .class format or from files in the .jar format
-        \n(when compiling a project in Android Studio, the .dex files of all classes are saved in the /app/build/intermediates/project_dex_archive/debug/out/com/...(userName)/runningfromdexfile).
-    \nAt the bottom of this screen is a ConstraintLayout named myLayout, you can refer to it from code and output information to it, for example you can generate programmatically
-    TextView and place it on this myLayout.
+    <string name="app_field_1">see manual</string>
+    <string name="app_field_2">enter File address (in format https://___/)</string>
+    <string name="app_field_8">enter File name (for example classes.dex)</string>
+    <string name="app_field_3">enter Class name (for example Main)</string>
+    <string name="app_field_5">layout name at the bottom of the screen is myLayout</string>
+    <string name="app_field_6">run</string>
+    <string name="app_field_7">enter Package name (for example com.android.chrome)</string>
+    <string name="app_field_9">methods</string>
+    <string name="app_field_10">fields</string>
+    <string name="app_field_no">- - -</string>
+    <string name="app_field_open">open</string>
+    <string name="app_field_error">error</string>
+    <string name="app_field_save">save</string>
+    <string name="app_field_use">use</string>
+    <string name="app_field_delete">delete</string>
+    <string name="app_ready">download Ready</string>
+    <string name="app_error">download Error</string>
+    <string name="app_save_ready">save ready</string>
+    <string name="app_save_error">save error</string>
+    <string name="app_no_inet">no internet access</string>
+    <string name="app_load_fiels">see</string>
+    <string name="app_field_value">value</string>
+    <string name="app_fields_not_correct">you have not filled one of the fields</string>
+    <string name="manual">
+\n&#160;You can save executable code on any server in the .dex file format and run it using this application.
+\n&#160;The .dex format can be obtained from files in the .class format or from files in the .jar format, when compiling a project in Android Studio, the .dex files of all classes automatically are saved in the /app/build/intermediates/project_dex_archive/
+\n&#160;At the bottom of this screen is a ConstraintLayout named myLayout, you can refer to it from code and output information to it, for example you can generate programmatically TextView and place it on this myLayout.
+\n&#160;You can view the contents of the .dex file using jadx app or similar
+\n\n&#160;Example of code in .dex:
+\n\n&#160;package com.romankryvolapov.runningfromdexfile;
+\n&#160;public class Test {
+\n&#160;&#160;&#160;public void test() {
+\n&#160;&#160;&#160;&#160;&#160;;MainActivity.myTextView.setText("123");
+\n&#160;&#160;&#160;&#160;&#160;MainActivity.myLayout.removeAllViews();
+\n&#160;&#160;&#160;&#160;&#160;MainActivity.myLayout.addView(MainActivity.myTextView);
+\n&#160;&#160;&#160;}
+\n&#160;}
 \n
-\npackage com.romankryvolapov.runningfromdexfile;
-\npublic class Test {
-\npublic void test() {
-\nMainActivity.myTextView.setText("123");
-\nMainActivity.myLayout.removeAllViews();
-\nMainActivity.myLayout.addView(MainActivity.myTextView);
-\n}}
+\n&#160;For all questions, write to
+\n&#160;roman.kryvolapov@gmail.com
 \n
-
-        \nFor all questions, write to roman.kryvolapov@gmail.com</string>
+    </string>
     <string name="app_close_manual">Close</string>
     <string name="app_server_code_error">The code on the server triggered the error</string>
 </resources>

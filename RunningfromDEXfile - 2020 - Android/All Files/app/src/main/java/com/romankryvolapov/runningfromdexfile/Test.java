@@ -1,17 +1,18 @@
 package com.romankryvolapov.runningfromdexfile;
 public class Test {
-    String testString1 = "10";
-    String testString2 = "11";
-    String testString3 = "12";
-    Integer testInt = 7;
+    String testField1 = "Test test test test test test test test test test test";
+    String testField2 = "11";
+    String testField3 = "12";
+    Integer testField4 = 7;
 
-    public void test() {
-        MainActivity.myTextView.setText("123");
+    public void testMethod1() {
+        MainActivity.myTextView.setText("Test test test test test test test test test test test test" +
+                " test test test test test test test test test test test test test test test test test");
         MainActivity.myLayout.removeAllViews();
         MainActivity.myLayout.addView(MainActivity.myTextView);
     }
 
-    public void test2() {
+    public void testMethod2() {
         MainActivity.myTextView.setText("456");
         MainActivity.myLayout.removeAllViews();
         MainActivity.myLayout.addView(MainActivity.myTextView);
