@@ -24,7 +24,7 @@
     <string name="app_field_value">value</string>
     <string name="app_fields_not_correct">you have not filled one of the fields</string>
     <string name="manual">
-\n&#160;You can save executable code on any server in the .dex file format and run it using this application.
+&#160;You can save executable code on any server in the .dex file format and run it using this application.
 \n&#160;The .dex format can be obtained from files in the .class format or from files in the .jar format, when compiling a project in Android Studio, the .dex files of all classes automatically are saved in the /app/build/intermediates/project_dex_archive/
 \n&#160;At the bottom of this screen is a ConstraintLayout named myLayout, you can refer to it from code and output information to it, for example you can generate programmatically TextView and place it on this myLayout.
 \n&#160;You can view the contents of the .dex file using jadx app or similar

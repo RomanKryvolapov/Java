@@ -28,7 +28,7 @@
             android:text="@string/app_field_1"
             android:textAllCaps="false"
             android:textColor="@color/colorTextWhite"
-            android:textSize="12sp" />
+            android:textSize="10sp" />
 
         <EditText
             android:id="@+id/editText1"
@@ -46,61 +46,61 @@
             android:textColorHint="@color/colorTextWhite"
             android:textColorLink="@color/colorTextWhite"
             android:textCursorDrawable="@color/colorTextWhite"
-            android:textSize="12sp" />
+            android:textSize="10sp" />
 
         <EditText
             android:id="@+id/editText2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
             android:cursorVisible="true"
+            android:ems="10"
             android:gravity="center|start"
             android:hint="@string/app_field_8"
             android:inputType="text"
-            android:singleLine="true"
             android:shadowColor="@color/colorTextWhite"
+            android:singleLine="true"
             android:textColor="@color/colorTextBlack"
             android:textColorHighlight="@color/colorTextWhite"
             android:textColorHint="@color/colorTextWhite"
             android:textColorLink="@color/colorTextWhite"
             android:textCursorDrawable="@color/colorTextWhite"
-            android:textSize="12sp" />
+            android:textSize="10sp" />
 
         <EditText
             android:id="@+id/editText3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:singleLine="true"
             android:cursorVisible="true"
+            android:ems="10"
             android:gravity="center|start"
             android:hint="@string/app_field_7"
             android:inputType="text"
             android:shadowColor="@color/colorTextWhite"
+            android:singleLine="true"
             android:textColor="@color/colorTextBlack"
             android:textColorHighlight="@color/colorTextWhite"
             android:textColorHint="@color/colorTextWhite"
             android:textColorLink="@color/colorTextWhite"
             android:textCursorDrawable="@color/colorTextWhite"
-            android:textSize="12sp" />
+            android:textSize="10sp" />
 
         <EditText
             android:id="@+id/editText4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:singleLine="true"
             android:cursorVisible="true"
+            android:ems="10"
             android:gravity="center|start"
             android:hint="@string/app_field_3"
             android:inputType="text"
             android:shadowColor="@color/colorTextWhite"
+            android:singleLine="true"
             android:textColor="@color/colorTextBlack"
             android:textColorHighlight="@color/colorTextWhite"
             android:textColorHint="@color/colorTextWhite"
             android:textColorLink="@color/colorTextWhite"
             android:textCursorDrawable="@color/colorTextWhite"
-            android:textSize="12sp" />
+            android:textSize="10sp" />
 
         <Spinner
             android:id="@+id/spinnerSavedURL"
@@ -124,7 +124,7 @@
                 android:text="@string/app_field_delete"
                 android:textAllCaps="false"
                 android:textColor="@color/colorTextWhite"
-                android:textSize="12sp" />
+                android:textSize="10sp" />
 
             <Button
                 android:id="@+id/buttonSave"
@@ -136,8 +136,7 @@
                 android:text="@string/app_field_save"
                 android:textAllCaps="false"
                 android:textColor="@color/colorTextWhite"
-                android:textIsSelectable="false"
-                android:textSize="12sp" />
+                android:textSize="10sp" />
 
             <Button
                 android:id="@+id/buttonUse"
@@ -149,7 +148,7 @@
                 android:text="@string/app_field_use"
                 android:textAllCaps="false"
                 android:textColor="@color/colorTextWhite"
-                android:textSize="12sp" />
+                android:textSize="10sp" />
 
             <Button
                 android:id="@+id/buttonOpen"
@@ -161,7 +160,7 @@
                 android:text="@string/app_field_open"
                 android:textAllCaps="false"
                 android:textColor="@color/colorTextWhite"
-                android:textSize="12sp" />
+                android:textSize="10sp" />
 
         </LinearLayout>
 
@@ -180,7 +179,7 @@
                 android:gravity="center|end"
                 android:text="@string/app_field_10"
                 android:textColor="@color/colorTextBlack"
-                android:textSize="12sp" />
+                android:textSize="10sp" />
 
             <Spinner
                 android:id="@+id/spinnerFields"
@@ -200,7 +199,7 @@
                 android:text="@string/app_load_fiels"
                 android:textAllCaps="false"
                 android:textColor="@color/colorTextWhite"
-                android:textSize="12sp" />
+                android:textSize="10sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -216,17 +215,18 @@
                 android:gravity="center|end"
                 android:text="@string/app_field_value"
                 android:textColor="@color/colorTextBlack"
-                android:textSize="12sp" />
+                android:textSize="10sp" />
 
             <TextView
                 android:id="@+id/textViewField"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_gravity="center"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:minHeight="24dp"
                 android:textColor="@color/colorTextBlack"
-                android:textSize="14sp" />
+                android:textSize="10sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -243,7 +243,7 @@
                 android:gravity="center|end"
                 android:text="@string/app_field_9"
                 android:textColor="@color/colorTextBlack"
-                android:textSize="12sp" />
+                android:textSize="10sp" />
 
             <Spinner
                 android:id="@+id/spinnerMethods"
@@ -263,7 +263,7 @@
                 android:text="@string/app_field_6"
                 android:textAllCaps="false"
                 android:textColor="@color/colorTextWhite"
-                android:textSize="12sp" />
+                android:textSize="10sp" />
 
         </LinearLayout>
 

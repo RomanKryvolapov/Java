@@ -5,7 +5,7 @@
     <string name="app_field_8">введине имя Файла (для примера classes.dex)</string>
     <string name="app_field_3">введите имя Класса (для примера Main)</string>
     <string name="app_field_5">название слоя внизу экрана - myLayout</string>
-    <string name="app_field_6">запуск</string>
+    <string name="app_field_6">запустить</string>
     <string name="app_field_7">введите имя Пакета (для примера com.android.chrome)</string>
     <string name="app_field_9">методы</string>
     <string name="app_field_10">переменные</string>
@@ -24,7 +24,7 @@
     <string name="app_field_error">ошибка</string>
     <string name="app_fields_not_correct">вы не заполнили одно из полей</string>
     <string name="manual">
-\n&#160;Вы можете сохранять исполняемый код на любом сервере в формате файла .dex и запускать его с помощью этого приложения.
+&#160;Вы можете сохранять исполняемый код на любом сервере в формате файла .dex и запускать его с помощью этого приложения.
 \n&#160;Формат .dex  можно получить из файлов формата .class или из файлов формата .jar, при компилировании проекта в Android Studio файлы .dex всех классов автоматически сохраняются в папку /app/build/intermediates/project_dex_archive/
 \n&#160;В нижней части этого экрана находится ConstraintLayout с именем myLayout, вы можете обращаться к нему из кода и выводить на него информацию, например вы можете сгенерировать программно TextView и поместить его на этот myLayout.
 \n&#160;Вы можете просмотреть содержимое .dex файла с помощью приложения jadx или подобных

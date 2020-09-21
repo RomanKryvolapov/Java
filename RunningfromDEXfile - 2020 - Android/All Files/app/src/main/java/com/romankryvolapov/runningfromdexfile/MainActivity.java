@@ -152,15 +152,11 @@ public class MainActivity extends AppCompatActivity {
 
     private ArrayAdapter createSpinnerAdapter(String[] values) {
         if (values != null && values.length > 0) {
-            ArrayAdapter<String> adapterUrl = new ArrayAdapter<String>(
-                    MainActivity.this, android.R.layout.simple_spinner_item, values);
-            adapterUrl.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            return adapterUrl;
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinner_item, values);
+            return adapter;
         } else {
-            ArrayAdapter<String> adapterUrl = new ArrayAdapter<String>(
-                    MainActivity.this, android.R.layout.simple_spinner_item, new String[]{getString(R.string.app_field_no)});
-            adapterUrl.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            return adapterUrl;
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinner_item, new String[]{""});
+            return adapter;
         }
     }
 
