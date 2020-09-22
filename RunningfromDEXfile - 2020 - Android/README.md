@@ -26,12 +26,14 @@
 
 <p>Example of DEX</p><br>
 <p>package com.romankryvolapov.runningfromdexfile;</p>
-<p>public class Test {</p>
-<p>public void test() {</p>
-<p>MainActivity.myTextView.setText("123");</p>
-<p>MainActivity.myLayout.removeAllViews();</p>
-<p>MainActivity.myLayout.addView(MainActivity.myTextView);</p>
-<p>}}</p>
+<p>&nbsp;&nbsp;public class Test {</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;public void test() {</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;MainActivity.myTextView.setText("123");</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;MainActivity.myLayout.removeAllViews();</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;MainActivity.myLayout.addView(MainActivity.myTextView);</p>
+<p>&nbsp;&nbsp;}</p>
+<p>}</p>
+
 
 
 
