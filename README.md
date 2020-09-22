@@ -1,5 +1,5 @@
-<p>Here I post what I do in my free time</p>
-<p>Здесь я выкладываю то, чем занимаюсь в свободное время</p>
+<h4>Here I post what I do in my free time</h4>
+<h4>Здесь я выкладываю то, чем занимаюсь в свободное время</h4>
 <br>
 <p>Telegram: <a href="https://telegram.im/@RomanKryvolapov" target="_blank">@RomanKryvolapov</a></p>
 <p>E-Mail: <a href="mailto:roman.kryvolapov@gmail.com" target="_blank">roman.kryvolapov@gmail.com</a></p>
