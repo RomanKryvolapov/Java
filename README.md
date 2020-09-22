@@ -1,7 +1,7 @@
 <h4>Here I post what I do in my free time</h4>
 <h4>Здесь я выкладываю то, чем занимаюсь в свободное время</h4>
 <br>
-<h4>Telegram:</h4> <a href="https://telegram.im/@RomanKryvolapov" target="_blank">@RomanKryvolapov</a>
+<h4>Telegram: <a href="https://telegram.im/@RomanKryvolapov" target="_blank">@RomanKryvolapov</a></h4>
 <p>E-Mail: <a href="mailto:roman.kryvolapov@gmail.com" target="_blank">roman.kryvolapov@gmail.com</a></p>
 <p>LinkedIn: <a href="https://linkedin.com/in/Roman-Kryvolapov" target="_blank">https://linkedin.com/in/Roman-Kryvolapov</a></p>
 <p>Facebook: <a href="https://facebook.com/RomanKryvolapov" target="_blank">https://facebook.com/RomanKryvolapov</a></p>
