@@ -8,7 +8,7 @@ import androidx.room.Update;
 import java.util.List;
 
 @Dao
-public abstract class LogDao {
+public abstract class LogExampleDao {
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
     public abstract void update(LogExample log);
