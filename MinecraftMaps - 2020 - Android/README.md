@@ -1,6 +1,5 @@
 <div align="center"><h1>Minecraft Maps</h1></div>
 
-<div align="center"><h4>Open in Google Play: <a href="https://play.google.com/store/apps/details?id=com.romankryvolapov.minecraftmaps" target="_blank">https://play.google.com/store/apps/details?id=com.romankryvolapov.minecraftmaps</a></h4></div>
 <br>
 
 <div align="center">
