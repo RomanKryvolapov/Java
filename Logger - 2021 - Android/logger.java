@@ -33,7 +33,7 @@ public class Logger {
     public static void sendLog() {
         new ObservableCreate<Boolean>
                 (emitter -> {
-                    List<LogExample> logList = Database.getInstance(TAG).logDao().getListForSend(false);
+                    List<LogExample> logList = Database.getInstance(TAG).logExampleDao().getListForSend(false);
                     if (logList != null && logList.size() > 0) {
                         for (LogExample log : logList) {
                             JSONObject jsonObject = new JSONObject();
@@ -56,6 +56,7 @@ public class Logger {
                             Log.d(getTAG(), "sendLog responseCode = " + responseCode + " responseString = " + responseString);
                             if (responseCode == 200) {
                                 Log.d(getTAG(), "Логи отправлены на сервер");
+                                Database.getInstance(TAG).logExampleDao().update(log);
                             } else {
                                 Log.e(getTAG(), "Логи не отправлены на сервер, ответ сервера не 200");
                             }
@@ -94,7 +95,7 @@ public class Logger {
         new ObservableCreate<Boolean>
                 (emitter -> {
                     LogExample log = new LogExample(className, methodName, message);
-                    Database.getInstance(TAG).logDao().insert(log);
+                    Database.getInstance(TAG).logExampleDao().insert(log);
                     PackageManager packageManager = context.getPackageManager();
                     Intent intent = packageManager.getLaunchIntentForPackage(context.getPackageName());
                     ComponentName componentName = intent.getComponent();
@@ -133,7 +134,7 @@ public class Logger {
         new ObservableCreate<View>
                 (emitter -> {
                     LogExample log = new LogExample(className, methodName, message);
-                    Database.getInstance(TAG).logDao().insert(log);
+                    Database.getInstance(TAG).logExampleDao().insert(log);
                     emitter.onComplete();
                 })
                 .subscribeOn(Schedulers.io())

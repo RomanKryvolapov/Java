@@ -14,8 +14,8 @@ import lombok.Setter;
 @RequiredArgsConstructor
 public class MyExceptionHandler extends MainActivity implements Thread.UncaughtExceptionHandler {
 
-    private static final String TAG = "CheckConnection";
-
+    @Getter
+    private static final String TAG = "MyExceptionHandler";
 
     @androidx.annotation.NonNull
     @lombok.NonNull

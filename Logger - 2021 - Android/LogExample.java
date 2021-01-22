@@ -9,7 +9,8 @@ import lombok.Setter;
 @AllArgsConstructor
 public class LogExample {
 
-    private static final String TAG = "LogData";
+    @Getter
+    private static final String TAG = "LogExample";
 
     private String className = "";
 
