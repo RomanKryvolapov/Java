@@ -17,5 +17,5 @@ public abstract class LogDao {
     public abstract void insert(LogExample log);
 
     @Query("SELECT * FROM LogExample WHERE sendStatus = :isSend")
-    public abstract List <LogData> getListForSend(Boolean isSend);
+    public abstract List <LogExample> getListForSend(Boolean isSend);
 }
