@@ -22,6 +22,6 @@
 
 <p>Также нужен класс Database, чтобы подключить базу данных, ну там все просто и его можно найти в гугловских мануалах, нет смысла его здесь писать.</p>
 
-<p>Стоит помнить, кто логгер, если вызывается слишком часто, создает дополнительную нагрузку на базу данных, поэтому если она используется в других частях приложения, стандартные настройки Room могут не подойти, подробнее  можно почитать здесь https://developer.android.com/reference/android/arch/persistence/room/DatabaseConfiguration здесь https://developer.android.com/training/data-storage/room также на stackoverflow есть примеры по оптимизации. Также я бы не советовал использовать BaseDao</p>
+<p>Стоит помнить, кто логгер, если вызывается слишком часто, создает дополнительную нагрузку на базу данных, поэтому если она используется в других частях приложения, стандартные настройки Room могут не подойти, подробнее  можно почитать здесь https://developer.android.com/reference/android/arch/persistence/room/DatabaseConfiguration здесь https://developer.android.com/training/data-storage/room также на stackoverflow есть примеры по оптимизации.</p>
 
-<p>И последнее, нужна модель для работы с базой данных LogExampleDao</p>
+<p>Также я бы не советовал использовать BaseDao, поэтому делаем также LogExampleDao</p>
