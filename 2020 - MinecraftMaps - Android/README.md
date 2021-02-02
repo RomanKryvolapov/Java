@@ -3,9 +3,9 @@
 <br>
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/RomanKryvolapov/Java-and-Android/master/MinecraftMaps%20-%202020%20-%20Android/Screenshot_1.png" width="30%" />&nbsp;&nbsp;<img src="https://raw.githubusercontent.com/RomanKryvolapov/Java-and-Android/master/MinecraftMaps%20-%202020%20-%20Android/Screenshot_2.png" width="30%" />&nbsp;&nbsp;<img src="https://raw.githubusercontent.com/RomanKryvolapov/Java-and-Android/master/MinecraftMaps%20-%202020%20-%20Android/Screenshot_3.png" width="30%" /></div>
+<img src="https://github.com/RomanKryvolapov/Java-and-Android/blob/master/2020%20-%20MinecraftMaps%20-%20Android/Screenshot_1.png" width="30%" />&nbsp;&nbsp;<img src="https://github.com/RomanKryvolapov/Java-and-Android/blob/master/2020%20-%20MinecraftMaps%20-%20Android/Screenshot_2.png" width="30%" />&nbsp;&nbsp;<img src="https://github.com/RomanKryvolapov/Java-and-Android/blob/master/2020%20-%20MinecraftMaps%20-%20Android/Screenshot_3.png" width="30%" /></div>
 <br>
-<div align="center"><img src="https://raw.githubusercontent.com/RomanKryvolapov/Java-and-Android/master/MinecraftMaps%20-%202020%20-%20Android/Task.png" width="80%" /></div>
+<div align="center"><img src="https://github.com/RomanKryvolapov/Java-and-Android/blob/master/2020%20-%20MinecraftMaps%20-%20Android/Task.png" width="80%" /></div>
 <br>
 <p>Got this assignment as test for Android Developer vacancy as description and UI on Figma</p>
 <p>Made this app 90 percent in 1 business day</p>
