@@ -4,7 +4,7 @@
 <div align="center"><h4>Open in Google Play: <a href="https://play.google.com/store/apps/details?id=com.romankryvolapov.aescryptowithself_destruct" target="_blank">https://play.google.com/store/apps/details?id=com.romankryvolapov.aescryptowithself_destruct</a></h4></div>
 <br>
 <div align="center">
-<img src="https://raw.githubusercontent.com/RomanKryvolapov/Java-and-Android/master/AESCryptoWithSelfDestruct%20%20-%202020%20-%20Android/Screenshot_en_1.jpg" width="23%" />&nbsp;&nbsp;<img src="https://raw.githubusercontent.com/RomanKryvolapov/Java-and-Android/master/AESCryptoWithSelfDestruct%20%20-%202020%20-%20Android/Screenshot_en_2.jpg" width="23%" />&nbsp;&nbsp;<img src="https://raw.githubusercontent.com/RomanKryvolapov/Java-and-Android/master/AESCryptoWithSelfDestruct%20%20-%202020%20-%20Android/Screenshot_en_3.jpg" width="23%" />&nbsp;&nbsp;<img src="https://raw.githubusercontent.com/RomanKryvolapov/Java-and-Android/master/AESCryptoWithSelfDestruct%20%20-%202020%20-%20Android/Screenshot_en_4.jpg" width="23%" /></div>
+<img src="https://github.com/RomanKryvolapov/Java-and-Android/blob/master/2020%20-%20AESCryptoWithSelfDestruct%20%20-%20Android/Screenshot_en_1.jpg" width="23%" />&nbsp;&nbsp;<img src="https://github.com/RomanKryvolapov/Java-and-Android/blob/master/2020%20-%20AESCryptoWithSelfDestruct%20%20-%20Android/Screenshot_en_2.jpg" width="23%" />&nbsp;&nbsp;<img src="https://github.com/RomanKryvolapov/Java-and-Android/blob/master/2020%20-%20AESCryptoWithSelfDestruct%20%20-%20Android/Screenshot_en_3.jpg" width="23%" />&nbsp;&nbsp;<img src="https://github.com/RomanKryvolapov/Java-and-Android/blob/master/2020%20-%20AESCryptoWithSelfDestruct%20%20-%20Android/Screenshot_en_4.jpg" width="23%" /></div>
 <br>
 <h4>This program is designed to encrypt and decrypt messages using RSA and AES algorithms.</h4>
 
@@ -20,7 +20,7 @@
 
 <br>
 <div align="center">
-<img src="https://raw.githubusercontent.com/RomanKryvolapov/Java-and-Android/master/AESCryptoWithSelfDestruct%20%20-%202020%20-%20Android/Screenshot_ru_1.jpg" width="23%" />&nbsp;&nbsp;<img src="https://raw.githubusercontent.com/RomanKryvolapov/Java-and-Android/master/AESCryptoWithSelfDestruct%20%20-%202020%20-%20Android/Screenshot_ru_2.jpg" width="23%" />&nbsp;&nbsp;<img src="https://raw.githubusercontent.com/RomanKryvolapov/Java-and-Android/master/AESCryptoWithSelfDestruct%20%20-%202020%20-%20Android/Screenshot_ru_3.jpg" width="23%" />&nbsp;&nbsp;<img src="https://raw.githubusercontent.com/RomanKryvolapov/Java-and-Android/master/AESCryptoWithSelfDestruct%20%20-%202020%20-%20Android/Screenshot_ru_4.jpg" width="23%" /></div>
+<img src="https://github.com/RomanKryvolapov/Java-and-Android/blob/master/2020%20-%20AESCryptoWithSelfDestruct%20%20-%20Android/Screenshot_ru_1.jpg" width="23%" />&nbsp;&nbsp;<img src="https://github.com/RomanKryvolapov/Java-and-Android/blob/master/2020%20-%20AESCryptoWithSelfDestruct%20%20-%20Android/Screenshot_ru_2.jpg" width="23%" />&nbsp;&nbsp;<img src="https://github.com/RomanKryvolapov/Java-and-Android/blob/master/2020%20-%20AESCryptoWithSelfDestruct%20%20-%20Android/Screenshot_ru_3.jpg" width="23%" />&nbsp;&nbsp;<img src="https://github.com/RomanKryvolapov/Java-and-Android/blob/master/2020%20-%20AESCryptoWithSelfDestruct%20%20-%20Android/Screenshot_ru_4.jpg" width="23%" /></div>
 
 <br>
 
