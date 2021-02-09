@@ -32,17 +32,22 @@ import io.reactivex.rxjava3.core.Observer;
 import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.internal.operators.observable.ObservableCreate;
 import io.reactivex.rxjava3.schedulers.Schedulers;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
+@Getter
+@Setter
+@NoArgsConstructor
 public class MainActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
 
     private TableLayout PBcourse;
     private TableLayout NBUcourse;
     private boolean rowCounter = false;
     private final String TAG = "MainActivity";
-    private int textSize = 18;
     private String dateAndTimeString;
     private TextView dateAndTime;
     private TextView dateAndTime2;
@@ -53,21 +58,21 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        PBcourse = findViewById(R.id.PBcourse);
-        NBUcourse = findViewById(R.id.NBUcourse);
-        dateAndTime = findViewById(R.id.dateAndTime);
-        dateAndTime2 = findViewById(R.id.dateAndTime2);
+        setPBcourse(findViewById(R.id.PBcourse));
+        setNBUcourse(findViewById(R.id.NBUcourse));
+        setDateAndTime(findViewById(R.id.dateAndTime));
+        setDateAndTime2(findViewById(R.id.dateAndTime2));
         ImageButton dateAndTimeButton = findViewById(R.id.dateAndTimeButton);
         ImageButton dateAndTimeButton2 = findViewById(R.id.dateAndTimeButton2);
-        simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy", Locale.getDefault());
-        dateAndTimeString = simpleDateFormat.format(new Date());
-        dateAndTime.setOnClickListener(new View.OnClickListener() {
+        setSimpleDateFormat(new SimpleDateFormat("dd.MM.yyyy", Locale.getDefault()));
+        setDateAndTimeString(getSimpleDateFormat().format(new Date()));
+        getDateAndTime().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 setDate();
             }
         });
-        dateAndTime2.setOnClickListener(new View.OnClickListener() {
+        getDateAndTime2().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 setDate();
@@ -85,37 +90,37 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                 setDate();
             }
         });
-        getCourseJson(dateAndTimeString);
+        getCourseJson(getDateAndTimeString());
 //        getCourseJson("09.02.2021");
 
     }
 
     private TableRow setPBcourse(String currency, String purchaseRate, String saleRate) {
-        Log.d(TAG, currency + " " + purchaseRate + " " + saleRate);
+        Log.d(getTAG(), currency + " " + purchaseRate + " " + saleRate);
         TableRow tableRow = new TableRow(this);
         tableRow.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
         tableRow.setGravity(Gravity.CENTER);
-        tableRow.addView(textViewGenerator(currency, Gravity.CENTER, 0, 0));
-        tableRow.addView(textViewGenerator(purchaseRate + " UAH", Gravity.CENTER, 0, 0));
-        tableRow.addView(textViewGenerator(saleRate + " UAH", Gravity.CENTER, 0, 0));
+        tableRow.addView(textViewGenerator(currency, Gravity.CENTER, 0, 0, 18, Typeface.BOLD));
+        tableRow.addView(textViewGenerator(purchaseRate + " UAH", Gravity.CENTER, 0, 0, 18, Typeface.BOLD));
+        tableRow.addView(textViewGenerator(saleRate + " UAH", Gravity.CENTER, 0, 0, 18, Typeface.BOLD));
         return tableRow;
     }
 
     private TableRow setNBcourse(String currency, String purchaseRateNB) {
-        Log.d(TAG, currency + " " + purchaseRateNB);
+        Log.d(getTAG(), currency + " " + purchaseRateNB);
         TableRow tableRow = new TableRow(this);
         tableRow.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
         tableRow.setGravity(Gravity.CENTER);
 
-        if (rowCounter) {
-            rowCounter = false;
+        if (isRowCounter()) {
+            setRowCounter(false);
             tableRow.setBackgroundColor(getResources().getColor(R.color.color_2));
         } else {
-            rowCounter = true;
+            setRowCounter(true);
         }
 
-        tableRow.addView(textViewGenerator(currency, Gravity.START, 100, 0));
-        tableRow.addView(textViewGenerator(purchaseRateNB + " UAH", Gravity.END, 0, 100));
+        tableRow.addView(textViewGenerator(currency, Gravity.START, 100, 0, 18, Typeface.BOLD));
+        tableRow.addView(textViewGenerator(purchaseRateNB + " UAH", Gravity.END, 0, 100, 18, Typeface.BOLD));
 
         return tableRow;
     }
@@ -125,6 +130,13 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         try {
             JSONObject jsonObject = new JSONObject(dataJson);
             JSONArray jsonArray = jsonObject.getJSONArray("exchangeRate");
+            TableRow tableRow = new TableRow(this);
+            tableRow.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
+            tableRow.setGravity(Gravity.CENTER);
+            tableRow.addView(textViewGenerator("Валюта", Gravity.CENTER, 0, 0, 18, Typeface.NORMAL));
+            tableRow.addView(textViewGenerator("Продажа", Gravity.CENTER, 0, 0, 18, Typeface.NORMAL));
+            tableRow.addView(textViewGenerator("Покупка", Gravity.CENTER, 0, 0, 18, Typeface.NORMAL));
+            getPBcourse().addView(tableRow);
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObjectValue = jsonArray.getJSONObject(i);
                 String currency = jsonObjectValue.optString("currency", null);
@@ -136,14 +148,14 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                 String saleRateString = String.format("%.2f", saleRate);
                 String purchaseRateNBString = String.format("%.2f", purchaseRateNB);
                 if (currency != null && currency.length() > 0 && !purchaseRateString.equals("0.00") && !saleRateString.equals("0.00")) {
-                    PBcourse.addView(setPBcourse(currency, purchaseRateString, saleRateString));
+                    getPBcourse().addView(setPBcourse(currency, purchaseRateString, saleRateString));
                 }
                 if (currency != null && currency.length() > 0 && !purchaseRateNBString.equals("0.00") && !currency.equals("UAH")) {
-                    NBUcourse.addView(setNBcourse(currency, purchaseRateNBString));
+                    getNBUcourse().addView(setNBcourse(currency, purchaseRateNBString));
                 }
             }
         } catch (Exception e) {
-            Log.e(TAG, "parsePBcourse Exception " + e);
+            Log.e(getTAG(), "parsePBcourse Exception " + e);
         }
 
     }
@@ -166,8 +178,8 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                 .subscribe(new Observer<String>() {
                     @Override
                     public void onSubscribe(@NonNull Disposable d) {
-                        dateAndTime.setText(dateAndTimeString);
-                        dateAndTime2.setText(dateAndTimeString);
+                        getDateAndTime().setText(getDateAndTimeString());
+                        getDateAndTime2().setText(getDateAndTimeString());
                     }
 
                     @Override
@@ -177,7 +189,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        Log.e(TAG, "getCourseJson Exception" + e);
+                        Log.e(getTAG(), "getCourseJson Exception" + e);
                         Toast toast = Toast.makeText(getApplicationContext(), "Нет интернет соединения", Toast.LENGTH_SHORT);
                         toast.show();
                     }
@@ -198,7 +210,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                 .build();
     }
 
-    public TextView textViewGenerator(String text, int gravity, int start, int end) {
+    public TextView textViewGenerator(String text, int gravity, int start, int end, int textSize, int typeface) {
         TextView textView = new TextView(this);
         TableRow.LayoutParams layoutParams = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT, 1f);
         layoutParams.setMarginStart(start);
@@ -208,7 +220,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         textView.setGravity(gravity);
         textView.setTextColor(getResources().getColor(R.color.text_2));
         textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, textSize);
-        textView.setTypeface(textView.getTypeface(), Typeface.BOLD);
+        textView.setTypeface(textView.getTypeface(), typeface);
         return textView;
     }
 
@@ -219,10 +231,10 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         calendar.set(Calendar.MONTH, month);
         calendar.set(Calendar.DAY_OF_MONTH, day);
         Date date = calendar.getTime();
-        PBcourse.removeAllViews();
-        NBUcourse.removeAllViews();
-        dateAndTimeString = simpleDateFormat.format(date);
-        getCourseJson(dateAndTimeString);
+        getPBcourse().removeAllViews();
+        getNBUcourse().removeAllViews();
+        setDateAndTimeString(getSimpleDateFormat().format(date));
+        getCourseJson(getDateAndTimeString());
     }
 
     public void setDate() {

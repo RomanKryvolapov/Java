@@ -67,45 +67,6 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/textView13"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="Продажа"
-                    android:textColor="@color/text_2"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/textView11"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="Валюта"
-                    android:textColor="@color/text_2"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/textView12"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="Покупка"
-                    android:textColor="@color/text_2"
-                    android:textSize="18sp" />
-            </LinearLayout>
-
             <TableLayout
                 android:id="@+id/PBcourse"
                 android:layout_width="match_parent"
